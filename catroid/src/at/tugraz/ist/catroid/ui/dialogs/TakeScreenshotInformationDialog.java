@@ -27,6 +27,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.SpannableString;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -63,19 +64,19 @@ public class TakeScreenshotInformationDialog extends Dialog {
 		setTitle(context.getString(R.string.take_screenshot_title));
 		setCanceledOnTouchOutside(true);
 
-		//helpTextView.setText(context.getString(R.string.take_screenshot_help));
-		String text = context.getString(R.string.take_screenshot_help);
-
 		Drawable icon = context.getResources().getDrawable(R.drawable.ic_screenshot_information);
 
 		imageView.setBackgroundDrawable(icon);
 
-		int leftMargin = icon.getIntrinsicWidth() + 50;
+		DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+		float dp = 50f;
 
-		SpannableString ss = new SpannableString(text);
-		ss.setSpan(new MyLeadingMarginSpan2(6, leftMargin), 0, ss.length(), 0);
+		int leftMargin = (int) ((metrics.density * dp + 0.5f));
 
-		helpTextView.setText(ss);
+		SpannableString formattedString = new SpannableString(context.getString(R.string.take_screenshot_help));
+		formattedString.setSpan(new MyLeadingMarginSpan2(8, leftMargin), 0, formattedString.length(), 0);
+
+		helpTextView.setText(formattedString);
 
 		informationTextView.setText(context.getString(R.string.take_screenshot_information));
 

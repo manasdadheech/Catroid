@@ -150,6 +150,6 @@ public class SpeakBrick implements Brick {
 
 	@Override
 	public void executeLiveWallpaper() {
-
+		execute();
 	}
 }

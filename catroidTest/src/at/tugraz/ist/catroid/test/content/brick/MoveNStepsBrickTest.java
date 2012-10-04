@@ -25,19 +25,12 @@ package at.tugraz.ist.catroid.test.content.brick;
 import android.test.AndroidTestCase;
 import at.tugraz.ist.catroid.content.Sprite;
 import at.tugraz.ist.catroid.content.bricks.MoveNStepsBrick;
-import at.tugraz.ist.catroid.physics.PhysicWorld;
 
 public class MoveNStepsBrickTest extends AndroidTestCase {
-	private PhysicWorld physicWorld;
-
-	@Override
-	public void setUp() throws Exception {
-		physicWorld = new PhysicWorld();
-	}
 
 	public void testMoveHorizontalForward() {
 		Sprite sprite = new Sprite("test");
-		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(physicWorld, sprite, 10);
+		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(sprite, 10);
 
 		moveNStepsBrick.execute();
 		assertEquals("Wrong x-position", 10f, sprite.costume.getXPosition());
@@ -50,7 +43,7 @@ public class MoveNStepsBrickTest extends AndroidTestCase {
 
 	public void testMoveHorizontalBackward() {
 		Sprite sprite = new Sprite("test");
-		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(physicWorld, sprite, -10);
+		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(sprite, -10);
 
 		moveNStepsBrick.execute();
 		assertEquals("Wrong x-position", -10f, sprite.costume.getXPosition());
@@ -63,9 +56,9 @@ public class MoveNStepsBrickTest extends AndroidTestCase {
 
 	public void testMoveVerticalUp() {
 		Sprite sprite = new Sprite("test");
-		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(physicWorld, sprite, 10);
+		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(sprite, 10);
 
-		sprite.costume.setRotation(90);
+		sprite.costume.rotation = 90;
 
 		moveNStepsBrick.execute();
 		assertEquals("Wrong x-position", 0f, sprite.costume.getXPosition());
@@ -78,9 +71,9 @@ public class MoveNStepsBrickTest extends AndroidTestCase {
 
 	public void testMoveVerticalDown() {
 		Sprite sprite = new Sprite("test");
-		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(physicWorld, sprite, 10);
+		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(sprite, 10);
 
-		sprite.costume.setRotation(-90);
+		sprite.costume.rotation = -90;
 
 		moveNStepsBrick.execute();
 		assertEquals("Wrong x-position", 0f, sprite.costume.getXPosition());
@@ -93,9 +86,9 @@ public class MoveNStepsBrickTest extends AndroidTestCase {
 
 	public void testMoveDiagonalRightUp() {
 		Sprite sprite = new Sprite("test");
-		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(physicWorld, sprite, 10);
+		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(sprite, 10);
 
-		sprite.costume.setRotation(45);
+		sprite.costume.rotation = 45;
 
 		moveNStepsBrick.execute();
 		assertEquals("Wrong x-position", 7f, sprite.costume.getXPosition());
@@ -108,9 +101,9 @@ public class MoveNStepsBrickTest extends AndroidTestCase {
 
 	public void testMoveDiagonalLeftUp() {
 		Sprite sprite = new Sprite("test");
-		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(physicWorld, sprite, 10);
+		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(sprite, 10);
 
-		sprite.costume.setRotation(135);
+		sprite.costume.rotation = 135;
 
 		moveNStepsBrick.execute();
 		assertEquals("Wrong x-position", -7f, sprite.costume.getXPosition());
@@ -123,9 +116,9 @@ public class MoveNStepsBrickTest extends AndroidTestCase {
 
 	public void testMoveDiagonalRightDown() {
 		Sprite sprite = new Sprite("test");
-		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(physicWorld, sprite, 10);
+		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(sprite, 10);
 
-		sprite.costume.setRotation(-45);
+		sprite.costume.rotation = -45;
 
 		moveNStepsBrick.execute();
 		assertEquals("Wrong x-position", 7f, sprite.costume.getXPosition());
@@ -138,9 +131,9 @@ public class MoveNStepsBrickTest extends AndroidTestCase {
 
 	public void testMoveDiagonalLeftDown() {
 		Sprite sprite = new Sprite("test");
-		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(physicWorld, sprite, 10);
+		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(sprite, 10);
 
-		sprite.costume.setRotation(-135);
+		sprite.costume.rotation = -135;
 
 		moveNStepsBrick.execute();
 		assertEquals("Wrong x-position", -7f, sprite.costume.getXPosition());
@@ -153,15 +146,15 @@ public class MoveNStepsBrickTest extends AndroidTestCase {
 
 	public void testMoveOther() {
 		Sprite sprite = new Sprite("test");
-		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(physicWorld, sprite, 10);
+		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(sprite, 10);
 
-		sprite.costume.setRotation(10);
+		sprite.costume.rotation = 10;
 
 		moveNStepsBrick.execute();
 		assertEquals("Wrong x-position", 10f, sprite.costume.getXPosition());
 		assertEquals("Wrong y-position", 2f, sprite.costume.getYPosition());
 
-		sprite.costume.setRotation(50);
+		sprite.costume.rotation = 50;
 		moveNStepsBrick.execute();
 		assertEquals("Wrong x-position", 16f, sprite.costume.getXPosition());
 		assertEquals("Wrong y-position", 10f, sprite.costume.getYPosition());

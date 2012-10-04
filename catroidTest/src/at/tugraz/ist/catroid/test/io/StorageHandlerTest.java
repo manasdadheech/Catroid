@@ -98,7 +98,7 @@ public class StorageHandlerTest extends AndroidTestCase {
 		ShowBrick showBrick = new ShowBrick(firstSprite);
 		SetSizeToBrick setSizeToBrick = new SetSizeToBrick(secondSprite, size);
 		ComeToFrontBrick comeToFrontBrick = new ComeToFrontBrick(firstSprite);
-		PlaceAtBrick placeAtBrick = new PlaceAtBrick(null, secondSprite, xPosition, yPosition);
+		PlaceAtBrick placeAtBrick = new PlaceAtBrick(secondSprite, xPosition, yPosition);
 
 		// adding Bricks: ----------------
 		testScript.addBrick(hideBrick);
@@ -232,8 +232,8 @@ public class StorageHandlerTest extends AndroidTestCase {
 		whenScriptBrickList.add(new PlaySoundBrick(sprite));
 		whenScriptBrickList.add(new SetSizeToBrick(sprite, 50));
 		whenScriptBrickList.add(new SetCostumeBrick(sprite));
-		whenScriptBrickList.add(new SetXBrick(null, sprite, 50));
-		whenScriptBrickList.add(new SetYBrick(null, sprite, 50));
+		whenScriptBrickList.add(new SetXBrick(sprite, 50));
+		whenScriptBrickList.add(new SetYBrick(sprite, 50));
 		whenScriptBrickList.add(new ShowBrick(sprite));
 		whenScriptBrickList.add(new WaitBrick(sprite, 1000));
 

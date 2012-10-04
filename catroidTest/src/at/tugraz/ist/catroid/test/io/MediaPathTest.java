@@ -280,12 +280,12 @@ public class MediaPathTest extends InstrumentationTestCase {
 		soundBrick.setSoundInfo(soundInfo);
 		sprite.getSoundList().add(soundInfo);
 
-		brickList2.add(new PlaceAtBrick(null, sprite, 50, 50));
+		brickList2.add(new PlaceAtBrick(sprite, 50, 50));
 		brickList2.add(soundBrick);
 		brickList2.add(new SetSizeToBrick(sprite, 50));
 		brickList2.add(costumeBrick);
-		brickList2.add(new SetXBrick(null, sprite, 50));
-		brickList2.add(new SetYBrick(null, sprite, 50));
+		brickList2.add(new SetXBrick(sprite, 50));
+		brickList2.add(new SetYBrick(sprite, 50));
 		brickList2.add(new ShowBrick(sprite));
 		brickList2.add(new WaitBrick(sprite, 1000));
 

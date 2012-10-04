@@ -25,24 +25,17 @@ package at.tugraz.ist.catroid.test.content.brick;
 import android.test.AndroidTestCase;
 import at.tugraz.ist.catroid.content.Sprite;
 import at.tugraz.ist.catroid.content.bricks.SetXBrick;
-import at.tugraz.ist.catroid.physics.PhysicWorld;
 
 public class SetXBrickTest extends AndroidTestCase {
 
 	private int xPosition = 100;
-	private PhysicWorld physicWorld;
-
-	@Override
-	public void setUp() throws Exception {
-		physicWorld = new PhysicWorld();
-	}
 
 	public void testNormalBehavior() {
 		Sprite sprite = new Sprite("testSprite");
 		assertEquals("Unexpected initial sprite x position", 0f, sprite.costume.getXPosition());
 		assertEquals("Unexpected initial sprite y position", 0f, sprite.costume.getYPosition());
 
-		SetXBrick setXBrick = new SetXBrick(physicWorld, sprite, xPosition);
+		SetXBrick setXBrick = new SetXBrick(sprite, xPosition);
 		setXBrick.execute();
 
 		assertEquals("Incorrect sprite x position after SetXBrick executed", (float) xPosition,
@@ -50,7 +43,7 @@ public class SetXBrickTest extends AndroidTestCase {
 	}
 
 	public void testNullSprite() {
-		SetXBrick setXBrick = new SetXBrick(physicWorld, null, xPosition);
+		SetXBrick setXBrick = new SetXBrick(null, xPosition);
 
 		try {
 			setXBrick.execute();
@@ -63,13 +56,13 @@ public class SetXBrickTest extends AndroidTestCase {
 	public void testBoundaryPositions() {
 		Sprite sprite = new Sprite("testSprite");
 
-		SetXBrick setXBrick = new SetXBrick(physicWorld, sprite, Integer.MAX_VALUE);
+		SetXBrick setXBrick = new SetXBrick(sprite, Integer.MAX_VALUE);
 		setXBrick.execute();
 
 		assertEquals("SetXBrick failed to place Sprite at maximum x integer value", Integer.MAX_VALUE,
 				(int) sprite.costume.getXPosition());
 
-		setXBrick = new SetXBrick(physicWorld, sprite, Integer.MIN_VALUE);
+		setXBrick = new SetXBrick(sprite, Integer.MIN_VALUE);
 		setXBrick.execute();
 
 		assertEquals("SetXBrick failed to place Sprite at minimum x integer value", Integer.MIN_VALUE,

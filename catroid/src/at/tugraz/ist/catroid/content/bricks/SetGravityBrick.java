@@ -29,6 +29,7 @@ import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
+import at.tugraz.ist.catroid.ProjectManager;
 import at.tugraz.ist.catroid.R;
 import at.tugraz.ist.catroid.content.Sprite;
 import at.tugraz.ist.catroid.physics.PhysicWorld;
@@ -39,11 +40,15 @@ import com.badlogic.gdx.math.Vector2;
 
 public class SetGravityBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
-	private final PhysicWorld physicWorld;
-	private final Sprite sprite;
-	private final Vector2 gravity;
+	private transient PhysicWorld physicWorld;
+	private Sprite sprite;
+	private Vector2 gravity;
 
 	private transient View view;
+
+	public SetGravityBrick() {
+		physicWorld = ProjectManager.getInstance().getCurrentProject().getPhysicWorld();
+	}
 
 	public SetGravityBrick(PhysicWorld physicWorld, Sprite sprite, Vector2 gravity) {
 		this.physicWorld = physicWorld;

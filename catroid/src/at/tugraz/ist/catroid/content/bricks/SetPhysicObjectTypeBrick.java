@@ -29,18 +29,25 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Spinner;
+import at.tugraz.ist.catroid.ProjectManager;
 import at.tugraz.ist.catroid.R;
 import at.tugraz.ist.catroid.content.Sprite;
 import at.tugraz.ist.catroid.physics.PhysicObject;
+import at.tugraz.ist.catroid.physics.PhysicObject.Type;
 import at.tugraz.ist.catroid.physics.PhysicWorld;
 
 public class SetPhysicObjectTypeBrick implements Brick {
 	private static final long serialVersionUID = 1L;
-	private PhysicWorld physicWorld;
+	private transient PhysicWorld physicWorld;
 	private Sprite sprite;
 	private PhysicObject.Type type;
 
 	private transient View view;
+
+	public SetPhysicObjectTypeBrick() {
+		physicWorld = ProjectManager.getInstance().getCurrentProject().getPhysicWorld();
+		this.type = Type.DYNAMIC;
+	}
 
 	public SetPhysicObjectTypeBrick(PhysicWorld physicWorld, Sprite sprite, PhysicObject.Type type) {
 		this.physicWorld = physicWorld;
@@ -55,7 +62,7 @@ public class SetPhysicObjectTypeBrick implements Brick {
 
 	@Override
 	public void execute() {
-		physicWorld.getPhysicObject(sprite).setType(type);
+		physicWorld.getPhysicObject(sprite).setType(Type.DYNAMIC);
 	}
 
 	@Override

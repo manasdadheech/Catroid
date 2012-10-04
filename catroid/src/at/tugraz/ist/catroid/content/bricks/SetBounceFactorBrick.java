@@ -37,11 +37,14 @@ import at.tugraz.ist.catroid.ui.dialogs.BrickTextDialog;
 
 public class SetBounceFactorBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
-	private final PhysicWorld physicWorld;
-	private final Sprite sprite;
+	private transient PhysicWorld physicWorld;
+	private Sprite sprite;
 	private float bounceFactor;
 
 	private transient View view;
+
+	public SetBounceFactorBrick() {
+	}
 
 	public SetBounceFactorBrick(PhysicWorld physicWorld, Sprite sprite, float bounceFactor) {
 		this.physicWorld = physicWorld;

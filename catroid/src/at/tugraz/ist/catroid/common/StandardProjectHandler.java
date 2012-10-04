@@ -77,7 +77,7 @@ public class StandardProjectHandler {
 	private static Context context;
 	private static String projectName;
 
-	public static Project createAndSaveStandardProject(String projectName, Context context) throws IOException {
+	public static Project createAndSaveStandardProjectPinball(String projectName, Context context) throws IOException {
 		Project defaultProject = new Project(context, projectName);
 		defaultProject.virtualScreenWidth = 480;
 		defaultProject.virtualScreenHeight = 800;
@@ -318,7 +318,7 @@ public class StandardProjectHandler {
 		sprite.addScript(broadcastScript);
 	}
 
-	public static Project createAndSaveStandardProjectDefault(String projectName, Context context) throws IOException {
+	public static Project createAndSaveStandardProject(String projectName, Context context) throws IOException {
 		String normalCatName = context.getString(R.string.default_project_sprites_catroid_normalcat);
 		String banzaiCatName = context.getString(R.string.default_project_sprites_catroid_banzaicat);
 		String cheshireCatName = context.getString(R.string.default_project_sprites_catroid_cheshirecat);
@@ -384,6 +384,7 @@ public class StandardProjectHandler {
 		WaitBrick waitBrick2 = new WaitBrick(sprite, 500);
 
 		startScript.addBrick(setCostumeBrick);
+		startScript.addBrick(new SetPhysicObjectTypeBrick(defaultProject.getPhysicWorld(), sprite, Type.DYNAMIC));
 
 		whenScript.addBrick(setCostumeBrick2);
 		whenScript.addBrick(waitBrick1);

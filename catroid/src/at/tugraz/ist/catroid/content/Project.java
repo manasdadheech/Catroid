@@ -48,7 +48,7 @@ public class Project implements Serializable {
 	public int virtualScreenHeight = 0;
 	private float catrobatLanguageVersion;
 
-	private PhysicWorld physicWorld;
+	private transient PhysicWorld physicWorld;
 	// fields only used on the catrobat.org website so far
 
 	@SuppressWarnings("unused")
@@ -173,12 +173,12 @@ public class Project implements Serializable {
 	}
 
 	public PhysicWorld getPhysicWorld() {
-		return this.physicWorld;
+		return physicWorld;
 	}
 
 	// default constructor for XMLParser
 	public Project() {
-
+		physicWorld = new PhysicWorld();
 	}
 
 }

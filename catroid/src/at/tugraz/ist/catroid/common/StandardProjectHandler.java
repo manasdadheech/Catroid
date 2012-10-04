@@ -239,11 +239,11 @@ public class StandardProjectHandler {
 		costumeBrick.setCostume(costumeData);
 
 		Script startScript = new StartScript(sprite);
-		startScript.addBrick(new PlaceAtBrick(physicWorld, sprite, (int) position.x, (int) position.y));
+		startScript.addBrick(new PlaceAtBrick(sprite, (int) position.x, (int) position.y));
 		startScript.addBrick(costumeBrick);
 
 		if (!Float.isNaN(angle)) {
-			TurnLeftBrick turnLeftBrick = new TurnLeftBrick(physicWorld, sprite, angle);
+			TurnLeftBrick turnLeftBrick = new TurnLeftBrick(sprite, angle);
 			startScript.addBrick(turnLeftBrick);
 		}
 
@@ -311,9 +311,9 @@ public class StandardProjectHandler {
 		broadcastScript.addBrick(new WaitBrick(sprite, waitInMillis));
 
 		broadcastScript.addBrick(new TurnLeftSpeedBrick(physicWorld, sprite, 0));
-		broadcastScript.addBrick(new PointInDirectionBrick(physicWorld, sprite, Direction.DIRECTION_RIGHT));
+		broadcastScript.addBrick(new PointInDirectionBrick(sprite, Direction.DIRECTION_RIGHT));
 		broadcastScript.addBrick(new WaitBrick(sprite, 25));
-		broadcastScript.addBrick(new PointInDirectionBrick(physicWorld, sprite, Direction.DIRECTION_RIGHT));
+		broadcastScript.addBrick(new PointInDirectionBrick(sprite, Direction.DIRECTION_RIGHT));
 
 		sprite.addScript(broadcastScript);
 	}

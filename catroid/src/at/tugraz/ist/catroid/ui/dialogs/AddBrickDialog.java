@@ -49,12 +49,7 @@ import at.tugraz.ist.catroid.content.bricks.Brick;
 import at.tugraz.ist.catroid.content.bricks.BroadcastBrick;
 import at.tugraz.ist.catroid.content.bricks.BroadcastReceiverBrick;
 import at.tugraz.ist.catroid.content.bricks.BroadcastWaitBrick;
-import at.tugraz.ist.catroid.content.bricks.ChangeBrightnessBrick;
-import at.tugraz.ist.catroid.content.bricks.ChangeGhostEffectBrick;
 import at.tugraz.ist.catroid.content.bricks.ChangeSizeByNBrick;
-import at.tugraz.ist.catroid.content.bricks.ChangeVolumeByBrick;
-import at.tugraz.ist.catroid.content.bricks.ChangeXByBrick;
-import at.tugraz.ist.catroid.content.bricks.ChangeYByBrick;
 import at.tugraz.ist.catroid.content.bricks.ClearGraphicEffectBrick;
 import at.tugraz.ist.catroid.content.bricks.ComeToFrontBrick;
 import at.tugraz.ist.catroid.content.bricks.ForeverBrick;
@@ -62,12 +57,7 @@ import at.tugraz.ist.catroid.content.bricks.GlideToBrick;
 import at.tugraz.ist.catroid.content.bricks.GoNStepsBackBrick;
 import at.tugraz.ist.catroid.content.bricks.HideBrick;
 import at.tugraz.ist.catroid.content.bricks.IfOnEdgeBounceBrick;
-import at.tugraz.ist.catroid.content.bricks.TurnLeftSpeedBrick;
 import at.tugraz.ist.catroid.content.bricks.MoveNStepsBrick;
-import at.tugraz.ist.catroid.content.bricks.NXTMotorActionBrick;
-import at.tugraz.ist.catroid.content.bricks.NXTMotorStopBrick;
-import at.tugraz.ist.catroid.content.bricks.NXTMotorTurnAngleBrick;
-import at.tugraz.ist.catroid.content.bricks.NXTPlayToneBrick;
 import at.tugraz.ist.catroid.content.bricks.NextCostumeBrick;
 import at.tugraz.ist.catroid.content.bricks.NoteBrick;
 import at.tugraz.ist.catroid.content.bricks.PlaceAtBrick;
@@ -76,7 +66,6 @@ import at.tugraz.ist.catroid.content.bricks.PointInDirectionBrick;
 import at.tugraz.ist.catroid.content.bricks.PointInDirectionBrick.Direction;
 import at.tugraz.ist.catroid.content.bricks.PointToBrick;
 import at.tugraz.ist.catroid.content.bricks.RepeatBrick;
-import at.tugraz.ist.catroid.content.bricks.TurnRightSpeedBrick;
 import at.tugraz.ist.catroid.content.bricks.ScriptBrick;
 import at.tugraz.ist.catroid.content.bricks.SetBounceFactorBrick;
 import at.tugraz.ist.catroid.content.bricks.SetBrightnessBrick;
@@ -95,7 +84,9 @@ import at.tugraz.ist.catroid.content.bricks.ShowBrick;
 import at.tugraz.ist.catroid.content.bricks.SpeakBrick;
 import at.tugraz.ist.catroid.content.bricks.StopAllSoundsBrick;
 import at.tugraz.ist.catroid.content.bricks.TurnLeftBrick;
+import at.tugraz.ist.catroid.content.bricks.TurnLeftSpeedBrick;
 import at.tugraz.ist.catroid.content.bricks.TurnRightBrick;
+import at.tugraz.ist.catroid.content.bricks.TurnRightSpeedBrick;
 import at.tugraz.ist.catroid.content.bricks.WaitBrick;
 import at.tugraz.ist.catroid.content.bricks.WhenBrick;
 import at.tugraz.ist.catroid.content.bricks.WhenStartedBrick;
@@ -228,35 +219,37 @@ public class AddBrickDialog extends DialogFragment {
 
 	private static HashMap<String, List<Brick>> setupBrickMap(Sprite sprite, Context context) {
 		HashMap<String, List<Brick>> brickMap = new HashMap<String, List<Brick>>();
-		PhysicWorld physicWorld = ProjectManager.getInstance().getCurrentProject().getPhysicWorld();
 
 		List<Brick> motionBrickList = new ArrayList<Brick>();
-		motionBrickList.add(new SetPhysicObjectTypeBrick(physicWorld, sprite, PhysicObject.Type.DYNAMIC));
-		motionBrickList.add(new SetMassBrick(physicWorld, sprite, PhysicSettings.Object.DEFAULT_MASS));
-		motionBrickList.add(new SetGravityBrick(physicWorld, sprite, PhysicSettings.World.DEFAULT_GRAVITY));
-		motionBrickList.add(new SetVelocityBrick(physicWorld, sprite, PhysicSettings.Object.DEFAULT_VELOCITY));
-		motionBrickList.add(new TurnLeftSpeedBrick(physicWorld, sprite,
-				PhysicSettings.Object.DEFAULT_ANGULAR_VELOCITY));
-		motionBrickList.add(new TurnRightSpeedBrick(physicWorld, sprite,
-				PhysicSettings.Object.DEFAULT_ANGULAR_VELOCITY));
-		motionBrickList.add(new SetBounceFactorBrick(physicWorld, sprite,
-				PhysicSettings.Object.DEFAULT_RESTITUTION * 100));
-		motionBrickList.add(new SetFrictionBrick(physicWorld, sprite, PhysicSettings.Object.DEFAULT_FRICTION * 100));
-		motionBrickList.add(new PlaceAtBrick(physicWorld, sprite, 0, 0));
-		motionBrickList.add(new SetXBrick(physicWorld, sprite, 0));
-		motionBrickList.add(new SetYBrick(physicWorld, sprite, 0));
-		motionBrickList.add(new ChangeXByBrick(physicWorld, sprite, 100));
-		motionBrickList.add(new ChangeYByBrick(physicWorld, sprite, 100));
-		motionBrickList.add(new IfOnEdgeBounceBrick(physicWorld, sprite));
-		motionBrickList.add(new MoveNStepsBrick(physicWorld, sprite, 10));
-		motionBrickList.add(new TurnLeftBrick(physicWorld, sprite, 15));
-		motionBrickList.add(new TurnRightBrick(physicWorld, sprite, 15));
-		motionBrickList.add(new PointInDirectionBrick(physicWorld, sprite, Direction.DIRECTION_RIGHT));
-		motionBrickList.add(new PointToBrick(physicWorld, sprite, null));
-		motionBrickList.add(new GlideToBrick(physicWorld, sprite, 800, 0, 1000));
+		motionBrickList.add(new PlaceAtBrick(sprite, 0, 0));
+		motionBrickList.add(new SetXBrick(sprite, 0));
+		motionBrickList.add(new SetYBrick(sprite, 0));
+		motionBrickList.add(new ChangeXByNBrick(sprite, 100));
+		motionBrickList.add(new ChangeYByNBrick(sprite, 100));
+		motionBrickList.add(new IfOnEdgeBounceBrick(sprite));
+		motionBrickList.add(new MoveNStepsBrick(sprite, 10));
+		motionBrickList.add(new TurnLeftBrick(sprite, 15));
+		motionBrickList.add(new TurnRightBrick(sprite, 15));
+		motionBrickList.add(new PointInDirectionBrick(sprite, Direction.DIRECTION_RIGHT));
+		motionBrickList.add(new PointToBrick(sprite, null));
+		motionBrickList.add(new GlideToBrick(sprite, 800, 0, 1000));
 		if (!isBackground(sprite)) {
 			motionBrickList.add(new GoNStepsBackBrick(sprite, 1));
 			motionBrickList.add(new ComeToFrontBrick(sprite));
+
+			PhysicWorld physicWorld = ProjectManager.getInstance().getCurrentProject().getPhysicWorld();
+			motionBrickList.add(new SetPhysicObjectTypeBrick(physicWorld, sprite, PhysicObject.Type.DYNAMIC));
+			motionBrickList.add(new SetMassBrick(physicWorld, sprite, PhysicSettings.Object.DEFAULT_MASS));
+			motionBrickList.add(new SetGravityBrick(physicWorld, sprite, PhysicSettings.World.DEFAULT_GRAVITY));
+			motionBrickList.add(new SetVelocityBrick(physicWorld, sprite, PhysicSettings.Object.DEFAULT_VELOCITY));
+			motionBrickList.add(new TurnLeftSpeedBrick(physicWorld, sprite,
+					PhysicSettings.Object.DEFAULT_ANGULAR_VELOCITY));
+			motionBrickList.add(new TurnRightSpeedBrick(physicWorld, sprite,
+					PhysicSettings.Object.DEFAULT_ANGULAR_VELOCITY));
+			motionBrickList.add(new SetBounceFactorBrick(physicWorld, sprite,
+					PhysicSettings.Object.DEFAULT_RESTITUTION * 100));
+			motionBrickList
+					.add(new SetFrictionBrick(physicWorld, sprite, PhysicSettings.Object.DEFAULT_FRICTION * 100));
 		}
 		brickMap.put(context.getString(R.string.category_motion), motionBrickList);
 
@@ -268,9 +261,9 @@ public class AddBrickDialog extends DialogFragment {
 		looksBrickList.add(new HideBrick(sprite));
 		looksBrickList.add(new ShowBrick(sprite));
 		looksBrickList.add(new SetGhostEffectBrick(sprite, 0));
-		looksBrickList.add(new ChangeGhostEffectBrick(sprite, 25));
+		looksBrickList.add(new ChangeGhostEffectByNBrick(sprite, 25));
 		looksBrickList.add(new SetBrightnessBrick(sprite, 0));
-		looksBrickList.add(new ChangeBrightnessBrick(sprite, 25));
+		looksBrickList.add(new ChangeBrightnessByNBrick(sprite, 25));
 		looksBrickList.add(new ClearGraphicEffectBrick(sprite));
 
 		brickMap.put(context.getString(R.string.category_looks), looksBrickList);
@@ -279,7 +272,7 @@ public class AddBrickDialog extends DialogFragment {
 		soundBrickList.add(new PlaySoundBrick(sprite));
 		soundBrickList.add(new StopAllSoundsBrick(sprite));
 		soundBrickList.add(new SetVolumeToBrick(sprite, 100));
-		soundBrickList.add(new ChangeVolumeByBrick(sprite, 25));
+		soundBrickList.add(new ChangeVolumeByNBrick(sprite, 25));
 		soundBrickList.add(new SpeakBrick(sprite, null));
 		brickMap.put(context.getString(R.string.category_sound), soundBrickList);
 
@@ -296,10 +289,10 @@ public class AddBrickDialog extends DialogFragment {
 		brickMap.put(context.getString(R.string.category_control), controlBrickList);
 
 		List<Brick> legoNXTBrickList = new ArrayList<Brick>();
-		legoNXTBrickList.add(new NXTMotorTurnAngleBrick(sprite, NXTMotorTurnAngleBrick.Motor.MOTOR_A, 180));
-		legoNXTBrickList.add(new NXTMotorStopBrick(sprite, NXTMotorStopBrick.Motor.MOTOR_A));
-		legoNXTBrickList.add(new NXTMotorActionBrick(sprite, NXTMotorActionBrick.Motor.MOTOR_A, 100));
-		legoNXTBrickList.add(new NXTPlayToneBrick(sprite, 200, 1000));
+		legoNXTBrickList.add(new LegoNxtMotorTurnAngleBrick(sprite, LegoNxtMotorTurnAngleBrick.Motor.MOTOR_A, 180));
+		legoNXTBrickList.add(new LegoNxtMotorStopBrick(sprite, LegoNxtMotorStopBrick.Motor.MOTOR_A));
+		legoNXTBrickList.add(new LegoNxtMotorActionBrick(sprite, LegoNxtMotorActionBrick.Motor.MOTOR_A, 100));
+		legoNXTBrickList.add(new LegoNxtPlayToneBrick(sprite, 200, 1000));
 		brickMap.put(context.getString(R.string.category_lego_nxt), legoNXTBrickList);
 
 		return brickMap;

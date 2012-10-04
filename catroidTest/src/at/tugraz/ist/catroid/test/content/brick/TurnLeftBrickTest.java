@@ -91,12 +91,12 @@ public class TurnLeftBrickTest extends InstrumentationTestCase {
 		TurnLeftBrick turnLeftBrick = new TurnLeftBrick(sprite, 10);
 
 		turnLeftBrick.execute();
-		assertEquals("Wrong direction!", 10f, sprite.costume.rotation, 1e-3);
+		assertEquals("Wrong direction!", 10f, sprite.costume.getRotation(), 1e-3);
 		assertEquals("Wrong X-Position!", 0f, sprite.costume.getXPosition());
 		assertEquals("Wrong Y-Position!", 0f, sprite.costume.getYPosition());
 
 		turnLeftBrick.execute();
-		assertEquals("Wrong direction!", 20f, sprite.costume.rotation, 1e-3);
+		assertEquals("Wrong direction!", 20f, sprite.costume.getRotation(), 1e-3);
 		assertEquals("Wrong X-Position!", 0f, sprite.costume.getXPosition());
 		assertEquals("Wrong Y-Position!", 0f, sprite.costume.getYPosition());
 	}
@@ -111,7 +111,7 @@ public class TurnLeftBrickTest extends InstrumentationTestCase {
 		turnLeftBrick.execute();
 		brickScale.execute();
 
-		assertEquals("Wrong direction!", 10f, sprite.costume.rotation, 1e-3);
+		assertEquals("Wrong direction!", 10f, sprite.costume.getRotation(), 1e-3);
 		assertEquals("Wrong X-Position!", 0f, sprite.costume.getXPosition());
 		assertEquals("Wrong Y-Position!", 0f, sprite.costume.getYPosition());
 	}
@@ -126,7 +126,7 @@ public class TurnLeftBrickTest extends InstrumentationTestCase {
 		brickScale.execute();
 		turnLeftBrick.execute();
 
-		assertEquals("Wrong direction!", 10f, sprite.costume.rotation, 1e-3);
+		assertEquals("Wrong direction!", 10f, sprite.costume.getRotation(), 1e-3);
 		assertEquals("Wrong X-Position!", 0f, sprite.costume.getXPosition());
 		assertEquals("Wrong Y-Position!", 0f, sprite.costume.getYPosition());
 
@@ -140,7 +140,7 @@ public class TurnLeftBrickTest extends InstrumentationTestCase {
 
 		turnLeftBrick.execute();
 
-		assertEquals("Wrong direction!", -10f, sprite.costume.rotation, 1e-3);
+		assertEquals("Wrong direction!", -10f, sprite.costume.getRotation(), 1e-3);
 		assertEquals("Wrong X-Position!", 0f, sprite.costume.getXPosition());
 		assertEquals("Wrong Y-Position!", 0f, sprite.costume.getYPosition());
 	}
@@ -153,7 +153,7 @@ public class TurnLeftBrickTest extends InstrumentationTestCase {
 
 		turnLeftBrick.execute();
 
-		assertEquals("Wrong direction!", 370f, sprite.costume.rotation, 1e-3);
+		assertEquals("Wrong direction!", 370f, sprite.costume.getRotation(), 1e-3);
 		assertEquals("Wrong X-Position!", 0f, sprite.costume.getXPosition());
 		assertEquals("Wrong Y-Position!", 0f, sprite.costume.getYPosition());
 	}
@@ -168,7 +168,7 @@ public class TurnLeftBrickTest extends InstrumentationTestCase {
 		brickTurnLeft.execute();
 		brickTurnRight.execute();
 
-		assertEquals("Wrong direction!", 20f, sprite.costume.rotation, 1e-3);
+		assertEquals("Wrong direction!", 20f, sprite.costume.getRotation(), 1e-3);
 		assertEquals("Wrong X-Position!", 0f, sprite.costume.getXPosition());
 		assertEquals("Wrong Y-Position!", 0f, sprite.costume.getYPosition());
 	}

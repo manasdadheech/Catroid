@@ -83,8 +83,7 @@ public class SetXBrickTest extends ActivityInstrumentationTestCase2<ScriptTabAct
 		assertEquals("Incorrect number of bricks.", 1, projectBrickList.size());
 
 		assertEquals("Wrong Brick instance.", projectBrickList.get(0), adapter.getChild(groupCount - 1, 0));
-		String textSetX = solo.getString(R.string.brick_set_x);
-		assertNotNull("TextView does not exist.", solo.getText(textSetX));
+		assertNotNull("TextView does not exist.", solo.getText(getActivity().getString(R.string.brick_set_x)));
 
 		solo.clickOnEditText(0);
 		solo.clearEditText(0);
@@ -97,17 +96,17 @@ public class SetXBrickTest extends ActivityInstrumentationTestCase2<ScriptTabAct
 	}
 
 	public void testResizeInputField() {
-		//		UiTestUtils.testIntegerEditText(solo, 0, 1, 50, true);
-		//		UiTestUtils.testIntegerEditText(solo, 0, 123456, 50, true);
-		//		UiTestUtils.testIntegerEditText(solo, 0, -1, 50, true);
-		//		UiTestUtils.testIntegerEditText(solo, 0, 1234567, 50, false);
+		UiTestUtils.testIntegerEditText(solo, 0, 1, 50, true);
+		UiTestUtils.testIntegerEditText(solo, 0, 123456, 50, true);
+		UiTestUtils.testIntegerEditText(solo, 0, -1, 50, true);
+		UiTestUtils.testIntegerEditText(solo, 0, 1234567, 50, false);
 	}
 
 	private void createProject() {
 		project = new Project(null, UiTestUtils.DEFAULT_TEST_PROJECT_NAME);
 		Sprite sprite = new Sprite("cat");
 		Script script = new StartScript(sprite);
-		setXBrick = new SetXBrick(null, sprite, 0);
+		setXBrick = new SetXBrick(sprite, 0);
 		script.addBrick(setXBrick);
 
 		sprite.addScript(script);

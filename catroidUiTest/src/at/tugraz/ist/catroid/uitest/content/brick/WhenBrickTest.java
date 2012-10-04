@@ -34,7 +34,6 @@ import at.tugraz.ist.catroid.content.StartScript;
 import at.tugraz.ist.catroid.content.WhenScript;
 import at.tugraz.ist.catroid.content.bricks.Brick;
 import at.tugraz.ist.catroid.content.bricks.PlaceAtBrick;
-import at.tugraz.ist.catroid.physics.PhysicWorld;
 import at.tugraz.ist.catroid.ui.MainMenuActivity;
 import at.tugraz.ist.catroid.ui.ScriptTabActivity;
 import at.tugraz.ist.catroid.ui.adapter.BrickAdapter;
@@ -166,10 +165,9 @@ public class WhenBrickTest extends ActivityInstrumentationTestCase2<MainMenuActi
 		project = new Project(null, UiTestUtils.DEFAULT_TEST_PROJECT_NAME);
 		Sprite sprite = new Sprite("cat");
 		Script script = new StartScript(sprite);
-		PhysicWorld physicWorld = new PhysicWorld();
-		script.addBrick(new PlaceAtBrick(physicWorld, sprite, 100, 100));
-		script.addBrick(new PlaceAtBrick(physicWorld, sprite, 100, 100));
-		script.addBrick(new PlaceAtBrick(physicWorld, sprite, 100, 100));
+		script.addBrick(new PlaceAtBrick(sprite, 100, 100));
+		script.addBrick(new PlaceAtBrick(sprite, 100, 100));
+		script.addBrick(new PlaceAtBrick(sprite, 100, 100));
 		sprite.addScript(script);
 
 		project.addSprite(sprite);

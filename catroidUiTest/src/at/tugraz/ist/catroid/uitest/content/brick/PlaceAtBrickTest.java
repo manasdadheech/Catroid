@@ -144,7 +144,7 @@ public class PlaceAtBrickTest extends ActivityInstrumentationTestCase2<ScriptTab
 		Sprite sprite = new Sprite("cat");
 		Script script = new StartScript(sprite);
 		script.addBrick(new HideBrick(sprite));
-		placeAtBrick = new PlaceAtBrick(null, sprite, 105, 206);
+		placeAtBrick = new PlaceAtBrick(sprite, 105, 206);
 		script.addBrick(placeAtBrick);
 		PlaySoundBrick soundBrick = new PlaySoundBrick(sprite);
 		SoundInfo soundInfo = new SoundInfo();
@@ -167,7 +167,7 @@ public class PlaceAtBrickTest extends ActivityInstrumentationTestCase2<ScriptTab
 		project = new Project(null, UiTestUtils.DEFAULT_TEST_PROJECT_NAME);
 		Sprite sprite = new Sprite("cat");
 		Script script = new StartScript(sprite);
-		placeAtBrick = new PlaceAtBrick(null, sprite, 0, 0);
+		placeAtBrick = new PlaceAtBrick(sprite, 0, 0);
 		script.addBrick(placeAtBrick);
 
 		sprite.addScript(script);

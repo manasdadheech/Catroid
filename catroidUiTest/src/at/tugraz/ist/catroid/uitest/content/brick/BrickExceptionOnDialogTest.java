@@ -177,7 +177,7 @@ public class BrickExceptionOnDialogTest extends ActivityInstrumentationTestCase2
 	}
 
 	public void testMoveNStepsBrick() {
-		MoveNStepsBrick nStepsBrick = new MoveNStepsBrick(null, sprite, 40);
+		MoveNStepsBrick nStepsBrick = new MoveNStepsBrick(sprite, 40);
 		script.addBrick(nStepsBrick);
 
 		clickEditTextGoBackAndClickAgain();
@@ -192,7 +192,7 @@ public class BrickExceptionOnDialogTest extends ActivityInstrumentationTestCase2
 
 	//TODO test nxt
 	public void testPlaceAtBrick() {
-		PlaceAtBrick placeAtBrick = new PlaceAtBrick(null, sprite, 40, 40);
+		PlaceAtBrick placeAtBrick = new PlaceAtBrick(sprite, 40, 40);
 		script.addBrick(placeAtBrick);
 
 		clickEditTextGoBackAndClickAgain();
@@ -239,7 +239,7 @@ public class BrickExceptionOnDialogTest extends ActivityInstrumentationTestCase2
 	}
 
 	public void testPointInDirectionBrick() {
-		PointInDirectionBrick directionBrick = new PointInDirectionBrick(null, sprite, Direction.DIRECTION_RIGHT);
+		PointInDirectionBrick directionBrick = new PointInDirectionBrick(sprite, Direction.DIRECTION_RIGHT);
 		script.addBrick(directionBrick);
 
 		solo.clickOnText(getActivity().getString(R.string.current_project_button));
@@ -289,14 +289,14 @@ public class BrickExceptionOnDialogTest extends ActivityInstrumentationTestCase2
 	}
 
 	public void testSetXBrick() {
-		SetXBrick setXBrick = new SetXBrick(null, sprite, 4);
+		SetXBrick setXBrick = new SetXBrick(sprite, 4);
 		script.addBrick(setXBrick);
 
 		clickEditTextGoBackAndClickAgain();
 	}
 
 	public void testSetYBrick() {
-		SetYBrick setYBrick = new SetYBrick(null, sprite, 4);
+		SetYBrick setYBrick = new SetYBrick(sprite, 4);
 		script.addBrick(setYBrick);
 
 		clickEditTextGoBackAndClickAgain();

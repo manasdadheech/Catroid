@@ -552,8 +552,8 @@ public class ProjectActivityTest extends ActivityInstrumentationTestCase2<MainMe
 		Sprite spriteCat = new Sprite("cat");
 		Script startScriptCat = new StartScript(spriteCat);
 		Script scriptTappedCat = new WhenScript(spriteCat);
-		Brick setXBrick = new SetXBrick(null, spriteCat, 50);
-		Brick setYBrick = new SetYBrick(null, spriteCat, 50);
+		Brick setXBrick = new SetXBrick(spriteCat, 50);
+		Brick setYBrick = new SetYBrick(spriteCat, 50);
 		Brick changeXBrick = new ChangeXByNBrick(spriteCat, 50);
 		startScriptCat.addBrick(setYBrick);
 		startScriptCat.addBrick(setXBrick);

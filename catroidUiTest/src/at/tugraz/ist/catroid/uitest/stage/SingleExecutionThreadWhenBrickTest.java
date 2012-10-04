@@ -157,7 +157,7 @@ public class SingleExecutionThreadWhenBrickTest extends ActivityInstrumentationT
 		blueCostumeBrick.setCostume(blueCostumeData);
 		blueStartScript.addBrick(blueCostumeBrick);
 		blueStartScript.addBrick(blueSetSizeToBrick);
-		blueStartScript.addBrick(new PlaceAtBrick(null, blueSprite, 100, 0));
+		blueStartScript.addBrick(new PlaceAtBrick(blueSprite, 100, 0));
 
 		blueSprite.addScript(blueStartScript);
 
@@ -180,7 +180,7 @@ public class SingleExecutionThreadWhenBrickTest extends ActivityInstrumentationT
 		greenCostumeBrick.setCostume(greenCostumeData);
 		greenStartScript.addBrick(greenCostumeBrick);
 		greenStartScript.addBrick(greenSetSizeToBrick);
-		greenStartScript.addBrick(new PlaceAtBrick(null, greenSprite, -100, 0));
+		greenStartScript.addBrick(new PlaceAtBrick(greenSprite, -100, 0));
 
 		greenSprite.addScript(greenStartScript);
 

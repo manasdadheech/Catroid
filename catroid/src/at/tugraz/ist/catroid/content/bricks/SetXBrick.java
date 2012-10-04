@@ -32,25 +32,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 import at.tugraz.ist.catroid.R;
 import at.tugraz.ist.catroid.content.Sprite;
-import at.tugraz.ist.catroid.physics.PhysicWorld;
 import at.tugraz.ist.catroid.ui.ScriptTabActivity;
 import at.tugraz.ist.catroid.ui.dialogs.BrickTextDialog;
-
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 public class SetXBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
 	private int xPosition;
 	private Sprite sprite;
 
-	@XStreamOmitField
 	private transient View view;
-	private PhysicWorld physicWorld;
 
-	public SetXBrick(PhysicWorld physicWorld, Sprite sprite, int xPosition) {
+	public SetXBrick(Sprite sprite, int xPosition) {
 		this.sprite = sprite;
 		this.xPosition = xPosition;
-		this.physicWorld = physicWorld;
+	}
+
+	public SetXBrick() {
+
 	}
 
 	@Override
@@ -60,14 +58,9 @@ public class SetXBrick implements Brick, OnClickListener {
 
 	@Override
 	public void execute() {
-		//		if (physicWorld.isPhysicObject(sprite)) {
-		//			Vector2 newPos = new Vector2(xPosition, sprite.costume.getYPosition());
-		//			physicWorld.getPhysicObject(sprite).setXYPosition(newPos);
-		//		} else {
 		sprite.costume.aquireXYWidthHeightLock();
 		sprite.costume.setXPosition(xPosition);
 		sprite.costume.releaseXYWidthHeightLock();
-		//		}
 	}
 
 	@Override
@@ -97,7 +90,7 @@ public class SetXBrick implements Brick, OnClickListener {
 
 	@Override
 	public Brick clone() {
-		return new SetXBrick(physicWorld, getSprite(), xPosition);
+		return new SetXBrick(getSprite(), xPosition);
 	}
 
 	@Override

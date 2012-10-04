@@ -32,26 +32,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 import at.tugraz.ist.catroid.R;
 import at.tugraz.ist.catroid.content.Sprite;
-import at.tugraz.ist.catroid.physics.PhysicWorld;
 import at.tugraz.ist.catroid.ui.ScriptTabActivity;
 import at.tugraz.ist.catroid.ui.dialogs.BrickTextDialog;
-
-import com.badlogic.gdx.math.Vector2;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 public class SetYBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
 	private int yPosition;
 	private Sprite sprite;
 
-	@XStreamOmitField
 	private transient View view;
-	private PhysicWorld physicWorld;
 
-	public SetYBrick(PhysicWorld physicWorld, Sprite sprite, int yPosition) {
+	public SetYBrick(Sprite sprite, int yPosition) {
 		this.sprite = sprite;
 		this.yPosition = yPosition;
-		this.physicWorld = physicWorld;
+	}
+
+	public SetYBrick() {
+
 	}
 
 	@Override
@@ -61,14 +58,9 @@ public class SetYBrick implements Brick, OnClickListener {
 
 	@Override
 	public void execute() {
-		if (physicWorld.isPhysicObject(sprite)) {
-			Vector2 newPos = new Vector2(sprite.costume.getXPosition(), yPosition);
-			physicWorld.getPhysicObject(sprite).setXYPosition(newPos);
-		} else {
-			sprite.costume.aquireXYWidthHeightLock();
-			sprite.costume.setYPosition(yPosition);
-			sprite.costume.releaseXYWidthHeightLock();
-		}
+		sprite.costume.aquireXYWidthHeightLock();
+		sprite.costume.setYPosition(yPosition);
+		sprite.costume.releaseXYWidthHeightLock();
 	}
 
 	@Override
@@ -99,7 +91,7 @@ public class SetYBrick implements Brick, OnClickListener {
 
 	@Override
 	public Brick clone() {
-		return new SetYBrick(physicWorld, getSprite(), yPosition);
+		return new SetYBrick(getSprite(), yPosition);
 	}
 
 	@Override

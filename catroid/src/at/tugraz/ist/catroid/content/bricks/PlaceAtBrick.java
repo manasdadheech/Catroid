@@ -32,27 +32,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 import at.tugraz.ist.catroid.R;
 import at.tugraz.ist.catroid.content.Sprite;
-import at.tugraz.ist.catroid.physics.PhysicWorld;
 import at.tugraz.ist.catroid.ui.ScriptTabActivity;
 import at.tugraz.ist.catroid.ui.dialogs.BrickTextDialog;
-
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 public class PlaceAtBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
 	private int xPosition;
 	private int yPosition;
 	private Sprite sprite;
-	private PhysicWorld physicWorld;
 
-	@XStreamOmitField
 	private transient View view;
 
-	public PlaceAtBrick(PhysicWorld physicWorld, Sprite sprite, int xPosition, int yPosition) {
+	public PlaceAtBrick() {
+
+	}
+
+	public PlaceAtBrick(Sprite sprite, int xPosition, int yPosition) {
 		this.sprite = sprite;
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
-		this.physicWorld = physicWorld;
 	}
 
 	@Override
@@ -62,26 +60,14 @@ public class PlaceAtBrick implements Brick, OnClickListener {
 
 	@Override
 	public void execute() {
-		if (physicWorld.isPhysicObject(sprite)) {
-			physicWorld.getPhysicObject(sprite).setXYPosition(xPosition, yPosition);
-		} else {
-			sprite.costume.aquireXYWidthHeightLock();
-			sprite.costume.setXYPosition(xPosition, yPosition);
-			sprite.costume.releaseXYWidthHeightLock();
-		}
+		sprite.costume.aquireXYWidthHeightLock();
+		sprite.costume.setXYPosition(xPosition, yPosition);
+		sprite.costume.releaseXYWidthHeightLock();
 	}
 
 	@Override
 	public Sprite getSprite() {
 		return this.sprite;
-	}
-
-	public int getXPosition() {
-		return xPosition;
-	}
-
-	public int getYPosition() {
-		return yPosition;
 	}
 
 	@Override
@@ -114,7 +100,7 @@ public class PlaceAtBrick implements Brick, OnClickListener {
 
 	@Override
 	public Brick clone() {
-		return new PlaceAtBrick(physicWorld, getSprite(), xPosition, yPosition);
+		return new PlaceAtBrick(getSprite(), xPosition, yPosition);
 	}
 
 	@Override

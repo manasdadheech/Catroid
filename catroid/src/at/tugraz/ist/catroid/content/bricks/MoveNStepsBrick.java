@@ -33,11 +33,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import at.tugraz.ist.catroid.R;
 import at.tugraz.ist.catroid.content.Sprite;
-import at.tugraz.ist.catroid.physics.PhysicWorld;
 import at.tugraz.ist.catroid.ui.ScriptTabActivity;
 import at.tugraz.ist.catroid.ui.dialogs.BrickTextDialog;
-
-import com.badlogic.gdx.math.Vector2;
 
 public class MoveNStepsBrick implements Brick, OnClickListener {
 
@@ -46,12 +43,14 @@ public class MoveNStepsBrick implements Brick, OnClickListener {
 	private double steps;
 
 	private transient View view;
-	private PhysicWorld physicWorld;
 
-	public MoveNStepsBrick(PhysicWorld physicWorld, Sprite sprite, double steps) {
+	public MoveNStepsBrick() {
+
+	}
+
+	public MoveNStepsBrick(Sprite sprite, double steps) {
 		this.sprite = sprite;
 		this.steps = steps;
-		this.physicWorld = physicWorld;
 	}
 
 	@Override
@@ -63,19 +62,13 @@ public class MoveNStepsBrick implements Brick, OnClickListener {
 	public void execute() {
 		sprite.costume.aquireXYWidthHeightLock();
 
-		double radians = Math.toRadians(sprite.costume.getRotation());
+		double radians = Math.toRadians(sprite.costume.rotation);
 
 		int newXPosition = (int) Math.round(sprite.costume.getXPosition() + steps * Math.cos(radians));
 		int newYPosition = (int) Math.round(sprite.costume.getYPosition() + steps * Math.sin(radians));
 
-		if (physicWorld.isPhysicObject(sprite)) {
-			sprite.costume.releaseXYWidthHeightLock();
-			Vector2 newPos = new Vector2(newXPosition, newYPosition);
-			physicWorld.getPhysicObject(sprite).setXYPosition(newPos);
-		} else {
-			sprite.costume.setXYPosition(newXPosition, newYPosition);
-			sprite.costume.releaseXYWidthHeightLock();
-		}
+		sprite.costume.setXYPosition(newXPosition, newYPosition);
+		sprite.costume.releaseXYWidthHeightLock();
 
 	}
 
@@ -109,13 +102,13 @@ public class MoveNStepsBrick implements Brick, OnClickListener {
 
 	@Override
 	public Brick clone() {
-		return new MoveNStepsBrick(physicWorld, getSprite(), steps);
+		return new MoveNStepsBrick(getSprite(), steps);
 	}
 
 	@Override
 	public void onClick(View view) {
 		ScriptTabActivity activity = (ScriptTabActivity) view.getContext();
-		
+
 		BrickTextDialog editDialog = new BrickTextDialog() {
 			@Override
 			protected void initialize() {
@@ -124,7 +117,7 @@ public class MoveNStepsBrick implements Brick, OnClickListener {
 						| InputType.TYPE_NUMBER_FLAG_SIGNED);
 				input.setSelectAllOnFocus(true);
 			}
-			
+
 			@Override
 			protected boolean handleOkButton() {
 				try {
@@ -132,11 +125,11 @@ public class MoveNStepsBrick implements Brick, OnClickListener {
 				} catch (NumberFormatException exception) {
 					Toast.makeText(getActivity(), R.string.error_no_number_entered, Toast.LENGTH_SHORT).show();
 				}
-				
+
 				return true;
 			}
 		};
-		
+
 		editDialog.show(activity.getSupportFragmentManager(), "dialog_move_n_steps_brick");
 	}
 }

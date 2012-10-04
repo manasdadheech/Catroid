@@ -35,19 +35,20 @@ import android.widget.Spinner;
 import at.tugraz.ist.catroid.ProjectManager;
 import at.tugraz.ist.catroid.R;
 import at.tugraz.ist.catroid.content.Sprite;
-import at.tugraz.ist.catroid.physics.PhysicWorld;
 
 public class PointToBrick implements Brick {
 
 	private static final long serialVersionUID = 1L;
 	private Sprite sprite;
 	private Sprite pointedSprite;
-	private PhysicWorld physicWorld;
 
-	public PointToBrick(PhysicWorld physicWorld, Sprite sprite, Sprite pointedSprite) {
+	public PointToBrick(Sprite sprite, Sprite pointedSprite) {
 		this.sprite = sprite;
 		this.pointedSprite = pointedSprite;
-		this.physicWorld = physicWorld;
+	}
+
+	public PointToBrick() {
+
 	}
 
 	@Override
@@ -122,13 +123,7 @@ public class PointToBrick implements Brick {
 				}
 			}
 		}
-
-		if (physicWorld.isPhysicObject(sprite)) {
-			physicWorld.getPhysicObject(sprite).setAngle((-(float) rotationDegrees) + 90f);
-		} else {
-			sprite.costume.setRotation((-(float) rotationDegrees) + 90f);
-		}
-
+		sprite.costume.rotation = (-(float) rotationDegrees) + 90f;
 	}
 
 	@Override
@@ -202,6 +197,6 @@ public class PointToBrick implements Brick {
 
 	@Override
 	public Brick clone() {
-		return new PointToBrick(physicWorld, sprite, pointedSprite);
+		return new PointToBrick(sprite, pointedSprite);
 	}
 }

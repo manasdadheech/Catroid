@@ -32,7 +32,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import at.tugraz.ist.catroid.R;
 import at.tugraz.ist.catroid.content.Sprite;
-import at.tugraz.ist.catroid.physics.PhysicWorld;
 import at.tugraz.ist.catroid.ui.ScriptTabActivity;
 import at.tugraz.ist.catroid.ui.dialogs.BrickTextDialog;
 
@@ -43,12 +42,14 @@ public class TurnLeftBrick implements Brick, OnClickListener {
 	private double degrees;
 
 	private transient View view;
-	private PhysicWorld physicWorld;
 
-	public TurnLeftBrick(PhysicWorld physicWorld, Sprite sprite, double degrees) {
+	public TurnLeftBrick(Sprite sprite, double degrees) {
 		this.sprite = sprite;
 		this.degrees = degrees;
-		this.physicWorld = physicWorld;
+	}
+
+	public TurnLeftBrick() {
+
 	}
 
 	@Override
@@ -58,11 +59,7 @@ public class TurnLeftBrick implements Brick, OnClickListener {
 
 	@Override
 	public void execute() {
-		if (physicWorld.isPhysicObject(sprite)) {
-			physicWorld.getPhysicObject(sprite).setAngle((sprite.costume.getRotation() % 360) + (float) degrees);
-		} else {
-			sprite.costume.setRotation((sprite.costume.getRotation() % 360) + (float) degrees);
-		}
+		sprite.costume.rotation = (sprite.costume.rotation % 360) + (float) degrees;
 	}
 
 	@Override
@@ -93,7 +90,7 @@ public class TurnLeftBrick implements Brick, OnClickListener {
 
 	@Override
 	public Brick clone() {
-		return new TurnLeftBrick(physicWorld, getSprite(), degrees);
+		return new TurnLeftBrick(getSprite(), degrees);
 	}
 
 	@Override

@@ -32,13 +32,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import at.tugraz.ist.catroid.R;
 import at.tugraz.ist.catroid.content.Sprite;
-import at.tugraz.ist.catroid.physics.PhysicObject;
-import at.tugraz.ist.catroid.physics.PhysicObject.Type;
-import at.tugraz.ist.catroid.physics.PhysicWorld;
 import at.tugraz.ist.catroid.ui.ScriptTabActivity;
 import at.tugraz.ist.catroid.ui.dialogs.BrickTextDialog;
-
-import com.badlogic.gdx.math.Vector2;
 
 public class GlideToBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
@@ -46,18 +41,18 @@ public class GlideToBrick implements Brick, OnClickListener {
 	private int yDestination;
 	private int durationInMilliSeconds;
 	private Sprite sprite;
-	private Type oldPhysicObjectType;
 
 	private transient View view;
-	private PhysicWorld physicWorld;
 
-	public GlideToBrick(PhysicWorld physicWorld, Sprite sprite, int xDestination, int yDestination,
-			int durationInMilliSeconds) {
+	public GlideToBrick() {
+
+	}
+
+	public GlideToBrick(Sprite sprite, int xDestination, int yDestination, int durationInMilliSeconds) {
 		this.sprite = sprite;
 		this.xDestination = xDestination;
 		this.yDestination = yDestination;
 		this.durationInMilliSeconds = durationInMilliSeconds;
-		this.physicWorld = physicWorld;
 	}
 
 	@Override
@@ -66,7 +61,7 @@ public class GlideToBrick implements Brick, OnClickListener {
 	}
 
 	@Override
-	public synchronized void execute() {
+	public void execute() {
 		/* That's the way how an action is made */
 		//		Action action = MoveBy.$(xDestination, yDestination, this.durationInMilliSeconds / 1000);
 		//		final CountDownLatch latch = new CountDownLatch(1);
@@ -80,20 +75,8 @@ public class GlideToBrick implements Brick, OnClickListener {
 		//			latch.await();
 		//		} catch (InterruptedException e) {
 		//		}
-
 		long startTime = System.currentTimeMillis();
 		int duration = durationInMilliSeconds;
-
-		if (physicWorld.isPhysicObject(sprite)) {
-			PhysicObject physicObject = physicWorld.getPhysicObject(sprite);
-			if (oldPhysicObjectType == null) { // Multi-Touching is bad 
-				oldPhysicObjectType = physicObject.getType();
-			}
-			physicObject.setVelocity(new Vector2());
-			physicObject.setRotationSpeed(0.0f);
-			physicObject.setType(Type.FIXED);
-		}
-
 		while (duration > 0) {
 			if (!sprite.isAlive(Thread.currentThread())) {
 				break;
@@ -126,46 +109,22 @@ public class GlideToBrick implements Brick, OnClickListener {
 		if (!sprite.isAlive(Thread.currentThread())) {
 			// -stay at last position
 		} else {
-
-			if (physicWorld.isPhysicObject(sprite)) {
-				PhysicObject physicObject = physicWorld.getPhysicObject(sprite);
-
-				Vector2 newPos = new Vector2(xDestination, yDestination);
-				physicObject.setVelocity(new Vector2());
-				physicObject.setXYPosition(newPos);
-				physicObject.setType(oldPhysicObjectType);
-				oldPhysicObjectType = null;
-
-			} else {
-				sprite.costume.aquireXYWidthHeightLock();
-				sprite.costume.setXYPosition(xDestination, yDestination);
-				sprite.costume.releaseXYWidthHeightLock();
-			}
+			sprite.costume.aquireXYWidthHeightLock();
+			sprite.costume.setXYPosition(xDestination, yDestination);
+			sprite.costume.releaseXYWidthHeightLock();
 		}
-
 	}
 
 	private void updatePositions(int timePassed, int duration) {
-		if (duration <= 0) {
-			return;
-		}
 		sprite.costume.aquireXYWidthHeightLock();
 		float xPosition = sprite.costume.getXPosition();
 		float yPosition = sprite.costume.getYPosition();
 
-		if (physicWorld.isPhysicObject(sprite)) {
-			sprite.costume.releaseXYWidthHeightLock();
-			xPosition = (xDestination - xPosition) / (duration / 1000f);
-			yPosition = (yDestination - yPosition) / (duration / 1000f);
-			Vector2 newPos = new Vector2(xPosition, yPosition);
-			physicWorld.getPhysicObject(sprite).setVelocity(newPos);
-			System.out.println("VEL  velocity :" + newPos);
-		} else {
-			xPosition += ((float) timePassed / duration) * (xDestination - xPosition);
-			yPosition += ((float) timePassed / duration) * (yDestination - yPosition);
-			sprite.costume.setXYPosition(xPosition, yPosition);
-			sprite.costume.releaseXYWidthHeightLock();
-		}
+		xPosition += ((float) timePassed / duration) * (xDestination - xPosition);
+		yPosition += ((float) timePassed / duration) * (yDestination - yPosition);
+
+		sprite.costume.setXYPosition(xPosition, yPosition);
+		sprite.costume.releaseXYWidthHeightLock();
 	}
 
 	@Override
@@ -215,7 +174,7 @@ public class GlideToBrick implements Brick, OnClickListener {
 
 	@Override
 	public Brick clone() {
-		return new GlideToBrick(physicWorld, getSprite(), xDestination, yDestination, getDurationInMilliSeconds());
+		return new GlideToBrick(getSprite(), xDestination, yDestination, getDurationInMilliSeconds());
 	}
 
 	@Override
@@ -258,7 +217,7 @@ public class GlideToBrick implements Brick, OnClickListener {
 				return true;
 			}
 		};
-
+		
 		editDialog.show(activity.getSupportFragmentManager(), "dialog_glide_to_brick");
 	}
 }

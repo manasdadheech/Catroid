@@ -31,11 +31,14 @@ import android.widget.BaseAdapter;
 import android.widget.Spinner;
 import at.tugraz.ist.catroid.R;
 import at.tugraz.ist.catroid.content.Sprite;
-import at.tugraz.ist.catroid.physics.PhysicWorld;
 
 public class PointInDirectionBrick implements Brick, OnItemSelectedListener {
 
 	private static final long serialVersionUID = 1L;
+
+	public PointInDirectionBrick() {
+
+	}
 
 	public static enum Direction {
 		DIRECTION_RIGHT(90), DIRECTION_LEFT(-90), DIRECTION_UP(0), DIRECTION_DOWN(180);
@@ -55,10 +58,8 @@ public class PointInDirectionBrick implements Brick, OnItemSelectedListener {
 	private double degrees;
 
 	private transient Direction direction;
-	private PhysicWorld physicWorld;
 
 	protected Object readResolve() {
-		// initialize direction if parsing from xml with XStream
 		for (Direction direction : Direction.values()) {
 			if (Math.abs(direction.getDegrees() - degrees) < 0.1) {
 				this.direction = direction;
@@ -68,11 +69,10 @@ public class PointInDirectionBrick implements Brick, OnItemSelectedListener {
 		return this;
 	}
 
-	public PointInDirectionBrick(PhysicWorld physicWorld, Sprite sprite, Direction direction) {
+	public PointInDirectionBrick(Sprite sprite, Direction direction) {
 		this.sprite = sprite;
 		this.direction = direction;
 		this.degrees = direction.getDegrees();
-		this.physicWorld = physicWorld;
 	}
 
 	@Override
@@ -83,13 +83,7 @@ public class PointInDirectionBrick implements Brick, OnItemSelectedListener {
 	@Override
 	public void execute() {
 		double degreeOffset = 90f;
-
-		if (physicWorld.isPhysicObject(sprite)) {
-			physicWorld.getPhysicObject(sprite).setAngle((float) (-degrees + degreeOffset));
-		} else {
-			sprite.costume.setRotation((float) (-degrees + degreeOffset));
-		}
-
+		sprite.costume.rotation = (float) (-degrees + degreeOffset);
 	}
 
 	@Override
@@ -125,7 +119,7 @@ public class PointInDirectionBrick implements Brick, OnItemSelectedListener {
 
 	@Override
 	public Brick clone() {
-		return new PointInDirectionBrick(physicWorld, getSprite(), direction);
+		return new PointInDirectionBrick(getSprite(), direction);
 	}
 
 	@Override

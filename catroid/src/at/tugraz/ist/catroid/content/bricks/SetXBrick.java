@@ -36,7 +36,6 @@ import at.tugraz.ist.catroid.physics.PhysicWorld;
 import at.tugraz.ist.catroid.ui.ScriptTabActivity;
 import at.tugraz.ist.catroid.ui.dialogs.BrickTextDialog;
 
-import com.badlogic.gdx.math.Vector2;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 public class SetXBrick implements Brick, OnClickListener {
@@ -61,14 +60,14 @@ public class SetXBrick implements Brick, OnClickListener {
 
 	@Override
 	public void execute() {
-		if (physicWorld.isPhysicObject(sprite)) {
-			Vector2 newPos = new Vector2(xPosition, sprite.costume.getYPosition());
-			physicWorld.getPhysicObject(sprite).setPosition(newPos);
-		} else {
-			sprite.costume.aquireXYWidthHeightLock();
-			sprite.costume.setXPosition(xPosition);
-			sprite.costume.releaseXYWidthHeightLock();
-		}
+		//		if (physicWorld.isPhysicObject(sprite)) {
+		//			Vector2 newPos = new Vector2(xPosition, sprite.costume.getYPosition());
+		//			physicWorld.getPhysicObject(sprite).setXYPosition(newPos);
+		//		} else {
+		sprite.costume.aquireXYWidthHeightLock();
+		sprite.costume.setXPosition(xPosition);
+		sprite.costume.releaseXYWidthHeightLock();
+		//		}
 	}
 
 	@Override

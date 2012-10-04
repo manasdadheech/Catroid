@@ -46,7 +46,9 @@ public class PhysicObjectConverter {
 
 				for (Brick brick : script.getBrickList()) {
 					if (brick instanceof SetPhysicObjectTypeBrick) {
-						physicWorld.getPhysicObject(sprite);
+						PhysicObject physicObject = physicWorld.getPhysicObject(sprite);
+						sprite.costume = new PhysicSpriteCostume(sprite, physicObject);
+
 						break scriptLoop;
 					}
 				}

@@ -183,7 +183,7 @@ public class PhysicObjectTest extends AndroidTestCase {
 
 			Vector2[] positions = { new Vector2(12.34f, 56.78f), new Vector2(-87.65f, -43.21f) };
 			for (Vector2 position : positions) {
-				physicObject.setPosition(position.x, position.y);
+				physicObject.setXYPosition(position.x, position.y);
 
 				Vector2 physicObjectCatPosition = PhysicWorldConverter.vecBox2dToCat(getBody(physicObject)
 						.getPosition());
@@ -191,7 +191,7 @@ public class PhysicObjectTest extends AndroidTestCase {
 			}
 
 			for (Vector2 position : positions) {
-				physicObject.setPosition(position);
+				physicObject.setXYPosition(position);
 
 				Vector2 physicObjectCatPosition = PhysicWorldConverter.vecBox2dToCat(getBody(physicObject)
 						.getPosition());
@@ -209,7 +209,7 @@ public class PhysicObjectTest extends AndroidTestCase {
 			float angle = 15.6f;
 			Vector2 position = new Vector2(12.34f, 56.78f);
 			physicObject.setAngle(angle);
-			physicObject.setPosition(position.x, position.y);
+			physicObject.setXYPosition(position.x, position.y);
 
 			float physicObjectCatAngle = PhysicWorldConverter.angleBox2dToCat(getBody(physicObject).getAngle());
 			Vector2 physicObjectCatPosition = PhysicWorldConverter.vecBox2dToCat(getBody(physicObject).getPosition());

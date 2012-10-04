@@ -63,7 +63,7 @@ public class PlaceAtBrick implements Brick, OnClickListener {
 	@Override
 	public void execute() {
 		if (physicWorld.isPhysicObject(sprite)) {
-			physicWorld.getPhysicObject(sprite).setPosition(xPosition, yPosition);
+			physicWorld.getPhysicObject(sprite).setXYPosition(xPosition, yPosition);
 		} else {
 			sprite.costume.aquireXYWidthHeightLock();
 			sprite.costume.setXYPosition(xPosition, yPosition);

@@ -131,17 +131,33 @@ public class PhysicObject {
 		body.setTransform(body.getPosition(), PhysicWorldConverter.angleCatToBox2d(angle));
 	}
 
-	public Vector2 getPosition() {
+	public Vector2 getXYPosition() {
 		return PhysicWorldConverter.vecBox2dToCat(body.getPosition());
 	}
 
-	public void setPosition(float x, float y) {
+	public float getXPosition() {
+		return PhysicWorldConverter.lengthBox2dToCat(body.getPosition().x);
+	}
+
+	public float getYPosition() {
+		return PhysicWorldConverter.lengthBox2dToCat(body.getPosition().y);
+	}
+
+	public void setXPosition(float x) {
+		body.setTransform(PhysicWorldConverter.lengthCatToBox2d(x), body.getPosition().y, body.getAngle());
+	}
+
+	public void setYPosition(float y) {
+		body.setTransform(body.getPosition().x, PhysicWorldConverter.lengthCatToBox2d(y), body.getAngle());
+	}
+
+	public void setXYPosition(float x, float y) {
 		x = PhysicWorldConverter.lengthCatToBox2d(x);
 		y = PhysicWorldConverter.lengthCatToBox2d(y);
 		body.setTransform(x, y, body.getAngle());
 	}
 
-	public void setPosition(Vector2 position) {
+	public void setXYPosition(Vector2 position) {
 		body.setTransform(PhysicWorldConverter.vecCatToBox2d(position), body.getAngle());
 	}
 

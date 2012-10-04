@@ -115,7 +115,7 @@ public class Costume extends Image {
 		}
 	}
 
-	protected void checkImageChanged() {
+	public void checkImageChanged() {
 		imageLock.acquireUninterruptibly();
 		if (imageChanged) {
 			this.getPhysicWorld().changeCostume(sprite);
@@ -162,7 +162,7 @@ public class Costume extends Image {
 		imageLock.release();
 	}
 
-	protected Pixmap adjustBrightness(Pixmap currentPixmap) {
+	public Pixmap adjustBrightness(Pixmap currentPixmap) {
 		Pixmap newPixmap = new Pixmap(currentPixmap.getWidth(), currentPixmap.getHeight(), currentPixmap.getFormat());
 		for (int y = 0; y < currentPixmap.getHeight(); y++) {
 			for (int x = 0; x < currentPixmap.getWidth(); x++) {

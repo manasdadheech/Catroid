@@ -71,9 +71,9 @@ public class PhysicWorld implements Serializable {
 		for (Entry<Sprite, PhysicObject> entry : physicObjects.entrySet()) {
 			physicObject = entry.getValue();
 			physicObject.setIfOnEdgeBounce(false);
-			Vector2 position = physicObject.getPosition();
+			Vector2 position = physicObject.getXYPosition();
 
-			costume = entry.getKey().costume;
+			costume = ((PhysicSpriteCostume) entry.getKey().costume).getCostume();
 			costume.aquireXYWidthHeightLock();
 			costume.setXYPosition(position.x, position.y);
 			costume.setRotation(physicObject.getAngle());

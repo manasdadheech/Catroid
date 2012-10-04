@@ -35,15 +35,12 @@ import at.tugraz.ist.catroid.physics.PhysicWorld;
 import at.tugraz.ist.catroid.ui.ScriptTabActivity;
 import at.tugraz.ist.catroid.ui.dialogs.BrickTextDialog;
 
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
-
 public class SetFrictionBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
 	private final PhysicWorld physicWorld;
 	private final Sprite sprite;
 	private float friction;
 
-	@XStreamOmitField
 	private transient View view;
 
 	public SetFrictionBrick(PhysicWorld physicWorld, Sprite sprite, float friction) {

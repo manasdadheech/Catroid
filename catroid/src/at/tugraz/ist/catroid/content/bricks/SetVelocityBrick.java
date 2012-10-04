@@ -36,7 +36,6 @@ import at.tugraz.ist.catroid.ui.ScriptTabActivity;
 import at.tugraz.ist.catroid.ui.dialogs.BrickTextDialog;
 
 import com.badlogic.gdx.math.Vector2;
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 public class SetVelocityBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
@@ -44,7 +43,6 @@ public class SetVelocityBrick implements Brick, OnClickListener {
 	private Sprite sprite;
 	private Vector2 velocity;
 
-	@XStreamOmitField
 	private transient View view;
 
 	public SetVelocityBrick(PhysicWorld physicWorld, Sprite sprite, Vector2 velocity) {

@@ -34,15 +34,12 @@ import at.tugraz.ist.catroid.content.Sprite;
 import at.tugraz.ist.catroid.physics.PhysicObject;
 import at.tugraz.ist.catroid.physics.PhysicWorld;
 
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
-
 public class SetPhysicObjectTypeBrick implements Brick {
 	private static final long serialVersionUID = 1L;
 	private PhysicWorld physicWorld;
 	private Sprite sprite;
 	private PhysicObject.Type type;
 
-	@XStreamOmitField
 	private transient View view;
 
 	public SetPhysicObjectTypeBrick(PhysicWorld physicWorld, Sprite sprite, PhysicObject.Type type) {

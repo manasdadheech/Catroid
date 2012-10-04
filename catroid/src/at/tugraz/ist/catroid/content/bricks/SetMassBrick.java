@@ -36,15 +36,12 @@ import at.tugraz.ist.catroid.physics.PhysicWorld;
 import at.tugraz.ist.catroid.ui.ScriptTabActivity;
 import at.tugraz.ist.catroid.ui.dialogs.BrickTextDialog;
 
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
-
 public class SetMassBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
 	private PhysicWorld physicWorld;
 	private Sprite sprite;
 	private float mass;
 
-	@XStreamOmitField
 	private transient View view;
 
 	public SetMassBrick(PhysicWorld physicWorld, Sprite sprite, float mass) {

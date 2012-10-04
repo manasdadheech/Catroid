@@ -85,6 +85,7 @@ public class TurnLeftBrickTest extends InstrumentationTestCase {
 		if (testImage != null && testImage.exists()) {
 			testImage.delete();
 		}
+		super.tearDown();
 	}
 
 	public void testTurnLeftTwice() {

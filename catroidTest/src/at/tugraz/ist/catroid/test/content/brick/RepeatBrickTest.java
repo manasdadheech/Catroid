@@ -26,7 +26,7 @@ import android.test.FlakyTest;
 import android.test.InstrumentationTestCase;
 import at.tugraz.ist.catroid.content.Sprite;
 import at.tugraz.ist.catroid.content.StartScript;
-import at.tugraz.ist.catroid.content.bricks.ChangeYByBrick;
+import at.tugraz.ist.catroid.content.bricks.ChangeYByNBrick;
 import at.tugraz.ist.catroid.content.bricks.LoopBeginBrick;
 import at.tugraz.ist.catroid.content.bricks.LoopEndBrick;
 import at.tugraz.ist.catroid.content.bricks.RepeatBrick;
@@ -59,7 +59,7 @@ public class RepeatBrickTest extends InstrumentationTestCase {
 		final int expectedDelay = (Integer) TestUtils.getPrivateField("LOOP_DELAY", loopEndBrick, false);
 
 		testScript.addBrick(repeatBrick);
-		testScript.addBrick(new ChangeYByBrick(physicWorld, testSprite, deltaY));
+		testScript.addBrick(new ChangeYByNBrick(testSprite, deltaY));
 		testScript.addBrick(loopEndBrick);
 
 		testSprite.addScript(testScript);
@@ -88,9 +88,9 @@ public class RepeatBrickTest extends InstrumentationTestCase {
 		final int expectedDelay = (Integer) TestUtils.getPrivateField("LOOP_DELAY", loopEndBrick, false);
 
 		testScript.addBrick(repeatBrick);
-		testScript.addBrick(new ChangeYByBrick(physicWorld, testSprite, deltaY));
+		testScript.addBrick(new ChangeYByNBrick(testSprite, deltaY));
 		testScript.addBrick(loopEndBrick);
-		testScript.addBrick(new ChangeYByBrick(physicWorld, testSprite, 150));
+		testScript.addBrick(new ChangeYByNBrick(testSprite, 150));
 
 		testSprite.addScript(testScript);
 		final long startTime = System.currentTimeMillis();
@@ -122,9 +122,9 @@ public class RepeatBrickTest extends InstrumentationTestCase {
 		final int expectedDelay = (Integer) TestUtils.getPrivateField("LOOP_DELAY", loopEndBrick, false);
 
 		testScript.addBrick(repeatBrick);
-		testScript.addBrick(new ChangeYByBrick(physicWorld, testSprite, decoyDeltaY));
+		testScript.addBrick(new ChangeYByNBrick(testSprite, decoyDeltaY));
 		testScript.addBrick(loopEndBrick);
-		testScript.addBrick(new ChangeYByBrick(physicWorld, testSprite, expectedDeltaY));
+		testScript.addBrick(new ChangeYByNBrick(testSprite, expectedDeltaY));
 
 		testSprite.addScript(testScript);
 		testSprite.startStartScripts();
@@ -152,9 +152,9 @@ public class RepeatBrickTest extends InstrumentationTestCase {
 		final int expectedDelay = (Integer) TestUtils.getPrivateField("LOOP_DELAY", loopEndBrick, false);
 
 		testScript.addBrick(repeatBrick);
-		testScript.addBrick(new ChangeYByBrick(physicWorld, testSprite, decoyDeltaY));
+		testScript.addBrick(new ChangeYByNBrick(testSprite, decoyDeltaY));
 		testScript.addBrick(loopEndBrick);
-		testScript.addBrick(new ChangeYByBrick(physicWorld, testSprite, expectedDeltaY));
+		testScript.addBrick(new ChangeYByNBrick(testSprite, expectedDeltaY));
 
 		testSprite.addScript(testScript);
 		testSprite.startStartScripts();

@@ -35,15 +35,12 @@ import at.tugraz.ist.catroid.physics.PhysicWorld;
 import at.tugraz.ist.catroid.ui.ScriptTabActivity;
 import at.tugraz.ist.catroid.ui.dialogs.BrickTextDialog;
 
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
-
 public class TurnLeftSpeedBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
 	private PhysicWorld physicWorld;
 	private Sprite sprite;
 	private float degreesPerSec;
 
-	@XStreamOmitField
 	private transient View view;
 
 	public TurnLeftSpeedBrick(PhysicWorld physicWorld, Sprite sprite, float degrees) {

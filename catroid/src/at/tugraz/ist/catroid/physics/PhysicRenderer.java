@@ -26,7 +26,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 /**
@@ -105,9 +104,9 @@ public class PhysicRenderer {
 		renderer.line(from.x, from.y, to.x, to.y);
 	}
 
-	private void draw(CircleShape circle) {
-		System.out.println("Rendering circle");
-		Vector2 center = PhysicWorldConverter.vecBox2dToCat(circle.getPosition());
-		renderer.circle(center.x, center.y, circle.getRadius());
-	}
+	//	private void draw(CircleShape circle) {
+	//		System.out.println("Rendering circle");
+	//		Vector2 center = PhysicWorldConverter.vecBox2dToCat(circle.getPosition());
+	//		renderer.circle(center.x, center.y, circle.getRadius());
+	//	}
 }

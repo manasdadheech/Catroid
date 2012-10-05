@@ -22,11 +22,20 @@
  */
 package at.tugraz.ist.catroid.physics;
 
+import java.lang.reflect.Method;
+
 import at.tugraz.ist.catroid.content.Project;
 import at.tugraz.ist.catroid.content.Script;
 import at.tugraz.ist.catroid.content.Sprite;
 import at.tugraz.ist.catroid.content.bricks.Brick;
+import at.tugraz.ist.catroid.content.bricks.SetBounceFactorBrick;
+import at.tugraz.ist.catroid.content.bricks.SetFrictionBrick;
+import at.tugraz.ist.catroid.content.bricks.SetGravityBrick;
+import at.tugraz.ist.catroid.content.bricks.SetMassBrick;
 import at.tugraz.ist.catroid.content.bricks.SetPhysicObjectTypeBrick;
+import at.tugraz.ist.catroid.content.bricks.SetVelocityBrick;
+import at.tugraz.ist.catroid.content.bricks.TurnLeftSpeedBrick;
+import at.tugraz.ist.catroid.content.bricks.TurnRightSpeedBrick;
 
 /**
  * TODO: Find better name.
@@ -41,15 +50,28 @@ public class PhysicObjectConverter {
 		physicWorld.ignoreSteps = 0;
 		for (Sprite sprite : project.getSpriteList()) {
 
-			scriptLoop: for (int scriptIndex = 0; scriptIndex < sprite.getNumberOfScripts(); scriptIndex++) {
+			for (int scriptIndex = 0; scriptIndex < sprite.getNumberOfScripts(); scriptIndex++) {
 				Script script = sprite.getScript(scriptIndex);
 
 				for (Brick brick : script.getBrickList()) {
 					if (brick instanceof SetPhysicObjectTypeBrick) {
 						PhysicObject physicObject = physicWorld.getPhysicObject(sprite);
 						sprite.costume = new PhysicSpriteCostume(sprite, physicObject);
+					}
 
-						break scriptLoop;
+					// For god's sake, what have I done here?
+					if (brick instanceof SetPhysicObjectTypeBrick || brick instanceof SetMassBrick
+							|| brick instanceof SetGravityBrick || brick instanceof SetVelocityBrick
+							|| brick instanceof TurnLeftSpeedBrick || brick instanceof TurnRightSpeedBrick
+							|| brick instanceof SetBounceFactorBrick || brick instanceof SetFrictionBrick) {
+						Class<?>[] classes = { PhysicWorld.class };
+						Method setter;
+						try {
+							setter = brick.getClass().getDeclaredMethod("setPhysicWorld", classes);
+							setter.invoke(brick, physicWorld);
+						} catch (Exception exception) {
+							exception.printStackTrace();
+						}
 					}
 				}
 			}

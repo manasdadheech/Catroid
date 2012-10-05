@@ -18,7 +18,6 @@
  */
 package at.tugraz.ist.catroid.physics;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -34,17 +33,15 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
-public class PhysicWorld implements Serializable {
+public class PhysicWorld {
 	static {
 		GdxNativesLoader.load();
 	}
 
-	private static final long serialVersionUID = -9103964560286141267L;
-
-	private final transient World world = new World(PhysicSettings.World.DEFAULT_GRAVITY,
+	private final World world = new World(PhysicSettings.World.DEFAULT_GRAVITY,
 			PhysicSettings.World.IGNORE_SLEEPING_OBJECTS);
-	private final transient Map<Sprite, PhysicObject> physicObjects;
-	private final transient PhysicShapeBuilder shapeBuilder;
+	private final Map<Sprite, PhysicObject> physicObjects;
+	private final PhysicShapeBuilder shapeBuilder;
 	private transient Box2DDebugRenderer renderer;
 	public int ignoreSteps = 0;
 
@@ -116,9 +113,6 @@ public class PhysicWorld implements Serializable {
 	}
 
 	public void changeCostume(Sprite sprite) {
-		if (sprite.getName().equals("Hintergrund") || sprite.getName().equals("Background")) {
-			return;
-		}
 		if (isPhysicObject(sprite)) {
 			Shape[] shapes = shapeBuilder.getShape(sprite.costume.getCostumeData(), sprite.costume.getSize());
 			this.getPhysicObject(sprite).setShape(shapes);

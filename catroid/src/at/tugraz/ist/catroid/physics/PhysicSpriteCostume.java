@@ -40,8 +40,8 @@ import com.badlogic.gdx.utils.Scaling;
 public class PhysicSpriteCostume extends Costume {
 
 	private final boolean constructorFinished;
-	private final transient Costume spriteCostume;
-	private final transient PhysicObject physicObject;
+	private final Costume spriteCostume;
+	private final PhysicObject physicObject;
 
 	public PhysicSpriteCostume(Sprite sprite, PhysicObject physicObject) {
 		super(sprite);

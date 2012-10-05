@@ -29,30 +29,27 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Spinner;
-import at.tugraz.ist.catroid.ProjectManager;
 import at.tugraz.ist.catroid.R;
 import at.tugraz.ist.catroid.content.Sprite;
 import at.tugraz.ist.catroid.physics.PhysicObject;
-import at.tugraz.ist.catroid.physics.PhysicObject.Type;
 import at.tugraz.ist.catroid.physics.PhysicWorld;
 
 public class SetPhysicObjectTypeBrick implements Brick {
 	private static final long serialVersionUID = 1L;
+
 	private transient PhysicWorld physicWorld;
 	private Sprite sprite;
-	private PhysicObject.Type type;
+	private int type;
 
 	private transient View view;
 
 	public SetPhysicObjectTypeBrick() {
-		physicWorld = ProjectManager.getInstance().getCurrentProject().getPhysicWorld();
-		this.type = Type.DYNAMIC;
 	}
 
 	public SetPhysicObjectTypeBrick(PhysicWorld physicWorld, Sprite sprite, PhysicObject.Type type) {
 		this.physicWorld = physicWorld;
 		this.sprite = sprite;
-		this.type = type;
+		this.type = type.ordinal();
 	}
 
 	@Override
@@ -62,7 +59,12 @@ public class SetPhysicObjectTypeBrick implements Brick {
 
 	@Override
 	public void execute() {
-		physicWorld.getPhysicObject(sprite).setType(Type.DYNAMIC);
+		PhysicObject.Type type = PhysicObject.Type.values()[this.type];
+		physicWorld.getPhysicObject(sprite).setType(type);
+	}
+
+	public void setPhysicWorld(PhysicWorld physicWorld) {
+		this.physicWorld = physicWorld;
 	}
 
 	@Override
@@ -77,7 +79,7 @@ public class SetPhysicObjectTypeBrick implements Brick {
 
 		final Spinner spinner = (Spinner) view.findViewById(R.id.brick_set_physic_object_type_spinner);
 		spinner.setAdapter(createAdapter(context));
-		spinner.setSelection(type.ordinal());
+		spinner.setSelection(type);
 
 		spinner.setClickable(true);
 		spinner.setFocusable(true);
@@ -93,7 +95,7 @@ public class SetPhysicObjectTypeBrick implements Brick {
 				}
 
 				if (position < PhysicObject.Type.values().length) {
-					type = PhysicObject.Type.values()[position];
+					type = position;
 				}
 			}
 
@@ -125,6 +127,6 @@ public class SetPhysicObjectTypeBrick implements Brick {
 
 	@Override
 	public Brick clone() {
-		return new SetPhysicObjectTypeBrick(physicWorld, getSprite(), type);
+		return new SetPhysicObjectTypeBrick(physicWorld, sprite, PhysicObject.Type.values()[type]);
 	}
 }

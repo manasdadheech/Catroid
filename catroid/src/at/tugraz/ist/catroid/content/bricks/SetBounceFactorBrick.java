@@ -37,6 +37,7 @@ import at.tugraz.ist.catroid.ui.dialogs.BrickTextDialog;
 
 public class SetBounceFactorBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
+
 	private transient PhysicWorld physicWorld;
 	private Sprite sprite;
 	private float bounceFactor;
@@ -60,6 +61,10 @@ public class SetBounceFactorBrick implements Brick, OnClickListener {
 	@Override
 	public void execute() {
 		physicWorld.getPhysicObject(sprite).setBounceFactor(bounceFactor / 100.0f);
+	}
+
+	public void setPhysicWorld(PhysicWorld physicWorld) {
+		this.physicWorld = physicWorld;
 	}
 
 	@Override

@@ -40,6 +40,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class SetGravityBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
+
 	private transient PhysicWorld physicWorld;
 	private Sprite sprite;
 	private Vector2 gravity;
@@ -64,6 +65,10 @@ public class SetGravityBrick implements Brick, OnClickListener {
 	@Override
 	public void execute() {
 		physicWorld.setGravity(sprite, gravity);
+	}
+
+	public void setPhysicWorld(PhysicWorld physicWorld) {
+		this.physicWorld = physicWorld;
 	}
 
 	@Override

@@ -38,6 +38,7 @@ import at.tugraz.ist.catroid.ui.dialogs.BrickTextDialog;
 
 public class TurnRightSpeedBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
+
 	private transient PhysicWorld physicWorld;
 	private Sprite sprite;
 	private float degreesPerSec;
@@ -64,6 +65,10 @@ public class TurnRightSpeedBrick implements Brick, OnClickListener {
 		physicWorld.getPhysicObject(sprite).setRotationSpeed(degreesPerSec);
 	}
 
+	public void setPhysicWorld(PhysicWorld physicWorld) {
+		this.physicWorld = physicWorld;
+	}
+
 	@Override
 	public Sprite getSprite() {
 		return this.sprite;
@@ -88,7 +93,7 @@ public class TurnRightSpeedBrick implements Brick, OnClickListener {
 
 	@Override
 	public Brick clone() {
-		return new TurnLeftSpeedBrick(physicWorld, sprite, degreesPerSec);
+		return new TurnRightSpeedBrick(physicWorld, sprite, degreesPerSec);
 	}
 
 	@Override

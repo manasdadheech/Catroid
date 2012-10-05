@@ -167,9 +167,8 @@ public class StageListener implements ApplicationListener {
 		axes = new Texture(Gdx.files.internal("stage/red_pixel.bmp"));
 
 		// TODO: Find better place to replace motion bricks with corresponding physic bricks
-		// if necessary.
-		PhysicObjectConverter physicBrickConverter = new PhysicObjectConverter();
-		physicBrickConverter.convert(project);
+		// if necessary. Maybe change to static method.
+		(new PhysicObjectConverter()).convert(project);
 	}
 
 	public void menuResume() {
@@ -270,9 +269,8 @@ public class StageListener implements ApplicationListener {
 			}
 
 			// TODO: Find better place to replace motion bricks with corresponding physic bricks
-			// if necessary.
-			PhysicObjectConverter physicBrickConverter = new PhysicObjectConverter();
-			physicBrickConverter.convert(project);
+			// if necessary. Maybe change to static method.
+			(new PhysicObjectConverter()).convert(project);
 
 			paused = true;
 			firstStart = true;

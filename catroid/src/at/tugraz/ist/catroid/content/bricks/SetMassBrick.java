@@ -39,6 +39,7 @@ import at.tugraz.ist.catroid.ui.dialogs.BrickTextDialog;
 
 public class SetMassBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
+
 	private transient PhysicWorld physicWorld;
 	private Sprite sprite;
 	private float mass;
@@ -63,6 +64,10 @@ public class SetMassBrick implements Brick, OnClickListener {
 	@Override
 	public void execute() {
 		physicWorld.getPhysicObject(sprite).setMass(mass);
+	}
+
+	public void setPhysicWorld(PhysicWorld physicWorld) {
+		this.physicWorld = physicWorld;
 	}
 
 	@Override

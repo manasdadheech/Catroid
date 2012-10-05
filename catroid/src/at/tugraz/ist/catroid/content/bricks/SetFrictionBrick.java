@@ -38,6 +38,7 @@ import at.tugraz.ist.catroid.ui.dialogs.BrickTextDialog;
 
 public class SetFrictionBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
+
 	private transient PhysicWorld physicWorld;
 	private Sprite sprite;
 	private float friction;
@@ -62,6 +63,10 @@ public class SetFrictionBrick implements Brick, OnClickListener {
 	@Override
 	public void execute() {
 		physicWorld.getPhysicObject(sprite).setFriction(friction / 100.0f);
+	}
+
+	public void setPhysicWorld(PhysicWorld physicWorld) {
+		this.physicWorld = physicWorld;
 	}
 
 	@Override

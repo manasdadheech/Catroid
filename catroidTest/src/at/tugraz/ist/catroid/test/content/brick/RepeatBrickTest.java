@@ -30,7 +30,6 @@ import at.tugraz.ist.catroid.content.bricks.ChangeYByNBrick;
 import at.tugraz.ist.catroid.content.bricks.LoopBeginBrick;
 import at.tugraz.ist.catroid.content.bricks.LoopEndBrick;
 import at.tugraz.ist.catroid.content.bricks.RepeatBrick;
-import at.tugraz.ist.catroid.physics.PhysicWorld;
 import at.tugraz.ist.catroid.test.utils.TestUtils;
 
 public class RepeatBrickTest extends InstrumentationTestCase {
@@ -40,7 +39,6 @@ public class RepeatBrickTest extends InstrumentationTestCase {
 	private static final int REPEAT_TIMES = 10;
 	private LoopEndBrick loopEndBrick;
 	private LoopBeginBrick repeatBrick;
-	private PhysicWorld physicWorld = new PhysicWorld();
 
 	@Override
 	protected void setUp() throws Exception {

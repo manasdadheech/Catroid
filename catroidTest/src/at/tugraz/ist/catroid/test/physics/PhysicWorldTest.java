@@ -24,4 +24,8 @@ public class PhysicWorldTest extends AndroidTestCase {
 		world = null;
 	}
 
+	public void testWrapper() {
+		assertNotNull(world);
+	}
+
 }

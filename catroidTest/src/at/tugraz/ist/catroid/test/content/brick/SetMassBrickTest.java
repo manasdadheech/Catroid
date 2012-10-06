@@ -66,7 +66,6 @@ public class SetMassBrickTest extends AndroidTestCase {
 		assertEquals(mass, physicObjectMass);
 	}
 
-	@SuppressWarnings("serial")
 	class PhysicWorldMock extends PhysicWorld {
 
 		private PhysicObjectMock phyMockObj;

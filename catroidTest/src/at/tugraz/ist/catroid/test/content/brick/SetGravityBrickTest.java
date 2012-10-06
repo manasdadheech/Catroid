@@ -63,7 +63,6 @@ public class SetGravityBrickTest extends AndroidTestCase {
 		}
 	}
 
-	@SuppressWarnings("serial")
 	class PhysicWorldMock extends PhysicWorld {
 
 		public boolean executed;

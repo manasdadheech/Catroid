@@ -65,8 +65,6 @@ public class SetPhysicObjectTypeBrickTest extends ActivityInstrumentationTestCas
 		String textSetPhysicObjectType = solo.getString(R.string.brick_set_physic_object_type);
 		assertNotNull("TextView does not exist.", solo.getText(textSetPhysicObjectType));
 
-		PhysicObject.Type type = PhysicObject.Type.DYNAMIC;
-
 		solo.pressSpinnerItem(0, 0);
 		solo.sleep(200);
 		String[] directionStringArray = getActivity().getResources().getStringArray(R.array.physical_object_type);

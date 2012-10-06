@@ -25,16 +25,13 @@ package at.tugraz.ist.catroid.test.content.brick;
 import android.test.AndroidTestCase;
 import at.tugraz.ist.catroid.content.Sprite;
 import at.tugraz.ist.catroid.content.bricks.ChangeXByNBrick;
-import at.tugraz.ist.catroid.physics.PhysicWorld;
 
 public class ChangeXByNBrickTest extends AndroidTestCase {
 
 	private int xMovement = 100;
-	private PhysicWorld physicWorld;
 
 	@Override
 	public void setUp() throws Exception {
-		physicWorld = new PhysicWorld();
 	}
 
 	@Override

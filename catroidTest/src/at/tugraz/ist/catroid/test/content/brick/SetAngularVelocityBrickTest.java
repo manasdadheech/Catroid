@@ -60,7 +60,6 @@ public class SetAngularVelocityBrickTest extends TestCase {
 		}
 	}
 
-	@SuppressWarnings("serial")
 	class PhysicWorldMock extends PhysicWorld {
 
 		private PhysicObjectMock phyMockObj;

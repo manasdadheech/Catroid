@@ -61,7 +61,6 @@ public class SetPhysicObjectTypeBrickTest extends AndroidTestCase {
 		}
 	}
 
-	@SuppressWarnings("serial")
 	class PhysicWorldMock extends PhysicWorld {
 
 		private PhysicObjectMock phyMockObj;

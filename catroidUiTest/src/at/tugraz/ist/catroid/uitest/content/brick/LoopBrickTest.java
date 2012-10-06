@@ -44,7 +44,6 @@ import at.tugraz.ist.catroid.content.bricks.LoopEndlessBrick;
 import at.tugraz.ist.catroid.content.bricks.NestingBrick;
 import at.tugraz.ist.catroid.content.bricks.RepeatBrick;
 import at.tugraz.ist.catroid.content.bricks.SetCostumeBrick;
-import at.tugraz.ist.catroid.physics.PhysicWorld;
 import at.tugraz.ist.catroid.ui.MainMenuActivity;
 import at.tugraz.ist.catroid.uitest.util.UiTestUtils;
 

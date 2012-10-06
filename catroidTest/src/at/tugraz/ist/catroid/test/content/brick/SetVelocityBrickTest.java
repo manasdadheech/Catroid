@@ -72,7 +72,6 @@ public class SetVelocityBrickTest extends AndroidTestCase {
 		assertEquals(velocity, physicObjectVelocity);
 	}
 
-	@SuppressWarnings("serial")
 	class PhysicWorldMock extends PhysicWorld {
 
 		private PhysicObjectMock phyMockObj;

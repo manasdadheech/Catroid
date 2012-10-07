@@ -24,6 +24,10 @@ package org.catrobat.catroid.physics;
 
 import java.lang.reflect.Method;
 
+import org.catrobat.catroid.content.Project;
+import org.catrobat.catroid.content.Script;
+import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.SetBounceFactorBrick;
 import org.catrobat.catroid.content.bricks.SetFrictionBrick;
 import org.catrobat.catroid.content.bricks.SetGravityBrick;
@@ -32,11 +36,6 @@ import org.catrobat.catroid.content.bricks.SetPhysicObjectTypeBrick;
 import org.catrobat.catroid.content.bricks.SetVelocityBrick;
 import org.catrobat.catroid.content.bricks.TurnLeftSpeedBrick;
 import org.catrobat.catroid.content.bricks.TurnRightSpeedBrick;
-
-import org.catrobat.catroid.content.Project;
-import org.catrobat.catroid.content.Script;
-import org.catrobat.catroid.content.Sprite;
-import org.catrobat.catroid.content.bricks.Brick;
 
 /**
  * TODO: Find better name.

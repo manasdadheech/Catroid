@@ -28,7 +28,6 @@ import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.physics.PhysicWorld;
 
-
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -116,7 +115,7 @@ public class Costume extends Image {
 		}
 	}
 
-	public void checkImageChanged() {
+	protected void checkImageChanged() {
 		imageLock.acquireUninterruptibly();
 		if (imageChanged) {
 			this.getPhysicWorld().changeCostume(sprite);

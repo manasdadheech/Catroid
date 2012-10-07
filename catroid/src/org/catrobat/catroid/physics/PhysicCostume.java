@@ -77,11 +77,6 @@ public class PhysicCostume extends Costume {
 	}
 
 	@Override
-	public void checkImageChanged() {
-		spriteCostume.checkImageChanged();
-	}
-
-	@Override
 	public Pixmap adjustBrightness(Pixmap currentPixmap) {
 		return spriteCostume.adjustBrightness(currentPixmap);
 	}

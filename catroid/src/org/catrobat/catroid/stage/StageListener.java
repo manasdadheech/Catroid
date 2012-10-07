@@ -149,6 +149,10 @@ public class StageListener implements ApplicationListener {
 		camera = (OrthographicCamera) stage.getCamera();
 		camera.position.set(0, 0, 0);
 
+		// TODO: Find better place to replace motion bricks with corresponding physic bricks
+		// if necessary. Maybe change to static method.
+		(new PhysicObjectConverter()).convert(project);
+
 		sprites = project.getSpriteList();
 		for (Sprite sprite : sprites) {
 			stage.addActor(sprite.costume);
@@ -166,10 +170,6 @@ public class StageListener implements ApplicationListener {
 
 		background = new Texture(Gdx.files.internal("stage/white_pixel.bmp"));
 		axes = new Texture(Gdx.files.internal("stage/red_pixel.bmp"));
-
-		// TODO: Find better place to replace motion bricks with corresponding physic bricks
-		// if necessary. Maybe change to static method.
-		(new PhysicObjectConverter()).convert(project);
 	}
 
 	public void menuResume() {
@@ -262,16 +262,17 @@ public class StageListener implements ApplicationListener {
 			SoundManager.getInstance().clear();
 
 			project = ProjectManager.getInstance().getCurrentProject();
+
+			// TODO: Find better place to replace motion bricks with corresponding physic bricks
+			// if necessary. Maybe change to static method.
+			(new PhysicObjectConverter()).convert(project);
+
 			sprites = project.getSpriteList();
 			for (int i = 0; i < spriteSize; i++) {
 				Sprite sprite = sprites.get(i);
 				stage.addActor(sprite.costume);
 				sprite.pause();
 			}
-
-			// TODO: Find better place to replace motion bricks with corresponding physic bricks
-			// if necessary. Maybe change to static method.
-			(new PhysicObjectConverter()).convert(project);
 
 			paused = true;
 			firstStart = true;

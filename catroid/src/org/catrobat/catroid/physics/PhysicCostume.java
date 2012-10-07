@@ -37,13 +37,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ClickListener;
 import com.badlogic.gdx.utils.Scaling;
 
-public class PhysicSpriteCostume extends Costume {
+public class PhysicCostume extends Costume {
 
 	private final boolean constructorFinished;
 	private final Costume spriteCostume;
 	private final PhysicObject physicObject;
 
-	public PhysicSpriteCostume(Sprite sprite, PhysicObject physicObject) {
+	public PhysicCostume(Sprite sprite, PhysicObject physicObject) {
 		super(sprite);
 
 		this.spriteCostume = sprite.costume;

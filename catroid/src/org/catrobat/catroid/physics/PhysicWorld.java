@@ -70,7 +70,7 @@ public class PhysicWorld {
 			physicObject.setIfOnEdgeBounce(false);
 			Vector2 position = physicObject.getXYPosition();
 
-			costume = ((PhysicSpriteCostume) entry.getKey().costume).getCostume();
+			costume = ((PhysicCostume) entry.getKey().costume).getCostume();
 			costume.aquireXYWidthHeightLock();
 			costume.setXYPosition(position.x, position.y);
 			costume.setRotation(physicObject.getAngle());

@@ -25,7 +25,7 @@ package org.catrobat.catroid.uitest.stage;
 import java.io.File;
 import java.util.ArrayList;
 
-import org.catrobat.catroid.LegoNXT.LegoNXTBtCommunicator;
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.LegoNXT.LegoNXTCommunicator;
 import org.catrobat.catroid.bluetooth.DeviceListActivity;
 import org.catrobat.catroid.common.CostumeData;
@@ -51,7 +51,6 @@ import android.graphics.BitmapFactory;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import android.widget.ListView;
-import org.catrobat.catroid.R;
 
 import com.jayway.android.robotium.solo.Solo;
 

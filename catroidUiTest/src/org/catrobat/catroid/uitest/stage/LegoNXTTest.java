@@ -25,7 +25,7 @@ package org.catrobat.catroid.uitest.stage;
 import java.io.File;
 import java.util.ArrayList;
 
-import org.catrobat.catroid.R;
+import org.catrobat.catroid.LegoNXT.LegoNXTBtCommunicator;
 import org.catrobat.catroid.LegoNXT.LegoNXTCommunicator;
 import org.catrobat.catroid.bluetooth.DeviceListActivity;
 import org.catrobat.catroid.common.CostumeData;
@@ -51,6 +51,7 @@ import android.graphics.BitmapFactory;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import android.widget.ListView;
+import org.catrobat.catroid.R;
 
 import com.jayway.android.robotium.solo.Solo;
 
@@ -101,7 +102,7 @@ public class LegoNXTTest extends ActivityInstrumentationTestCase2<MainMenuActivi
 	public void testNXTFunctionality() {
 		createTestproject(projectName);
 
-		LegoNXTCommunicator.enableRequestConfirmFromDevice(true);
+		LegoNXTBtCommunicator.enableRequestConfirmFromDevice(true);
 		BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		assertTrue("Bluetooth not supported on device", bluetoothAdapter != null);
 		if (!bluetoothAdapter.isEnabled()) {
@@ -178,14 +179,14 @@ public class LegoNXTTest extends ActivityInstrumentationTestCase2<MainMenuActivi
 			}
 			i++;
 		}
-		LegoNXTCommunicator.enableRequestConfirmFromDevice(false);
+		LegoNXTBtCommunicator.enableRequestConfirmFromDevice(false);
 	}
 
 	// This test requires the NXTBTTestServer to be running or a LegoNXT Robot to run! Check connect string to see if you connect to the right device!
 	public void testNXTPersistentConnection() {
 		createTestproject(projectName);
 
-		LegoNXTCommunicator.enableRequestConfirmFromDevice(false);
+		LegoNXTBtCommunicator.enableRequestConfirmFromDevice(false);
 		BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		assertTrue("Bluetooth not supported on device", bluetoothAdapter != null);
 		if (!bluetoothAdapter.isEnabled()) {

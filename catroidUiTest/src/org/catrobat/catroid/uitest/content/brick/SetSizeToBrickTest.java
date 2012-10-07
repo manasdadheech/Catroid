@@ -48,13 +48,13 @@ import org.catrobat.catroid.utils.UtilFile;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.Smoke;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import org.catrobat.catroid.R;
 
-import com.badlogic.gdx.graphics.Color;
 import com.jayway.android.robotium.solo.Solo;
 
 public class SetSizeToBrickTest extends ActivityInstrumentationTestCase2<ScriptTabActivity> {

@@ -47,12 +47,9 @@ public class PhysicCostume extends Costume {
 		return false;
 	}
 
-	public void setSpriteXYPosition(float x, float y) {
-		super.setXYPosition(x, y);
-	}
-
-	public void setSpriteRotation(float degrees) {
-		super.setRotation(degrees);
+	public void updatePositionAndRotation() {
+		super.setXYPosition(physicObject.getXPosition(), physicObject.getYPosition());
+		super.setRotation(physicObject.getAngle());
 	}
 
 	@Override

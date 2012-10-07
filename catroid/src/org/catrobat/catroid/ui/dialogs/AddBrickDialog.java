@@ -243,24 +243,25 @@ public class AddBrickDialog extends DialogFragment {
 		motionBrickList.add(new PointInDirectionBrick(sprite, Direction.DIRECTION_RIGHT));
 		motionBrickList.add(new PointToBrick(sprite, null));
 		motionBrickList.add(new GlideToBrick(sprite, 800, 0, 1000));
+
+		PhysicWorld physicWorld = ProjectManager.getInstance().getCurrentProject().getPhysicWorld();
 		if (!isBackground(sprite)) {
 			motionBrickList.add(new GoNStepsBackBrick(sprite, 1));
 			motionBrickList.add(new ComeToFrontBrick(sprite));
 
-			PhysicWorld physicWorld = ProjectManager.getInstance().getCurrentProject().getPhysicWorld();
 			motionBrickList.add(new SetPhysicObjectTypeBrick(physicWorld, sprite, PhysicObject.Type.DYNAMIC));
 			motionBrickList.add(new SetMassBrick(physicWorld, sprite, PhysicSettings.Object.DEFAULT_MASS));
-			motionBrickList.add(new SetGravityBrick(physicWorld, sprite, PhysicSettings.World.DEFAULT_GRAVITY));
-			motionBrickList.add(new SetVelocityBrick(physicWorld, sprite, PhysicSettings.Object.DEFAULT_VELOCITY));
-			motionBrickList.add(new TurnLeftSpeedBrick(physicWorld, sprite,
-					PhysicSettings.Object.DEFAULT_ANGULAR_VELOCITY));
-			motionBrickList.add(new TurnRightSpeedBrick(physicWorld, sprite,
-					PhysicSettings.Object.DEFAULT_ANGULAR_VELOCITY));
 			motionBrickList.add(new SetBounceFactorBrick(physicWorld, sprite,
 					PhysicSettings.Object.DEFAULT_RESTITUTION * 100));
 			motionBrickList
 					.add(new SetFrictionBrick(physicWorld, sprite, PhysicSettings.Object.DEFAULT_FRICTION * 100));
 		}
+		motionBrickList.add(new SetGravityBrick(physicWorld, sprite, PhysicSettings.World.DEFAULT_GRAVITY));
+		motionBrickList.add(new SetVelocityBrick(physicWorld, sprite, PhysicSettings.Object.DEFAULT_VELOCITY));
+		motionBrickList
+				.add(new TurnLeftSpeedBrick(physicWorld, sprite, PhysicSettings.Object.DEFAULT_ANGULAR_VELOCITY));
+		motionBrickList
+				.add(new TurnRightSpeedBrick(physicWorld, sprite, PhysicSettings.Object.DEFAULT_ANGULAR_VELOCITY));
 		brickMap.put(context.getString(R.string.category_motion), motionBrickList);
 
 		List<Brick> looksBrickList = new ArrayList<Brick>();

@@ -67,12 +67,10 @@ public class PhysicWorld {
 		for (Entry<Sprite, PhysicObject> entry : physicObjects.entrySet()) {
 			physicObject = entry.getValue();
 			physicObject.setIfOnEdgeBounce(false);
-			Vector2 position = physicObject.getXYPosition();
 
 			costume = (PhysicCostume) entry.getKey().costume;
 			costume.aquireXYWidthHeightLock();
-			costume.setSpriteXYPosition(position.x, position.y);
-			costume.setSpriteRotation(physicObject.getAngle());
+			costume.updatePositionAndRotation();
 			costume.releaseXYWidthHeightLock();
 		}
 	}
@@ -107,15 +105,9 @@ public class PhysicWorld {
 		return physicObject;
 	}
 
-	public boolean isPhysicObject(Sprite sprite) {
-		return physicObjects.containsKey(sprite);
-	}
-
 	public void changeCostume(Sprite sprite) {
-		if (isPhysicObject(sprite)) {
-			Shape[] shapes = shapeBuilder.getShape(sprite.costume.getCostumeData(), sprite.costume.getSize());
-			this.getPhysicObject(sprite).setShape(shapes);
-		}
+		Shape[] shapes = shapeBuilder.getShape(sprite.costume.getCostumeData(), sprite.costume.getSize());
+		physicObjects.get(sprite).setShape(shapes);
 	}
 
 }

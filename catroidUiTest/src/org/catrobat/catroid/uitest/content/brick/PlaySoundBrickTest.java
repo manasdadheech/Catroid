@@ -130,7 +130,7 @@ public class PlaySoundBrickTest extends ActivityInstrumentationTestCase2<ScriptT
 		assertTrue("mediaPlayer is not playing", mediaPlayer.isPlaying());
 		assertEquals("wrong file playing", 7592, mediaPlayer.getDuration());
 		solo.goBack();
-		solo.goBackToActivity(ScriptTabActivity.class.getSimpleName());
+		solo.goBack();
 
 		solo.waitForActivity(ScriptTabActivity.class.getSimpleName());
 		solo.clickOnText(soundName);

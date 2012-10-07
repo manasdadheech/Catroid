@@ -38,7 +38,6 @@ public class Costume extends Image {
 	protected Semaphore alphaValueLock = new Semaphore(1);
 	protected Semaphore brightnessLock = new Semaphore(1);
 	protected boolean imageChanged = false;
-	protected boolean imageChangedBeforeDraw = false;
 	protected boolean brightnessChanged = false;
 	protected CostumeData costumeData;
 	protected Sprite sprite;
@@ -112,10 +111,10 @@ public class Costume extends Image {
 		}
 	}
 
-	protected void checkImageChanged() {
+	protected boolean checkImageChanged() {
 		imageLock.acquireUninterruptibly();
 
-		imageChangedBeforeDraw = imageChanged;
+		boolean returnValue = imageChanged;
 		if (imageChanged) {
 			if (costumeData == null) {
 				xYWidthHeightLock.acquireUninterruptibly();
@@ -127,7 +126,7 @@ public class Costume extends Image {
 				this.setRegion(null);
 				imageChanged = false;
 				imageLock.release();
-				return;
+				return returnValue;
 			}
 
 			pixmap = costumeData.getPixmap();
@@ -157,9 +156,10 @@ public class Costume extends Image {
 			imageChanged = false;
 		}
 		imageLock.release();
+		return returnValue;
 	}
 
-	public Pixmap adjustBrightness(Pixmap currentPixmap) {
+	protected Pixmap adjustBrightness(Pixmap currentPixmap) {
 		Pixmap newPixmap = new Pixmap(currentPixmap.getWidth(), currentPixmap.getHeight(), currentPixmap.getFormat());
 		for (int y = 0; y < currentPixmap.getHeight(); y++) {
 			for (int x = 0; x < currentPixmap.getWidth(); x++) {
@@ -357,10 +357,6 @@ public class Costume extends Image {
 
 	public CostumeData getCostumeData() {
 		return costumeData;
-	}
-
-	public boolean hasImageChangedBeforeDraw() {
-		return imageChangedBeforeDraw;
 	}
 
 }

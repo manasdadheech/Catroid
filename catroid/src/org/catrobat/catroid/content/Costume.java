@@ -24,9 +24,7 @@ package org.catrobat.catroid.content;
 
 import java.util.concurrent.Semaphore;
 
-import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.common.CostumeData;
-import org.catrobat.catroid.physics.PhysicWorld;
 
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -40,6 +38,7 @@ public class Costume extends Image {
 	protected Semaphore alphaValueLock = new Semaphore(1);
 	protected Semaphore brightnessLock = new Semaphore(1);
 	protected boolean imageChanged = false;
+	protected boolean imageChangedBeforeDraw = false;
 	protected boolean brightnessChanged = false;
 	protected CostumeData costumeData;
 	protected Sprite sprite;
@@ -50,8 +49,6 @@ public class Costume extends Image {
 	public boolean show;
 	public int zPosition;
 	protected Pixmap pixmap;
-	private transient PhysicWorld physicWorld = null;
-	private Semaphore physicWorldLock = new Semaphore(1);
 
 	public Costume(Sprite sprite) {
 		this.sprite = sprite;
@@ -117,9 +114,9 @@ public class Costume extends Image {
 
 	protected void checkImageChanged() {
 		imageLock.acquireUninterruptibly();
-		if (imageChanged) {
-			this.getPhysicWorld().changeCostume(sprite);
 
+		imageChangedBeforeDraw = imageChanged;
+		if (imageChanged) {
 			if (costumeData == null) {
 				xYWidthHeightLock.acquireUninterruptibly();
 				this.x += this.width / 2f;
@@ -199,18 +196,6 @@ public class Costume extends Image {
 		imageLock.acquireUninterruptibly();
 		this.imageChanged = true;
 		imageLock.release();
-	}
-
-	private PhysicWorld getPhysicWorld() {
-		if (physicWorld == null) {
-			physicWorldLock.acquireUninterruptibly();
-			if (physicWorld == null) {
-				physicWorld = ProjectManager.getInstance().getCurrentProject().getPhysicWorld();
-			}
-			physicWorldLock.release();
-		}
-
-		return physicWorld;
 	}
 
 	// Always use this method for the following methods
@@ -297,8 +282,6 @@ public class Costume extends Image {
 		this.scaleX = size;
 		this.scaleY = size;
 		scaleLock.release();
-
-		this.getPhysicWorld().changeCostume(sprite);
 	}
 
 	public float getSize() {
@@ -374,6 +357,10 @@ public class Costume extends Image {
 
 	public CostumeData getCostumeData() {
 		return costumeData;
+	}
+
+	public boolean hasImageChangedBeforeDraw() {
+		return imageChangedBeforeDraw;
 	}
 
 }

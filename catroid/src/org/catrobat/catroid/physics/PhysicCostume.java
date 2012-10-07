@@ -41,12 +41,14 @@ public class PhysicCostume extends Costume {
 
 	private final boolean constructorFinished;
 	private final Costume spriteCostume;
+	private final PhysicWorld physicWorld;
 	private final PhysicObject physicObject;
 
-	public PhysicCostume(Sprite sprite, PhysicObject physicObject) {
+	public PhysicCostume(Sprite sprite, PhysicWorld physicWorld, PhysicObject physicObject) {
 		super(sprite);
 
 		this.spriteCostume = sprite.costume;
+		this.physicWorld = physicWorld;
 		this.physicObject = physicObject;
 
 		constructorFinished = true;
@@ -74,6 +76,10 @@ public class PhysicCostume extends Costume {
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
 		spriteCostume.draw(batch, parentAlpha);
+
+		if (spriteCostume.hasImageChangedBeforeDraw()) {
+			physicWorld.changeCostume(sprite);
+		}
 	}
 
 	@Override
@@ -159,6 +165,7 @@ public class PhysicCostume extends Costume {
 	@Override
 	public void setSize(float size) {
 		spriteCostume.setSize(size);
+		physicWorld.changeCostume(sprite);
 	}
 
 	@Override

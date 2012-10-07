@@ -40,61 +40,69 @@ import com.badlogic.gdx.utils.Scaling;
 public class PhysicCostume extends Costume {
 
 	private final boolean constructorFinished;
-	private final Costume spriteCostume;
 	private final PhysicWorld physicWorld;
 	private final PhysicObject physicObject;
 
 	public PhysicCostume(Sprite sprite, PhysicWorld physicWorld, PhysicObject physicObject) {
 		super(sprite);
 
-		this.spriteCostume = sprite.costume;
 		this.physicWorld = physicWorld;
 		this.physicObject = physicObject;
 
 		constructorFinished = true;
 	}
 
-	public Costume getCostume() {
-		return spriteCostume;
+	@Override
+	protected boolean checkImageChanged() {
+		if (super.checkImageChanged()) {
+			physicWorld.changeCostume(sprite);
+			return true;
+		}
+
+		return false;
+	}
+
+	public void setSpriteXYPosition(float x, float y) {
+		super.setXYPosition(x, y);
+	}
+
+	public void setSpriteRotation(float degrees) {
+		super.setRotation(degrees);
 	}
 
 	@Override
 	public boolean touchDown(float x, float y, int pointer) {
-		return spriteCostume.touchDown(x, y, pointer);
+		return super.touchDown(x, y, pointer);
 	}
 
 	@Override
 	public void touchUp(float x, float y, int pointer) {
-		spriteCostume.touchUp(x, y, pointer);
+		super.touchUp(x, y, pointer);
 	}
 
 	@Override
 	public void touchDragged(float x, float y, int pointer) {
-		spriteCostume.touchDragged(x, y, pointer);
+		super.touchDragged(x, y, pointer);
 	}
 
 	@Override
 	public void draw(SpriteBatch batch, float parentAlpha) {
-		spriteCostume.draw(batch, parentAlpha);
-
-		if (spriteCostume.hasImageChangedBeforeDraw()) {
-			physicWorld.changeCostume(sprite);
-		}
+		super.draw(batch, parentAlpha);
 	}
 
 	@Override
 	public Pixmap adjustBrightness(Pixmap currentPixmap) {
-		return spriteCostume.adjustBrightness(currentPixmap);
+		return super.adjustBrightness(currentPixmap);
 	}
 
 	@Override
 	public void refreshTextures() {
-		spriteCostume.refreshTextures();
+		super.refreshTextures();
 	}
 
 	@Override
 	public void aquireXYWidthHeightLock() {
-		spriteCostume.aquireXYWidthHeightLock();
+		super.aquireXYWidthHeightLock();
 	}
 
 	@Override
@@ -134,156 +142,148 @@ public class PhysicCostume extends Costume {
 
 	@Override
 	public float getWidth() {
-		return spriteCostume.getWidth();
+		return super.getWidth();
 	}
 
 	@Override
 	public float getHeight() {
-		return spriteCostume.getHeight();
+		return super.getHeight();
 	}
 
 	@Override
 	public void releaseXYWidthHeightLock() {
-		spriteCostume.releaseXYWidthHeightLock();
+		super.releaseXYWidthHeightLock();
 	}
 
 	@Override
 	public void setCostumeData(CostumeData costumeData) {
-		spriteCostume.setCostumeData(costumeData);
+		super.setCostumeData(costumeData);
 	}
 
 	@Override
 	public void setCostumeDataInternal(CostumeData costumeData) {
-		spriteCostume.setCostumeDataInternal(costumeData);
+		super.setCostumeDataInternal(costumeData);
 	}
 
 	@Override
 	public String getImagePath() {
-		return spriteCostume.getImagePath();
+		return super.getImagePath();
 	}
 
 	@Override
 	public void setSize(float size) {
-		spriteCostume.setSize(size);
+		super.setSize(size);
 		physicWorld.changeCostume(sprite);
 	}
 
 	@Override
 	public float getSize() {
-		return spriteCostume.getSize();
+		return super.getSize();
 	}
 
 	@Override
 	public void setAlphaValue(float alphaValue) {
-		spriteCostume.setAlphaValue(alphaValue);
+		super.setAlphaValue(alphaValue);
 	}
 
 	@Override
 	public void changeAlphaValueBy(float value) {
-		spriteCostume.changeAlphaValueBy(value);
+		super.changeAlphaValueBy(value);
 	}
 
 	@Override
 	public float getAlphaValue() {
-		return spriteCostume.getAlphaValue();
+		return super.getAlphaValue();
 	}
 
 	@Override
 	public void setBrightnessValue(float percent) {
-		spriteCostume.setBrightnessValue(percent);
+		super.setBrightnessValue(percent);
 	}
 
 	@Override
 	public void changeBrightnessValueBy(float percent) {
-		spriteCostume.changeBrightnessValueBy(percent);
+		super.changeBrightnessValueBy(percent);
 	}
 
 	@Override
 	public float getBrightnessValue() {
-		return spriteCostume.getBrightnessValue();
+		return super.getBrightnessValue();
 	}
 
 	@Override
 	public CostumeData getCostumeData() {
-		return spriteCostume.getCostumeData();
+		return super.getCostumeData();
 	}
 
 	@Override
 	public float getImageHeight() {
-		return spriteCostume.getImageHeight();
+		return super.getImageHeight();
 	}
 
 	@Override
 	public float getImageWidth() {
-		return spriteCostume.getImageWidth();
+		return super.getImageWidth();
 	}
 
 	@Override
 	public float getImageX() {
-		return spriteCostume.getImageX();
+		return super.getImageX();
 	}
 
 	@Override
 	public float getImageY() {
-		return spriteCostume.getImageY();
+		return super.getImageY();
 	}
 
 	@Override
 	public float getMinHeight() {
-		return spriteCostume.getMinHeight();
+		return super.getMinHeight();
 	}
 
 	@Override
 	public float getMinWidth() {
-		return spriteCostume.getMinWidth();
+		return super.getMinWidth();
 	}
 
 	@Override
 	public NinePatch getPatch() {
-		return spriteCostume.getPatch();
+		return super.getPatch();
 	}
 
 	@Override
 	public float getPrefHeight() {
-		if (!constructorFinished) {
-			return super.getPrefHeight();
-		}
-
-		return spriteCostume.getPrefHeight();
+		return super.getPrefHeight();
 	}
 
 	@Override
 	public float getPrefWidth() {
-		if (!constructorFinished) {
-			return super.getPrefWidth();
-		}
-
-		return spriteCostume.getPrefWidth();
+		return super.getPrefWidth();
 	}
 
 	@Override
 	public TextureRegion getRegion() {
-		return spriteCostume.getRegion();
+		return super.getRegion();
 	}
 
 	@Override
 	public void layout() {
-		spriteCostume.layout();
+		super.layout();
 	}
 
 	@Override
 	public void setAlign(int align) {
-		spriteCostume.setAlign(align);
+		super.setAlign(align);
 	}
 
 	@Override
 	public void setClickListener(ClickListener clickListener) {
-		spriteCostume.setClickListener(clickListener);
+		super.setClickListener(clickListener);
 	}
 
 	@Override
 	public void setPatch(NinePatch patch) {
-		spriteCostume.setPatch(patch);
+		super.setPatch(patch);
 	}
 
 	@Override
@@ -291,128 +291,128 @@ public class PhysicCostume extends Costume {
 		if (!constructorFinished) {
 			super.setRegion(region);
 		} else {
-			spriteCostume.setRegion(region);
+			super.setRegion(region);
 		}
 	}
 
 	@Override
 	public void setScaling(Scaling scaling) {
-		spriteCostume.setScaling(scaling);
+		super.setScaling(scaling);
 	}
 
 	@Override
 	public float getMaxHeight() {
-		return spriteCostume.getMaxHeight();
+		return super.getMaxHeight();
 	}
 
 	@Override
 	public float getMaxWidth() {
-		return spriteCostume.getMaxWidth();
+		return super.getMaxWidth();
 	}
 
 	@Override
 	public Actor hit(float x, float y) {
-		return spriteCostume.hit(x, y);
+		return super.hit(x, y);
 	}
 
 	@Override
 	public void invalidate() {
-		spriteCostume.invalidate();
+		super.invalidate();
 	}
 
 	@Override
 	public void invalidateHierarchy() {
-		spriteCostume.invalidateHierarchy();
+		super.invalidateHierarchy();
 	}
 
 	@Override
 	public boolean needsLayout() {
-		return spriteCostume.needsLayout();
+		return super.needsLayout();
 	}
 
 	@Override
 	public void pack() {
-		spriteCostume.pack();
+		super.pack();
 	}
 
 	@Override
 	public void setFillParent(boolean fillParent) {
-		spriteCostume.setFillParent(fillParent);
+		super.setFillParent(fillParent);
 	}
 
 	@Override
 	public void validate() {
-		spriteCostume.validate();
+		super.validate();
 	}
 
 	@Override
 	public void act(float delta) {
-		spriteCostume.act(delta);
+		super.act(delta);
 	}
 
 	@Override
 	public void action(Action action) {
-		spriteCostume.action(action);
+		super.action(action);
 	}
 
 	@Override
 	public void clearActions() {
-		spriteCostume.clearActions();
+		super.clearActions();
 	}
 
 	@Override
 	public Stage getStage() {
-		return spriteCostume.getStage();
+		return super.getStage();
 	}
 
 	@Override
 	public boolean isMarkedToRemove() {
-		return spriteCostume.isMarkedToRemove();
+		return super.isMarkedToRemove();
 	}
 
 	@Override
 	public boolean keyDown(int keycode) {
-		return spriteCostume.keyDown(keycode);
+		return super.keyDown(keycode);
 	}
 
 	@Override
 	public boolean keyTyped(char character) {
-		return spriteCostume.keyTyped(character);
+		return super.keyTyped(character);
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
-		return spriteCostume.keyUp(keycode);
+		return super.keyUp(keycode);
 	}
 
 	@Override
 	public void markToRemove(boolean remove) {
-		spriteCostume.markToRemove(remove);
+		super.markToRemove(remove);
 	}
 
 	@Override
 	public void remove() {
-		spriteCostume.remove();
+		super.remove();
 	}
 
 	@Override
 	public boolean scrolled(int amount) {
-		return spriteCostume.scrolled(amount);
+		return super.scrolled(amount);
 	}
 
 	@Override
 	public void toLocalCoordinates(Vector2 point) {
-		spriteCostume.toLocalCoordinates(point);
+		super.toLocalCoordinates(point);
 	}
 
 	@Override
 	public String toString() {
-		return spriteCostume.toString();
+		return super.toString();
 	}
 
 	@Override
 	public boolean touchMoved(float x, float y) {
-		return spriteCostume.touchMoved(x, y);
+		return super.touchMoved(x, y);
 	}
 
 }

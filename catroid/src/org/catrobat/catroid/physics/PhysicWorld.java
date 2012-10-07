@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.catrobat.catroid.content.Costume;
 import org.catrobat.catroid.content.Sprite;
 
 import com.badlogic.gdx.math.Matrix4;
@@ -64,16 +63,16 @@ public class PhysicWorld {
 
 	private void updateSprites() {
 		PhysicObject physicObject;
-		Costume costume;
+		PhysicCostume costume;
 		for (Entry<Sprite, PhysicObject> entry : physicObjects.entrySet()) {
 			physicObject = entry.getValue();
 			physicObject.setIfOnEdgeBounce(false);
 			Vector2 position = physicObject.getXYPosition();
 
-			costume = ((PhysicCostume) entry.getKey().costume).getCostume();
+			costume = (PhysicCostume) entry.getKey().costume;
 			costume.aquireXYWidthHeightLock();
-			costume.setXYPosition(position.x, position.y);
-			costume.setRotation(physicObject.getAngle());
+			costume.setSpriteXYPosition(position.x, position.y);
+			costume.setSpriteRotation(physicObject.getAngle());
 			costume.releaseXYWidthHeightLock();
 		}
 	}

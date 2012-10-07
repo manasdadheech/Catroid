@@ -46,6 +46,7 @@ public class PhysicWorld {
 
 	public PhysicWorld() {
 		physicObjects = new HashMap<Sprite, PhysicObject>();
+		physicObjects.put(null, null);
 		shapeBuilder = new PhysicShapeBuilder();
 
 		new PhysicBoundaryBox(world).create();

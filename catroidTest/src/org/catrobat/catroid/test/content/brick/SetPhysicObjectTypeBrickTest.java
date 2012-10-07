@@ -1,12 +1,13 @@
 package org.catrobat.catroid.test.content.brick;
 
+import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.SetPhysicObjectTypeBrick;
 import org.catrobat.catroid.physics.PhysicObject;
+import org.catrobat.catroid.physics.PhysicObject.Type;
 import org.catrobat.catroid.physics.PhysicWorld;
 
 import android.test.AndroidTestCase;
-import org.catrobat.catroid.content.Sprite;
-import org.catrobat.catroid.content.bricks.Brick;
 
 public class SetPhysicObjectTypeBrickTest extends AndroidTestCase {
 
@@ -20,6 +21,7 @@ public class SetPhysicObjectTypeBrickTest extends AndroidTestCase {
 		super.setUp();
 		sprite = new Sprite("testSprite");
 		physicWorld = new PhysicWorldMock();
+		type = Type.DYNAMIC;
 		setPhysicObjectTypeBrickTest = new SetPhysicObjectTypeBrick(physicWorld, sprite, type);
 	}
 
@@ -52,7 +54,7 @@ public class SetPhysicObjectTypeBrickTest extends AndroidTestCase {
 	}
 
 	public void testNullSprite() {
-		setPhysicObjectTypeBrickTest = new SetPhysicObjectTypeBrick(null, sprite, type);
+		setPhysicObjectTypeBrickTest = new SetPhysicObjectTypeBrick(physicWorld, null, type);
 		try {
 			setPhysicObjectTypeBrickTest.execute();
 			fail("Execution of SetPhysicObjectTypeBrick with null Sprite did not cause a "
@@ -76,6 +78,10 @@ public class SetPhysicObjectTypeBrickTest extends AndroidTestCase {
 
 		@Override
 		public PhysicObject getPhysicObject(Sprite sprite) {
+			if (sprite == null) {
+				return null;
+			}
+
 			return phyMockObj;
 		}
 	}

@@ -66,6 +66,7 @@ public class MainMenuActivity extends SherlockFragmentActivity implements OnChec
 	private ActionBar actionBar;
 
 	private boolean ignoreResume = false;
+	public static boolean toStage = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

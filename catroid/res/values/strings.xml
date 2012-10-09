@@ -159,6 +159,11 @@
     <string name="overwrite_text">Project with same name already exists!</string>
     <string name="overwrite_replace">replace existing Project</string>
     <string name="overwrite_rename">rename downloaded Project</string>
+     <!-- TakeScreenshotInformation -->
+    <string name="take_screenshot_title">Take a screenshot</string>
+    <string name="take_screenshot_help">Click the back button during the running programm to open the menu bar and take a screenshot of the current screen.</string>
+    <string name="take_screenshot_information">The screenshot will be used as a thumbnail when you upload your programm and for your local programmlist.</string>
+ 
     <!-- Stage menu dialog -->
     <string name="back">Back</string>
     <string name="resume_current_project">Resume</string>

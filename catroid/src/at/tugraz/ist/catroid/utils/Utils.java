@@ -178,6 +178,11 @@ public class Utils {
 		errorDialog.show(fragmentManager, ErrorDialogFragment.DIALOG_FRAGMENT_TAG);
 	}
 
+	public static void displayErrorMessageFragment(String errorMessage, FragmentManager fragmentManager) {
+		DialogFragment errorDialog = ErrorDialogFragment.newInstance(errorMessage);
+		errorDialog.show(fragmentManager, ErrorDialogFragment.DIALOG_FRAGMENT_TAG);
+	}
+
 	public static void displayToast(Activity activity, String message/* , int duration */) {
 		LayoutInflater inflater = activity.getLayoutInflater();
 		View layout = inflater.inflate(R.layout.toast_settings,

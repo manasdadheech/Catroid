@@ -27,6 +27,7 @@ import java.io.File;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -48,6 +49,8 @@ import android.widget.Toast;
 import at.tugraz.ist.catroid.ProjectManager;
 import at.tugraz.ist.catroid.R;
 import at.tugraz.ist.catroid.common.Constants;
+import at.tugraz.ist.catroid.stage.StageActivity;
+import at.tugraz.ist.catroid.stage.StageListener;
 import at.tugraz.ist.catroid.transfers.ProjectUploadTask;
 import at.tugraz.ist.catroid.utils.ErrorListenerInterface;
 import at.tugraz.ist.catroid.utils.UtilFile;
@@ -199,11 +202,34 @@ public class UploadProjectDialog extends DialogFragment {
 			projectManager.getCurrentProject().setDescription(projectDescription);
 		}
 
+		dismiss();
+
 		projectManager.getCurrentProject().setDeviceData(getActivity());
 		projectManager.saveProject();
 
-		dismiss();
 		String projectPath = Constants.DEFAULT_ROOT + "/" + projectManager.getCurrentProject().getName();
+
+		boolean hasThumbnail = false;
+		String screenshotPath = Utils.buildPath(projectPath, StageListener.SCREENSHOT_FILE_NAME);
+		if (new File(screenshotPath).exists()) {
+			hasThumbnail = true;
+		}
+
+		if (!hasThumbnail) {
+			//AddProjectScreenshot addProjectScreenshot = new AddProjectScreenshot();
+			//addProjectScreenshot.show(getFragmentManager(), AddProjectScreenshot.DIALOG_FRAGMENT_TAG);
+
+			Intent takeScreenshotIntent = new Intent(getActivity(), StageActivity.class);
+			takeScreenshotIntent.putExtra("takeScreenshotForUpload", true);
+			startActivity(takeScreenshotIntent);
+			//Utils.displayErrorMessageFragment(getString(R.string.upload_project_no_thumbnail_error),
+			//	getFragmentManager());
+			return;
+		}
+
+		if (projectDescriptionField.length() != 0) {
+			projectDescription = projectDescriptionField.getText().toString();
+		}
 
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		String token = prefs.getString(Constants.TOKEN, "0");

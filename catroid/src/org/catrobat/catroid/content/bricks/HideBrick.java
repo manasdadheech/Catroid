@@ -22,12 +22,13 @@
  */
 package org.catrobat.catroid.content.bricks;
 
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.livewallpaper.WallpaperCostume;
 
 import android.content.Context;
 import android.view.View;
 import android.widget.BaseAdapter;
-import org.catrobat.catroid.R;
 
 public class HideBrick implements Brick {
 	private static final long serialVersionUID = 1L;
@@ -75,5 +76,16 @@ public class HideBrick implements Brick {
 	@Override
 	public View getPrototypeView(Context context) {
 		return View.inflate(context, R.layout.brick_hide, null);
+	}
+
+	@Override
+	public void executeLiveWallpaper() {
+		WallpaperCostume wallpaperCostume = sprite.getWallpaperCostume();
+		if (wallpaperCostume == null) {
+			wallpaperCostume = new WallpaperCostume(sprite, null);
+		}
+
+		wallpaperCostume.setCostumeHidden(true);
+
 	}
 }

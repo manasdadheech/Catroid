@@ -30,6 +30,7 @@ import org.catrobat.catroid.utils.Utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -49,6 +50,8 @@ public class CostumeData implements Serializable {
 	private transient Pixmap pixmap = null;
 	private transient Pixmap originalPixmap = null;
 	private transient TextureRegion region = null;
+
+	private Bitmap imageBitmap;
 
 	public TextureRegion getTextureRegion() {
 		if (region == null) {
@@ -137,6 +140,14 @@ public class CostumeData implements Serializable {
 
 	public void resetThumbnailBitmap() {
 		thumbnailBitmap = null;
+	}
+
+	public Bitmap getImageBitmap() {
+		if (imageBitmap == null) {
+			imageBitmap = BitmapFactory.decodeFile(getAbsolutePath());
+		}
+		return imageBitmap;
+
 	}
 
 	public int[] getResolution() {

@@ -23,6 +23,7 @@
 package org.catrobat.catroid.content.bricks;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.BroadcastScript;
 import org.catrobat.catroid.content.Script;
 import org.catrobat.catroid.content.Sprite;
@@ -37,7 +38,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import org.catrobat.catroid.R;
 
 public class BroadcastReceiverBrick extends ScriptBrick {
 
@@ -171,5 +171,10 @@ public class BroadcastReceiverBrick extends ScriptBrick {
 
 	public BroadcastReceiverBrick() {
 		this.projectManager = ProjectManager.getInstance();
+	}
+
+	@Override
+	public void executeLiveWallpaper() {
+
 	}
 }

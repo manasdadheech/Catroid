@@ -26,6 +26,7 @@ import java.util.Vector;
 import java.util.concurrent.CountDownLatch;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.BroadcastScript;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.ui.ScriptTabActivity;
@@ -39,7 +40,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import org.catrobat.catroid.R;
 
 public class BroadcastWaitBrick implements Brick {
 
@@ -187,5 +187,11 @@ public class BroadcastWaitBrick implements Brick {
 	@Override
 	public Brick clone() {
 		return new BroadcastWaitBrick(sprite);
+	}
+
+	@Override
+	public void executeLiveWallpaper() {
+		execute();
+
 	}
 }

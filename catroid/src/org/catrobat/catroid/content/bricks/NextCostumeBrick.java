@@ -24,15 +24,16 @@ package org.catrobat.catroid.content.bricks;
 
 import java.util.ArrayList;
 
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.livewallpaper.WallpaperCostume;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import org.catrobat.catroid.R;
 
 public class NextCostumeBrick implements Brick {
 
@@ -119,5 +120,38 @@ public class NextCostumeBrick implements Brick {
 		}
 
 		return view;
+	}
+
+	@Override
+	public void executeLiveWallpaper() {
+
+		final ArrayList<CostumeData> costumeDataList = sprite.getCostumeDataList();
+
+		WallpaperCostume wallpaperCostume = sprite.getWallpaperCostume();
+
+		if (wallpaperCostume == null) {
+			new WallpaperCostume(sprite, sprite.getCostumeDataList().get(0));
+			return;
+		}
+
+		int positionInList = 0;
+		int costumeDataListSize = costumeDataList.size();
+		CostumeData costumeData = wallpaperCostume.getCostumeData();
+
+		for (int index = 0; index < costumeDataListSize; index++) {
+			if (costumeDataList.get(index).equals(costumeData)) {
+				positionInList = index;
+				break;
+			}
+		}
+
+		if (positionInList == costumeDataListSize - 1) {
+			positionInList = 0;
+		} else {
+			positionInList++;
+		}
+
+		wallpaperCostume.setCostume(costumeDataList.get(positionInList));
+
 	}
 }

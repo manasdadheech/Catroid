@@ -36,7 +36,7 @@ import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.common.FileChecksumContainer;
 import org.catrobat.catroid.common.SoundInfo;
 import org.catrobat.catroid.content.bricks.Brick;
-
+import org.catrobat.catroid.livewallpaper.WallpaperCostume;
 
 public class Sprite implements Serializable {
 
@@ -50,8 +50,14 @@ public class Sprite implements Serializable {
 	public transient boolean isPaused;
 	public transient boolean isFinished;
 
+	private WallpaperCostume wallpaperCostume;
+
 	private transient Map<Thread, Boolean> activeThreads;
 	private transient Map<Script, List<Thread>> activeScripts;
+
+	public Sprite() {
+
+	}
 
 	private Object readResolve() {
 		//filling FileChecksumContainer:
@@ -113,8 +119,20 @@ public class Sprite implements Serializable {
 		}
 	}
 
-	public Sprite() {
+	public void resetStartScripts() {
+		for (Script s : scriptList) {
+			if (s instanceof StartScript) {
+				s.setFinished(false);
+			}
+		}
+	}
 
+	public void resetScripts() {
+		for (Script s : scriptList) {
+			s.setFinished(false);
+			s.setFinish(false);
+			s.setPaused(false);
+		}
 	}
 
 	private synchronized void startScript(Script s) {
@@ -317,5 +335,13 @@ public class Sprite implements Serializable {
 		if (activeThreads.containsKey(thread)) {
 			activeThreads.remove(thread);
 		}
+	}
+
+	public WallpaperCostume getWallpaperCostume() {
+		return wallpaperCostume;
+	}
+
+	public void setWallpaperCostume(WallpaperCostume wallpaperCostume) {
+		this.wallpaperCostume = wallpaperCostume;
 	}
 }

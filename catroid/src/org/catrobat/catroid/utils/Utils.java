@@ -38,12 +38,15 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.common.SoundInfo;
 import org.catrobat.catroid.common.Values;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.io.StorageHandler;
+import org.catrobat.catroid.livewallpaper.DummyLiveWallpaperActivity;
+import org.catrobat.catroid.stage.NativeAppActivity;
 import org.catrobat.catroid.ui.dialogs.ErrorDialogFragment;
 
 import android.app.Activity;
@@ -73,7 +76,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
-import org.catrobat.catroid.R;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -87,6 +89,8 @@ public class Utils {
 	public static final int PICTURE_INTENT = 1;
 	public static final int FILE_INTENT = 2;
 	private static boolean isUnderTest;
+
+	private static Context context;
 
 	public static boolean hasSdCard() {
 		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
@@ -394,4 +398,21 @@ public class Utils {
 		}
 		return pixmap;
 	}
+
+	public static boolean isLoadingFromAssetsNecessary() {
+		if (NativeAppActivity.isRunning()) {
+			context = NativeAppActivity.getContext();
+			return true;
+		} else if (DummyLiveWallpaperActivity.isRunning()) {
+			context = DummyLiveWallpaperActivity.getContext();
+			return true;
+		}
+
+		return false;
+	}
+
+	public static Context getContext() {
+		return context;
+	}
+
 }

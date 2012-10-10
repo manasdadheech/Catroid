@@ -22,6 +22,7 @@
  */
 package org.catrobat.catroid.content.bricks;
 
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.LegoNXT.LegoNXT;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.ui.ScriptTabActivity;
@@ -38,7 +39,6 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
-import org.catrobat.catroid.R;
 
 public class LegoNxtPlayToneBrick implements Brick, OnClickListener, OnSeekBarChangeListener {
 	private static final long serialVersionUID = 1L;
@@ -258,5 +258,16 @@ public class LegoNxtPlayToneBrick implements Brick, OnClickListener, OnSeekBarCh
 		};
 
 		editDialog.show(activity.getSupportFragmentManager(), "dialog_nxt_play_tone_brick");
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.catrobat.catroid.content.bricks.Brick#executeLiveWallpaper()
+	 */
+	@Override
+	public void executeLiveWallpaper() {
+		// TODO Auto-generated method stub
+
 	}
 }

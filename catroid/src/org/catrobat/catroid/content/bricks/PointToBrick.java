@@ -25,6 +25,7 @@ package org.catrobat.catroid.content.bricks;
 import java.util.ArrayList;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
 
 import android.content.Context;
@@ -35,7 +36,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Spinner;
-import org.catrobat.catroid.R;
 
 public class PointToBrick implements Brick {
 
@@ -199,5 +199,11 @@ public class PointToBrick implements Brick {
 	@Override
 	public Brick clone() {
 		return new PointToBrick(sprite, pointedSprite);
+	}
+
+	@Override
+	public void executeLiveWallpaper() {
+		// TODO Auto-generated method stub
+
 	}
 }

@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.ScriptBrick;
-
+import org.catrobat.catroid.livewallpaper.WallpaperHelper;
 
 public abstract class Script implements Serializable {
 
@@ -78,7 +78,14 @@ public abstract class Script implements Serializable {
 				Thread.yield();
 			}
 			executingBrickIndex = i;
-			brickList.get(i).execute();
+			if (WallpaperHelper.getInstance().isLiveWallpaper()) {
+				brickList.get(i).executeLiveWallpaper();
+				WallpaperHelper helper = WallpaperHelper.getInstance();
+				helper.getDrawingThreadHandler().post(helper.getDrawingThread());
+
+			} else {
+				brickList.get(i).execute();
+			}
 			i = executingBrickIndex;
 		}
 		isFinished = true;
@@ -118,6 +125,10 @@ public abstract class Script implements Serializable {
 
 	public boolean isFinished() {
 		return isFinished;
+	}
+
+	public void setFinished(boolean isFinished) {
+		this.isFinished = isFinished;
 	}
 
 	public int getExecutingBrickIndex() {

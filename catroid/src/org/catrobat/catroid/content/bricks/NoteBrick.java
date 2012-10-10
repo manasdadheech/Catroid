@@ -22,6 +22,7 @@
  */
 package org.catrobat.catroid.content.bricks;
 
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.dialogs.BrickTextDialog;
@@ -35,7 +36,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import org.catrobat.catroid.R;
 
 public class NoteBrick implements Brick {
 	private static final long serialVersionUID = 1L;
@@ -144,5 +144,11 @@ public class NoteBrick implements Brick {
 	@Override
 	public Brick clone() {
 		return new NoteBrick(this.sprite, this.note);
+	}
+
+	@Override
+	public void executeLiveWallpaper() {
+		// TODO Auto-generated method stub
+
 	}
 }

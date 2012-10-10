@@ -22,9 +22,11 @@
  */
 package org.catrobat.catroid.content.bricks;
 
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.SoundInfo;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.io.SoundManager;
+import org.catrobat.catroid.livewallpaper.WallpaperHelper;
 import org.catrobat.catroid.stage.NativeAppActivity;
 
 import android.content.Context;
@@ -34,7 +36,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Spinner;
-import org.catrobat.catroid.R;
 
 public class PlaySoundBrick implements Brick, OnItemSelectedListener {
 	private static final long serialVersionUID = 1L;
@@ -129,5 +130,13 @@ public class PlaySoundBrick implements Brick, OnItemSelectedListener {
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
+	}
+
+	@Override
+	public void executeLiveWallpaper() {
+		if (WallpaperHelper.getInstance().isSoundAllowed()) {
+			execute();
+		}
+
 	}
 }

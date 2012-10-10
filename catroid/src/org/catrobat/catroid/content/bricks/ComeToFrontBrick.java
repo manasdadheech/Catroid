@@ -25,12 +25,13 @@ package org.catrobat.catroid.content.bricks;
 import java.util.List;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.livewallpaper.WallpaperCostume;
 
 import android.content.Context;
 import android.view.View;
 import android.widget.BaseAdapter;
-import org.catrobat.catroid.R;
 
 public class ComeToFrontBrick implements Brick {
 	private static final long serialVersionUID = 1L;
@@ -93,5 +94,37 @@ public class ComeToFrontBrick implements Brick {
 	@Override
 	public View getPrototypeView(Context context) {
 		return View.inflate(context, R.layout.brick_come_to_front, null);
+	}
+
+	@Override
+	public void executeLiveWallpaper() {
+		List<Sprite> sprites = ProjectManager.getInstance().getCurrentProject().getSpriteList();
+		WallpaperCostume wallpaperCostume = sprite.getWallpaperCostume();
+
+		if (wallpaperCostume == null) {
+			wallpaperCostume = new WallpaperCostume(sprite, null);
+		}
+
+		int position = wallpaperCostume.getzPosition();
+
+		for (int index = position + 1; index < sprites.size(); index++) {
+			for (Sprite sprite : sprites) {
+				wallpaperCostume = sprite.getWallpaperCostume();
+
+				if (wallpaperCostume == null) {
+					wallpaperCostume = new WallpaperCostume(sprite, null);
+				}
+
+				if (wallpaperCostume.getzPosition() == index) {
+					wallpaperCostume.setzPosition(index - 1);
+					break;
+				}
+
+			}
+
+		}
+
+		sprite.getWallpaperCostume().setzPosition(sprites.size() - 1);
+
 	}
 }

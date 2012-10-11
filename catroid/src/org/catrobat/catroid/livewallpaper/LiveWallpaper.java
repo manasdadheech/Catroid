@@ -26,6 +26,7 @@ package org.catrobat.catroid.livewallpaper;
 import java.util.List;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.utils.Utils;
 
@@ -46,9 +47,17 @@ public class LiveWallpaper extends WallpaperService {
 	@Override
 	public Engine onCreateEngine() {
 
-		ProjectManager.getInstance().setProject(null);
+		//TODO: this code goes into the dummy app after the stuff is implemented
+		ProjectManager projectManager = ProjectManager.getInstance();
+
+		projectManager.setProject(null);
 		Utils.loadProjectIfNeeded(getApplicationContext(), null);
-		WallpaperHelper.getInstance().setProject(ProjectManager.getInstance().getCurrentProject());
+
+		Project project = projectManager.getCurrentProject();
+		WallpaperHelper.getInstance().setProject(project);
+
+		ProjectInformation.projectName = project.getName();
+		ProjectInformation.projectDescription = project.getDescription();
 
 		return new CatWallEngine();
 

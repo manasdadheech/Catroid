@@ -29,6 +29,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.util.Linkify;
 import android.view.Window;
 import android.widget.TextView;
 
@@ -51,17 +52,22 @@ public class ProjectInformationDialog extends Dialog {
 		setTitle(context.getResources().getString(R.string.lwp_project_information));
 		TextView projectInformationTextView = (TextView) findViewById(R.id.dialog_project_information_text_view);
 		projectInformationTextView.setText(getProjectInformationText());
+		Linkify.addLinks(projectInformationTextView, Linkify.ALL);
+
 		setCanceledOnTouchOutside(true);
 
 	}
 
 	public String getProjectInformationText() {
 		Resources resources = context.getResources();
-		String text = resources.getString(R.string.lwp_project_name) + ProjectInformation.projectName + "\n";
-		text += resources.getString(R.string.lwp_project_uploader) + ProjectInformation.uploader + "\n";
-		text += resources.getString(R.string.lwp_project_link) + ProjectInformation.link + "\n";
-		text += resources.getString(R.string.lwp_project_licnese) + ProjectInformation.license + "\n";
-		text += resources.getString(R.string.lwp_project_description) + ProjectInformation.projectDescription + "\n";
+		String text = resources.getString(R.string.lwp_project_name) + " " + ProjectInformation.projectName + "\n";
+		text += resources.getString(R.string.lwp_project_uploader) + " " + ProjectInformation.uploader + "\n";
+		text += resources.getString(R.string.lwp_project_link) + " " + ProjectInformation.link + "\n";
+		text += resources.getString(R.string.lwp_project_licnese) + " " + ProjectInformation.license + "\n";
+		if (ProjectInformation.projectDescription != null) {
+			text += resources.getString(R.string.lwp_project_description) + " " + ProjectInformation.projectDescription
+					+ "\n";
+		}
 		return text;
 	}
 }

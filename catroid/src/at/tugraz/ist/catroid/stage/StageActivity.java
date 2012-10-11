@@ -24,7 +24,6 @@ package at.tugraz.ist.catroid.stage;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import at.tugraz.ist.catroid.ProjectManager;
 import at.tugraz.ist.catroid.R;
 import at.tugraz.ist.catroid.common.Values;
@@ -123,13 +122,6 @@ public class StageActivity extends AndroidApplication {
 
 	public boolean getResizePossible() {
 		return resizePossible;
-	}
-
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		//key down
-
-		return super.onKeyDown(keyCode, event);
 	}
 
 }

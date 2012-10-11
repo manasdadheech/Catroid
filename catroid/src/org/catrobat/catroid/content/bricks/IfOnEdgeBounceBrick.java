@@ -25,6 +25,7 @@ package org.catrobat.catroid.content.bricks;
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.livewallpaper.WallpaperCostume;
 
 import android.content.Context;
 import android.view.View;
@@ -135,8 +136,12 @@ public class IfOnEdgeBounceBrick implements Brick {
 
 	@Override
 	public void executeLiveWallpaper() {
-		// TODO Auto-generated method stub
+		WallpaperCostume wallpaperCostume = sprite.getWallpaperCostume();
+		if (wallpaperCostume == null) {
+			wallpaperCostume = new WallpaperCostume(sprite, null);
+		}
 
+		wallpaperCostume.ifOnEdgeBounce();
 	}
 
 }

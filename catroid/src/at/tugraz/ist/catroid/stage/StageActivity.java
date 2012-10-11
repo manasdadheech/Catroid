@@ -37,7 +37,7 @@ public class StageActivity extends AndroidApplication {
 	public static StageListener stageListener;
 	private boolean resizePossible;
 	private StageDialog stageDialog;
-
+	//something
 	public static final int STAGE_ACTIVITY_FINISH = 7777;
 
 	@Override

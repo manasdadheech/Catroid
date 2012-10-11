@@ -89,6 +89,7 @@ public class Cloud implements SurfaceObject {
 		}
 		if (visible) {
 			path.addCircle((int) actX, (int) actY, radius, Direction.CCW);
+			//path.addRect((float) actX, (float) actY, 1000f, 1000f, Direction.CCW);
 		}
 		canvas.drawPath(path, paint);
 

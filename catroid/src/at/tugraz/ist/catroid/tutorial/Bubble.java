@@ -142,6 +142,28 @@ public class Bubble implements SurfaceObject {
 		}
 	}
 
+	private int getNextWordLength() {
+		int temp = currentPosition;
+		String s = "";
+		int width = 0;
+
+		Paint paint = new Paint();
+		paint.setFakeBoldText(isBold);
+		paint.setTextSize(textSize);
+		paint.setAntiAlias(isAntiAliasing);
+
+		if (text.charAt(temp - 1) == ' ') {
+			while (temp < text.length() && !(text.charAt(temp) == ' ')) {
+				s += text.charAt(temp);
+				temp++;
+				Log.i("COUNTING", text.length() + "text.charAt " + temp);
+			}
+			//Log.i("COUNTING", text.length() + "text.charAt " + temp);
+			width = (int) paint.measureText(s);
+		}
+		return width;
+	}
+
 	@Override
 	public void update(long gameTime) {
 		if (!holdBubble) {
@@ -153,6 +175,20 @@ public class Bubble implements SurfaceObject {
 					paint.setAntiAlias(isAntiAliasing);
 					int width = (int) paint.measureText(textArray[currentLine]);
 
+					if (currentPosition > 0 && text.charAt(currentPosition - 1) == ' ') {
+						if ((width + getNextWordLength()) > maxWidth) {
+							Log.i("COUNTING", "bla " + text.charAt(currentPosition) + getNextWordLength());
+
+							if (currentLine < 3) {
+								currentLine++;
+							} else {
+								reset = true;
+								waitForReset = true;
+							}
+
+						}
+					}
+
 					if ((width > maxWidth && text.charAt(currentPosition) == ' ')
 							|| (bubbleBounds.left + textSize + width
 									+ ScreenParameters.getInstance().getBubbleResizeWidthMargin() > Tutorial
@@ -161,6 +197,8 @@ public class Bubble implements SurfaceObject {
 						if (text.charAt(currentPosition) == ' ') {
 							currentPosition++;
 						} else {
+
+							//geht zurück zum Anfang des Wortes
 							resetCurrentPositionToLastBlank();
 						}
 						lastNewlinePosition = currentPosition;

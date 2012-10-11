@@ -34,6 +34,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.widget.Toast;
 
 /**
  * @author faxxe
@@ -186,6 +187,7 @@ public class TutorialOverlay extends SurfaceView implements SurfaceHolder.Callba
 		if (panel.isOpen() && panel.isReadyToDispatch()) {
 			if (isOnStopButton(ev)) {
 				Tutorial.getInstance(null).stopButtonTutorial();
+				Toast.makeText(context, "Stop Tutorial", Toast.LENGTH_SHORT).show();
 				Log.i("tutorial", Thread.currentThread().getName() + ": DISPATCH Stop");
 			} else if (isOnPauseButton(ev)) {
 				if (panel.isPaused()) {

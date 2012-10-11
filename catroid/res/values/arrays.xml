@@ -66,5 +66,22 @@
 	    <item>Yes</item>
 	    <item>No</item>
   	</string-array>
-  
+  	
+  	<!-- Xperia Play key spinner -->
+  	<string-array name="xperia_play_key_chooser">
+  	    <item>directional pad (up)</item>
+  	    <item>directional pad (down)</item>
+  	    <item>directional pad (left)</item>
+  	    <item>directional pad (right)</item>
+  	    <item>cross</item>
+  	    <item>circle</item>
+  	    <item>square</item>
+  	    <item>triangle</item>
+  	    <item>left</item>
+  	    <item>right</item>
+  	    <item>start</item>
+  	    <item>select</item>
+  	    <item>menu</item>
+  	</string-array>
+  	
 </resources>

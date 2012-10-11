@@ -52,6 +52,23 @@
 	<string-array name="yes_no_array">
 	  <item>Ja</item>
 	  <item>Nein</item>
-  </string-array>
+	</string-array>
   
+	<!-- Xperia Play key spinner -->
+  	<string-array name="xperia_play_key_chooser">
+  	    <item>Steuerkreuz (Oben)</item>
+  	    <item>Steuerkreuz (Unten)</item>
+  	    <item>Steuerkreuz (Links)</item>
+  	    <item>Steuerkreuz (Rechts)</item>
+  	    <item>Kreuz</item>
+  	    <item>Kreis</item>
+  	    <item>Quadrat</item>
+  	    <item>Dreieck</item>
+  	    <item>Links</item>
+  	    <item>Rechts</item>
+  	    <item>Start</item>
+  	    <item>Select</item>
+  	    <item>Menü</item>
+  	</string-array>
+	
 </resources>

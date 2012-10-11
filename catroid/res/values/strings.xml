@@ -243,6 +243,7 @@
     <string name="action_swipeRight">swipe right</string>
     <string name="action_swipeUp">swipe up</string>
     <string name="action_swipeDown">swipe down</string>
+    <string name="action_keyPressed">key pressed</string>
     <!-- defaultValues -->
     <string name="default_project_name">My first project</string>
     <string name="default_project_sprites_catroid_name">Catroid</string>
@@ -309,4 +310,6 @@
     <string name="nxt_tone_hundred_hz">x100Hz</string>
     <string name="number_to_small">Value is too small!</string>
     <string name="number_to_big">Value is too big!</string>
+    <!-- Xperia Play Strings -->
+    <string name="brick_xperia_play">(Xperia Play)</string>
 </resources>

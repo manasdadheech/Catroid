@@ -32,6 +32,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Color;
+import android.util.Log;
 import at.tugraz.ist.catroid.ProjectManager;
 import at.tugraz.ist.catroid.common.CostumeData;
 import at.tugraz.ist.catroid.common.Values;
@@ -140,7 +141,25 @@ public class StageListener implements ApplicationListener {
 
 		screenMode = ScreenModes.STRETCH;
 
-		stage = new Stage(virtualWidth, virtualHeight, true);
+		stage = new Stage(virtualWidth, virtualHeight, true) {
+
+			@Override
+			public boolean keyDown(int keycode) {
+
+				Log.d("Stage", "keyDown: " + keycode);
+
+				Sprite sprite = ProjectManager.getInstance().getCurrentSprite();
+				if (sprite.isPaused) {
+					return super.keyDown(keycode);
+				}
+
+				sprite.startWhenKeyScripts(keycode);
+
+				return super.keyDown(keycode);
+			}
+
+		};
+
 		batch = stage.getSpriteBatch();
 
 		camera = (OrthographicCamera) stage.getCamera();

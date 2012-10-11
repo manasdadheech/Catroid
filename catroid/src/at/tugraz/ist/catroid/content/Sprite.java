@@ -102,6 +102,16 @@ public class Sprite implements Serializable {
 		}
 	}
 
+	public void startWhenKeyScripts(int keyCode) {
+		for (Script s : scriptList) {
+			if (s instanceof WhenKeyScript) {
+				if (((WhenKeyScript) s).getKeyCode() == keyCode) {
+					startScript(s);
+				}
+			}
+		}
+	}
+
 	public void startStartScripts() {
 		for (Script s : scriptList) {
 			if (s instanceof StartScript) {

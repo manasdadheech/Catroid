@@ -77,7 +77,6 @@ public class WallpaperCostume {
 		this.landscapeRotationMatrix = new Matrix();
 		landscapeRotationMatrix.postRotate(90.0f);
 
-		//TODO: refactor the hard-coded value
 		if (sprite.getName().equals("Background")) {
 			this.isBackground = true;
 			this.top = 0;
@@ -218,10 +217,16 @@ public class WallpaperCostume {
 	}
 
 	private void resizeCostume() {
+		//TODO
 
-		int newWidth = (int) (costume.getWidth() * size);
-		int newHeight = (int) (costume.getHeight() * size);
-		this.costume = ImageEditing.scaleBitmap(this.costume, newWidth, newHeight);
+		if (!originalSaved) {
+			originalCostume = Bitmap.createBitmap(costume);
+			originalSaved = true;
+		}
+
+		int newWidth = (int) (originalCostume.getWidth() * size);
+		int newHeight = (int) (originalCostume.getHeight() * size);
+		this.costume = ImageEditing.scaleBitmap(originalCostume, newWidth, newHeight);
 
 		this.topNeedsAdjustment = true;
 		this.leftNeedsAdjustment = true;
@@ -296,13 +301,19 @@ public class WallpaperCostume {
 	}
 
 	private void adjustBrightness() {
-		setCostume(this.costumeData);
-		Bitmap resultBitmap = Bitmap.createBitmap(this.costume.getWidth(), this.costume.getHeight(),
-				this.costume.getConfig());
 
-		for (int width = 0; width < this.costume.getWidth(); width++) {
-			for (int height = 0; height < this.costume.getHeight(); height++) {
-				int oldPixelColor = this.costume.getPixel(width, height);
+		if (!originalSaved) {
+			originalCostume = Bitmap.createBitmap(costume);
+			originalSaved = true;
+		}
+
+		//		setCostume(this.costumeData);
+		Bitmap resultBitmap = Bitmap.createBitmap(originalCostume.getWidth(), originalCostume.getHeight(),
+				originalCostume.getConfig());
+
+		for (int width = 0; width < originalCostume.getWidth(); width++) {
+			for (int height = 0; height < originalCostume.getHeight(); height++) {
+				int oldPixelColor = originalCostume.getPixel(width, height);
 
 				int red = Color.red(oldPixelColor) + (int) (255 * (this.brightness - 1));
 				int green = Color.green(oldPixelColor) + (int) (255 * (this.brightness - 1));
@@ -357,14 +368,21 @@ public class WallpaperCostume {
 	}
 
 	private void adjustGhostEffect() {
-		setCostume(this.costumeData);
-		Bitmap resultBitmap = Bitmap.createBitmap(this.costume.getWidth(), this.costume.getHeight(),
-				this.costume.getConfig());
 
-		for (int width = 0; width < this.costume.getWidth(); width++) {
-			for (int height = 0; height < this.costume.getHeight(); height++) {
+		//TODO
+		if (!originalSaved) {
+			originalCostume = Bitmap.createBitmap(costume);
+			originalSaved = true;
+		}
 
-				int oldPixelColor = this.costume.getPixel(width, height);
+		//setCostume(this.costumeData);
+		Bitmap resultBitmap = Bitmap.createBitmap(originalCostume.getWidth(), originalCostume.getHeight(),
+				originalCostume.getConfig());
+
+		for (int width = 0; width < originalCostume.getWidth(); width++) {
+			for (int height = 0; height < originalCostume.getHeight(); height++) {
+
+				int oldPixelColor = originalCostume.getPixel(width, height);
 
 				int red = Color.red(oldPixelColor);
 				int green = Color.green(oldPixelColor);
@@ -472,6 +490,7 @@ public class WallpaperCostume {
 
 	public void rotate() {
 
+		//TODO
 		if (!originalSaved) {
 			originalCostume = Bitmap.createBitmap(costume);
 			originalSaved = true;

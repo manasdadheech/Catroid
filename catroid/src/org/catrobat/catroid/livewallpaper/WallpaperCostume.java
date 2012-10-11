@@ -38,6 +38,7 @@ public class WallpaperCostume {
 	private Sprite sprite;
 	private Bitmap costume = null;
 	private Bitmap costumeRotated = null;
+	private Bitmap originalCostume = null;
 	private Matrix landscapeRotationMatrix = null;
 
 	private int x;
@@ -48,6 +49,8 @@ public class WallpaperCostume {
 	int xDestination;
 	int yDestination;
 
+	float rotation = 0f;
+
 	private int zPosition;
 
 	private float alphaValue = 1f;
@@ -55,6 +58,7 @@ public class WallpaperCostume {
 
 	private double size = 1;
 
+	private boolean originalSaved = false;
 	private boolean hidden = false;
 	private boolean isBackground = false;
 	private boolean topNeedsAdjustment = false;
@@ -466,9 +470,14 @@ public class WallpaperCostume {
 		this.y = yPosition;
 	}
 
-	public void rotate(float rotation) {
+	public void rotate() {
 
-		this.costume = ImageEditing.rotateBitmap(this.costume, (int) rotation);
+		if (!originalSaved) {
+			originalCostume = Bitmap.createBitmap(costume);
+			originalSaved = true;
+		}
+
+		this.costume = ImageEditing.rotateBitmap(originalCostume, (int) this.rotation);
 		this.topNeedsAdjustment = true;
 		this.leftNeedsAdjustment = true;
 	}
@@ -479,6 +488,11 @@ public class WallpaperCostume {
 
 	public void setzPosition(int zPosition) {
 		this.zPosition = zPosition;
+	}
+
+	public void setRotation(float r) {
+		this.rotation += r;
+		rotate();
 	}
 
 }

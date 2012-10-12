@@ -29,7 +29,10 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import junit.framework.AssertionFailedError;
+
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.common.StandardProjectHandler;
@@ -45,14 +48,12 @@ import org.catrobat.catroid.utils.UtilFile;
 import org.catrobat.catroid.utils.UtilZip;
 import org.catrobat.catroid.utils.Utils;
 
-import junit.framework.AssertionFailedError;
 import android.graphics.Bitmap;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
-import org.catrobat.catroid.R;
 
 import com.jayway.android.robotium.solo.Solo;
 
@@ -178,7 +179,7 @@ public class MyProjectsActivityTest extends ActivityInstrumentationTestCase2<Mai
 		File imageFile;
 
 		for (CostumeData currentCostumeData : catroidCostumeList) {
-			imageFile = new File(currentCostumeData.getAbsolutePath());
+			imageFile = new File(currentCostumeData.getPath());
 			assertFalse("Imagefile should be deleted", imageFile.exists());
 		}
 	}

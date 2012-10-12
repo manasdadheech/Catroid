@@ -155,7 +155,7 @@ public class CostumeData implements Serializable {
 
 	public Bitmap getImageBitmap() {
 		if (imageBitmap == null) {
-			imageBitmap = BitmapFactory.decodeFile(getAbsolutePath());
+			imageBitmap = BitmapFactory.decodeFile(getPath());
 		}
 		return imageBitmap;
 

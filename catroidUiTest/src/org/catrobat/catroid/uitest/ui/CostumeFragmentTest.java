@@ -208,7 +208,7 @@ public class CostumeFragmentTest extends ActivityInstrumentationTestCase2<MainMe
 		String buttonPositive = solo.getString(R.string.ok);
 		solo.clickOnText(buttonPositive);
 
-		File deletedFile = new File(costumeToDelete.getAbsolutePath());
+		File deletedFile = new File(costumeToDelete.getPath());
 		assertFalse("File should be deleted", deletedFile.exists());
 	}
 

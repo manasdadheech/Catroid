@@ -36,10 +36,7 @@ import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.common.FileChecksumContainer;
 import org.catrobat.catroid.common.SoundInfo;
 import org.catrobat.catroid.content.bricks.Brick;
-<<<<<<< HEAD
 import org.catrobat.catroid.livewallpaper.WallpaperCostume;
-=======
->>>>>>> remotes/origin/nativeAppConverter
 
 public class Sprite implements Serializable {
 

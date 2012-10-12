@@ -22,8 +22,12 @@
  */
 package org.catrobat.catroid.content.bricks;
 
+import org.catrobat.catroid.R;
+import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.physics.PhysicSettings;
 import org.catrobat.catroid.physics.PhysicWorld;
+import org.catrobat.catroid.ui.ScriptTabActivity;
+import org.catrobat.catroid.ui.dialogs.BrickTextDialog;
 
 import android.content.Context;
 import android.text.InputType;
@@ -32,11 +36,6 @@ import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
-import org.catrobat.catroid.ProjectManager;
-import org.catrobat.catroid.R;
-import org.catrobat.catroid.content.Sprite;
-import org.catrobat.catroid.ui.ScriptTabActivity;
-import org.catrobat.catroid.ui.dialogs.BrickTextDialog;
 
 public class SetMassBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
@@ -48,7 +47,6 @@ public class SetMassBrick implements Brick, OnClickListener {
 	private transient View view;
 
 	public SetMassBrick() {
-		physicWorld = ProjectManager.getInstance().getCurrentProject().getPhysicWorld();
 	}
 
 	public SetMassBrick(PhysicWorld physicWorld, Sprite sprite, float mass) {

@@ -37,16 +37,15 @@ public class PhysicWorld {
 		GdxNativesLoader.load();
 	}
 
-	private final World world = new World(PhysicSettings.World.DEFAULT_GRAVITY,
-			PhysicSettings.World.IGNORE_SLEEPING_OBJECTS);
+	private final World world;
 	private final Map<Sprite, PhysicObject> physicObjects;
 	private final PhysicShapeBuilder shapeBuilder;
-	private transient Box2DDebugRenderer renderer;
+	private Box2DDebugRenderer renderer;
 	public int ignoreSteps = 0;
 
 	public PhysicWorld() {
+		world = new World(PhysicSettings.World.DEFAULT_GRAVITY, PhysicSettings.World.IGNORE_SLEEPING_OBJECTS);
 		physicObjects = new HashMap<Sprite, PhysicObject>();
-		physicObjects.put(null, null);
 		shapeBuilder = new PhysicShapeBuilder();
 
 		new PhysicBoundaryBox(world).create();
@@ -94,6 +93,10 @@ public class PhysicWorld {
 	}
 
 	public PhysicObject getPhysicObject(Sprite sprite) {
+		if (sprite == null) {
+			return null;
+		}
+
 		if (physicObjects.containsKey(sprite)) {
 			return physicObjects.get(sprite);
 		}

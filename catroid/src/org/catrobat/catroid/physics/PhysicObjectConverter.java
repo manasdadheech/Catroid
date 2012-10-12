@@ -24,6 +24,7 @@ package org.catrobat.catroid.physics;
 
 import java.lang.reflect.Method;
 
+import org.catrobat.catroid.content.Costume;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Script;
 import org.catrobat.catroid.content.Sprite;
@@ -54,16 +55,18 @@ public class PhysicObjectConverter {
 				Script script = sprite.getScript(scriptIndex);
 
 				for (Brick brick : script.getBrickList()) {
-					if (brick instanceof SetPhysicObjectTypeBrick) {
-						PhysicObject physicObject = physicWorld.getPhysicObject(sprite);
-						sprite.costume = new PhysicCostume(sprite, physicWorld, physicObject);
-					}
 
 					// For god's sake, what have I done here?
 					if (brick instanceof SetPhysicObjectTypeBrick || brick instanceof SetMassBrick
 							|| brick instanceof SetGravityBrick || brick instanceof SetVelocityBrick
 							|| brick instanceof TurnLeftSpeedBrick || brick instanceof TurnRightSpeedBrick
 							|| brick instanceof SetBounceFactorBrick || brick instanceof SetFrictionBrick) {
+
+						if (sprite.costume instanceof Costume) {
+							PhysicObject physicObject = physicWorld.getPhysicObject(sprite);
+							sprite.costume = new PhysicCostume(sprite, physicWorld, physicObject);
+						}
+
 						Class<?>[] classes = { PhysicWorld.class };
 						Method setter;
 						try {

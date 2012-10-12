@@ -26,6 +26,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.common.Values;
 import org.catrobat.catroid.physics.PhysicWorld;
@@ -34,7 +35,6 @@ import org.catrobat.catroid.xml.parser.XMLAlias;
 
 import android.content.Context;
 import android.os.Build;
-import org.catrobat.catroid.R;
 
 public class Project implements Serializable {
 
@@ -49,7 +49,7 @@ public class Project implements Serializable {
 	public int virtualScreenHeight = 0;
 	private float catrobatLanguageVersion;
 
-	private transient PhysicWorld physicWorld;
+	private transient PhysicWorld physicWorld = new PhysicWorld();;
 	// fields only used on the catrobat.org website so far
 
 	@SuppressWarnings("unused")
@@ -100,7 +100,6 @@ public class Project implements Serializable {
 			return;
 		}
 
-		physicWorld = new PhysicWorld();
 		applicationName = context.getString(R.string.app_name);
 		Sprite background = new Sprite(context.getString(R.string.background));
 		background.costume.zPosition = Integer.MIN_VALUE;
@@ -179,7 +178,6 @@ public class Project implements Serializable {
 
 	// default constructor for XMLParser
 	public Project() {
-		physicWorld = new PhysicWorld();
 	}
 
 }

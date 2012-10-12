@@ -22,7 +22,6 @@
  */
 package org.catrobat.catroid.content.bricks;
 
-import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.physics.PhysicWorld;
@@ -49,7 +48,6 @@ public class SetGravityBrick implements Brick, OnClickListener {
 	private transient View view;
 
 	public SetGravityBrick() {
-		physicWorld = ProjectManager.getInstance().getCurrentProject().getPhysicWorld();
 	}
 
 	public SetGravityBrick(PhysicWorld physicWorld, Sprite sprite, Vector2 gravity) {

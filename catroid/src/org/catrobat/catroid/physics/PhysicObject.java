@@ -43,14 +43,13 @@ public class PhysicObject {
 
 	public PhysicObject(Body body) {
 		this.body = body;
-		mass = PhysicSettings.Object.DEFAULT_MASS;
 
+		mass = PhysicSettings.Object.DEFAULT_MASS;
 		fixtureDef.density = PhysicSettings.Object.DEFAULT_DENSITY;
 		fixtureDef.friction = PhysicSettings.Object.DEFAULT_FRICTION;
 		fixtureDef.restitution = PhysicSettings.Object.DEFAULT_RESTITUTION;
-		fixtureDef.filter.categoryBits = PhysicSettings.Object.COLLISION_MASK;
-		fixtureDef.filter.maskBits = PhysicSettings.Object.COLLISION_MASK;
 
+		setCollisionMask(PhysicSettings.Object.COLLISION_MASK);
 		setType(Type.NONE);
 	}
 
@@ -89,6 +88,7 @@ public class PhysicObject {
 			bitMask = PhysicSettings.Object.COLLISION_MASK;
 		}
 
+		fixtureDef.filter.maskBits = bitMask;
 		for (Fixture fixture : body.getFixtureList()) {
 			Filter filter = fixture.getFilterData();
 			filter.maskBits = bitMask;
@@ -110,16 +110,28 @@ public class PhysicObject {
 			case DYNAMIC:
 				body.setType(BodyType.DynamicBody);
 				setMass(mass);
-				body.setActive(true);
+				setCollisionMask(PhysicSettings.Object.COLLISION_MASK);
 				break;
 			case FIXED:
 				body.setType(BodyType.KinematicBody);
-				body.setActive(true);
+				setCollisionMask(PhysicSettings.Object.COLLISION_MASK);
 				break;
 			case NONE:
 				body.setType(BodyType.KinematicBody);
-				body.setActive(false);
+				setCollisionMask((short) 0);
 				break;
+		}
+	}
+
+	private void setCollisionMask(short collisionMask) {
+		fixtureDef.filter.categoryBits = collisionMask;
+		fixtureDef.filter.maskBits = collisionMask;
+
+		for (Fixture fixture : body.getFixtureList()) {
+			Filter filter = fixture.getFilterData();
+			filter.categoryBits = collisionMask;
+			filter.maskBits = collisionMask;
+			fixture.setFilterData(filter);
 		}
 	}
 

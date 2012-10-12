@@ -385,7 +385,6 @@ public class StandardProjectHandler {
 		WaitBrick waitBrick2 = new WaitBrick(sprite, 500);
 
 		startScript.addBrick(setCostumeBrick);
-		startScript.addBrick(new SetPhysicObjectTypeBrick(defaultProject.getPhysicWorld(), sprite, Type.DYNAMIC));
 
 		whenScript.addBrick(setCostumeBrick2);
 		whenScript.addBrick(waitBrick1);

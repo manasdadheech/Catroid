@@ -22,7 +22,11 @@
  */
 package org.catrobat.catroid.content.bricks;
 
+import org.catrobat.catroid.R;
+import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.physics.PhysicWorld;
+import org.catrobat.catroid.ui.ScriptTabActivity;
+import org.catrobat.catroid.ui.dialogs.BrickTextDialog;
 
 import android.content.Context;
 import android.text.InputType;
@@ -31,10 +35,6 @@ import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
-import org.catrobat.catroid.R;
-import org.catrobat.catroid.content.Sprite;
-import org.catrobat.catroid.ui.ScriptTabActivity;
-import org.catrobat.catroid.ui.dialogs.BrickTextDialog;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -46,6 +46,9 @@ public class SetVelocityBrick implements Brick, OnClickListener {
 	private Vector2 velocity;
 
 	private transient View view;
+
+	public SetVelocityBrick() {
+	}
 
 	public SetVelocityBrick(PhysicWorld physicWorld, Sprite sprite, Vector2 velocity) {
 		this.physicWorld = physicWorld;

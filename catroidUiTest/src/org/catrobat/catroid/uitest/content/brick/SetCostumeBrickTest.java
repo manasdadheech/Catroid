@@ -94,9 +94,9 @@ public class SetCostumeBrickTest extends ActivityInstrumentationTestCase2<Script
 		costumeDataList.add(costumeData);
 		costumeDataList.add(costumeData2);
 		ProjectManager.getInstance().getFileChecksumContainer()
-				.addChecksum(costumeData.getChecksum(), costumeData.getAbsolutePath());
+				.addChecksum(costumeData.getChecksum(), costumeData.getPath());
 		ProjectManager.getInstance().getFileChecksumContainer()
-				.addChecksum(costumeData2.getChecksum(), costumeData2.getAbsolutePath());
+				.addChecksum(costumeData2.getChecksum(), costumeData2.getPath());
 
 		solo = new Solo(getInstrumentation(), getActivity());
 
@@ -131,7 +131,7 @@ public class SetCostumeBrickTest extends ActivityInstrumentationTestCase2<Script
 		solo.waitForActivity(StageActivity.class.getSimpleName());
 		solo.sleep(2000);
 		Costume costume = ProjectManager.getInstance().getCurrentProject().getSpriteList().get(0).costume;
-		assertEquals("costume not set", costume.getImagePath(), costumeDataList.get(0).getAbsolutePath());
+		assertEquals("costume not set", costume.getImagePath(), costumeDataList.get(0).getPath());
 		solo.goBack();
 		solo.goBack();
 		solo.waitForActivity(ScriptTabActivity.class.getSimpleName());
@@ -143,7 +143,7 @@ public class SetCostumeBrickTest extends ActivityInstrumentationTestCase2<Script
 		solo.waitForActivity(StageActivity.class.getSimpleName());
 		solo.sleep(2000);
 		costume = ProjectManager.getInstance().getCurrentProject().getSpriteList().get(0).costume;
-		assertEquals("costume not set", costume.getImagePath(), costumeDataList.get(1).getAbsolutePath());
+		assertEquals("costume not set", costume.getImagePath(), costumeDataList.get(1).getPath());
 	}
 
 	public void testSpinnerUpdates() {
@@ -182,15 +182,14 @@ public class SetCostumeBrickTest extends ActivityInstrumentationTestCase2<Script
 	}
 
 	public void testAdapterUpdateInScriptActivity() {
-		String costume1ImagePath = costumeDataList.get(0).getAbsolutePath();
-		String costume2ImagePath = costumeDataList.get(1).getAbsolutePath();
+		String costume1ImagePath = costumeDataList.get(0).getPath();
+		String costume2ImagePath = costumeDataList.get(1).getPath();
 		solo.clickOnText(getActivity().getString(R.string.broadcast_nothing_selected));
 		solo.clickOnText(costumeName);
 
 		UiTestUtils.clickOnActionBar(solo, R.id.menu_start);
 		solo.waitForActivity(StageActivity.class.getSimpleName());
-		String costumePath = ProjectManager.getInstance().getCurrentSprite().getCostumeDataList().get(0)
-				.getAbsolutePath();
+		String costumePath = ProjectManager.getInstance().getCurrentSprite().getCostumeDataList().get(0).getPath();
 		assertEquals("Wrong image shown in stage --> Problem with Adapter update in Script", costume1ImagePath,
 				costumePath);
 		solo.goBack();

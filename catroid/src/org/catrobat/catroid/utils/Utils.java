@@ -45,7 +45,10 @@ import org.catrobat.catroid.common.SoundInfo;
 import org.catrobat.catroid.common.Values;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.io.StorageHandler;
+<<<<<<< HEAD
 import org.catrobat.catroid.livewallpaper.DummyLiveWallpaperActivity;
+=======
+>>>>>>> remotes/origin/nativeAppConverter
 import org.catrobat.catroid.stage.NativeAppActivity;
 import org.catrobat.catroid.ui.dialogs.ErrorDialogFragment;
 
@@ -401,6 +404,7 @@ public class Utils {
 
 	public static boolean isLoadingFromAssetsNecessary() {
 		if (NativeAppActivity.isRunning()) {
+<<<<<<< HEAD
 			context = NativeAppActivity.getContext();
 			return true;
 		} else if (DummyLiveWallpaperActivity.isRunning()) {
@@ -415,4 +419,10 @@ public class Utils {
 		return context;
 	}
 
+=======
+			return true;
+		}
+		return false;
+	}
+>>>>>>> remotes/origin/nativeAppConverter
 }

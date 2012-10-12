@@ -23,6 +23,8 @@
 package org.catrobat.catroid.stage;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.R;
+import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.common.Values;
 import org.catrobat.catroid.ui.dialogs.AboutDialog;
 
@@ -35,7 +37,6 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
-import org.catrobat.catroid.R;
 
 public class NativeAppActivity extends StageActivity {
 	private static Context context = null;
@@ -51,7 +52,7 @@ public class NativeAppActivity extends StageActivity {
 
 		context = this;
 
-		if (!manager.loadProject("project.xml", this, null, false)) {
+		if (!manager.loadProject(Constants.PROJECTCODE_NAME, this, null, false)) {
 
 			Builder builder = new AlertDialog.Builder(context);
 

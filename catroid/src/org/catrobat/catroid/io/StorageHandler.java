@@ -89,7 +89,7 @@ public class StorageHandler {
 	public Project loadProject(String projectName) {
 		createCatroidRoot();
 		try {
-			if (NativeAppActivity.isRunning()) {
+			if (Utils.isLoadingFromAssetsNecessary()) {
 				InputStream spfFileStream = NativeAppActivity.getContext().getAssets().open(projectName);
 				Project returned = fullParser.parseSpritesWithProject(spfFileStream);
 				return returned;
@@ -308,7 +308,7 @@ public class StorageHandler {
 			}
 
 			for (CostumeData costumeData : currentSprite.getCostumeDataList()) {
-				container.addChecksum(costumeData.getChecksum(), costumeData.getAbsolutePath());
+				container.addChecksum(costumeData.getChecksum(), costumeData.getPath());
 			}
 		}
 	}

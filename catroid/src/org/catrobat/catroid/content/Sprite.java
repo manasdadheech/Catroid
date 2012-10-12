@@ -36,7 +36,10 @@ import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.common.FileChecksumContainer;
 import org.catrobat.catroid.common.SoundInfo;
 import org.catrobat.catroid.content.bricks.Brick;
+<<<<<<< HEAD
 import org.catrobat.catroid.livewallpaper.WallpaperCostume;
+=======
+>>>>>>> remotes/origin/nativeAppConverter
 
 public class Sprite implements Serializable {
 
@@ -70,7 +73,7 @@ public class Sprite implements Serializable {
 				container.addChecksum(soundInfo.getChecksum(), soundInfo.getAbsolutePath());
 			}
 			for (CostumeData costumeData : costumeList) {
-				container.addChecksum(costumeData.getChecksum(), costumeData.getAbsolutePath());
+				container.addChecksum(costumeData.getChecksum(), costumeData.getPath());
 			}
 		}
 		init();

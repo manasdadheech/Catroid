@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.common.SoundInfo;
 import org.catrobat.catroid.content.Sprite;
@@ -56,7 +57,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
-import org.catrobat.catroid.R;
 
 import com.actionbarsherlock.app.SherlockListFragment;
 
@@ -289,7 +289,7 @@ public class SpritesListFragment extends SherlockListFragment implements OnClick
 		List<SoundInfo> soundInfoList = spriteToEdit.getSoundList();
 
 		for (CostumeData currentCostumeData : costumeDataList) {
-			StorageHandler.getInstance().deleteFile(currentCostumeData.getAbsolutePath());
+			StorageHandler.getInstance().deleteFile(currentCostumeData.getPath());
 		}
 
 		for (SoundInfo currentSoundInfo : soundInfoList) {

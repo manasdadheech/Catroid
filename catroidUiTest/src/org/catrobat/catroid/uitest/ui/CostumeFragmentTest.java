@@ -85,12 +85,12 @@ public class CostumeFragmentTest extends ActivityInstrumentationTestCase2<MainMe
 		costumeData.setCostumeFilename(imageFile.getName());
 		costumeData.setCostumeName(costumeName);
 		costumeDataList.add(costumeData);
-		projectManager.getFileChecksumContainer().addChecksum(costumeData.getChecksum(), costumeData.getAbsolutePath());
+		projectManager.getFileChecksumContainer().addChecksum(costumeData.getChecksum(), costumeData.getPath());
 		costumeData = new CostumeData();
 		costumeData.setCostumeFilename(imageFile2.getName());
 		costumeData.setCostumeName("costumeNameTest2");
 		costumeDataList.add(costumeData);
-		projectManager.getFileChecksumContainer().addChecksum(costumeData.getChecksum(), costumeData.getAbsolutePath());
+		projectManager.getFileChecksumContainer().addChecksum(costumeData.getChecksum(), costumeData.getPath());
 		Display display = getActivity().getWindowManager().getDefaultDisplay();
 		projectManager.getCurrentProject().virtualScreenWidth = display.getWidth();
 		projectManager.getCurrentProject().virtualScreenHeight = display.getHeight();
@@ -330,8 +330,7 @@ public class CostumeFragmentTest extends ActivityInstrumentationTestCase2<MainMe
 		solo.sleep(5000);
 		solo.waitForActivity(ScriptTabActivity.class.getSimpleName());
 
-		assertNotSame("Picture was not changed", Utils.md5Checksum(new File(costumeData.getAbsolutePath())),
-				md5PaintroidImage);
+		assertNotSame("Picture was not changed", Utils.md5Checksum(new File(costumeData.getPath())), md5PaintroidImage);
 
 		boolean isInCostumeDataListPaintroidImage = false;
 		boolean isInCostumeDataListSunnglasses = false;
@@ -363,7 +362,7 @@ public class CostumeFragmentTest extends ActivityInstrumentationTestCase2<MainMe
 		solo.sleep(200);
 		solo.waitForActivity(ScriptTabActivity.class.getSimpleName());
 
-		assertEquals("Picture changed", Utils.md5Checksum(new File(costumeData.getAbsolutePath())), md5ImageFile);
+		assertEquals("Picture changed", Utils.md5Checksum(new File(costumeData.getPath())), md5ImageFile);
 		costumeDataList = projectManager.getCurrentSprite().getCostumeDataList();
 		int newNumberOfCostumeDatas = costumeDataList.size();
 		assertEquals("CostumeData was added", numberOfCostumeDatas, newNumberOfCostumeDatas);
@@ -388,7 +387,7 @@ public class CostumeFragmentTest extends ActivityInstrumentationTestCase2<MainMe
 		solo.sleep(200);
 		solo.waitForActivity(ScriptTabActivity.class.getSimpleName());
 
-		assertEquals("Picture changed", Utils.md5Checksum(new File(costumeData.getAbsolutePath())), md5ImageFile);
+		assertEquals("Picture changed", Utils.md5Checksum(new File(costumeData.getPath())), md5ImageFile);
 		costumeDataList = projectManager.getCurrentSprite().getCostumeDataList();
 		int newNumberOfCostumeDatas = costumeDataList.size();
 		assertEquals("CostumeData was added", numberOfCostumeDatas, newNumberOfCostumeDatas);
@@ -413,7 +412,7 @@ public class CostumeFragmentTest extends ActivityInstrumentationTestCase2<MainMe
 		costumeDataList = projectManager.getCurrentSprite().getCostumeDataList();
 		int numberOfCostumeDatas = costumeDataList.size();
 		assertEquals("wrong size of costumedatalist", 2, numberOfCostumeDatas);
-		assertEquals("Picture changed", Utils.md5Checksum(new File(costumeData.getAbsolutePath())), md5ImageFile);
+		assertEquals("Picture changed", Utils.md5Checksum(new File(costumeData.getPath())), md5ImageFile);
 	}
 
 	public void testGetImageFromGallery() {
@@ -486,8 +485,7 @@ public class CostumeFragmentTest extends ActivityInstrumentationTestCase2<MainMe
 		solo.sleep(4000);
 		solo.waitForActivity(ScriptTabActivity.class.getSimpleName());
 
-		assertNotSame("Picture did not change", Utils.md5Checksum(new File(costumeData.getAbsolutePath())),
-				md5ImageFile);
+		assertNotSame("Picture did not change", Utils.md5Checksum(new File(costumeData.getPath())), md5ImageFile);
 		costumeDataList = projectManager.getCurrentSprite().getCostumeDataList();
 		int newNumberOfCostumeDatas = costumeDataList.size();
 		assertEquals("CostumeData was added", numberOfCostumeDatas, newNumberOfCostumeDatas);
@@ -505,7 +503,7 @@ public class CostumeFragmentTest extends ActivityInstrumentationTestCase2<MainMe
 		costumeDataToAdd.setCostumeName("justforthistest");
 		costumeDataList.add(costumeDataToAdd);
 		projectManager.getFileChecksumContainer().addChecksum(costumeDataToAdd.getChecksum(),
-				costumeDataToAdd.getAbsolutePath());
+				costumeDataToAdd.getPath());
 
 		solo.sleep(200);
 		goToCostumesTab();

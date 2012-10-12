@@ -1,13 +1,16 @@
 package org.catrobat.catroid.test.content.brick;
 
+import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.SetMassBrick;
 import org.catrobat.catroid.physics.PhysicObject;
 import org.catrobat.catroid.physics.PhysicWorld;
+import org.catrobat.catroid.test.utils.TestUtils;
 
 import android.test.AndroidTestCase;
-import org.catrobat.catroid.content.Sprite;
-import org.catrobat.catroid.content.bricks.Brick;
-import org.catrobat.catroid.test.utils.TestUtils;
+
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class SetMassBrickTest extends AndroidTestCase {
 
@@ -90,7 +93,7 @@ public class SetMassBrickTest extends AndroidTestCase {
 		public boolean executed;
 
 		public PhysicObjectMock() {
-			super(null);
+			super(new BodyMock(null, 0));
 			executed = false;
 		}
 
@@ -105,6 +108,14 @@ public class SetMassBrickTest extends AndroidTestCase {
 
 		@Override
 		public void setType(Type type) {
+		}
+
+	}
+
+	class BodyMock extends Body {
+
+		protected BodyMock(World world, long addr) {
+			super(world, addr);
 		}
 
 	}

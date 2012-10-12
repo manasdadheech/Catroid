@@ -1,12 +1,15 @@
 package org.catrobat.catroid.test.content.brick;
 
+import junit.framework.TestCase;
+
+import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.SetFrictionBrick;
 import org.catrobat.catroid.physics.PhysicObject;
 import org.catrobat.catroid.physics.PhysicWorld;
 
-import junit.framework.TestCase;
-import org.catrobat.catroid.content.Sprite;
-import org.catrobat.catroid.content.bricks.Brick;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class SetFrictionBrickTest extends TestCase {
 	private float friction = 1.0f;
@@ -84,7 +87,7 @@ public class SetFrictionBrickTest extends TestCase {
 		public boolean executed;
 
 		public PhysicObjectMock() {
-			super(null);
+			super(new BodyMock(null, 0));
 			executed = false;
 		}
 
@@ -99,6 +102,14 @@ public class SetFrictionBrickTest extends TestCase {
 
 		@Override
 		public void setType(Type type) {
+		}
+
+	}
+
+	class BodyMock extends Body {
+
+		protected BodyMock(World world, long addr) {
+			super(world, addr);
 		}
 
 	}

@@ -9,6 +9,9 @@ import org.catrobat.catroid.physics.PhysicWorld;
 
 import android.test.AndroidTestCase;
 
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
+
 public class SetPhysicObjectTypeBrickTest extends AndroidTestCase {
 
 	private PhysicObject.Type type;
@@ -91,7 +94,7 @@ public class SetPhysicObjectTypeBrickTest extends AndroidTestCase {
 		public boolean executed;
 
 		public PhysicObjectMock() {
-			super(null);
+			super(new BodyMock(null, 0));
 			executed = false;
 		}
 
@@ -103,6 +106,14 @@ public class SetPhysicObjectTypeBrickTest extends AndroidTestCase {
 		public boolean wasExecuted() {
 			return executed;
 		}
+	}
+
+	class BodyMock extends Body {
+
+		protected BodyMock(World world, long addr) {
+			super(world, addr);
+		}
+
 	}
 
 }

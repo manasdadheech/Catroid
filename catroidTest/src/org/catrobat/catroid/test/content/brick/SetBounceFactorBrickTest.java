@@ -1,13 +1,16 @@
 package org.catrobat.catroid.test.content.brick;
 
+import junit.framework.TestCase;
+
+import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.SetBounceFactorBrick;
 import org.catrobat.catroid.physics.PhysicObject;
 import org.catrobat.catroid.physics.PhysicWorld;
-
-import junit.framework.TestCase;
-import org.catrobat.catroid.content.Sprite;
-import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.test.utils.TestUtils;
+
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class SetBounceFactorBrickTest extends TestCase {
 	private float bounceFactor = 35f;
@@ -92,7 +95,7 @@ public class SetBounceFactorBrickTest extends TestCase {
 		public boolean executed;
 
 		public PhysicObjectMock() {
-			super(null);
+			super(new BodyMock(null, 0));
 			executed = false;
 		}
 
@@ -107,6 +110,14 @@ public class SetBounceFactorBrickTest extends TestCase {
 
 		@Override
 		public void setType(Type type) {
+		}
+
+	}
+
+	class BodyMock extends Body {
+
+		protected BodyMock(World world, long addr) {
+			super(world, addr);
 		}
 
 	}

@@ -29,6 +29,7 @@ import org.catrobat.catroid.io.StorageHandler;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 
 public class ImageEditing {
@@ -129,4 +130,72 @@ public class ImageEditing {
 				true);
 		return rotatedBitmap;
 	}
+
+	public static Bitmap adjustBitmpaBrigthness(Bitmap bitmap, float brightness) {
+
+		Bitmap resultBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), bitmap.getConfig());
+
+		for (int width = 0; width < bitmap.getWidth(); width++) {
+			for (int height = 0; height < bitmap.getHeight(); height++) {
+				int oldPixelColor = bitmap.getPixel(width, height);
+
+				int red = Color.red(oldPixelColor) + (int) (255 * (brightness - 1));
+				int green = Color.green(oldPixelColor) + (int) (255 * (brightness - 1));
+				int blue = Color.blue(oldPixelColor) + (int) (255 * (brightness - 1));
+				int alpha = Color.alpha(oldPixelColor);
+
+				if (red > 255) {
+					red = 255;
+				} else if (red < 0) {
+					red = 0;
+				}
+				if (green > 255) {
+					green = 255;
+				} else if (green < 0) {
+					green = 0;
+				}
+				if (blue > 255) {
+					blue = 255;
+				} else if (blue < 0) {
+					blue = 0;
+				}
+
+				int newPixel = Color.argb(alpha, red, green, blue);
+				resultBitmap.setPixel(width, height, newPixel);
+			}
+		}
+
+		return resultBitmap;
+
+	}
+
+	public static Bitmap adjustBitmapAlphaValue(Bitmap bitmap, float alphaValue) {
+
+		Bitmap resultBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), bitmap.getConfig());
+
+		for (int width = 0; width < bitmap.getWidth(); width++) {
+			for (int height = 0; height < bitmap.getHeight(); height++) {
+
+				int oldPixelColor = bitmap.getPixel(width, height);
+
+				int red = Color.red(oldPixelColor);
+				int green = Color.green(oldPixelColor);
+				int blue = Color.blue(oldPixelColor);
+				int alpha = Color.alpha(oldPixelColor) + (int) (255 * (alphaValue - 1));
+
+				if (alpha > 255) {
+					alpha = 255;
+				} else if (alpha < 0) {
+					alpha = 0;
+				}
+
+				int newPixel = Color.argb(alpha, red, green, blue);
+				resultBitmap.setPixel(width, height, newPixel);
+			}
+		}
+
+		return resultBitmap;
+
+	}
+
 }

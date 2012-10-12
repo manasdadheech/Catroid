@@ -29,17 +29,14 @@ import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.utils.ImageEditing;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Matrix;
 
 public class WallpaperCostume {
 
 	private CostumeData costumeData;
 	private Sprite sprite;
 	private Bitmap costume = null;
-	private Bitmap costumeRotated = null;
+	private Bitmap landscapeCostume = null;
 	private Bitmap originalCostume = null;
-	private Matrix landscapeRotationMatrix = null;
 
 	private int x;
 	private int y;
@@ -65,6 +62,7 @@ public class WallpaperCostume {
 	private boolean leftNeedsAdjustment = false;
 	private boolean sizeChanged = false;
 	private boolean coordsSwapped = false;
+	private boolean landscapeCreated = false;
 
 	private WallpaperHelper wallpaperHelper;
 
@@ -73,9 +71,6 @@ public class WallpaperCostume {
 		this.wallpaperHelper = WallpaperHelper.getInstance();
 		this.sprite = sprite;
 		this.zPosition = wallpaperHelper.getProject().getSpriteList().indexOf(sprite);
-
-		this.landscapeRotationMatrix = new Matrix();
-		landscapeRotationMatrix.postRotate(90.0f);
 
 		if (sprite.getName().equals("Background")) {
 			this.isBackground = true;
@@ -139,8 +134,8 @@ public class WallpaperCostume {
 		float bottom = left;
 
 		if (wallpaperHelper.isLandscape()) {
-			right += costumeRotated.getWidth();
-			bottom += costumeRotated.getHeight();
+			right += landscapeCostume.getWidth();
+			bottom += landscapeCostume.getHeight();
 
 		} else {
 			right += costume.getWidth();
@@ -148,7 +143,6 @@ public class WallpaperCostume {
 		}
 
 		if (x > top && x < right && y > left && y < bottom) {
-
 			return true;
 		}
 
@@ -160,44 +154,38 @@ public class WallpaperCostume {
 		if (!wallpaperHelper.isLandscape()) {
 			return costume;
 		} else {
-			if (costumeRotated == null) {
-				costumeRotated = Bitmap.createBitmap(costume, 0, 0, costume.getWidth(), costume.getHeight(),
-						landscapeRotationMatrix, false);
-			}
-
 			if (!coordsSwapped) {
-				swapCoords();
+				int temp = this.top;
+				this.top = this.left;
+				this.left = temp;
 				this.coordsSwapped = true;
 			}
 
-			return costumeRotated;
-		}
-	}
+			if (!landscapeCreated || landscapeCostume == null) {
+				this.landscapeCostume = ImageEditing.rotateBitmap(costume, 90);
+			}
 
-	private void swapCoords() {
-		int temp = this.top;
-		this.top = this.left;
-		this.left = temp;
+			return landscapeCostume;
+
+		}
 	}
 
 	public void setCostume(CostumeData costumeData) {
 		this.costumeData = costumeData;
-		Bitmap costumeImage = costumeData.getImageBitmap();
+		this.costume = costumeData.getImageBitmap();
 
-		if (isBackground && Values.SCREEN_WIDTH != costumeImage.getWidth()
-				&& Values.SCREEN_HEIGHT != costumeImage.getHeight()) {
-			this.costume = ImageEditing.scaleBitmap(costumeImage, Values.SCREEN_WIDTH, Values.SCREEN_HEIGHT);
-
-		} else {
-			this.costume = costumeImage;
-		}
+		//		if (isBackground && Values.SCREEN_WIDTH != costumeImage.getWidth()
+		//				&& Values.SCREEN_HEIGHT != costumeImage.getHeight()) {
+		//			this.costume = ImageEditing.scaleBitmap(costumeImage, Values.SCREEN_WIDTH, Values.SCREEN_HEIGHT);
+		//
+		//		} else {
+		//this.costume = costumeImage;
+		//	}
 
 		if (sizeChanged) {
 			resizeCostume();
 		}
-
-		costumeRotated = null;
-
+		landscapeCreated = false;
 	}
 
 	public void setCostumeSize(double size) {
@@ -307,40 +295,9 @@ public class WallpaperCostume {
 			originalSaved = true;
 		}
 
-		//		setCostume(this.costumeData);
-		Bitmap resultBitmap = Bitmap.createBitmap(originalCostume.getWidth(), originalCostume.getHeight(),
-				originalCostume.getConfig());
+		Bitmap originalCostume = costume;
 
-		for (int width = 0; width < originalCostume.getWidth(); width++) {
-			for (int height = 0; height < originalCostume.getHeight(); height++) {
-				int oldPixelColor = originalCostume.getPixel(width, height);
-
-				int red = Color.red(oldPixelColor) + (int) (255 * (this.brightness - 1));
-				int green = Color.green(oldPixelColor) + (int) (255 * (this.brightness - 1));
-				int blue = Color.blue(oldPixelColor) + (int) (255 * (this.brightness - 1));
-				int alpha = Color.alpha(oldPixelColor);
-
-				if (red > 255) {
-					red = 255;
-				} else if (red < 0) {
-					red = 0;
-				}
-				if (green > 255) {
-					green = 255;
-				} else if (green < 0) {
-					green = 0;
-				}
-				if (blue > 255) {
-					blue = 255;
-				} else if (blue < 0) {
-					blue = 0;
-				}
-
-				int newPixel = Color.argb(alpha, red, green, blue);
-				resultBitmap.setPixel(width, height, newPixel);
-			}
-		}
-		this.costume = resultBitmap;
+		this.costume = ImageEditing.adjustBitmpaBrigthness(originalCostume, brightness);
 	}
 
 	public void setGhostEffect(float alpha) {
@@ -375,31 +332,7 @@ public class WallpaperCostume {
 			originalSaved = true;
 		}
 
-		//setCostume(this.costumeData);
-		Bitmap resultBitmap = Bitmap.createBitmap(originalCostume.getWidth(), originalCostume.getHeight(),
-				originalCostume.getConfig());
-
-		for (int width = 0; width < originalCostume.getWidth(); width++) {
-			for (int height = 0; height < originalCostume.getHeight(); height++) {
-
-				int oldPixelColor = originalCostume.getPixel(width, height);
-
-				int red = Color.red(oldPixelColor);
-				int green = Color.green(oldPixelColor);
-				int blue = Color.blue(oldPixelColor);
-				int alpha = Color.alpha(oldPixelColor) + (int) (255 * (this.alphaValue - 1));
-
-				if (alpha > 255) {
-					alpha = 255;
-				} else if (alpha < 0) {
-					alpha = 0;
-				}
-
-				int newPixel = Color.argb(alpha, red, green, blue);
-				resultBitmap.setPixel(width, height, newPixel);
-			}
-		}
-		this.costume = resultBitmap;
+		this.costume = ImageEditing.adjustBitmapAlphaValue(originalCostume, alphaValue);
 	}
 
 	public void clearGraphicEffect() {
@@ -492,7 +425,7 @@ public class WallpaperCostume {
 
 		//TODO
 		if (!originalSaved) {
-			originalCostume = Bitmap.createBitmap(costume);
+			originalCostume = costume;
 			originalSaved = true;
 		}
 

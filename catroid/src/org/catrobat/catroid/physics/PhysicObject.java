@@ -49,7 +49,8 @@ public class PhysicObject {
 		fixtureDef.friction = PhysicSettings.Object.DEFAULT_FRICTION;
 		fixtureDef.restitution = PhysicSettings.Object.DEFAULT_RESTITUTION;
 
-		setCollisionMask(PhysicSettings.Object.COLLISION_MASK);
+		short collisionBits = 0;
+		setCollisionBits(collisionBits, collisionBits);
 		setType(Type.NONE);
 	}
 
@@ -64,7 +65,7 @@ public class PhysicObject {
 		if (shapes != null) {
 			for (Shape tempShape : shapes) {
 				fixtureDef.shape = tempShape;
-				body.createFixture(fixtureDef);///
+				body.createFixture(fixtureDef);
 			}
 		}
 
@@ -81,19 +82,14 @@ public class PhysicObject {
 		}
 		ifOnEdgeBounce = bounce;
 
-		short bitMask;
+		short maskBits;
 		if (bounce) {
-			bitMask = PhysicSettings.Object.COLLISION_MASK | PhysicSettings.World.BoundaryBox.COLLISION_MASK;
+			maskBits = PhysicSettings.Object.COLLISION_MASK | PhysicSettings.World.BoundaryBox.COLLISION_MASK;
 		} else {
-			bitMask = PhysicSettings.Object.COLLISION_MASK;
+			maskBits = PhysicSettings.Object.COLLISION_MASK;
 		}
 
-		fixtureDef.filter.maskBits = bitMask;
-		for (Fixture fixture : body.getFixtureList()) {
-			Filter filter = fixture.getFilterData();
-			filter.maskBits = bitMask;
-			fixture.setFilterData(filter);
-		}
+		setCollisionBits(fixtureDef.filter.categoryBits, maskBits);
 	}
 
 	public Type getType() {
@@ -106,31 +102,37 @@ public class PhysicObject {
 		}
 		this.type = type;
 
+		short collisionMask = 0;
 		switch (type) {
 			case DYNAMIC:
 				body.setType(BodyType.DynamicBody);
 				setMass(mass);
-				setCollisionMask(PhysicSettings.Object.COLLISION_MASK);
+				collisionMask = PhysicSettings.Object.COLLISION_MASK;
 				break;
 			case FIXED:
 				body.setType(BodyType.KinematicBody);
-				setCollisionMask(PhysicSettings.Object.COLLISION_MASK);
+				collisionMask = PhysicSettings.Object.COLLISION_MASK;
 				break;
 			case NONE:
 				body.setType(BodyType.KinematicBody);
-				setCollisionMask((short) 0);
 				break;
 		}
+		setCollisionBits(collisionMask, collisionMask);
 	}
 
-	private void setCollisionMask(short collisionMask) {
-		fixtureDef.filter.categoryBits = collisionMask;
-		fixtureDef.filter.maskBits = collisionMask;
+	/**
+	 * if ((categoryBitsB & maskBitsA) != 0) {
+	 * - A collides with B.
+	 * }
+	 */
+	private void setCollisionBits(short categoryBits, short maskBits) {
+		fixtureDef.filter.categoryBits = categoryBits;
+		fixtureDef.filter.maskBits = maskBits;
 
 		for (Fixture fixture : body.getFixtureList()) {
 			Filter filter = fixture.getFilterData();
-			filter.categoryBits = collisionMask;
-			filter.maskBits = collisionMask;
+			filter.categoryBits = categoryBits;
+			filter.maskBits = maskBits;
 			fixture.setFilterData(filter);
 		}
 	}

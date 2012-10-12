@@ -38,12 +38,18 @@ public class WallpaperCostume {
 	private Sprite sprite;
 	private Bitmap costume = null;
 	private Bitmap costumeRotated = null;
+	private Bitmap originalCostume = null;
 	private Matrix landscapeRotationMatrix = null;
 
 	private int x;
 	private int y;
 	private int top;
 	private int left;
+
+	int xDestination;
+	int yDestination;
+
+	float rotation = 0f;
 
 	private int zPosition;
 
@@ -52,6 +58,7 @@ public class WallpaperCostume {
 
 	private double size = 1;
 
+	private boolean originalSaved = false;
 	private boolean hidden = false;
 	private boolean isBackground = false;
 	private boolean topNeedsAdjustment = false;
@@ -70,7 +77,6 @@ public class WallpaperCostume {
 		this.landscapeRotationMatrix = new Matrix();
 		landscapeRotationMatrix.postRotate(90.0f);
 
-		//TODO: refactor the hard-coded value
 		if (sprite.getName().equals("Background")) {
 			this.isBackground = true;
 			this.top = 0;
@@ -211,10 +217,16 @@ public class WallpaperCostume {
 	}
 
 	private void resizeCostume() {
+		//TODO
 
-		int newWidth = (int) (costume.getWidth() * size);
-		int newHeight = (int) (costume.getHeight() * size);
-		this.costume = ImageEditing.scaleBitmap(this.costume, newWidth, newHeight);
+		if (!originalSaved) {
+			originalCostume = Bitmap.createBitmap(costume);
+			originalSaved = true;
+		}
+
+		int newWidth = (int) (originalCostume.getWidth() * size);
+		int newHeight = (int) (originalCostume.getHeight() * size);
+		this.costume = ImageEditing.scaleBitmap(originalCostume, newWidth, newHeight);
 
 		this.topNeedsAdjustment = true;
 		this.leftNeedsAdjustment = true;
@@ -289,13 +301,19 @@ public class WallpaperCostume {
 	}
 
 	private void adjustBrightness() {
-		setCostume(this.costumeData);
-		Bitmap resultBitmap = Bitmap.createBitmap(this.costume.getWidth(), this.costume.getHeight(),
-				this.costume.getConfig());
 
-		for (int width = 0; width < this.costume.getWidth(); width++) {
-			for (int height = 0; height < this.costume.getHeight(); height++) {
-				int oldPixelColor = this.costume.getPixel(width, height);
+		if (!originalSaved) {
+			originalCostume = Bitmap.createBitmap(costume);
+			originalSaved = true;
+		}
+
+		//		setCostume(this.costumeData);
+		Bitmap resultBitmap = Bitmap.createBitmap(originalCostume.getWidth(), originalCostume.getHeight(),
+				originalCostume.getConfig());
+
+		for (int width = 0; width < originalCostume.getWidth(); width++) {
+			for (int height = 0; height < originalCostume.getHeight(); height++) {
+				int oldPixelColor = originalCostume.getPixel(width, height);
 
 				int red = Color.red(oldPixelColor) + (int) (255 * (this.brightness - 1));
 				int green = Color.green(oldPixelColor) + (int) (255 * (this.brightness - 1));
@@ -350,14 +368,21 @@ public class WallpaperCostume {
 	}
 
 	private void adjustGhostEffect() {
-		setCostume(this.costumeData);
-		Bitmap resultBitmap = Bitmap.createBitmap(this.costume.getWidth(), this.costume.getHeight(),
-				this.costume.getConfig());
 
-		for (int width = 0; width < this.costume.getWidth(); width++) {
-			for (int height = 0; height < this.costume.getHeight(); height++) {
+		//TODO
+		if (!originalSaved) {
+			originalCostume = Bitmap.createBitmap(costume);
+			originalSaved = true;
+		}
 
-				int oldPixelColor = this.costume.getPixel(width, height);
+		//setCostume(this.costumeData);
+		Bitmap resultBitmap = Bitmap.createBitmap(originalCostume.getWidth(), originalCostume.getHeight(),
+				originalCostume.getConfig());
+
+		for (int width = 0; width < originalCostume.getWidth(); width++) {
+			for (int height = 0; height < originalCostume.getHeight(); height++) {
+
+				int oldPixelColor = originalCostume.getPixel(width, height);
 
 				int red = Color.red(oldPixelColor);
 				int green = Color.green(oldPixelColor);
@@ -377,12 +402,116 @@ public class WallpaperCostume {
 		this.costume = resultBitmap;
 	}
 
+	public void clearGraphicEffect() {
+		this.alphaValue = 1f;
+		this.brightness = 1f;
+		adjustBrightness();
+		adjustGhostEffect();
+	}
+
+	public void glideTo(int xDest, int yDest, int durationInMilliSeconds) {
+		this.xDestination = xDest;
+		this.yDestination = yDest;
+
+		long startTime = System.currentTimeMillis();
+		int duration = durationInMilliSeconds;
+		while (duration > 0) {
+			if (!sprite.isAlive(Thread.currentThread())) {
+				break;
+			}
+			long timeBeforeSleep = System.currentTimeMillis();
+			int sleep = 100;
+			while (System.currentTimeMillis() <= (timeBeforeSleep + sleep)) {
+
+				if (sprite.isPaused) {
+					sleep = (int) ((timeBeforeSleep + sleep) - System.currentTimeMillis());
+					long milliSecondsBeforePause = System.currentTimeMillis();
+					while (sprite.isPaused) {
+						if (sprite.isFinished) {
+							return;
+						}
+						Thread.yield();
+					}
+					timeBeforeSleep = System.currentTimeMillis();
+					startTime += System.currentTimeMillis() - milliSecondsBeforePause;
+				}
+
+				Thread.yield();
+			}
+			long currentTime = System.currentTimeMillis();
+			duration -= (int) (currentTime - startTime);
+			long timePassed = currentTime - startTime;
+
+			float xPosition = this.x;
+			float yPosition = this.y;
+
+			this.changeXBy((int) (((float) timePassed / duration) * (xDestination - xPosition)));
+			this.changeYby((int) (((float) timePassed / duration) * (yDestination - yPosition)));
+
+			startTime = currentTime;
+		}
+		if (!sprite.isAlive(Thread.currentThread())) {
+			// -stay at last position
+		} else {
+			setXYPosition(xDestination, yDestination);
+		}
+	}
+
+	public void ifOnEdgeBounce() {
+
+		float size = (float) this.size;
+
+		float width = costume.getWidth() * size;
+		float height = costume.getHeight() * size;
+		int xPosition = this.x;
+		int yPosition = this.y;
+
+		int virtualScreenWidth = Values.SCREEN_WIDTH / 2;
+		int virtualScreenHeight = Values.SCREEN_HEIGHT / 2;
+
+		if (xPosition < -virtualScreenWidth + width / 2) {
+			xPosition = -virtualScreenWidth + (int) (width / 2);
+		} else if (xPosition > virtualScreenWidth - width / 2) {
+			xPosition = virtualScreenWidth - (int) (width / 2);
+		}
+		if (yPosition > virtualScreenHeight - height / 2) {
+			yPosition = virtualScreenHeight - (int) (height / 2);
+		} else if (yPosition < -virtualScreenHeight + height / 2) {
+			yPosition = -virtualScreenHeight + (int) (height / 2);
+		}
+
+		setXYPosition(xPosition, yPosition);
+	}
+
+	public void setXYPosition(int xPosition, int yPosition) {
+		this.x = xPosition;
+		this.y = yPosition;
+	}
+
+	public void rotate() {
+
+		//TODO
+		if (!originalSaved) {
+			originalCostume = Bitmap.createBitmap(costume);
+			originalSaved = true;
+		}
+
+		this.costume = ImageEditing.rotateBitmap(originalCostume, (int) this.rotation);
+		this.topNeedsAdjustment = true;
+		this.leftNeedsAdjustment = true;
+	}
+
 	public int getzPosition() {
 		return zPosition;
 	}
 
 	public void setzPosition(int zPosition) {
 		this.zPosition = zPosition;
+	}
+
+	public void setRotation(float r) {
+		this.rotation += r;
+		rotate();
 	}
 
 }

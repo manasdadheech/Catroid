@@ -31,7 +31,7 @@ import subprocess
 from tempfile import mkdtemp
 
 #Constants
-PROJECTCODE_NAME = 'projectcode.xml'
+PROJECTCODE_NAME = 'code.xml'
 ANT_BUILD_TARGET = 'debug'
 
 class ConversionMode:
@@ -183,8 +183,8 @@ def get_project_name(project_filename):
             return node.childNodes[0].nodeValue
 
 def rename_package(path_to_project, new_package):
-    catroid_package = 'at.tugraz.ist.catroid'
-    path_to_source = os.path.join(path_to_project, 'catroid', 'src', 'at', 'tugraz', 'ist')
+    catroid_package = 'org.catrobat.catroid'
+    path_to_source = os.path.join(path_to_project, 'org', 'catrobat', 'catroid')
     os.rename(os.path.join(path_to_source, 'catroid'),\
               os.path.join(path_to_source, new_package))
     os.mkdir(os.path.join(path_to_source, 'catroid'))

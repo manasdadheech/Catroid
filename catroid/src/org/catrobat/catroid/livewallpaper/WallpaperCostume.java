@@ -89,10 +89,28 @@ public class WallpaperCostume {
 
 	}
 
+	public void clear() {
+		this.alphaValue = 1f;
+		this.brightness = 1f;
+		this.rotation = 0f;
+		this.size = 1;
+		this.hidden = false;
+
+		if (originalSaved) {
+			this.costume = originalCostume;
+		}
+
+		this.zPosition = wallpaperHelper.getProject().getSpriteList().indexOf(sprite);
+	}
+
 	public float getTop() {
 		if (topNeedsAdjustment) {
 			this.topNeedsAdjustment = false;
-			this.top = wallpaperHelper.getCenterXCoord() + x - (this.costume.getWidth() / 2);
+			if (!wallpaperHelper.isLandscape()) {
+				this.top = wallpaperHelper.getCenterXCoord() + x - (this.costume.getWidth() / 2);
+			} else {
+				this.top = wallpaperHelper.getCenterYCoord() + y - (this.costume.getHeight() / 2);
+			}
 		}
 		return top;
 	}
@@ -100,19 +118,28 @@ public class WallpaperCostume {
 	public float getLeft() {
 		if (leftNeedsAdjustment) {
 			this.leftNeedsAdjustment = false;
-			this.left = wallpaperHelper.getCenterYCoord() - y - (this.costume.getHeight() / 2);
+			if (!wallpaperHelper.isLandscape()) {
+				this.left = wallpaperHelper.getCenterYCoord() - y - (this.costume.getHeight() / 2);
+			} else {
+				this.left = wallpaperHelper.getCenterXCoord() + x - (this.costume.getWidth() / 2);
+
+			}
 		}
 		return left;
 	}
 
 	public void setX(int x) {
+
 		this.topNeedsAdjustment = true;
 		this.x = x;
+
 	}
 
 	public void setY(int y) {
+
 		this.leftNeedsAdjustment = true;
 		this.y = y;
+
 	}
 
 	public void changeXBy(int x) {
@@ -162,6 +189,11 @@ public class WallpaperCostume {
 			}
 
 			if (!landscapeCreated || landscapeCostume == null) {
+
+				//TODO
+				if (costume == null) {
+					costume = costumeData.getImageBitmap();
+				}
 				this.landscapeCostume = ImageEditing.rotateBitmap(costume, 90);
 			}
 

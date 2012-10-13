@@ -125,12 +125,11 @@ public class LiveWallpaper extends WallpaperService {
 				wallpaperHelper.setLandscape(true);
 			}
 
-			draw();
-
 		}
 
 		@Override
 		public void onSurfaceDestroyed(SurfaceHolder holder) {
+
 			super.onSurfaceDestroyed(holder);
 			wallpaperHelper.destroy();
 			mVisible = false;
@@ -168,7 +167,7 @@ public class LiveWallpaper extends WallpaperService {
 			}
 			mHandler.removeCallbacks(mUpdateDisplay);
 			if (mVisible) {
-				mHandler.postDelayed(mUpdateDisplay, 100);
+				mHandler.postDelayed(mUpdateDisplay, 50);
 			}
 		}
 

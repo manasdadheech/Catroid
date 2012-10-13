@@ -86,7 +86,7 @@ public class WallpaperHelper {
 			if (sprite.getWallpaperCostume() != null) {
 				sprite.pause();
 				sprite.finish();
-				sprite.setWallpaperCostume(null);
+				sprite.getWallpaperCostume().clear();
 
 			}
 		}
@@ -133,15 +133,6 @@ public class WallpaperHelper {
 
 	public void setLandscape(boolean isLandscape) {
 		this.isLandscape = isLandscape;
-		if (isLandscape) {
-			swapWidthAndHeight();
-		}
-	}
-
-	public void swapWidthAndHeight() {
-		int temp = centerXCoord;
-		centerXCoord = centerYCoord;
-		centerYCoord = temp;
 	}
 
 	public boolean isSoundAllowed() {

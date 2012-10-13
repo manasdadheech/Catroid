@@ -174,14 +174,6 @@ public class WallpaperCostume {
 		this.costumeData = costumeData;
 		this.costume = costumeData.getImageBitmap();
 
-		//		if (isBackground && Values.SCREEN_WIDTH != costumeImage.getWidth()
-		//				&& Values.SCREEN_HEIGHT != costumeImage.getHeight()) {
-		//			this.costume = ImageEditing.scaleBitmap(costumeImage, Values.SCREEN_WIDTH, Values.SCREEN_HEIGHT);
-		//
-		//		} else {
-		//this.costume = costumeImage;
-		//	}
-
 		if (sizeChanged) {
 			resizeCostume();
 		}
@@ -219,12 +211,6 @@ public class WallpaperCostume {
 		this.topNeedsAdjustment = true;
 		this.leftNeedsAdjustment = true;
 
-	}
-
-	public void clear() {
-		setX(0);
-		setY(0);
-		this.hidden = false;
 	}
 
 	public CostumeData getCostumeData() {

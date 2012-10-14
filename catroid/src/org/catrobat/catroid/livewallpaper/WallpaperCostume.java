@@ -61,7 +61,6 @@ public class WallpaperCostume {
 	private boolean leftNeedsAdjustment = false;
 	private boolean sizeChanged = false;
 	private boolean coordsSwapped = false;
-	private boolean landscapeCreated = false;
 
 	private WallpaperHelper wallpaperHelper;
 
@@ -159,14 +158,8 @@ public class WallpaperCostume {
 		float right = top;
 		float bottom = left;
 
-		//		if (wallpaperHelper.isLandscape()) {
-		//			right += landscapeCostume.getWidth();
-		//			bottom += landscapeCostume.getHeight();
-		//
-		//		} else {
 		right += costume.getWidth();
 		bottom += costume.getHeight();
-		//	}
 
 		if (x > top && x < right && y > left && y < bottom) {
 			return true;
@@ -186,11 +179,6 @@ public class WallpaperCostume {
 				this.left = temp;
 				this.coordsSwapped = true;
 			}
-
-			//			if (!landscapeCreated) {
-			//				landscapeCreated = true;
-			//				costume = costumeData.getImageBitmap();
-			//			}
 
 		}
 

@@ -71,7 +71,7 @@ public class PhysicBoundaryBox {
 		fixtureDef.shape = shape;
 		fixtureDef.filter.maskBits = PhysicObject.COLLISION_MASK;
 
-		if (PhysicSettings.DEBUGFLAG) {
+		if (PhysicDebugSettings.DEBUGFLAG) {
 			fixtureDef.filter.categoryBits = PhysicObject.COLLISION_MASK;
 		} else {
 			fixtureDef.filter.categoryBits = PhysicBoundaryBox.COLLISION_MASK;

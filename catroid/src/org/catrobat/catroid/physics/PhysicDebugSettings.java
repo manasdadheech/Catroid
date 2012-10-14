@@ -18,7 +18,7 @@
  */
 package org.catrobat.catroid.physics;
 
-public class PhysicSettings {
+public class PhysicDebugSettings {
 
 	public final static boolean DEBUGFLAG = true;
 

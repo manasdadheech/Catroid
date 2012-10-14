@@ -35,7 +35,7 @@ import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.io.SoundManager;
 import org.catrobat.catroid.physics.PhysicObjectConverter;
-import org.catrobat.catroid.physics.PhysicSettings;
+import org.catrobat.catroid.physics.PhysicDebugSettings;
 import org.catrobat.catroid.ui.dialogs.StageDialog;
 import org.catrobat.catroid.utils.Utils;
 
@@ -358,7 +358,7 @@ public class StageListener implements ApplicationListener {
 			drawAxes();
 		}
 
-		if (PhysicSettings.Render.RENDER_COLLISION_FRAMES && !finished) {
+		if (PhysicDebugSettings.Render.RENDER_COLLISION_FRAMES && !finished) {
 			project.getPhysicWorld().render(camera.combined);
 		}
 

@@ -89,8 +89,8 @@ public class PhysicWorld {
 		//				PhysicRenderer.instance.render(perspectiveMatrix);
 
 		if (renderer == null) {
-			renderer = new Box2DDebugRenderer(PhysicSettings.Render.RENDER_BODIES, PhysicSettings.Render.RENDER_JOINTS,
-					PhysicSettings.Render.RENDER_AABBs, PhysicSettings.Render.RENDER_INACTIVE_BODIES);
+			renderer = new Box2DDebugRenderer(PhysicDebugSettings.Render.RENDER_BODIES, PhysicDebugSettings.Render.RENDER_JOINTS,
+					PhysicDebugSettings.Render.RENDER_AABBs, PhysicDebugSettings.Render.RENDER_INACTIVE_BODIES);
 		}
 		renderer.render(world, perspectiveMatrix.scl(PhysicWorld.RATIO));
 	}

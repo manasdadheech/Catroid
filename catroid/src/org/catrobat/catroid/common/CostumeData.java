@@ -52,8 +52,8 @@ public class CostumeData implements Serializable {
 	private transient Pixmap originalPixmap = null;
 	private transient TextureRegion region = null;
 
-	private Bitmap imageBitmap;
-	private Bitmap landscapeBitmap;
+	private Bitmap costumeBitmap;
+	private Bitmap landscapeCostumeBitmap;
 
 	public TextureRegion getTextureRegion() {
 		if (region == null) {
@@ -155,21 +155,29 @@ public class CostumeData implements Serializable {
 		thumbnailBitmap = null;
 	}
 
-	public Bitmap getImageBitmap() {
-		if (imageBitmap == null) {
-			imageBitmap = BitmapFactory.decodeFile(getPath());
+	public Bitmap getCostumeBitmap() {
+		if (costumeBitmap == null) {
+			costumeBitmap = BitmapFactory.decodeFile(getPath());
 		}
 
-		if (!WallpaperHelper.getInstance().isLandscape()) {
-			return imageBitmap;
-		} else {
-			if (landscapeBitmap == null) {
-				landscapeBitmap = ImageEditing.rotateBitmap(imageBitmap, 90);
+		if (WallpaperHelper.getInstance().isLandscape()) {
+			if (landscapeCostumeBitmap == null) {
+				landscapeCostumeBitmap = ImageEditing.rotateBitmap(costumeBitmap, 90);
 			}
+			return landscapeCostumeBitmap;
+		} else {
+			return costumeBitmap;
+		}
+	}
 
-			return landscapeBitmap;
+	public void nullifyBitmaps() {
+		if (costumeBitmap != null) {
+			costumeBitmap = null;
 		}
 
+		if (landscapeCostumeBitmap != null) {
+			landscapeCostumeBitmap = null;
+		}
 	}
 
 	public int[] getResolution() {

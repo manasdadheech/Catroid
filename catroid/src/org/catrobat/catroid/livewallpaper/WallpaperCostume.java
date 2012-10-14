@@ -88,17 +88,14 @@ public class WallpaperCostume {
 	}
 
 	public void clear() {
-		this.alphaValue = 1f;
-		this.brightness = 1f;
-		this.rotation = 0f;
-		this.size = 1;
-		this.hidden = false;
-
-		if (originalSaved) {
-			this.costume = originalCostume;
-		}
-
-		this.zPosition = wallpaperHelper.getProject().getSpriteList().indexOf(sprite);
+		alphaValue = 1f;
+		brightness = 1f;
+		rotation = 0f;
+		size = 1;
+		hidden = false;
+		zPosition = wallpaperHelper.getProject().getSpriteList().indexOf(sprite);
+		costume = null;
+		costumeData.nullifyBitmaps();
 	}
 
 	public float getTop() {
@@ -127,14 +124,12 @@ public class WallpaperCostume {
 	}
 
 	public void setX(int x) {
-
 		this.topNeedsAdjustment = true;
 		this.x = x;
 
 	}
 
 	public void setY(int y) {
-
 		this.leftNeedsAdjustment = true;
 		this.y = y;
 
@@ -151,7 +146,7 @@ public class WallpaperCostume {
 	}
 
 	public boolean touchedInsideTheCostume(float x, float y) {
-		if (isBackground) {
+		if (isBackground || costume == null) {
 			return false;
 		}
 
@@ -187,7 +182,7 @@ public class WallpaperCostume {
 
 	public void setCostume(CostumeData costumeData) {
 		this.costumeData = costumeData;
-		this.costume = costumeData.getImageBitmap();
+		this.costume = costumeData.getCostumeBitmap();
 
 		if (sizeChanged) {
 			resizeCostume();
@@ -199,7 +194,7 @@ public class WallpaperCostume {
 		this.sizeChanged = true;
 		this.size = size * 0.01;
 		if (costumeData != null) {
-			this.costume = costumeData.getImageBitmap();
+			this.costume = costumeData.getCostumeBitmap();
 			resizeCostume();
 		}
 

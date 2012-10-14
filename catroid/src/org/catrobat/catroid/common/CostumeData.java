@@ -25,6 +25,7 @@ package org.catrobat.catroid.common;
 import java.io.Serializable;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.livewallpaper.WallpaperHelper;
 import org.catrobat.catroid.utils.ImageEditing;
 import org.catrobat.catroid.utils.Utils;
 
@@ -52,6 +53,7 @@ public class CostumeData implements Serializable {
 	private transient TextureRegion region = null;
 
 	private Bitmap imageBitmap;
+	private Bitmap landscapeBitmap;
 
 	public TextureRegion getTextureRegion() {
 		if (region == null) {
@@ -157,7 +159,16 @@ public class CostumeData implements Serializable {
 		if (imageBitmap == null) {
 			imageBitmap = BitmapFactory.decodeFile(getPath());
 		}
-		return imageBitmap;
+
+		if (!WallpaperHelper.getInstance().isLandscape()) {
+			return imageBitmap;
+		} else {
+			if (landscapeBitmap == null) {
+				landscapeBitmap = ImageEditing.rotateBitmap(imageBitmap, 90);
+			}
+
+			return landscapeBitmap;
+		}
 
 	}
 

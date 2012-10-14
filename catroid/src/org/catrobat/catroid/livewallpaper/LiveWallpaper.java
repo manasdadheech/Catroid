@@ -125,6 +125,8 @@ public class LiveWallpaper extends WallpaperService {
 				wallpaperHelper.setLandscape(true);
 			}
 
+			super.onSurfaceChanged(holder, format, width, height);
+
 		}
 
 		@Override
@@ -161,14 +163,21 @@ public class LiveWallpaper extends WallpaperService {
 				}
 
 			} finally {
-				if (c != null) {
-					holder.unlockCanvasAndPost(c);
+				try {
+					if (c != null) {
+						holder.unlockCanvasAndPost(c);
+					}
+
+				} catch (IllegalArgumentException exception) {
+					exception.printStackTrace();
 				}
 			}
+
 			mHandler.removeCallbacks(mUpdateDisplay);
 			if (mVisible) {
-				mHandler.postDelayed(mUpdateDisplay, 50);
+				mHandler.postDelayed(mUpdateDisplay, 100);
 			}
+
 		}
 
 		@Override

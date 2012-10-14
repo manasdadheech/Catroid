@@ -35,7 +35,6 @@ public class WallpaperCostume {
 	private CostumeData costumeData;
 	private Sprite sprite;
 	private Bitmap costume = null;
-	private Bitmap landscapeCostume = null;
 	private Bitmap originalCostume = null;
 
 	private int x;
@@ -109,7 +108,7 @@ public class WallpaperCostume {
 			if (!wallpaperHelper.isLandscape()) {
 				this.top = wallpaperHelper.getCenterXCoord() + x - (this.costume.getWidth() / 2);
 			} else {
-				this.top = wallpaperHelper.getCenterYCoord() + y - (this.costume.getHeight() / 2);
+				this.top = wallpaperHelper.getCenterYCoord() + y - (this.costume.getWidth() / 2);
 			}
 		}
 		return top;
@@ -121,7 +120,7 @@ public class WallpaperCostume {
 			if (!wallpaperHelper.isLandscape()) {
 				this.left = wallpaperHelper.getCenterYCoord() - y - (this.costume.getHeight() / 2);
 			} else {
-				this.left = wallpaperHelper.getCenterXCoord() + x - (this.costume.getWidth() / 2);
+				this.left = wallpaperHelper.getCenterXCoord() + x - (this.costume.getHeight() / 2);
 
 			}
 		}
@@ -160,14 +159,14 @@ public class WallpaperCostume {
 		float right = top;
 		float bottom = left;
 
-		if (wallpaperHelper.isLandscape()) {
-			right += landscapeCostume.getWidth();
-			bottom += landscapeCostume.getHeight();
-
-		} else {
-			right += costume.getWidth();
-			bottom += costume.getHeight();
-		}
+		//		if (wallpaperHelper.isLandscape()) {
+		//			right += landscapeCostume.getWidth();
+		//			bottom += landscapeCostume.getHeight();
+		//
+		//		} else {
+		right += costume.getWidth();
+		bottom += costume.getHeight();
+		//	}
 
 		if (x > top && x < right && y > left && y < bottom) {
 			return true;
@@ -178,9 +177,9 @@ public class WallpaperCostume {
 	}
 
 	public Bitmap getCostume() {
-		if (!wallpaperHelper.isLandscape()) {
-			return costume;
-		} else {
+
+		if (wallpaperHelper.isLandscape()) {
+
 			if (!coordsSwapped) {
 				int temp = this.top;
 				this.top = this.left;
@@ -188,18 +187,14 @@ public class WallpaperCostume {
 				this.coordsSwapped = true;
 			}
 
-			if (!landscapeCreated || landscapeCostume == null) {
-
-				//TODO
-				if (costume == null) {
-					costume = costumeData.getImageBitmap();
-				}
-				this.landscapeCostume = ImageEditing.rotateBitmap(costume, 90);
-			}
-
-			return landscapeCostume;
+			//			if (!landscapeCreated) {
+			//				landscapeCreated = true;
+			//				costume = costumeData.getImageBitmap();
+			//			}
 
 		}
+
+		return costume;
 	}
 
 	public void setCostume(CostumeData costumeData) {
@@ -209,7 +204,7 @@ public class WallpaperCostume {
 		if (sizeChanged) {
 			resizeCostume();
 		}
-		landscapeCreated = false;
+
 	}
 
 	public void setCostumeSize(double size) {

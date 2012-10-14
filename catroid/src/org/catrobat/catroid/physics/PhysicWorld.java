@@ -37,6 +37,13 @@ public class PhysicWorld {
 		GdxNativesLoader.load();
 	}
 
+	public final static float RATIO = 40.0f;
+	public final static int VELOCITY_ITERATIONS = 20;
+	public final static int POSITION_ITERATIONS = 20;
+
+	public final static Vector2 DEFAULT_GRAVITY = new Vector2(0, -10);
+	public final static boolean IGNORE_SLEEPING_OBJECTS = false;
+
 	private final World world;
 	private final Map<Sprite, PhysicObject> physicObjects;
 	private final PhysicShapeBuilder shapeBuilder;
@@ -44,7 +51,7 @@ public class PhysicWorld {
 	public int ignoreSteps = 0;
 
 	public PhysicWorld() {
-		world = new World(PhysicSettings.World.DEFAULT_GRAVITY, PhysicSettings.World.IGNORE_SLEEPING_OBJECTS);
+		world = new World(PhysicWorld.DEFAULT_GRAVITY, PhysicWorld.IGNORE_SLEEPING_OBJECTS);
 		physicObjects = new HashMap<Sprite, PhysicObject>();
 		shapeBuilder = new PhysicShapeBuilder();
 
@@ -55,7 +62,7 @@ public class PhysicWorld {
 		if (ignoreSteps < 6) {
 			ignoreSteps += 1;
 		} else {
-			world.step(deltaTime, PhysicSettings.World.VELOCITY_ITERATIONS, PhysicSettings.World.POSITION_ITERATIONS);
+			world.step(deltaTime, PhysicWorld.VELOCITY_ITERATIONS, PhysicWorld.POSITION_ITERATIONS);
 		}
 		updateSprites();
 
@@ -85,7 +92,7 @@ public class PhysicWorld {
 			renderer = new Box2DDebugRenderer(PhysicSettings.Render.RENDER_BODIES, PhysicSettings.Render.RENDER_JOINTS,
 					PhysicSettings.Render.RENDER_AABBs, PhysicSettings.Render.RENDER_INACTIVE_BODIES);
 		}
-		renderer.render(world, perspectiveMatrix.scl(PhysicSettings.World.RATIO));
+		renderer.render(world, perspectiveMatrix.scl(PhysicWorld.RATIO));
 	}
 
 	public void setGravity(Sprite sprite, Vector2 gravity) {

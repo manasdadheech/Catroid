@@ -1,16 +1,17 @@
 package org.catrobat.catroid.test.physics;
 
-import org.catrobat.catroid.physics.PhysicSettings;
+import junit.framework.Assert;
+
+import org.catrobat.catroid.physics.PhysicWorld;
 import org.catrobat.catroid.physics.PhysicWorldConverter;
 
-import junit.framework.Assert;
 import android.test.AndroidTestCase;
 
 import com.badlogic.gdx.math.Vector2;
 
 public class PhysicWorldConverterTest extends AndroidTestCase {
 
-	private float ratio = PhysicSettings.World.RATIO;
+	private float ratio = PhysicWorld.RATIO;
 
 	@Override
 	public void setUp() {

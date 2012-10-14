@@ -13,11 +13,11 @@ public final class PhysicWorldConverter {
 	}
 
 	public static float lengthCatToBox2d(float length) {
-		return length / PhysicSettings.World.RATIO;
+		return length / PhysicWorld.RATIO;
 	}
 
 	public static float lengthBox2dToCat(float length) {
-		return length * PhysicSettings.World.RATIO;
+		return length * PhysicWorld.RATIO;
 	}
 
 	public static Vector2 vecCatToBox2d(Vector2 vector) {

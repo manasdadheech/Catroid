@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.physics.PhysicBoundaryBox;
 import org.catrobat.catroid.physics.PhysicObject;
 import org.catrobat.catroid.physics.PhysicObject.Type;
-import org.catrobat.catroid.physics.PhysicSettings;
 import org.catrobat.catroid.physics.PhysicWorld;
 import org.catrobat.catroid.physics.PhysicWorldConverter;
 import org.catrobat.catroid.test.utils.TestUtils;
@@ -53,15 +53,15 @@ public class PhysicObjectTest extends AndroidTestCase {
 	public void testDefaultValues() {
 		PhysicObject physicObject = createPhysicObject();
 		assertEquals(Type.NONE, getType(physicObject));
-		assertEquals(PhysicSettings.Object.DEFAULT_MASS, getMass(physicObject));
+		assertEquals(PhysicObject.DEFAULT_MASS, getMass(physicObject));
 
 		Body body = getBody(physicObject);
 		assertTrue(body.getFixtureList().isEmpty());
 
 		FixtureDef fixtureDef = getFixtureDef(physicObject);
-		assertEquals(PhysicSettings.Object.DEFAULT_DENSITY, fixtureDef.density);
-		assertEquals(PhysicSettings.Object.DEFAULT_FRICTION, fixtureDef.friction);
-		assertEquals(PhysicSettings.Object.DEFAULT_RESTITUTION, fixtureDef.restitution);
+		assertEquals(PhysicObject.DEFAULT_DENSITY, fixtureDef.density);
+		assertEquals(PhysicObject.DEFAULT_FRICTION, fixtureDef.friction);
+		assertEquals(PhysicObject.DEFAULT_RESTITUTION, fixtureDef.restitution);
 
 		short collisionBits = 0;
 		checkCollisionMask(physicObject, collisionBits, collisionBits);
@@ -155,13 +155,13 @@ public class PhysicObjectTest extends AndroidTestCase {
 		checkCollisionMask(physicObject, (short) 0, (short) 0);
 
 		physicObject.setType(Type.FIXED);
-		checkCollisionMask(physicObject, PhysicSettings.Object.COLLISION_MASK, PhysicSettings.Object.COLLISION_MASK);
+		checkCollisionMask(physicObject, PhysicObject.COLLISION_MASK, PhysicObject.COLLISION_MASK);
 
 		physicObject.setType(Type.NONE);
 		checkCollisionMask(physicObject, (short) 0, (short) 0);
 
 		physicObject.setType(Type.DYNAMIC);
-		checkCollisionMask(physicObject, PhysicSettings.Object.COLLISION_MASK, PhysicSettings.Object.COLLISION_MASK);
+		checkCollisionMask(physicObject, PhysicObject.COLLISION_MASK, PhysicObject.COLLISION_MASK);
 	}
 
 	public void testSetTypeToDynamicUpdatesMass() {
@@ -286,7 +286,7 @@ public class PhysicObjectTest extends AndroidTestCase {
 		Body body = getBody(physicObject);
 
 		float rectangleSize = 24.0f;
-		float[] masses = { PhysicSettings.Object.MIN_MASS, 1.0f, 24.0f };
+		float[] masses = { PhysicObject.MIN_MASS, 1.0f, 24.0f };
 
 		physicObject.setShape(new Shape[] { createRectanglePolygonShape(rectangleSize, rectangleSize) });
 		for (float mass : masses) {
@@ -355,21 +355,21 @@ public class PhysicObjectTest extends AndroidTestCase {
 			PhysicObject physicObject = createPhysicObject(type, 5.0f, 5.0f);
 			Body body = getBody(physicObject);
 
-			checkBodyMassDependingOnType(type, body, PhysicSettings.Object.DEFAULT_MASS);
-			assertEquals(PhysicSettings.Object.DEFAULT_MASS, getMass(physicObject));
+			checkBodyMassDependingOnType(type, body, PhysicObject.DEFAULT_MASS);
+			assertEquals(PhysicObject.DEFAULT_MASS, getMass(physicObject));
 
-			float[] masses = { PhysicSettings.Object.MIN_MASS, 0.01f, 1.0f, 12345.0f };
+			float[] masses = { PhysicObject.MIN_MASS, 0.01f, 1.0f, 12345.0f };
 			for (float mass : masses) {
 				physicObject.setMass(mass);
 				checkBodyMassDependingOnType(type, body, mass);
 				assertEquals(mass, getMass(physicObject));
 			}
 
-			float[] massesResetedToMinMass = { PhysicSettings.Object.MIN_MASS / 10.0f, 0.0f, -1.0f };
+			float[] massesResetedToMinMass = { PhysicObject.MIN_MASS / 10.0f, 0.0f, -1.0f };
 			for (float mass : massesResetedToMinMass) {
 				physicObject.setMass(mass);
-				checkBodyMassDependingOnType(type, body, PhysicSettings.Object.MIN_MASS);
-				assertEquals(PhysicSettings.Object.MIN_MASS, getMass(physicObject));
+				checkBodyMassDependingOnType(type, body, PhysicObject.MIN_MASS);
+				assertEquals(PhysicObject.MIN_MASS, getMass(physicObject));
 			}
 		}
 	}
@@ -426,12 +426,12 @@ public class PhysicObjectTest extends AndroidTestCase {
 		physicObject.setIfOnEdgeBounce(true);
 
 		assertTrue((Boolean) TestUtils.getPrivateField("ifOnEdgeBounce", physicObject, false));
-		checkCollisionMask(physicObject, PhysicSettings.Object.COLLISION_MASK,
-				(short) (PhysicSettings.Object.COLLISION_MASK | PhysicSettings.World.BoundaryBox.COLLISION_MASK));
+		checkCollisionMask(physicObject, PhysicObject.COLLISION_MASK,
+				(short) (PhysicObject.COLLISION_MASK | PhysicBoundaryBox.COLLISION_MASK));
 
 		physicObject.setIfOnEdgeBounce(false);
 		assertFalse((Boolean) TestUtils.getPrivateField("ifOnEdgeBounce", physicObject, false));
-		checkCollisionMask(physicObject, PhysicSettings.Object.COLLISION_MASK, PhysicSettings.Object.COLLISION_MASK);
+		checkCollisionMask(physicObject, PhysicObject.COLLISION_MASK, PhysicObject.COLLISION_MASK);
 	}
 
 	// SANTA'S LITTLE HELPERS :)

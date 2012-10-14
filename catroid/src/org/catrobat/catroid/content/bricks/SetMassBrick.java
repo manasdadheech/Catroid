@@ -24,7 +24,7 @@ package org.catrobat.catroid.content.bricks;
 
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
-import org.catrobat.catroid.physics.PhysicSettings;
+import org.catrobat.catroid.physics.PhysicObject;
 import org.catrobat.catroid.physics.PhysicWorld;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.dialogs.BrickTextDialog;
@@ -112,7 +112,7 @@ public class SetMassBrick implements Brick, OnClickListener {
 			protected boolean handleOkButton() {
 				try {
 					mass = Float.parseFloat(input.getText().toString());
-					if (mass < PhysicSettings.Object.MIN_MASS) {
+					if (mass < PhysicObject.MIN_MASS) {
 						mass = 0.0f;
 					}
 				} catch (NumberFormatException exception) {

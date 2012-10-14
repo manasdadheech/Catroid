@@ -4,12 +4,13 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import org.catrobat.catroid.common.Values;
 import org.catrobat.catroid.physics.PhysicBoundaryBox;
-import org.catrobat.catroid.physics.PhysicSettings;
+import org.catrobat.catroid.physics.PhysicObject;
+import org.catrobat.catroid.physics.PhysicWorld;
 import org.catrobat.catroid.physics.PhysicWorldConverter;
 
 import android.test.AndroidTestCase;
-import org.catrobat.catroid.common.Values;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -32,7 +33,7 @@ public class PhysicBoundaryBoxTest extends AndroidTestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 
-		world = new World(PhysicSettings.World.DEFAULT_GRAVITY, PhysicSettings.World.IGNORE_SLEEPING_OBJECTS);
+		world = new World(PhysicWorld.DEFAULT_GRAVITY, PhysicWorld.IGNORE_SLEEPING_OBJECTS);
 	}
 
 	public void testProperties() {
@@ -50,10 +51,10 @@ public class PhysicBoundaryBoxTest extends AndroidTestCase {
 			assertEquals(1, fixtures.size());
 			for (Fixture fixture : fixtures) {
 				Filter filter = fixture.getFilterData();
-				assertEquals(PhysicSettings.Object.COLLISION_MASK, filter.maskBits);
+				assertEquals(PhysicObject.COLLISION_MASK, filter.maskBits);
 
 				// Fails if you forgot to set PhysicSettings.DEBUGFLAG to true. Only for release issues.
-				//				assertEquals(PhysicSettings.World.BoundaryBox.COLLISION_MASK, filter.categoryBits);
+				//				assertEquals(PhysicBoundaryBox.COLLISION_MASK, filter.categoryBits);
 			}
 		}
 	}
@@ -64,7 +65,7 @@ public class PhysicBoundaryBoxTest extends AndroidTestCase {
 
 		float halfWidth = Values.SCREEN_WIDTH / 2;
 		float halfHeight = Values.SCREEN_HEIGHT / 2;
-		float frameSize = PhysicSettings.World.BoundaryBox.FRAME_SIZE;
+		float frameSize = PhysicBoundaryBox.FRAME_SIZE;
 
 		List<Float> boundaryXValues = Arrays.asList(new Float[] { -(halfWidth + frameSize), -halfWidth, halfWidth,
 				halfWidth + frameSize });

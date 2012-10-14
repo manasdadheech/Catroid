@@ -34,6 +34,13 @@ public class PhysicObject {
 		DYNAMIC, FIXED, NONE;
 	}
 
+	public final static float DEFAULT_DENSITY = 1.0f;
+	public final static float DEFAULT_FRICTION = 0.2f;
+	public final static float DEFAULT_RESTITUTION = 0.8f;
+	public final static float DEFAULT_MASS = 1.0f;
+	public final static float MIN_MASS = 0.000001f;
+	public final static short COLLISION_MASK = 0x0004;
+
 	private final Body body;
 	private final FixtureDef fixtureDef = new FixtureDef();
 	private Shape[] shapes;
@@ -44,10 +51,10 @@ public class PhysicObject {
 	public PhysicObject(Body body) {
 		this.body = body;
 
-		mass = PhysicSettings.Object.DEFAULT_MASS;
-		fixtureDef.density = PhysicSettings.Object.DEFAULT_DENSITY;
-		fixtureDef.friction = PhysicSettings.Object.DEFAULT_FRICTION;
-		fixtureDef.restitution = PhysicSettings.Object.DEFAULT_RESTITUTION;
+		mass = PhysicObject.DEFAULT_MASS;
+		fixtureDef.density = PhysicObject.DEFAULT_DENSITY;
+		fixtureDef.friction = PhysicObject.DEFAULT_FRICTION;
+		fixtureDef.restitution = PhysicObject.DEFAULT_RESTITUTION;
 
 		short collisionBits = 0;
 		setCollisionBits(collisionBits, collisionBits);
@@ -84,9 +91,9 @@ public class PhysicObject {
 
 		short maskBits;
 		if (bounce) {
-			maskBits = PhysicSettings.Object.COLLISION_MASK | PhysicSettings.World.BoundaryBox.COLLISION_MASK;
+			maskBits = PhysicObject.COLLISION_MASK | PhysicBoundaryBox.COLLISION_MASK;
 		} else {
-			maskBits = PhysicSettings.Object.COLLISION_MASK;
+			maskBits = PhysicObject.COLLISION_MASK;
 		}
 
 		setCollisionBits(fixtureDef.filter.categoryBits, maskBits);
@@ -107,11 +114,11 @@ public class PhysicObject {
 			case DYNAMIC:
 				body.setType(BodyType.DynamicBody);
 				setMass(mass);
-				collisionMask = PhysicSettings.Object.COLLISION_MASK;
+				collisionMask = PhysicObject.COLLISION_MASK;
 				break;
 			case FIXED:
 				body.setType(BodyType.KinematicBody);
-				collisionMask = PhysicSettings.Object.COLLISION_MASK;
+				collisionMask = PhysicObject.COLLISION_MASK;
 				break;
 			case NONE:
 				body.setType(BodyType.KinematicBody);
@@ -192,8 +199,8 @@ public class PhysicObject {
 	}
 
 	public void setMass(float mass) {
-		if (mass < PhysicSettings.Object.MIN_MASS) {
-			mass = PhysicSettings.Object.MIN_MASS;
+		if (mass < PhysicObject.MIN_MASS) {
+			mass = PhysicObject.MIN_MASS;
 		}
 		this.mass = mass;
 

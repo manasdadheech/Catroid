@@ -18,8 +18,6 @@
  */
 package org.catrobat.catroid.physics;
 
-import com.badlogic.gdx.math.Vector2;
-
 public class PhysicSettings {
 
 	public final static boolean DEBUGFLAG = true;
@@ -30,30 +28,5 @@ public class PhysicSettings {
 		public final static boolean RENDER_JOINTS = false;
 		public final static boolean RENDER_AABBs = false;
 		public final static boolean RENDER_INACTIVE_BODIES = true;
-	}
-
-	public static class World {
-		public final static float RATIO = 40.0f;
-		public final static int VELOCITY_ITERATIONS = 20;
-		public final static int POSITION_ITERATIONS = 20;
-
-		public final static Vector2 DEFAULT_GRAVITY = new Vector2(0, -10);
-		public final static boolean IGNORE_SLEEPING_OBJECTS = false;
-
-		public static class BoundaryBox {
-			public final static int FRAME_SIZE = 5;
-			public final static short COLLISION_MASK = 0x0002;
-		}
-	}
-
-	public static class Object {
-		public final static float DEFAULT_DENSITY = 1.0f;
-		public final static float DEFAULT_FRICTION = 0.2f;
-		public final static float DEFAULT_RESTITUTION = 0.8f;
-		public final static float DEFAULT_MASS = 1.0f;
-		public final static float MIN_MASS = 0.000001f;
-		public final static float DEFAULT_ANGULAR_VELOCITY = 15.0f;
-		public final static Vector2 DEFAULT_VELOCITY = new Vector2(0, 0);
-		public final static short COLLISION_MASK = 0x0004;
 	}
 }

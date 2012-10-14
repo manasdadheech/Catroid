@@ -1,6 +1,6 @@
 package org.catrobat.catroid.test.physics;
 
-import org.catrobat.catroid.physics.PhysicSettings;
+import org.catrobat.catroid.physics.PhysicWorld;
 
 import android.test.AndroidTestCase;
 
@@ -17,7 +17,7 @@ public class PhysicWorldTest extends AndroidTestCase {
 
 	@Override
 	public void setUp() {
-		world = new World(PhysicSettings.World.DEFAULT_GRAVITY, PhysicSettings.World.IGNORE_SLEEPING_OBJECTS);
+		world = new World(PhysicWorld.DEFAULT_GRAVITY, PhysicWorld.IGNORE_SLEEPING_OBJECTS);
 	}
 
 	@Override

@@ -86,7 +86,6 @@ import org.catrobat.catroid.content.bricks.WaitBrick;
 import org.catrobat.catroid.content.bricks.WhenBrick;
 import org.catrobat.catroid.content.bricks.WhenStartedBrick;
 import org.catrobat.catroid.physics.PhysicObject;
-import org.catrobat.catroid.physics.PhysicSettings;
 import org.catrobat.catroid.physics.PhysicWorld;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.adapter.PrototypeBrickAdapter;
@@ -106,6 +105,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.badlogic.gdx.math.Vector2;
 
 public class AddBrickDialog extends DialogFragment {
 
@@ -250,18 +251,14 @@ public class AddBrickDialog extends DialogFragment {
 			motionBrickList.add(new ComeToFrontBrick(sprite));
 
 			motionBrickList.add(new SetPhysicObjectTypeBrick(physicWorld, sprite, PhysicObject.Type.DYNAMIC));
-			motionBrickList.add(new SetMassBrick(physicWorld, sprite, PhysicSettings.Object.DEFAULT_MASS));
-			motionBrickList.add(new SetBounceFactorBrick(physicWorld, sprite,
-					PhysicSettings.Object.DEFAULT_RESTITUTION * 100));
-			motionBrickList
-					.add(new SetFrictionBrick(physicWorld, sprite, PhysicSettings.Object.DEFAULT_FRICTION * 100));
+			motionBrickList.add(new SetMassBrick(physicWorld, sprite, PhysicObject.DEFAULT_MASS));
+			motionBrickList.add(new SetBounceFactorBrick(physicWorld, sprite, PhysicObject.DEFAULT_RESTITUTION * 100));
+			motionBrickList.add(new SetFrictionBrick(physicWorld, sprite, PhysicObject.DEFAULT_FRICTION * 100));
 		}
-		motionBrickList.add(new SetGravityBrick(physicWorld, sprite, PhysicSettings.World.DEFAULT_GRAVITY));
-		motionBrickList.add(new SetVelocityBrick(physicWorld, sprite, PhysicSettings.Object.DEFAULT_VELOCITY));
-		motionBrickList
-				.add(new TurnLeftSpeedBrick(physicWorld, sprite, PhysicSettings.Object.DEFAULT_ANGULAR_VELOCITY));
-		motionBrickList
-				.add(new TurnRightSpeedBrick(physicWorld, sprite, PhysicSettings.Object.DEFAULT_ANGULAR_VELOCITY));
+		motionBrickList.add(new SetGravityBrick(physicWorld, sprite, PhysicWorld.DEFAULT_GRAVITY));
+		motionBrickList.add(new SetVelocityBrick(physicWorld, sprite, new Vector2(0, 0)));
+		motionBrickList.add(new TurnLeftSpeedBrick(physicWorld, sprite, 15.0f));
+		motionBrickList.add(new TurnRightSpeedBrick(physicWorld, sprite, 15.0f));
 		brickMap.put(context.getString(R.string.category_motion), motionBrickList);
 
 		List<Brick> looksBrickList = new ArrayList<Brick>();

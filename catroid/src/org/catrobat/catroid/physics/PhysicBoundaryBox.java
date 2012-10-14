@@ -34,6 +34,9 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class PhysicBoundaryBox {
 
+	public final static int FRAME_SIZE = 5;
+	public final static short COLLISION_MASK = 0x0002;
+
 	private final World world;
 
 	public PhysicBoundaryBox(World world) {
@@ -43,7 +46,7 @@ public class PhysicBoundaryBox {
 	public void create() {
 		float boxWidth = PhysicWorldConverter.lengthCatToBox2d(Values.SCREEN_WIDTH);
 		float boxHeight = PhysicWorldConverter.lengthCatToBox2d(Values.SCREEN_HEIGHT);
-		float boxElementSize = PhysicWorldConverter.lengthCatToBox2d(PhysicSettings.World.BoundaryBox.FRAME_SIZE);
+		float boxElementSize = PhysicWorldConverter.lengthCatToBox2d(PhysicBoundaryBox.FRAME_SIZE);
 		float halfBoxElementSize = boxElementSize / 2.0f;
 
 		// Top
@@ -66,12 +69,12 @@ public class PhysicBoundaryBox {
 
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
-		fixtureDef.filter.maskBits = PhysicSettings.Object.COLLISION_MASK;
+		fixtureDef.filter.maskBits = PhysicObject.COLLISION_MASK;
 
 		if (PhysicSettings.DEBUGFLAG) {
-			fixtureDef.filter.categoryBits = PhysicSettings.Object.COLLISION_MASK;
+			fixtureDef.filter.categoryBits = PhysicObject.COLLISION_MASK;
 		} else {
-			fixtureDef.filter.categoryBits = PhysicSettings.World.BoundaryBox.COLLISION_MASK;
+			fixtureDef.filter.categoryBits = PhysicBoundaryBox.COLLISION_MASK;
 		}
 
 		Body body = world.createBody(bodyDef);

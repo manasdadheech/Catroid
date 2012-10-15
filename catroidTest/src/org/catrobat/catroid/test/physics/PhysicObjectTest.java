@@ -40,6 +40,17 @@ public class PhysicObjectTest extends AndroidTestCase {
 		physicWorld = null;
 	}
 
+	public void testDefaultValues() {
+		assertEquals(1.0f, PhysicObject.DEFAULT_DENSITY);
+		assertEquals(0.2f, PhysicObject.DEFAULT_FRICTION);
+		assertEquals(0.8f, PhysicObject.DEFAULT_RESTITUTION);
+
+		assertEquals(1.0f, PhysicObject.DEFAULT_MASS);
+		assertEquals(0.000001f, PhysicObject.MIN_MASS);
+
+		assertEquals(0x0004, PhysicObject.COLLISION_MASK);
+	}
+
 	public void testNullBody() {
 		try {
 			@SuppressWarnings("unused")
@@ -50,7 +61,7 @@ public class PhysicObjectTest extends AndroidTestCase {
 		}
 	}
 
-	public void testDefaultValues() {
+	public void testDefaultProperties() {
 		PhysicObject physicObject = createPhysicObject();
 		assertEquals(Type.NONE, getType(physicObject));
 		assertEquals(PhysicObject.DEFAULT_MASS, getMass(physicObject));

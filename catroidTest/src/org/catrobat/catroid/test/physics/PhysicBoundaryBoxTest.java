@@ -36,6 +36,11 @@ public class PhysicBoundaryBoxTest extends AndroidTestCase {
 		world = new World(PhysicWorld.DEFAULT_GRAVITY, PhysicWorld.IGNORE_SLEEPING_OBJECTS);
 	}
 
+	public void testDefaultValues() {
+		assertEquals(5, PhysicBoundaryBox.FRAME_SIZE);
+		assertEquals(0x0002, PhysicBoundaryBox.COLLISION_MASK);
+	}
+
 	public void testProperties() {
 		assertEquals(0, world.getBodyCount());
 		new PhysicBoundaryBox(world).create();

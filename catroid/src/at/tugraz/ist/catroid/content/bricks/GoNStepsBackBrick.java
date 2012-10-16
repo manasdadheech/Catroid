@@ -24,6 +24,7 @@ package at.tugraz.ist.catroid.content.bricks;
 
 import android.content.Context;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
@@ -32,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import at.tugraz.ist.catroid.R;
 import at.tugraz.ist.catroid.content.Sprite;
+import at.tugraz.ist.catroid.livewallpaper.WallpaperCostume;
 import at.tugraz.ist.catroid.ui.ScriptTabActivity;
 import at.tugraz.ist.catroid.ui.dialogs.BrickTextDialog;
 
@@ -71,10 +73,8 @@ public class GoNStepsBackBrick implements Brick, OnClickListener {
 	public View getView(Context context, int brickId, BaseAdapter adapter) {
 		View view = View.inflate(context, R.layout.brick_go_back, null);
 
-		TextView text = (TextView) view
-				.findViewById(R.id.brick_go_back_n_text_view);
-		EditText edit = (EditText) view
-				.findViewById(R.id.brick_go_back_edit_text);
+		TextView text = (TextView) view.findViewById(R.id.brick_go_back_n_text_view);
+		EditText edit = (EditText) view.findViewById(R.id.brick_go_back_edit_text);
 
 		edit.setText(String.valueOf(steps));
 		text.setVisibility(View.GONE);
@@ -102,8 +102,7 @@ public class GoNStepsBackBrick implements Brick, OnClickListener {
 			@Override
 			protected void initialize() {
 				input.setText(String.valueOf(steps));
-				input.setInputType(InputType.TYPE_CLASS_NUMBER
-						| InputType.TYPE_NUMBER_FLAG_SIGNED);
+				input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED);
 				input.setSelectAllOnFocus(true);
 			}
 
@@ -112,22 +111,35 @@ public class GoNStepsBackBrick implements Brick, OnClickListener {
 				try {
 					steps = Integer.parseInt(input.getText().toString());
 				} catch (NumberFormatException exception) {
-					Toast.makeText(getActivity(),
-							R.string.error_no_number_entered,
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(getActivity(), R.string.error_no_number_entered, Toast.LENGTH_SHORT).show();
 				}
 
 				return true;
 			}
 		};
 
-		editDialog.show(activity.getSupportFragmentManager(),
-				"dialog_go_n_steps_brick");
+		editDialog.show(activity.getSupportFragmentManager(), "dialog_go_n_steps_brick");
 	}
 
 	@Override
 	public void executeLiveWallpaper() {
 		// TODO Auto-generated method stub
+		Log.d("TAG", "execute GoNStepsBackBrick ist clicked...");
+
+		WallpaperCostume wallpaperCostume = sprite.getWallpaperCostume();
+		if (wallpaperCostume == null) {
+			wallpaperCostume = new WallpaperCostume(sprite, null);
+		}
+
+		int zPosition_wp = wallpaperCostume.getzPosition();
+
+		if (steps > 0 && (zPosition_wp - steps) > zPosition_wp) {
+			wallpaperCostume.setzPosition(Integer.MIN_VALUE);
+		} else if (steps < 0 && (zPosition_wp - steps) < zPosition_wp) {
+			wallpaperCostume.setzPosition(Integer.MAX_VALUE);
+		} else {
+			wallpaperCostume.setzPosition(wallpaperCostume.getzPosition() - steps);
+		}
 
 	}
 }

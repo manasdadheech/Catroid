@@ -53,12 +53,12 @@ public class LiveWallpaper extends WallpaperService {
 		ProjectManager projectManager = ProjectManager.getInstance();
 
 		//CODE FOR LOADING FROM ASSETS
-		//				context = getApplicationContext();
-		//				DisplayMetrics displayMetrics = new DisplayMetrics();
-		//				((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displayMetrics);
-		//				Values.SCREEN_WIDTH = displayMetrics.widthPixels;
-		//				Values.SCREEN_HEIGHT = displayMetrics.heightPixels;
-		//				projectManager.loadProject(Constants.PROJECTCODE_NAME, this, null, false);
+		//		context = getApplicationContext();
+		//		DisplayMetrics displayMetrics = new DisplayMetrics();
+		//		((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displayMetrics);
+		//		Values.SCREEN_WIDTH = displayMetrics.widthPixels;
+		//		Values.SCREEN_HEIGHT = displayMetrics.heightPixels;
+		//		projectManager.loadProject(Constants.PROJECTCODE_NAME, this, null, false);
 		//______________________________________________________________________________
 
 		//CODE FOR LOADING FROM SD CARD

@@ -35,7 +35,6 @@ public class WallpaperCostume {
 	private CostumeData costumeData;
 	private Sprite sprite;
 	private Bitmap costume = null;
-	private Bitmap originalCostume = null;
 
 	private int x;
 	private int y;
@@ -54,7 +53,6 @@ public class WallpaperCostume {
 
 	private double size = 1;
 
-	private boolean originalSaved = false;
 	private boolean hidden = false;
 	private boolean isBackground = false;
 	private boolean topNeedsAdjustment = false;
@@ -207,16 +205,9 @@ public class WallpaperCostume {
 	}
 
 	private void resizeCostume() {
-		//TODO
-
-		if (!originalSaved) {
-			originalCostume = Bitmap.createBitmap(costume);
-			originalSaved = true;
-		}
-
-		int newWidth = (int) (originalCostume.getWidth() * size);
-		int newHeight = (int) (originalCostume.getHeight() * size);
-		this.costume = ImageEditing.scaleBitmap(originalCostume, newWidth, newHeight);
+		int newWidth = (int) (costumeData.getCostumeBitmap().getWidth() * size);
+		int newHeight = (int) (costumeData.getCostumeBitmap().getHeight() * size);
+		this.costume = ImageEditing.scaleBitmap(costumeData.getCostumeBitmap(), newWidth, newHeight);
 
 		this.topNeedsAdjustment = true;
 		this.leftNeedsAdjustment = true;
@@ -285,15 +276,7 @@ public class WallpaperCostume {
 	}
 
 	private void adjustBrightness() {
-
-		if (!originalSaved) {
-			originalCostume = Bitmap.createBitmap(costume);
-			originalSaved = true;
-		}
-
-		Bitmap originalCostume = costume;
-
-		this.costume = ImageEditing.adjustBitmpaBrigthness(originalCostume, brightness);
+		this.costume = ImageEditing.adjustBitmpaBrigthness(costumeData.getCostumeBitmap(), brightness);
 	}
 
 	public void setGhostEffect(float alpha) {
@@ -321,14 +304,7 @@ public class WallpaperCostume {
 	}
 
 	private void adjustGhostEffect() {
-
-		//TODO
-		if (!originalSaved) {
-			originalCostume = Bitmap.createBitmap(costume);
-			originalSaved = true;
-		}
-
-		this.costume = ImageEditing.adjustBitmapAlphaValue(originalCostume, alphaValue);
+		this.costume = ImageEditing.adjustBitmapAlphaValue(costumeData.getCostumeBitmap(), alphaValue);
 	}
 
 	public void clearGraphicEffect() {
@@ -418,14 +394,7 @@ public class WallpaperCostume {
 	}
 
 	public void rotate() {
-
-		//TODO
-		if (!originalSaved) {
-			originalCostume = costume;
-			originalSaved = true;
-		}
-
-		this.costume = ImageEditing.rotateBitmap(originalCostume, (int) this.rotation);
+		this.costume = ImageEditing.rotateBitmap(costumeData.getCostumeBitmap(), (int) this.rotation);
 		this.topNeedsAdjustment = true;
 		this.leftNeedsAdjustment = true;
 	}

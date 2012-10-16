@@ -60,10 +60,19 @@ public class ProjectInformationDialog extends Dialog {
 
 	public String getProjectInformationText() {
 		Resources resources = context.getResources();
+
 		String text = resources.getString(R.string.lwp_project_name) + " " + ProjectInformation.projectName + "\n";
-		text += resources.getString(R.string.lwp_project_uploader) + " " + ProjectInformation.uploader + "\n";
-		text += resources.getString(R.string.lwp_project_link) + " " + ProjectInformation.link + "\n";
+
+		if (ProjectInformation.uploader != "") {
+			text += resources.getString(R.string.lwp_project_uploader) + " " + ProjectInformation.uploader + "\n";
+		}
+
+		if (ProjectInformation.link != "") {
+			text += resources.getString(R.string.lwp_project_link) + " " + ProjectInformation.link + "\n";
+		}
+
 		text += resources.getString(R.string.lwp_project_licnese) + " " + ProjectInformation.license + "\n";
+
 		if (ProjectInformation.projectDescription != null) {
 			text += resources.getString(R.string.lwp_project_description) + " " + ProjectInformation.projectDescription
 					+ "\n";

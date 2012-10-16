@@ -31,14 +31,16 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
 
-    <uses-permission android:name="android.permission.VIBRATE" />
+     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> 
+    
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.BIND_WALLPAPER"/>
 
     <uses-feature android:name="android.software.live_wallpaper"> </uses-feature>
@@ -60,14 +62,14 @@
                 android:resource="@xml/mywallpaper"/> 
         </service>
         
-       <activity 
+    <activity 
             android:label="@string/app_name" 
             android:name=".livewallpaper.LiveWallpaperSettings"
             android:theme="@android:style/Theme.Light.WallpaperSettings"
             android:exported="true">
-   		</activity>
+   		</activity> 
         
-        <activity
+         <activity 
             android:name=".ui.MainMenuActivity"
             android:configChanges="keyboardHidden|orientation"
             android:theme="@style/Theme.Catroid" >
@@ -138,7 +140,7 @@
             </intent-filter>
         </activity>
         <service android:name=".transfers.ProjectUploadService"/>
-        <service android:name=".transfers.ProjectDownloadService"/>
+        <service android:name=".transfers.ProjectDownloadService"/> 
     </application>
 
 </manifest>

@@ -23,6 +23,7 @@
 package at.tugraz.ist.catroid.content.bricks;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,8 +32,10 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Spinner;
 import at.tugraz.ist.catroid.R;
+import at.tugraz.ist.catroid.common.CostumeData;
 import at.tugraz.ist.catroid.content.Sprite;
 import at.tugraz.ist.catroid.livewallpaper.WallpaperCostume;
+import at.tugraz.ist.catroid.utils.ImageEditing;
 
 public class PointInDirectionBrick implements Brick, OnItemSelectedListener {
 
@@ -84,7 +87,7 @@ public class PointInDirectionBrick implements Brick, OnItemSelectedListener {
 
 	@Override
 	public void execute() {
-		//Log.d("TAG", "PointInDirection! --> execute()");
+
 		double degreeOffset = 90f;
 
 		// why "+degreeOffset????
@@ -139,7 +142,7 @@ public class PointInDirectionBrick implements Brick, OnItemSelectedListener {
 		direction = Direction.values()[position];
 		degrees = direction.getDegrees();
 
-		//Log.d("TAG", "PointInDirection! --> onItemSelected(): direction= " + direction + "degrees= " + degrees);
+		Log.d("TAG", "PointInDirection! --> onItemSelected(): direction= " + direction + "degrees= " + degrees);
 	}
 
 	@Override
@@ -150,7 +153,7 @@ public class PointInDirectionBrick implements Brick, OnItemSelectedListener {
 	public void executeLiveWallpaper() {
 		// TODO Auto-generated method stub
 
-		//Log.d("TAG", "PointInDirection --> executeLiveWallpaper()");
+		Log.d("TAG", "PointInDirection --> executeLiveWallpaper()");
 
 		WallpaperCostume wallpaperCostume = sprite.getWallpaperCostume();
 		if (wallpaperCostume == null) {
@@ -158,7 +161,21 @@ public class PointInDirectionBrick implements Brick, OnItemSelectedListener {
 		}
 
 		double degreeOffset = 90f;
-		sprite.costume.rotation = (float) (-degrees);
+
+		// get the bitmap of the wallpaperCostume
+		Bitmap current_costume = wallpaperCostume.getCostume();
+
+		// rotate it
+
+		ImageEditing image_rotate = new ImageEditing();
+
+		Bitmap rotated_costume = image_rotate.rotateBitmap(current_costume, (int) degrees);
+
+		CostumeData costume_data = new CostumeData();
+
+		costume_data.setBitmap(rotated_costume);
+
+		wallpaperCostume.setCostume(costume_data);
 
 	}
 }

@@ -31,7 +31,9 @@ import at.tugraz.ist.catroid.common.Values;
 import at.tugraz.ist.catroid.content.Sprite;
 import at.tugraz.ist.catroid.utils.ImageEditing;
 
-public class WallpaperCostume {
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+
+public class WallpaperCostume extends Image {
 
 	private CostumeData costumeData;
 	private Sprite sprite;
@@ -62,6 +64,8 @@ public class WallpaperCostume {
 
 	public WallpaperCostume(Sprite sprite, CostumeData costumeData) {
 
+		// new
+		this.rotation = 0f;
 		this.wallpaperHelper = WallpaperHelper.getInstance();
 		this.sprite = sprite;
 		this.zPosition = wallpaperHelper.getProject().getSpriteList().indexOf(sprite);

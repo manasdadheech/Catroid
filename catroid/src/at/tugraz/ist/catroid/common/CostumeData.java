@@ -119,6 +119,10 @@ public class CostumeData implements Serializable {
 		this.fileName = fileName;
 	}
 
+	public void setBitmap(Bitmap bitmap) {
+		this.imageBitmap = bitmap;
+	}
+
 	public String getCostumeFileName() {
 		return fileName;
 	}

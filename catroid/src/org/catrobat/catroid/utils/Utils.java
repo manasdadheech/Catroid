@@ -45,7 +45,7 @@ import org.catrobat.catroid.common.SoundInfo;
 import org.catrobat.catroid.common.Values;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.io.StorageHandler;
-import org.catrobat.catroid.livewallpaper.DummyLiveWallpaperActivity;
+import org.catrobat.catroid.livewallpaper.LiveWallpaper;
 import org.catrobat.catroid.stage.NativeAppActivity;
 import org.catrobat.catroid.ui.dialogs.ErrorDialogFragment;
 
@@ -89,8 +89,6 @@ public class Utils {
 	public static final int PICTURE_INTENT = 1;
 	public static final int FILE_INTENT = 2;
 	private static boolean isUnderTest;
-
-	private static Context context;
 
 	public static boolean hasSdCard() {
 		return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
@@ -400,19 +398,11 @@ public class Utils {
 	}
 
 	public static boolean isLoadingFromAssetsNecessary() {
-		if (NativeAppActivity.isRunning()) {
-			context = NativeAppActivity.getContext();
-			return true;
-		} else if (DummyLiveWallpaperActivity.isRunning()) {
-			context = DummyLiveWallpaperActivity.getContext();
+		if (NativeAppActivity.isRunning() || LiveWallpaper.getContext() != null) {
 			return true;
 		}
 
 		return false;
-	}
-
-	public static Context getContext() {
-		return context;
 	}
 
 }

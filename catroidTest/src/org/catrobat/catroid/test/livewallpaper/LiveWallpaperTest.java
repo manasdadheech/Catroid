@@ -98,10 +98,10 @@ public class LiveWallpaperTest extends AndroidTestCase {
 		this.catroidSprite = defaultProject.getSpriteList().get(1);
 		this.backgroundSprite = defaultProject.getSpriteList().get(0);
 
-		this.backgroundBitmap = backgroundSprite.getCostumeDataList().get(0).getImageBitmap();
-		this.normalCatBitmap = catroidSprite.getCostumeDataList().get(0).getImageBitmap();
-		this.banzaiCatBitmap = catroidSprite.getCostumeDataList().get(1).getImageBitmap();
-		this.chasireCatBitmap = catroidSprite.getCostumeDataList().get(2).getImageBitmap();
+		this.backgroundBitmap = backgroundSprite.getCostumeDataList().get(0).getCostumeBitmap();
+		this.normalCatBitmap = catroidSprite.getCostumeDataList().get(0).getCostumeBitmap();
+		this.banzaiCatBitmap = catroidSprite.getCostumeDataList().get(1).getCostumeBitmap();
+		this.chasireCatBitmap = catroidSprite.getCostumeDataList().get(2).getCostumeBitmap();
 
 		this.wallpaperHelper = WallpaperHelper.getInstance();
 		wallpaperHelper.setProject(defaultProject);

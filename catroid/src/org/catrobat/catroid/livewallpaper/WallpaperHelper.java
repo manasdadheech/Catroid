@@ -133,6 +133,18 @@ public class WallpaperHelper {
 
 	public void setLandscape(boolean isLandscape) {
 		this.isLandscape = isLandscape;
+
+		if (isLandscape) {
+			switchCoordinates();
+		}
+	}
+
+	private void switchCoordinates() {
+		if (LiveWallpaper.getContext() == null) {
+			int temp = this.centerXCoord;
+			this.centerXCoord = this.centerYCoord;
+			this.centerYCoord = temp;
+		}
 	}
 
 	public boolean isSoundAllowed() {

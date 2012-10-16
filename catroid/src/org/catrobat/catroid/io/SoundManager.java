@@ -25,9 +25,11 @@ package org.catrobat.catroid.io;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.catrobat.catroid.livewallpaper.LiveWallpaper;
 import org.catrobat.catroid.stage.NativeAppActivity;
 import org.catrobat.catroid.utils.Utils;
 
+import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 
@@ -75,7 +77,14 @@ public class SoundManager {
 				if (!Utils.isLoadingFromAssetsNecessary()) {
 					mediaPlayer.setDataSource(pathToSoundfile);
 				} else {
-					AssetFileDescriptor afd = NativeAppActivity.getContext().getAssets().openFd(pathToSoundfile);
+					Context context;
+					if (NativeAppActivity.isRunning()) {
+						context = NativeAppActivity.getContext();
+					} else {
+						context = LiveWallpaper.getContext();
+					}
+
+					AssetFileDescriptor afd = context.getAssets().openFd(pathToSoundfile);
 					mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
 				}
 				mediaPlayer.prepare();

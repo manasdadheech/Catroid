@@ -37,6 +37,7 @@ import org.catrobat.catroid.common.FileChecksumContainer;
 import org.catrobat.catroid.common.SoundInfo;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.livewallpaper.LiveWallpaper;
 import org.catrobat.catroid.stage.NativeAppActivity;
 import org.catrobat.catroid.ui.fragment.ProjectsListFragment.ProjectData;
 import org.catrobat.catroid.utils.ImageEditing;
@@ -45,6 +46,7 @@ import org.catrobat.catroid.utils.Utils;
 import org.catrobat.catroid.xml.parser.FullParser;
 import org.catrobat.catroid.xml.serializer.XmlSerializer;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.util.Log;
@@ -90,7 +92,14 @@ public class StorageHandler {
 		createCatroidRoot();
 		try {
 			if (Utils.isLoadingFromAssetsNecessary()) {
-				InputStream spfFileStream = NativeAppActivity.getContext().getAssets().open(projectName);
+				Context context;
+				if (NativeAppActivity.isRunning()) {
+					context = NativeAppActivity.getContext();
+				} else {
+					context = LiveWallpaper.getContext();
+				}
+
+				InputStream spfFileStream = context.getAssets().open(projectName);
 				Project returned = fullParser.parseSpritesWithProject(spfFileStream);
 				return returned;
 			}

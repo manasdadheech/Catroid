@@ -104,7 +104,7 @@ public class WallpaperCostume {
 			if (!wallpaperHelper.isLandscape()) {
 				this.top = wallpaperHelper.getCenterXCoord() + x - (this.costume.getWidth() / 2);
 			} else {
-				this.top = wallpaperHelper.getCenterYCoord() + y - (this.costume.getWidth() / 2);
+				this.top = wallpaperHelper.getCenterXCoord() + y - (this.costume.getWidth() / 2);
 			}
 		}
 		return top;
@@ -116,7 +116,7 @@ public class WallpaperCostume {
 			if (!wallpaperHelper.isLandscape()) {
 				this.left = wallpaperHelper.getCenterYCoord() - y - (this.costume.getHeight() / 2);
 			} else {
-				this.left = wallpaperHelper.getCenterXCoord() + x - (this.costume.getHeight() / 2);
+				this.left = wallpaperHelper.getCenterYCoord() + x - (this.costume.getHeight() / 2);
 
 			}
 		}

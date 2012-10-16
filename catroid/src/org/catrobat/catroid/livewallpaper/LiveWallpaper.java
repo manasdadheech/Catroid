@@ -31,6 +31,7 @@ import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.utils.Utils;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Handler;
@@ -44,14 +45,26 @@ import android.view.WindowManager;
 
 public class LiveWallpaper extends WallpaperService {
 
+	private static Context context = null;
+
 	@Override
 	public Engine onCreateEngine() {
 
-		//TODO: this code goes into the dummy app after the stuff is implemented
 		ProjectManager projectManager = ProjectManager.getInstance();
 
+		//CODE FOR LOADING FROM ASSETS
+		//				context = getApplicationContext();
+		//				DisplayMetrics displayMetrics = new DisplayMetrics();
+		//				((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displayMetrics);
+		//				Values.SCREEN_WIDTH = displayMetrics.widthPixels;
+		//				Values.SCREEN_HEIGHT = displayMetrics.heightPixels;
+		//				projectManager.loadProject(Constants.PROJECTCODE_NAME, this, null, false);
+		//______________________________________________________________________________
+
+		//CODE FOR LOADING FROM SD CARD
 		projectManager.setProject(null);
 		Utils.loadProjectIfNeeded(getApplicationContext(), null);
+		//___________________________________________________________
 
 		Project project = projectManager.getCurrentProject();
 		WallpaperHelper.getInstance().setProject(project);
@@ -61,6 +74,10 @@ public class LiveWallpaper extends WallpaperService {
 
 		return new CatWallEngine();
 
+	}
+
+	public static Context getContext() {
+		return context;
 	}
 
 	@TargetApi(9)

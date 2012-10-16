@@ -157,7 +157,19 @@ public class CostumeData implements Serializable {
 
 	public Bitmap getCostumeBitmap() {
 		if (costumeBitmap == null) {
+			//CODE FOR LOADING FROM SD CARD
 			costumeBitmap = BitmapFactory.decodeFile(getPath());
+			//____________________________________________________
+
+			//CODE FOR LOADING FROM ASSETS
+			//			try {
+			//				InputStream istr = LiveWallpaper.getContext().getAssets().open(getPath());
+			//				costumeBitmap = BitmapFactory.decodeStream(istr);
+			//			} catch (IOException e) {
+			//				e.printStackTrace();
+			//			}
+			//________________________________________________________________________________
+
 		}
 
 		if (WallpaperHelper.getInstance().isLandscape()) {

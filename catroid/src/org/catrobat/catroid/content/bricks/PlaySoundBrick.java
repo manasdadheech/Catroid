@@ -27,7 +27,7 @@ import org.catrobat.catroid.common.SoundInfo;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.io.SoundManager;
 import org.catrobat.catroid.livewallpaper.WallpaperHelper;
-import org.catrobat.catroid.stage.NativeAppActivity;
+import org.catrobat.catroid.utils.Utils;
 
 import android.content.Context;
 import android.view.View;
@@ -59,7 +59,7 @@ public class PlaySoundBrick implements Brick, OnItemSelectedListener {
 	@Override
 	public void execute() {
 		if (sound != null && sprite.getSoundList().contains(sound)) {
-			if (!NativeAppActivity.isRunning() && sound.getAbsolutePath() != null) {
+			if (!Utils.isLoadingFromAssetsNecessary() && sound.getAbsolutePath() != null) {
 				SoundManager.getInstance().playSoundFile(sound.getAbsolutePath());
 			} else {
 				SoundManager.getInstance().playSoundFile("sounds/" + sound.getSoundFileName());

@@ -187,19 +187,19 @@ public class StorageHandlerTest extends AndroidTestCase {
 		assertEquals("no background picture or too many pictures in background sprite", 1, backgroundCostumeList.size());
 		assertEquals("wrong number of pictures in catroid sprite", 3, catroidCostumeList.size());
 
-		String imagePath = backgroundCostumeList.get(0).getPath();
+		String imagePath = backgroundCostumeList.get(0).getAbsolutePath();
 		File testFile = new File(imagePath);
 		assertTrue("Image " + backgroundCostumeList.get(0).getCostumeFileName() + " does not exist", testFile.exists());
 
-		imagePath = catroidCostumeList.get(0).getPath();
+		imagePath = catroidCostumeList.get(0).getAbsolutePath();
 		testFile = new File(imagePath);
 		assertTrue("Image " + catroidCostumeList.get(0).getCostumeFileName() + " does not exist", testFile.exists());
 
-		imagePath = catroidCostumeList.get(1).getPath();
+		imagePath = catroidCostumeList.get(1).getAbsolutePath();
 		testFile = new File(imagePath);
 		assertTrue("Image " + catroidCostumeList.get(1).getCostumeFileName() + " does not exist", testFile.exists());
 
-		imagePath = catroidCostumeList.get(2).getPath();
+		imagePath = catroidCostumeList.get(2).getAbsolutePath();
 		testFile = new File(imagePath);
 		assertTrue("Image " + catroidCostumeList.get(2).getCostumeFileName() + " does not exist", testFile.exists());
 	}

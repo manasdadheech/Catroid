@@ -85,12 +85,12 @@ public class CostumeFragmentTest extends ActivityInstrumentationTestCase2<MainMe
 		costumeData.setCostumeFilename(imageFile.getName());
 		costumeData.setCostumeName(costumeName);
 		costumeDataList.add(costumeData);
-		projectManager.getFileChecksumContainer().addChecksum(costumeData.getChecksum(), costumeData.getPath());
+		projectManager.getFileChecksumContainer().addChecksum(costumeData.getChecksum(), costumeData.getAbsolutePath());
 		costumeData = new CostumeData();
 		costumeData.setCostumeFilename(imageFile2.getName());
 		costumeData.setCostumeName("costumeNameTest2");
 		costumeDataList.add(costumeData);
-		projectManager.getFileChecksumContainer().addChecksum(costumeData.getChecksum(), costumeData.getPath());
+		projectManager.getFileChecksumContainer().addChecksum(costumeData.getChecksum(), costumeData.getAbsolutePath());
 		Display display = getActivity().getWindowManager().getDefaultDisplay();
 		projectManager.getCurrentProject().virtualScreenWidth = display.getWidth();
 		projectManager.getCurrentProject().virtualScreenHeight = display.getHeight();
@@ -208,7 +208,7 @@ public class CostumeFragmentTest extends ActivityInstrumentationTestCase2<MainMe
 		String buttonPositive = solo.getString(R.string.ok);
 		solo.clickOnText(buttonPositive);
 
-		File deletedFile = new File(costumeToDelete.getPath());
+		File deletedFile = new File(costumeToDelete.getAbsolutePath());
 		assertFalse("File should be deleted", deletedFile.exists());
 	}
 
@@ -262,10 +262,10 @@ public class CostumeFragmentTest extends ActivityInstrumentationTestCase2<MainMe
 		String newName = "newTestName";
 		goToCostumesTab();
 		solo.clickOnView(solo.getView(R.id.costume_name));
-		assertTrue("Dialog is not visible", solo.searchText(getActivity().getString(R.string.ok)));
+		assertTrue("Dialog is not visible", solo.searchText(solo.getString(R.string.ok)));
 		solo.setActivityOrientation(Solo.LANDSCAPE);
 		solo.sleep(100);
-		assertTrue("Dialog is not visible", solo.searchText(getActivity().getString(R.string.ok)));
+		assertTrue("Dialog is not visible", solo.searchText(solo.getString(R.string.ok)));
 		solo.setActivityOrientation(Solo.PORTRAIT);
 		solo.sleep(100);
 		solo.clearEditText(0);
@@ -330,7 +330,7 @@ public class CostumeFragmentTest extends ActivityInstrumentationTestCase2<MainMe
 		solo.sleep(5000);
 		solo.waitForActivity(ScriptTabActivity.class.getSimpleName());
 
-		assertNotSame("Picture was not changed", Utils.md5Checksum(new File(costumeData.getPath())), md5PaintroidImage);
+		assertNotSame("Picture was not changed", Utils.md5Checksum(new File(costumeData.getAbsolutePath())), md5PaintroidImage);
 
 		boolean isInCostumeDataListPaintroidImage = false;
 		boolean isInCostumeDataListSunnglasses = false;
@@ -362,7 +362,7 @@ public class CostumeFragmentTest extends ActivityInstrumentationTestCase2<MainMe
 		solo.sleep(200);
 		solo.waitForActivity(ScriptTabActivity.class.getSimpleName());
 
-		assertEquals("Picture changed", Utils.md5Checksum(new File(costumeData.getPath())), md5ImageFile);
+		assertEquals("Picture changed", Utils.md5Checksum(new File(costumeData.getAbsolutePath())), md5ImageFile);
 		costumeDataList = projectManager.getCurrentSprite().getCostumeDataList();
 		int newNumberOfCostumeDatas = costumeDataList.size();
 		assertEquals("CostumeData was added", numberOfCostumeDatas, newNumberOfCostumeDatas);
@@ -387,7 +387,7 @@ public class CostumeFragmentTest extends ActivityInstrumentationTestCase2<MainMe
 		solo.sleep(200);
 		solo.waitForActivity(ScriptTabActivity.class.getSimpleName());
 
-		assertEquals("Picture changed", Utils.md5Checksum(new File(costumeData.getPath())), md5ImageFile);
+		assertEquals("Picture changed", Utils.md5Checksum(new File(costumeData.getAbsolutePath())), md5ImageFile);
 		costumeDataList = projectManager.getCurrentSprite().getCostumeDataList();
 		int newNumberOfCostumeDatas = costumeDataList.size();
 		assertEquals("CostumeData was added", numberOfCostumeDatas, newNumberOfCostumeDatas);
@@ -412,7 +412,7 @@ public class CostumeFragmentTest extends ActivityInstrumentationTestCase2<MainMe
 		costumeDataList = projectManager.getCurrentSprite().getCostumeDataList();
 		int numberOfCostumeDatas = costumeDataList.size();
 		assertEquals("wrong size of costumedatalist", 2, numberOfCostumeDatas);
-		assertEquals("Picture changed", Utils.md5Checksum(new File(costumeData.getPath())), md5ImageFile);
+		assertEquals("Picture changed", Utils.md5Checksum(new File(costumeData.getAbsolutePath())), md5ImageFile);
 	}
 
 	public void testGetImageFromGallery() {
@@ -485,7 +485,7 @@ public class CostumeFragmentTest extends ActivityInstrumentationTestCase2<MainMe
 		solo.sleep(4000);
 		solo.waitForActivity(ScriptTabActivity.class.getSimpleName());
 
-		assertNotSame("Picture did not change", Utils.md5Checksum(new File(costumeData.getPath())), md5ImageFile);
+		assertNotSame("Picture did not change", Utils.md5Checksum(new File(costumeData.getAbsolutePath())), md5ImageFile);
 		costumeDataList = projectManager.getCurrentSprite().getCostumeDataList();
 		int newNumberOfCostumeDatas = costumeDataList.size();
 		assertEquals("CostumeData was added", numberOfCostumeDatas, newNumberOfCostumeDatas);
@@ -503,7 +503,7 @@ public class CostumeFragmentTest extends ActivityInstrumentationTestCase2<MainMe
 		costumeDataToAdd.setCostumeName("justforthistest");
 		costumeDataList.add(costumeDataToAdd);
 		projectManager.getFileChecksumContainer().addChecksum(costumeDataToAdd.getChecksum(),
-				costumeDataToAdd.getPath());
+				costumeDataToAdd.getAbsolutePath());
 
 		solo.sleep(200);
 		goToCostumesTab();
@@ -674,7 +674,7 @@ public class CostumeFragmentTest extends ActivityInstrumentationTestCase2<MainMe
 
 	private void goToCostumesTab() {
 		UiTestUtils.getIntoScriptTabActivityFromMainMenu(solo);
-		solo.clickOnText(getActivity().getString(R.string.backgrounds));
+		solo.clickOnText(solo.getString(R.string.backgrounds));
 		solo.sleep(500);
 	}
 }

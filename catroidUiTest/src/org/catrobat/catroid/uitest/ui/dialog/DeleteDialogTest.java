@@ -122,7 +122,7 @@ public class DeleteDialogTest extends ActivityInstrumentationTestCase2<MainMenuA
 		String deleteSoundText = solo.getString(R.string.delete_lowercase);
 		UiTestUtils.getIntoScriptTabActivityFromMainMenu(solo);
 
-		solo.clickOnText(getActivity().getString(R.string.sounds));
+		solo.clickOnText(solo.getString(R.string.sounds));
 		solo.sleep(200);
 		solo.clickOnButton(deleteSoundText);
 
@@ -159,13 +159,13 @@ public class DeleteDialogTest extends ActivityInstrumentationTestCase2<MainMenuA
 		costumeData.setCostumeName(costumeName);
 		costumeDataList.add(costumeData);
 		ProjectManager.INSTANCE.getFileChecksumContainer()
-				.addChecksum(costumeData.getChecksum(), costumeData.getPath());
+				.addChecksum(costumeData.getChecksum(), costumeData.getAbsolutePath());
 		costumeData = new CostumeData();
 		costumeData.setCostumeFilename(imageFile2.getName());
 		costumeData.setCostumeName("costumeNameTest2");
 		costumeDataList.add(costumeData);
 		ProjectManager.INSTANCE.getFileChecksumContainer()
-				.addChecksum(costumeData.getChecksum(), costumeData.getPath());
+				.addChecksum(costumeData.getChecksum(), costumeData.getAbsolutePath());
 		Display display = getActivity().getWindowManager().getDefaultDisplay();
 		ProjectManager.INSTANCE.getCurrentProject().virtualScreenWidth = display.getWidth();
 		ProjectManager.INSTANCE.getCurrentProject().virtualScreenHeight = display.getHeight();

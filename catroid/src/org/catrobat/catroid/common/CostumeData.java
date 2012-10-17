@@ -69,9 +69,9 @@ public class CostumeData implements Serializable {
 	public Pixmap getPixmap() {
 		if (pixmap == null) {
 			if (Utils.isLoadingFromAssetsNecessary()) {
-				pixmap = new Pixmap(Gdx.files.internal(getPath()));//No absolute path to assets possible.
+				pixmap = new Pixmap(Gdx.files.internal(getAbsolutePath()));//No absolute path to assets possible.
 			} else {
-				pixmap = new Pixmap(Gdx.files.absolute(getPath()));
+				pixmap = new Pixmap(Gdx.files.absolute(getAbsolutePath()));
 			}
 		}
 		return pixmap;
@@ -84,9 +84,9 @@ public class CostumeData implements Serializable {
 	public Pixmap getOriginalPixmap() {
 		if (originalPixmap == null) {
 			if (Utils.isLoadingFromAssetsNecessary()) {
-				originalPixmap = new Pixmap(Gdx.files.internal(getPath()));//No absolute path to assets possible.
+				originalPixmap = new Pixmap(Gdx.files.internal(getAbsolutePath()));//No absolute path to assets possible.
 			} else {
-				originalPixmap = new Pixmap(Gdx.files.absolute(getPath()));
+				originalPixmap = new Pixmap(Gdx.files.absolute(getAbsolutePath()));
 			}
 		}
 		return originalPixmap;
@@ -96,7 +96,7 @@ public class CostumeData implements Serializable {
 	public CostumeData() {
 	}
 
-	public String getPath() {
+	public String getAbsolutePath() {
 		String path;
 		if (fileName != null) {
 			if (Utils.isLoadingFromAssetsNecessary()) {
@@ -146,7 +146,8 @@ public class CostumeData implements Serializable {
 
 	public Bitmap getThumbnailBitmap() {
 		if (thumbnailBitmap == null) {
-			thumbnailBitmap = ImageEditing.getScaledBitmapFromPath(getPath(), THUMBNAIL_HEIGHT, THUMBNAIL_WIDTH, false);
+			thumbnailBitmap = ImageEditing.getScaledBitmapFromPath(getAbsolutePath(), THUMBNAIL_HEIGHT,
+					THUMBNAIL_WIDTH, false);
 		}
 		return thumbnailBitmap;
 	}
@@ -158,7 +159,7 @@ public class CostumeData implements Serializable {
 	public Bitmap getCostumeBitmap() {
 		if (costumeBitmap == null) {
 			//CODE FOR LOADING FROM SD CARD
-			costumeBitmap = BitmapFactory.decodeFile(getPath());
+			costumeBitmap = BitmapFactory.decodeFile(getAbsolutePath());
 			//____________________________________________________
 
 			//CODE FOR LOADING FROM ASSETS
@@ -195,7 +196,7 @@ public class CostumeData implements Serializable {
 	public int[] getResolution() {
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inJustDecodeBounds = true;
-		BitmapFactory.decodeFile(getPath(), options);
+		BitmapFactory.decodeFile(getAbsolutePath(), options);
 		width = options.outWidth;
 		height = options.outHeight;
 

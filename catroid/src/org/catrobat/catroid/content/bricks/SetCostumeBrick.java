@@ -77,7 +77,7 @@ public class SetCostumeBrick implements Brick {
 	}
 
 	public String getImagePath() {
-		return costume.getPath();
+		return costume.getAbsolutePath();
 	}
 
 	@Override

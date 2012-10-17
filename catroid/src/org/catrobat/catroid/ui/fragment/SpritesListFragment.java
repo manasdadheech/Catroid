@@ -289,7 +289,7 @@ public class SpritesListFragment extends SherlockListFragment implements OnClick
 		List<SoundInfo> soundInfoList = spriteToEdit.getSoundList();
 
 		for (CostumeData currentCostumeData : costumeDataList) {
-			StorageHandler.getInstance().deleteFile(currentCostumeData.getPath());
+			StorageHandler.getInstance().deleteFile(currentCostumeData.getAbsolutePath());
 		}
 
 		for (SoundInfo currentSoundInfo : soundInfoList) {

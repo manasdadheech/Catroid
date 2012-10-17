@@ -317,7 +317,7 @@ public class StorageHandler {
 			}
 
 			for (CostumeData costumeData : currentSprite.getCostumeDataList()) {
-				container.addChecksum(costumeData.getChecksum(), costumeData.getPath());
+				container.addChecksum(costumeData.getChecksum(), costumeData.getAbsolutePath());
 			}
 		}
 	}

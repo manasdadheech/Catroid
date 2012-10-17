@@ -70,7 +70,7 @@ public class Sprite implements Serializable {
 				container.addChecksum(soundInfo.getChecksum(), soundInfo.getAbsolutePath());
 			}
 			for (CostumeData costumeData : costumeList) {
-				container.addChecksum(costumeData.getChecksum(), costumeData.getPath());
+				container.addChecksum(costumeData.getChecksum(), costumeData.getAbsolutePath());
 			}
 		}
 		init();

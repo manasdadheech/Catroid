@@ -250,7 +250,7 @@ public class Costume extends Image {
 		if (this.costumeData == null) {
 			path = "";
 		} else {
-			path = this.costumeData.getPath();
+			path = this.costumeData.getAbsolutePath();
 		}
 		imageLock.release();
 		return path;

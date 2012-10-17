@@ -508,7 +508,7 @@ public class CostumeFragment extends SherlockListFragment implements OnCostumeEd
 						newFileName);
 				File tempPicFileInPaintroid = new File(pathOfPaintroidImage);
 				tempPicFileInPaintroid.delete(); //delete temp file in paintroid
-				StorageHandler.getInstance().deleteFile(selectedCostumeData.getPath()); //reduce usage in container or delete it
+				StorageHandler.getInstance().deleteFile(selectedCostumeData.getAbsolutePath()); //reduce usage in container or delete it
 				selectedCostumeData.setCostumeFilename(newCostumeFile.getName());
 				selectedCostumeData.resetThumbnailBitmap();
 			} catch (IOException e) {
@@ -553,7 +553,7 @@ public class CostumeFragment extends SherlockListFragment implements OnCostumeEd
 		CostumeData costumeData = costumeDataList.get(position);
 		try {
 			String projectName = ProjectManager.getInstance().getCurrentProject().getName();
-			StorageHandler.getInstance().copyImage(projectName, costumeData.getPath(), null);
+			StorageHandler.getInstance().copyImage(projectName, costumeData.getAbsolutePath(), null);
 			String imageName = costumeData.getCostumeName() + "_" + getString(R.string.copy_costume_addition);
 			String imageFileName = costumeData.getCostumeFileName();
 			updateCostumeAdapter(imageName, imageFileName);
@@ -600,7 +600,7 @@ public class CostumeFragment extends SherlockListFragment implements OnCostumeEd
 
 		Bundle bundleForPaintroid = new Bundle();
 		bundleForPaintroid.putString(Constants.EXTRA_PICTURE_PATH_PAINTROID, costumeDataList.get(position)
-				.getPath());
+				.getAbsolutePath());
 		bundleForPaintroid.putInt(Constants.EXTRA_X_VALUE_PAINTROID, 0);
 		bundleForPaintroid.putInt(Constants.EXTRA_Y_VALUE_PAINTROID, 0);
 		intent.putExtras(bundleForPaintroid);

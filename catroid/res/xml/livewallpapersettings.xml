@@ -16,7 +16,6 @@
    <CheckBoxPreference
        android:title="@string/lwp_sound_control"
        android:key= "@string/lwp_sound_control"
-
-      />
+       android:defaultValue="true"   />
 
 </PreferenceScreen> 

@@ -4,12 +4,12 @@
   <PreferenceCategory android:title = "@string/lwp_general_information" />
   
   <Preference 
-      android:title = "@string/lwp_about_catroid"
-      android:key="@string/lwp_about_catroid" />
+      android:title = "@string/lwp_about_catrobat"
+      android:key="@string/lwp_about_catrobat" />
   
    <Preference
-     android:title = "@string/lwp_project_information" 
-     android:key = "@string/lwp_project_information"/>
+     android:title = "@string/lwp_about_wallpaper" 
+     android:key = "@string/lwp_about_wallpaper"/>
   
    <PreferenceCategory android:title = "@string/lwp_preferences" />
    

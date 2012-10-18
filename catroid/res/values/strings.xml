@@ -345,8 +345,8 @@
     <string name="formula_editor_costume_rotation">costume-rotation</string>
     <string name="formula_editor_costume_layer">costume-layer</string>
           <!-- Live Wallpaper Strings -->
-     <string name="lwp_about_catroid">About Catrobat</string>
-     <string name="lwp_project_information">About this wallpaper</string>
+     <string name="lwp_about_catrobat">About Catrobat</string>
+     <string name="lwp_about_wallpaper">About this wallpaper</string>
      <string name="lwp_sound_control">Allow sounds</string>
      <string name="lwp_project_name">Name: </string>
      <string name="lwp_project_description">Description: </string>
@@ -356,6 +356,11 @@
      <string name="lwp_general_information">General information</string>
      <string name="lwp_preferences">Preferences</string>
      <string name="lwp_settings_title">Catrobat</string>
+     <string name="lwp_license_link">www.catrobat.org/licenses</string>
+     <string name="lwp_about_catrobat_text">Catrobat is a visual programming language for mobile devices. 
+         									For details please go to www.catrobat.org.\n\n
+											All parts of Catrobat are available under free open source licenses. 
+											For details please go to www.catrobat.org/licenses. \n\n</string>
 
 </resources>
 

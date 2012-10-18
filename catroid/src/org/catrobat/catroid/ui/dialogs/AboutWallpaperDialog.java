@@ -23,7 +23,8 @@
 package org.catrobat.catroid.ui.dialogs;
 
 import org.catrobat.catroid.R;
-import org.catrobat.catroid.livewallpaper.ProjectInformation;
+import org.catrobat.catroid.content.Project;
+import org.catrobat.catroid.livewallpaper.WallpaperHelper;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -33,11 +34,11 @@ import android.text.util.Linkify;
 import android.view.Window;
 import android.widget.TextView;
 
-public class ProjectInformationDialog extends Dialog {
+public class AboutWallpaperDialog extends Dialog {
 
 	private Context context;
 
-	public ProjectInformationDialog(Context context) {
+	public AboutWallpaperDialog(Context context) {
 		super(context);
 		this.context = context;
 	}
@@ -46,37 +47,31 @@ public class ProjectInformationDialog extends Dialog {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_LEFT_ICON);
-		setContentView(R.layout.dialog_project_information);
+		setContentView(R.layout.dialog_about_wallpaper);
 		setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, android.R.drawable.ic_dialog_info);
 
-		setTitle(context.getResources().getString(R.string.lwp_project_information));
+		setTitle(context.getResources().getString(R.string.lwp_about_wallpaper));
+		setCanceledOnTouchOutside(true);
+
 		TextView projectInformationTextView = (TextView) findViewById(R.id.dialog_project_information_text_view);
 		projectInformationTextView.setText(getProjectInformationText());
 		Linkify.addLinks(projectInformationTextView, Linkify.ALL);
-
-		setCanceledOnTouchOutside(true);
 
 	}
 
 	public String getProjectInformationText() {
 		Resources resources = context.getResources();
+		Project project = WallpaperHelper.getInstance().getProject();
 
-		String text = resources.getString(R.string.lwp_project_name) + " " + ProjectInformation.projectName + "\n";
+		String text = resources.getString(R.string.lwp_project_name) + " " + project.getName() + "\n";
 
-		if (ProjectInformation.uploader != "") {
-			text += resources.getString(R.string.lwp_project_uploader) + " " + ProjectInformation.uploader + "\n";
+		text += resources.getString(R.string.lwp_project_licnese) + " "
+				+ resources.getString(R.string.lwp_license_link) + "\n";
+
+		if (project.getDescription() != null) {
+			text += resources.getString(R.string.lwp_project_description) + " " + project.getDescription();
 		}
 
-		if (ProjectInformation.link != "") {
-			text += resources.getString(R.string.lwp_project_link) + " " + ProjectInformation.link + "\n";
-		}
-
-		text += resources.getString(R.string.lwp_project_licnese) + " " + ProjectInformation.license + "\n";
-
-		if (ProjectInformation.projectDescription != null) {
-			text += resources.getString(R.string.lwp_project_description) + " " + ProjectInformation.projectDescription
-					+ "\n";
-		}
 		return text;
 	}
 }

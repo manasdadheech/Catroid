@@ -1,8 +1,8 @@
 package org.catrobat.catroid.livewallpaper;
 
 import org.catrobat.catroid.R;
-import org.catrobat.catroid.ui.dialogs.AboutDialog;
-import org.catrobat.catroid.ui.dialogs.ProjectInformationDialog;
+import org.catrobat.catroid.ui.dialogs.AboutCatrobatLiveWallpaperDialog;
+import org.catrobat.catroid.ui.dialogs.AboutWallpaperDialog;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -31,14 +31,14 @@ public class LiveWallpaperSettings extends PreferenceActivity {
 
 	@SuppressWarnings("deprecation")
 	private void handleLicencePreference() {
-		Preference licence = findPreference(getResources().getString(R.string.lwp_about_catroid));
+		Preference licence = findPreference(getResources().getString(R.string.lwp_about_catrobat));
 
 		licence.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
 
-				AboutDialog aboutDialog = new AboutDialog(context);
+				AboutCatrobatLiveWallpaperDialog aboutDialog = new AboutCatrobatLiveWallpaperDialog(context);
 				aboutDialog.show();
 				return false;
 			}
@@ -48,14 +48,14 @@ public class LiveWallpaperSettings extends PreferenceActivity {
 
 	private void handleProjectInformation() {
 		@SuppressWarnings("deprecation")
-		Preference projectInformation = findPreference(getResources().getString(R.string.lwp_project_information));
+		Preference projectInformation = findPreference(getResources().getString(R.string.lwp_about_wallpaper));
 
 		projectInformation.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 
 			@Override
 			public boolean onPreferenceClick(Preference arg0) {
-				ProjectInformationDialog projectInformationDialog = new ProjectInformationDialog(context);
-				projectInformationDialog.show();
+				AboutWallpaperDialog aboutWallpaperDialog = new AboutWallpaperDialog(context);
+				aboutWallpaperDialog.show();
 				return false;
 			}
 

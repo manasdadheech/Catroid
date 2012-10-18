@@ -26,6 +26,7 @@ package org.catrobat.catroid.livewallpaper;
 import java.util.List;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.common.Values;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.utils.Utils;
@@ -36,6 +37,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Handler;
 import android.service.wallpaper.WallpaperService;
+import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.MotionEvent.PointerCoords;
@@ -51,13 +53,13 @@ public class LiveWallpaper extends WallpaperService {
 	public Engine onCreateEngine() {
 
 		ProjectManager projectManager = ProjectManager.getInstance();
+		DisplayMetrics displayMetrics = new DisplayMetrics();
+		((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displayMetrics);
+		Values.SCREEN_WIDTH = displayMetrics.widthPixels;
+		Values.SCREEN_HEIGHT = displayMetrics.heightPixels;
 
 		//CODE FOR LOADING FROM ASSETS
 		//		context = getApplicationContext();
-		//		DisplayMetrics displayMetrics = new DisplayMetrics();
-		//		((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displayMetrics);
-		//		Values.SCREEN_WIDTH = displayMetrics.widthPixels;
-		//		Values.SCREEN_HEIGHT = displayMetrics.heightPixels;
 		//		projectManager.loadProject(Constants.PROJECTCODE_NAME, this, null, false);
 		//______________________________________________________________________________
 
@@ -68,9 +70,6 @@ public class LiveWallpaper extends WallpaperService {
 
 		Project project = projectManager.getCurrentProject();
 		WallpaperHelper.getInstance().setProject(project);
-
-		ProjectInformation.projectName = project.getName();
-		ProjectInformation.projectDescription = project.getDescription();
 
 		return new CatWallEngine();
 

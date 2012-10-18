@@ -24,7 +24,6 @@
 package org.catrobat.catroid.livewallpaper;
 
 import org.catrobat.catroid.common.CostumeData;
-import org.catrobat.catroid.common.Values;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.utils.ImageEditing;
 
@@ -40,9 +39,6 @@ public class WallpaperCostume {
 	private int y;
 	private int top;
 	private int left;
-
-	int xDestination;
-	int yDestination;
 
 	float rotation = 0f;
 
@@ -315,77 +311,7 @@ public class WallpaperCostume {
 	}
 
 	public void glideTo(int xDest, int yDest, int durationInMilliSeconds) {
-		this.xDestination = xDest;
-		this.yDestination = yDest;
 
-		long startTime = System.currentTimeMillis();
-		int duration = durationInMilliSeconds;
-		while (duration > 0) {
-			if (!sprite.isAlive(Thread.currentThread())) {
-				break;
-			}
-			long timeBeforeSleep = System.currentTimeMillis();
-			int sleep = 100;
-			while (System.currentTimeMillis() <= (timeBeforeSleep + sleep)) {
-
-				if (sprite.isPaused) {
-					sleep = (int) ((timeBeforeSleep + sleep) - System.currentTimeMillis());
-					long milliSecondsBeforePause = System.currentTimeMillis();
-					while (sprite.isPaused) {
-						if (sprite.isFinished) {
-							return;
-						}
-						Thread.yield();
-					}
-					timeBeforeSleep = System.currentTimeMillis();
-					startTime += System.currentTimeMillis() - milliSecondsBeforePause;
-				}
-
-				Thread.yield();
-			}
-			long currentTime = System.currentTimeMillis();
-			duration -= (int) (currentTime - startTime);
-			long timePassed = currentTime - startTime;
-
-			float xPosition = this.x;
-			float yPosition = this.y;
-
-			this.changeXBy((int) (((float) timePassed / duration) * (xDestination - xPosition)));
-			this.changeYby((int) (((float) timePassed / duration) * (yDestination - yPosition)));
-
-			startTime = currentTime;
-		}
-		if (!sprite.isAlive(Thread.currentThread())) {
-			// -stay at last position
-		} else {
-			setXYPosition(xDestination, yDestination);
-		}
-	}
-
-	public void ifOnEdgeBounce() {
-
-		float size = (float) this.size;
-
-		float width = costume.getWidth() * size;
-		float height = costume.getHeight() * size;
-		int xPosition = this.x;
-		int yPosition = this.y;
-
-		int virtualScreenWidth = Values.SCREEN_WIDTH / 2;
-		int virtualScreenHeight = Values.SCREEN_HEIGHT / 2;
-
-		if (xPosition < -virtualScreenWidth + width / 2) {
-			xPosition = -virtualScreenWidth + (int) (width / 2);
-		} else if (xPosition > virtualScreenWidth - width / 2) {
-			xPosition = virtualScreenWidth - (int) (width / 2);
-		}
-		if (yPosition > virtualScreenHeight - height / 2) {
-			yPosition = virtualScreenHeight - (int) (height / 2);
-		} else if (yPosition < -virtualScreenHeight + height / 2) {
-			yPosition = -virtualScreenHeight + (int) (height / 2);
-		}
-
-		setXYPosition(xPosition, yPosition);
 	}
 
 	public void setXYPosition(int xPosition, int yPosition) {
@@ -410,6 +336,14 @@ public class WallpaperCostume {
 	public void setRotation(float r) {
 		this.rotation += r;
 		rotate();
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
 	}
 
 }

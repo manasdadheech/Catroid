@@ -191,7 +191,7 @@ public class LiveWallpaper extends WallpaperService {
 
 			mHandler.removeCallbacks(mUpdateDisplay);
 			if (mVisible) {
-				mHandler.postDelayed(mUpdateDisplay, 100);
+				mHandler.postDelayed(mUpdateDisplay, 33);
 			}
 
 		}

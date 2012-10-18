@@ -44,6 +44,9 @@ public class GlideToBrick implements Brick, OnClickListener {
 	private int durationInMilliSeconds;
 	private Sprite sprite;
 
+	private boolean isLiveWallpaper = false;
+	private WallpaperCostume wallpaperCostume;
+
 	private transient View view;
 
 	public GlideToBrick() {
@@ -104,6 +107,7 @@ public class GlideToBrick implements Brick, OnClickListener {
 			}
 			long currentTime = System.currentTimeMillis();
 			duration -= (int) (currentTime - startTime);
+
 			updatePositions((int) (currentTime - startTime), duration);
 			startTime = currentTime;
 		}
@@ -111,22 +115,33 @@ public class GlideToBrick implements Brick, OnClickListener {
 		if (!sprite.isAlive(Thread.currentThread())) {
 			// -stay at last position
 		} else {
-			sprite.costume.aquireXYWidthHeightLock();
-			sprite.costume.setXYPosition(xDestination, yDestination);
-			sprite.costume.releaseXYWidthHeightLock();
+			if (!isLiveWallpaper) {
+				sprite.costume.aquireXYWidthHeightLock();
+				sprite.costume.setXYPosition(xDestination, yDestination);
+				sprite.costume.releaseXYWidthHeightLock();
+			} else {
+				wallpaperCostume.setXYPosition(xDestination, yDestination);
+			}
 		}
 	}
 
 	private void updatePositions(int timePassed, int duration) {
-		sprite.costume.aquireXYWidthHeightLock();
-		float xPosition = sprite.costume.getXPosition();
-		float yPosition = sprite.costume.getYPosition();
+		if (!isLiveWallpaper) {
+			sprite.costume.aquireXYWidthHeightLock();
+			float xPosition = sprite.costume.getXPosition();
+			float yPosition = sprite.costume.getYPosition();
 
-		xPosition += ((float) timePassed / duration) * (xDestination - xPosition);
-		yPosition += ((float) timePassed / duration) * (yDestination - yPosition);
+			xPosition += ((float) timePassed / duration) * (xDestination - xPosition);
+			yPosition += ((float) timePassed / duration) * (yDestination - yPosition);
 
-		sprite.costume.setXYPosition(xPosition, yPosition);
-		sprite.costume.releaseXYWidthHeightLock();
+			sprite.costume.setXYPosition(xPosition, yPosition);
+			sprite.costume.releaseXYWidthHeightLock();
+		} else {
+			wallpaperCostume
+					.changeXBy((int) (((float) timePassed / duration) * (xDestination - wallpaperCostume.getX())));
+			wallpaperCostume
+					.changeYby((int) (((float) timePassed / duration) * (yDestination - wallpaperCostume.getY())));
+		}
 	}
 
 	@Override
@@ -230,6 +245,12 @@ public class GlideToBrick implements Brick, OnClickListener {
 			wallpaperCostume = new WallpaperCostume(sprite, null);
 		}
 
-		wallpaperCostume.glideTo(xDestination, yDestination, durationInMilliSeconds);
+		this.wallpaperCostume = wallpaperCostume;
+		this.isLiveWallpaper = true;
+
+		execute();
+
+		this.isLiveWallpaper = false;
+
 	}
 }

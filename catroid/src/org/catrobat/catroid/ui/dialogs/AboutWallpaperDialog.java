@@ -63,13 +63,13 @@ public class AboutWallpaperDialog extends Dialog {
 		Resources resources = context.getResources();
 		Project project = WallpaperHelper.getInstance().getProject();
 
-		String text = resources.getString(R.string.lwp_project_name) + " " + project.getName() + "\n";
+		String text = resources.getString(R.string.lwp_project_name) + " " + project.getName() + "\n\n";
 
 		text += resources.getString(R.string.lwp_project_licnese) + " "
-				+ resources.getString(R.string.lwp_license_link) + "\n";
+				+ resources.getString(R.string.lwp_license_link) + "\n\n";
 
 		if (project.getDescription() != null) {
-			text += resources.getString(R.string.lwp_project_description) + " " + project.getDescription();
+			text += resources.getString(R.string.lwp_project_description) + " " + project.getDescription() + "\n\n";
 		}
 
 		return text;

@@ -33,13 +33,13 @@ import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.HideBrick;
 import org.catrobat.catroid.content.bricks.SetSizeToBrick;
 import org.catrobat.catroid.content.bricks.ShowBrick;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.uitest.util.UiTestUtils;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 import android.widget.ListView;
-import org.catrobat.catroid.R;
 
 import com.jayway.android.robotium.solo.Solo;
 

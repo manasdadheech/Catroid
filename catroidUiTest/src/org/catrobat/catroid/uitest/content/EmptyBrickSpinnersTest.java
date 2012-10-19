@@ -38,6 +38,7 @@ import org.catrobat.catroid.content.bricks.BroadcastWaitBrick;
 import org.catrobat.catroid.content.bricks.PlaySoundBrick;
 import org.catrobat.catroid.content.bricks.PointToBrick;
 import org.catrobat.catroid.content.bricks.SetCostumeBrick;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.ui.ProjectActivity;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.uitest.util.UiTestUtils;
@@ -46,7 +47,6 @@ import org.catrobat.catroid.utils.Utils;
 import org.json.JSONException;
 
 import android.test.ActivityInstrumentationTestCase2;
-import org.catrobat.catroid.R;
 
 import com.jayway.android.robotium.solo.Solo;
 

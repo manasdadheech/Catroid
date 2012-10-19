@@ -31,6 +31,7 @@ import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.StartScript;
 import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.ChangeGhostEffectByNBrick;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.adapter.BrickAdapter;
 import org.catrobat.catroid.ui.fragment.ScriptFragment;
@@ -38,7 +39,6 @@ import org.catrobat.catroid.uitest.util.UiTestUtils;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.Smoke;
-import org.catrobat.catroid.R;
 
 import com.jayway.android.robotium.solo.Solo;
 
@@ -84,8 +84,7 @@ public class ChangeGhostEffectByNBrickTest extends ActivityInstrumentationTestCa
 		assertEquals("Incorrect number of bricks.", 1, projectBrickList.size());
 
 		assertEquals("Wrong Brick instance.", projectBrickList.get(0), adapter.getChild(groupCount - 1, 0));
-		assertNotNull("TextView does not exist",
-				solo.getText(solo.getString(R.string.brick_change_ghost_effect)));
+		assertNotNull("TextView does not exist", solo.getText(solo.getString(R.string.brick_change_ghost_effect)));
 
 		solo.clickOnEditText(0);
 		solo.clearEditText(0);

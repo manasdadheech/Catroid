@@ -28,13 +28,13 @@ import java.util.ArrayList;
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.common.SoundInfo;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.soundrecorder.SoundRecorderActivity;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.uitest.util.UiTestUtils;
 import org.catrobat.catroid.utils.Utils;
 
 import android.test.ActivityInstrumentationTestCase2;
-import org.catrobat.catroid.R;
 
 import com.jayway.android.robotium.solo.Solo;
 

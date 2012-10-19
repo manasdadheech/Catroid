@@ -32,13 +32,13 @@ import java.util.List;
 import junit.framework.AssertionFailedError;
 
 import org.catrobat.catroid.ProjectManager;
-import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.common.StandardProjectHandler;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.io.StorageHandler;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.ui.MainMenuActivity;
 import org.catrobat.catroid.ui.MyProjectsActivity;
 import org.catrobat.catroid.ui.ProjectActivity;
@@ -851,14 +851,12 @@ public class MyProjectsActivityTest extends ActivityInstrumentationTestCase2<Mai
 		solo.clickOnButton(buttonOkText);
 
 		solo.sleep(200);
-		assertTrue("No or wrong error message shown",
-				solo.searchText(solo.getString(R.string.error_project_exists)));
+		assertTrue("No or wrong error message shown", solo.searchText(solo.getString(R.string.error_project_exists)));
 		solo.sleep(100);
 		solo.clickOnButton(buttonCloseText);
 		solo.sleep(100);
 		solo.clickOnButton(buttonOkText);
-		assertTrue("No or wrong error message shown",
-				solo.searchText(solo.getString(R.string.error_project_exists)));
+		assertTrue("No or wrong error message shown", solo.searchText(solo.getString(R.string.error_project_exists)));
 		solo.clickOnButton(buttonCloseText);
 	}
 

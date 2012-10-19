@@ -33,11 +33,11 @@ import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.HideBrick;
 import org.catrobat.catroid.content.bricks.SetSizeToBrick;
 import org.catrobat.catroid.content.bricks.ShowBrick;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.ui.MainMenuActivity;
 import org.catrobat.catroid.uitest.util.UiTestUtils;
 
 import android.test.ActivityInstrumentationTestCase2;
-import org.catrobat.catroid.R;
 
 import com.jayway.android.robotium.solo.Solo;
 
@@ -78,8 +78,7 @@ public class ScriptDeleteTest extends ActivityInstrumentationTestCase2<MainMenuA
 
 		UiTestUtils.addNewBrick(solo, R.string.brick_set_size_to);
 		solo.clickOnText(brickSetCostumeText);
-		assertTrue("Set size to brick was not added",
-				solo.searchText(solo.getString(R.string.brick_set_size_to)));
+		assertTrue("Set size to brick was not added", solo.searchText(solo.getString(R.string.brick_set_size_to)));
 	}
 
 	public void testDeleteScript() {

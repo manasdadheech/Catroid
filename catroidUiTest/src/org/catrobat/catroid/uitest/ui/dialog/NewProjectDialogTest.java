@@ -23,6 +23,7 @@
 package org.catrobat.catroid.uitest.ui.dialog;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.ui.MainMenuActivity;
 import org.catrobat.catroid.ui.ProjectActivity;
 import org.catrobat.catroid.uitest.util.UiTestUtils;
@@ -30,7 +31,6 @@ import org.catrobat.catroid.uitest.util.UiTestUtils;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
 import android.widget.EditText;
-import org.catrobat.catroid.R;
 
 import com.jayway.android.robotium.solo.Solo;
 

@@ -33,13 +33,13 @@ import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.StartScript;
 import org.catrobat.catroid.content.bricks.PlaySoundBrick;
 import org.catrobat.catroid.io.SoundManager;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.stage.StageActivity;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.uitest.util.UiTestUtils;
 
 import android.media.MediaPlayer;
 import android.test.ActivityInstrumentationTestCase2;
-import org.catrobat.catroid.R;
 
 import com.jayway.android.robotium.solo.Solo;
 

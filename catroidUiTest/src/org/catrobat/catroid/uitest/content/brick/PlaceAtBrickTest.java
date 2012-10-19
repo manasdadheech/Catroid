@@ -35,6 +35,7 @@ import org.catrobat.catroid.content.bricks.HideBrick;
 import org.catrobat.catroid.content.bricks.PlaceAtBrick;
 import org.catrobat.catroid.content.bricks.PlaySoundBrick;
 import org.catrobat.catroid.content.bricks.SetSizeToBrick;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.adapter.BrickAdapter;
 import org.catrobat.catroid.ui.fragment.ScriptFragment;
@@ -43,7 +44,6 @@ import org.catrobat.catroid.uitest.util.UiTestUtils;
 import android.content.Intent;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.Smoke;
-import org.catrobat.catroid.R;
 
 import com.jayway.android.robotium.solo.Solo;
 

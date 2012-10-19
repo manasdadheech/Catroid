@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.catrobat.catroid.ProjectManager;
-import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.common.StandardProjectHandler;
@@ -52,6 +51,7 @@ import org.catrobat.catroid.content.bricks.ShowBrick;
 import org.catrobat.catroid.content.bricks.WaitBrick;
 import org.catrobat.catroid.content.bricks.WhenStartedBrick;
 import org.catrobat.catroid.io.StorageHandler;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.test.utils.TestUtils;
 import org.catrobat.catroid.utils.UtilFile;
 import org.catrobat.catroid.xml.serializer.XmlSerializer;

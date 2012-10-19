@@ -26,11 +26,11 @@ import java.io.File;
 import java.util.ArrayList;
 
 import org.catrobat.catroid.ProjectManager;
-import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.common.SoundInfo;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.io.StorageHandler;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.ui.MainMenuActivity;
 import org.catrobat.catroid.uitest.util.UiTestUtils;
 import org.catrobat.catroid.utils.UtilFile;
@@ -329,15 +329,13 @@ public class ProjectUpAndDownloadTest extends ActivityInstrumentationTestCase2<M
 		intent.setData(Uri.parse(downloadUrl));
 		launchActivityWithIntent("org.catrobat.catroid", MainMenuActivity.class, intent);
 		solo.sleep(500);
-		assertTrue("OverwriteRenameDialog not shown.",
-				solo.searchText(solo.getString(R.string.overwrite_text)));
+		assertTrue("OverwriteRenameDialog not shown.", solo.searchText(solo.getString(R.string.overwrite_text)));
 		solo.clickOnText(solo.getString(R.string.overwrite_replace));
 		solo.clickOnButton(solo.getString(R.string.ok));
 
 		boolean waitResult = solo.waitForActivity("MainMenuActivity", 10000);
 		assertTrue("Download takes too long.", waitResult);
-		assertTrue("Download not successful.",
-				solo.searchText(solo.getString(R.string.success_project_download)));
+		assertTrue("Download not successful.", solo.searchText(solo.getString(R.string.success_project_download)));
 		assertEquals("Testproject not loaded.", projectName, ProjectManager.getInstance().getCurrentProject().getName());
 
 		String projectPath = Constants.DEFAULT_ROOT + "/" + projectName;
@@ -358,8 +356,7 @@ public class ProjectUpAndDownloadTest extends ActivityInstrumentationTestCase2<M
 		launchActivityWithIntent("org.catrobat.catroid", MainMenuActivity.class, intent);
 
 		solo.sleep(5000);
-		assertTrue("OverwriteRenameDialog not shown.",
-				solo.searchText(solo.getString(R.string.overwrite_text)));
+		assertTrue("OverwriteRenameDialog not shown.", solo.searchText(solo.getString(R.string.overwrite_text)));
 		solo.clickOnText(solo.getString(R.string.overwrite_rename));
 		assertTrue("No text field to enter new name.", solo.searchEditText(newTestProject));
 
@@ -380,8 +377,7 @@ public class ProjectUpAndDownloadTest extends ActivityInstrumentationTestCase2<M
 
 		boolean waitResult = solo.waitForActivity("MainMenuActivity", 10000);
 		assertTrue("Download takes too long.", waitResult);
-		assertTrue("Download not successful.",
-				solo.searchText(solo.getString(R.string.success_project_download)));
+		assertTrue("Download not successful.", solo.searchText(solo.getString(R.string.success_project_download)));
 		assertTrue("Testproject2 not loaded.", solo.searchText(newTestProject));
 
 		String projectPath = Constants.DEFAULT_ROOT + "/" + testProject;

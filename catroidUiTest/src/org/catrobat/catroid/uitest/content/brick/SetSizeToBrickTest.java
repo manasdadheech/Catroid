@@ -36,6 +36,7 @@ import org.catrobat.catroid.content.StartScript;
 import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.SetCostumeBrick;
 import org.catrobat.catroid.content.bricks.SetSizeToBrick;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.stage.StageActivity;
 import org.catrobat.catroid.stage.StageListener;
 import org.catrobat.catroid.ui.MainMenuActivity;
@@ -53,7 +54,6 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.Smoke;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import org.catrobat.catroid.R;
 
 import com.jayway.android.robotium.solo.Solo;
 

@@ -28,10 +28,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.catrobat.catroid.ProjectManager;
-import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.ui.MainMenuActivity;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.fragment.CostumeFragment;
@@ -330,7 +330,8 @@ public class CostumeFragmentTest extends ActivityInstrumentationTestCase2<MainMe
 		solo.sleep(5000);
 		solo.waitForActivity(ScriptTabActivity.class.getSimpleName());
 
-		assertNotSame("Picture was not changed", Utils.md5Checksum(new File(costumeData.getAbsolutePath())), md5PaintroidImage);
+		assertNotSame("Picture was not changed", Utils.md5Checksum(new File(costumeData.getAbsolutePath())),
+				md5PaintroidImage);
 
 		boolean isInCostumeDataListPaintroidImage = false;
 		boolean isInCostumeDataListSunnglasses = false;
@@ -485,7 +486,8 @@ public class CostumeFragmentTest extends ActivityInstrumentationTestCase2<MainMe
 		solo.sleep(4000);
 		solo.waitForActivity(ScriptTabActivity.class.getSimpleName());
 
-		assertNotSame("Picture did not change", Utils.md5Checksum(new File(costumeData.getAbsolutePath())), md5ImageFile);
+		assertNotSame("Picture did not change", Utils.md5Checksum(new File(costumeData.getAbsolutePath())),
+				md5ImageFile);
 		costumeDataList = projectManager.getCurrentSprite().getCostumeDataList();
 		int newNumberOfCostumeDatas = costumeDataList.size();
 		assertEquals("CostumeData was added", numberOfCostumeDatas, newNumberOfCostumeDatas);

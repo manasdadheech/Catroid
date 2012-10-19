@@ -37,6 +37,7 @@ import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.StartScript;
 import org.catrobat.catroid.content.bricks.SetCostumeBrick;
 import org.catrobat.catroid.io.StorageHandler;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.stage.StageActivity;
 import org.catrobat.catroid.ui.MainMenuActivity;
 import org.catrobat.catroid.ui.ProjectActivity;
@@ -48,7 +49,6 @@ import org.catrobat.catroid.utils.Utils;
 import android.content.Intent;
 import android.os.Bundle;
 import android.test.ActivityInstrumentationTestCase2;
-import org.catrobat.catroid.R;
 
 import com.jayway.android.robotium.solo.Solo;
 

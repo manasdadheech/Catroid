@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.common.SoundInfo;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.ui.MainMenuActivity;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.fragment.CostumeFragment;
@@ -37,7 +38,6 @@ import org.catrobat.catroid.uitest.util.UiTestUtils;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.Display;
 import android.widget.ListAdapter;
-import org.catrobat.catroid.R;
 
 import com.jayway.android.robotium.solo.Solo;
 
@@ -158,14 +158,14 @@ public class DeleteDialogTest extends ActivityInstrumentationTestCase2<MainMenuA
 		costumeData.setCostumeFilename(imageFile.getName());
 		costumeData.setCostumeName(costumeName);
 		costumeDataList.add(costumeData);
-		ProjectManager.INSTANCE.getFileChecksumContainer()
-				.addChecksum(costumeData.getChecksum(), costumeData.getAbsolutePath());
+		ProjectManager.INSTANCE.getFileChecksumContainer().addChecksum(costumeData.getChecksum(),
+				costumeData.getAbsolutePath());
 		costumeData = new CostumeData();
 		costumeData.setCostumeFilename(imageFile2.getName());
 		costumeData.setCostumeName("costumeNameTest2");
 		costumeDataList.add(costumeData);
-		ProjectManager.INSTANCE.getFileChecksumContainer()
-				.addChecksum(costumeData.getChecksum(), costumeData.getAbsolutePath());
+		ProjectManager.INSTANCE.getFileChecksumContainer().addChecksum(costumeData.getChecksum(),
+				costumeData.getAbsolutePath());
 		Display display = getActivity().getWindowManager().getDefaultDisplay();
 		ProjectManager.INSTANCE.getCurrentProject().virtualScreenWidth = display.getWidth();
 		ProjectManager.INSTANCE.getCurrentProject().virtualScreenHeight = display.getHeight();

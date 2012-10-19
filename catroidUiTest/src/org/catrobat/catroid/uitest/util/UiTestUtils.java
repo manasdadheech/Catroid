@@ -41,6 +41,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import junit.framework.Assert;
+
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.common.FileChecksumContainer;
@@ -56,6 +58,7 @@ import org.catrobat.catroid.content.bricks.PlaceAtBrick;
 import org.catrobat.catroid.content.bricks.SetSizeToBrick;
 import org.catrobat.catroid.content.bricks.ShowBrick;
 import org.catrobat.catroid.io.StorageHandler;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.ui.MainMenuActivity;
 import org.catrobat.catroid.ui.ProjectActivity;
 import org.catrobat.catroid.ui.ScriptTabActivity;
@@ -65,7 +68,6 @@ import org.catrobat.catroid.utils.Utils;
 import org.catrobat.catroid.web.ServerCalls;
 import org.catrobat.catroid.web.WebconnectionException;
 
-import junit.framework.Assert;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Context;
@@ -90,7 +92,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import org.catrobat.catroid.R;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.internal.ActionBarSherlockCompat;

@@ -28,6 +28,7 @@ import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.io.StorageHandler;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.ui.MainMenuActivity;
 import org.catrobat.catroid.ui.MyProjectsActivity;
 import org.catrobat.catroid.uitest.util.UiTestUtils;
@@ -35,7 +36,6 @@ import org.catrobat.catroid.uitest.util.UiTestUtils;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.ListView;
-import org.catrobat.catroid.R;
 
 import com.jayway.android.robotium.solo.Solo;
 

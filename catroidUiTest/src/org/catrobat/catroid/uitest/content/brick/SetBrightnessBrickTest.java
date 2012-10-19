@@ -31,6 +31,7 @@ import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.StartScript;
 import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.SetBrightnessBrick;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.adapter.BrickAdapter;
 import org.catrobat.catroid.ui.fragment.ScriptFragment;
@@ -38,7 +39,6 @@ import org.catrobat.catroid.uitest.util.UiTestUtils;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.Smoke;
-import org.catrobat.catroid.R;
 
 import com.jayway.android.robotium.solo.Solo;
 

@@ -31,6 +31,7 @@ import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.BroadcastBrick;
 import org.catrobat.catroid.content.bricks.SetXBrick;
 import org.catrobat.catroid.content.bricks.StopAllSoundsBrick;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.ui.MainMenuActivity;
 import org.catrobat.catroid.ui.adapter.BrickAdapter;
 import org.catrobat.catroid.uitest.util.UiTestUtils;
@@ -38,7 +39,6 @@ import org.catrobat.catroid.uitest.util.UiTestUtils;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.Display;
 import android.widget.ListView;
-import org.catrobat.catroid.R;
 
 import com.jayway.android.robotium.solo.Solo;
 

@@ -26,7 +26,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 import org.catrobat.catroid.ProjectManager;
-import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.content.Costume;
 import org.catrobat.catroid.content.Project;
@@ -34,6 +33,7 @@ import org.catrobat.catroid.content.Script;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.StartScript;
 import org.catrobat.catroid.content.bricks.SetCostumeBrick;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.stage.StageActivity;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.uitest.util.UiTestUtils;
@@ -189,7 +189,8 @@ public class SetCostumeBrickTest extends ActivityInstrumentationTestCase2<Script
 
 		UiTestUtils.clickOnActionBar(solo, R.id.menu_start);
 		solo.waitForActivity(StageActivity.class.getSimpleName());
-		String costumePath = ProjectManager.getInstance().getCurrentSprite().getCostumeDataList().get(0).getAbsolutePath();
+		String costumePath = ProjectManager.getInstance().getCurrentSprite().getCostumeDataList().get(0)
+				.getAbsolutePath();
 		assertEquals("Wrong image shown in stage --> Problem with Adapter update in Script", costume1ImagePath,
 				costumePath);
 		solo.goBack();

@@ -139,6 +139,13 @@ public class WallpaperCostume {
 		this.y += y;
 	}
 
+	public void changeXYBy(int xValue, int yValue) {
+		this.x += xValue;
+		this.y += yValue;
+		this.topNeedsAdjustment = true;
+		this.leftNeedsAdjustment = true;
+	}
+
 	public boolean touchedInsideTheCostume(float x, float y) {
 		if (isBackground || costume == null) {
 			return false;

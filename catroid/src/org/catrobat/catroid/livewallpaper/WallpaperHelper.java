@@ -34,6 +34,8 @@ public class WallpaperHelper {
 	private int centerXCoord;
 	private int centerYCoord;
 
+	private long refreshRate = 100;
+
 	private Handler drawingThreadHandler;
 	private Runnable drawingThread;
 
@@ -153,6 +155,14 @@ public class WallpaperHelper {
 
 	public void setSoundAllowed(boolean soundAllowed) {
 		this.soundAllowed = soundAllowed;
+	}
+
+	public long getRefreshRate() {
+		return refreshRate;
+	}
+
+	public void setRefreshRate(long refreshRate) {
+		this.refreshRate = refreshRate;
 	}
 
 }

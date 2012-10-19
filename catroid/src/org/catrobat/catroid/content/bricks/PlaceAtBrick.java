@@ -148,8 +148,7 @@ public class PlaceAtBrick implements Brick, OnClickListener {
 			wallpaperCostume = new WallpaperCostume(sprite, null);
 		}
 
-		wallpaperCostume.setX(xPosition);
-		wallpaperCostume.setY(yPosition);
+		wallpaperCostume.setXYPosition(xPosition, yPosition);
 
 	}
 }

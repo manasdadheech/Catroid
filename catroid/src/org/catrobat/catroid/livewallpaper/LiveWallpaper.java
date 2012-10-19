@@ -137,8 +137,13 @@ public class LiveWallpaper extends WallpaperService {
 			if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180) {
 				wallpaperHelper.setLandscape(false);
 
-			} else if (rotation == Surface.ROTATION_90 || rotation == Surface.ROTATION_270) {
+			} else {
 				wallpaperHelper.setLandscape(true);
+				if (rotation == Surface.ROTATION_90) {
+					wallpaperHelper.setLandscapeRotationDegree(-90);
+				} else if (rotation == Surface.ROTATION_270) {
+					wallpaperHelper.setLandscapeRotationDegree(90);
+				}
 			}
 
 			super.onSurfaceChanged(holder, format, width, height);

@@ -118,30 +118,66 @@ public class WallpaperCostume {
 	}
 
 	public void setX(int x) {
+		if (wallpaperHelper.isLandscape() && wallpaperHelper.getLandscapeRotationDegree() == -90) {
+			this.x = -x;
+		} else {
+			this.x = x;
+		}
 		this.topNeedsAdjustment = true;
-		this.x = x;
 
 	}
 
 	public void setY(int y) {
+		if (wallpaperHelper.isLandscape() && wallpaperHelper.getLandscapeRotationDegree() == -90) {
+			this.y = -y;
+		} else {
+			this.y = y;
+		}
 		this.leftNeedsAdjustment = true;
-		this.y = y;
 
+	}
+
+	public void setXYPosition(int xPosition, int yPosition) {
+		if (wallpaperHelper.isLandscape() && wallpaperHelper.getLandscapeRotationDegree() == -90) {
+			this.x = -xPosition;
+			this.y = -yPosition;
+		} else {
+			this.x = xPosition;
+			this.y = yPosition;
+		}
+		this.topNeedsAdjustment = true;
+		this.leftNeedsAdjustment = true;
 	}
 
 	public void changeXBy(int x) {
+		if (wallpaperHelper.isLandscape() && wallpaperHelper.getLandscapeRotationDegree() == -90) {
+			this.x -= x;
+		} else {
+			this.x += x;
+
+		}
 		this.topNeedsAdjustment = true;
-		this.x += x;
+
 	}
 
 	public void changeYby(int y) {
+		if (wallpaperHelper.isLandscape() && wallpaperHelper.getLandscapeRotationDegree() == -90) {
+			this.y -= y;
+		} else {
+			this.y += y;
+		}
 		this.leftNeedsAdjustment = true;
-		this.y += y;
 	}
 
 	public void changeXYBy(int xValue, int yValue) {
-		this.x += xValue;
-		this.y += yValue;
+		if (wallpaperHelper.isLandscape() && wallpaperHelper.getLandscapeRotationDegree() == -90) {
+			this.x -= xValue;
+			this.y -= yValue;
+		} else {
+			this.x += xValue;
+			this.y += yValue;
+
+		}
 		this.topNeedsAdjustment = true;
 		this.leftNeedsAdjustment = true;
 	}
@@ -315,15 +351,6 @@ public class WallpaperCostume {
 		this.brightness = 1f;
 		adjustBrightness();
 		adjustGhostEffect();
-	}
-
-	public void glideTo(int xDest, int yDest, int durationInMilliSeconds) {
-
-	}
-
-	public void setXYPosition(int xPosition, int yPosition) {
-		this.x = xPosition;
-		this.y = yPosition;
 	}
 
 	public void rotate() {

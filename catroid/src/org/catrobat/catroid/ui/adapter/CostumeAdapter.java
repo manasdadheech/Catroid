@@ -26,6 +26,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import org.catrobat.catroid.common.CostumeData;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.utils.UtilFile;
 
 import android.content.Context;
@@ -36,7 +37,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import org.catrobat.catroid.R;
 
 public class CostumeAdapter extends ArrayAdapter<CostumeData> {
 

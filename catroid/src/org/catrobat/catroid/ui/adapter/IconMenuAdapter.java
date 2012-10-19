@@ -42,6 +42,8 @@ package org.catrobat.catroid.ui.adapter;
 
 import java.util.ArrayList;
 
+import org.catrobat.catroid.livewallpaper.R;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.Resources.Theme;
@@ -53,7 +55,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import org.catrobat.catroid.R;
 
 /**
  * Menu-like list adapter with icon.

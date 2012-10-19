@@ -33,6 +33,7 @@ import org.catrobat.catroid.bluetooth.BluetoothManager;
 import org.catrobat.catroid.bluetooth.DeviceListActivity;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.bricks.Brick;
+import org.catrobat.catroid.livewallpaper.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -47,7 +48,6 @@ import android.speech.tts.TextToSpeech.OnInitListener;
 import android.speech.tts.TextToSpeech.OnUtteranceCompletedListener;
 import android.util.Log;
 import android.widget.Toast;
-import org.catrobat.catroid.R;
 
 public class PreStageActivity extends Activity {
 

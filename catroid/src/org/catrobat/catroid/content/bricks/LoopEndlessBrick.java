@@ -23,12 +23,12 @@
 package org.catrobat.catroid.content.bricks;
 
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.livewallpaper.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.BaseAdapter;
-import org.catrobat.catroid.R;
 
 public class LoopEndlessBrick extends LoopEndBrick implements DeadEndBrick {
 

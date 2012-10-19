@@ -100,6 +100,7 @@ public class WallpaperCostume {
 			} else {
 				this.top = wallpaperHelper.getCenterXCoord() + y - (this.costume.getWidth() / 2);
 			}
+
 		}
 		return top;
 	}
@@ -118,25 +119,33 @@ public class WallpaperCostume {
 	}
 
 	public void setX(int x) {
-		this.topNeedsAdjustment = true;
 		this.x = x;
+		this.topNeedsAdjustment = true;
 
 	}
 
 	public void setY(int y) {
+		this.y = y;
 		this.leftNeedsAdjustment = true;
+
+	}
+
+	public void setXY(int x, int y) {
+		this.x = x;
 		this.y = y;
 
+		this.topNeedsAdjustment = true;
+		this.leftNeedsAdjustment = true;
 	}
 
 	public void changeXBy(int x) {
-		this.topNeedsAdjustment = true;
 		this.x += x;
+		this.topNeedsAdjustment = true;
 	}
 
 	public void changeYby(int y) {
-		this.leftNeedsAdjustment = true;
 		this.y += y;
+		this.leftNeedsAdjustment = true;
 	}
 
 	public boolean touchedInsideTheCostume(float x, float y) {
@@ -308,15 +317,6 @@ public class WallpaperCostume {
 		this.brightness = 1f;
 		adjustBrightness();
 		adjustGhostEffect();
-	}
-
-	public void glideTo(int xDest, int yDest, int durationInMilliSeconds) {
-
-	}
-
-	public void setXYPosition(int xPosition, int yPosition) {
-		this.x = xPosition;
-		this.y = yPosition;
 	}
 
 	public void rotate() {

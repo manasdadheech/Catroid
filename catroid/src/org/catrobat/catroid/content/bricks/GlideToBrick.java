@@ -22,8 +22,8 @@
  */
 package org.catrobat.catroid.content.bricks;
 
-import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.livewallpaper.WallpaperCostume;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.dialogs.BrickTextDialog;
@@ -120,7 +120,7 @@ public class GlideToBrick implements Brick, OnClickListener {
 				sprite.costume.setXYPosition(xDestination, yDestination);
 				sprite.costume.releaseXYWidthHeightLock();
 			} else {
-				wallpaperCostume.setXYPosition(xDestination, yDestination);
+				wallpaperCostume.setXY(xDestination, yDestination);
 			}
 		}
 	}
@@ -137,10 +137,15 @@ public class GlideToBrick implements Brick, OnClickListener {
 			sprite.costume.setXYPosition(xPosition, yPosition);
 			sprite.costume.releaseXYWidthHeightLock();
 		} else {
-			wallpaperCostume
-					.changeXBy((int) (((float) timePassed / duration) * (xDestination - wallpaperCostume.getX())));
-			wallpaperCostume
-					.changeYby((int) (((float) timePassed / duration) * (yDestination - wallpaperCostume.getY())));
+
+			float changeXBy = ((float) timePassed / duration) * (xDestination - wallpaperCostume.getX());
+			float changeYBy = ((float) timePassed / duration) * (yDestination - wallpaperCostume.getY());
+
+			int newX = (int) (wallpaperCostume.getX() + changeXBy);
+			int newY = (int) (wallpaperCostume.getY() + changeYBy);
+
+			wallpaperCostume.setXY(newX, newY);
+
 		}
 	}
 

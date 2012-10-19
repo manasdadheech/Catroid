@@ -22,6 +22,7 @@
  */
 package org.catrobat.catroid.ui.dialogs;
 
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.ui.adapter.IconMenuAdapter;
 import org.catrobat.catroid.ui.adapter.IconMenuAdapter.CustomContextMenuItem;
 
@@ -31,7 +32,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import org.catrobat.catroid.R;
 
 public class CustomIconContextMenu extends DialogFragment implements DialogInterface.OnCancelListener,
 		DialogInterface.OnDismissListener {

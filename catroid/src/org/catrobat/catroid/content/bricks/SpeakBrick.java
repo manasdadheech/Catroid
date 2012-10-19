@@ -24,8 +24,8 @@ package org.catrobat.catroid.content.bricks;
 
 import java.util.HashMap;
 
-import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.stage.PreStageActivity;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.dialogs.BrickTextDialog;

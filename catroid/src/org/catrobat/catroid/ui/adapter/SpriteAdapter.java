@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.livewallpaper.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -36,7 +37,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
-import org.catrobat.catroid.R;
 
 public class SpriteAdapter extends ArrayAdapter<Sprite> {
 

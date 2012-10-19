@@ -27,10 +27,10 @@ import java.util.TreeMap;
 import java.util.Vector;
 
 import org.catrobat.catroid.content.BroadcastScript;
+import org.catrobat.catroid.livewallpaper.R;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;
-import org.catrobat.catroid.R;
 
 /**
  * @author Johannes Iber

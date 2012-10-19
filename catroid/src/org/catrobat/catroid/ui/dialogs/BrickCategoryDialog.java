@@ -25,6 +25,7 @@ package org.catrobat.catroid.ui.dialogs;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.adapter.BrickCategoryAdapter;
 import org.catrobat.catroid.ui.fragment.ScriptFragment;
@@ -46,7 +47,6 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import org.catrobat.catroid.R;
 
 public class BrickCategoryDialog extends DialogFragment {
 

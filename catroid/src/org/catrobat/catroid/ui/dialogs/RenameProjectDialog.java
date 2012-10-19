@@ -25,12 +25,12 @@ package org.catrobat.catroid.ui.dialogs;
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.io.StorageHandler;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.utils.ErrorListenerInterface;
 import org.catrobat.catroid.utils.Utils;
 
 import android.os.Bundle;
 import android.util.Log;
-import org.catrobat.catroid.R;
 
 public class RenameProjectDialog extends TextDialog {
 

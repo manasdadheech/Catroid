@@ -22,7 +22,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.catrobat.catroid"
+    package="org.catrobat.catroid.livewallpaper"
     android:installLocation="auto"
     android:versionCode="2147483646"
     android:versionName="0.7.0beta" >
@@ -31,26 +31,26 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
 
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<!--     <uses-permission android:name="android.permission.VIBRATE" />
+ -->    <uses-permission android:name="android.permission.INTERNET" />
+<!--     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> -->
     <uses-permission android:name="android.permission.BIND_WALLPAPER"/>
 
     <uses-feature android:name="android.software.live_wallpaper"> </uses-feature>
 
     <application
         android:debuggable="true"
-        android:icon="@drawable/ic_launcher_catroid_fat"
-        android:label="@string/app_name"
+        android:icon="@drawable/screenshot"
+        android:label="Simple Piano New"
         android:theme="@android:style/Theme.Light.NoTitleBar" >
         
-         <service android:name=".livewallpaper.LiveWallpaper" 
-        	android:label="@string/app_name" 
+         <service android:name=".LiveWallpaper" 
+        	android:label="Simple Piano New" 
         	android:permission="android.permission.BIND_WALLPAPER" 
         	android:enabled="true"> 
         <intent-filter> 
@@ -61,13 +61,13 @@
         </service>
         
     <activity 
-            android:label="@string/lwp_settings_title" 
+            android:label="Simple Piano New" 
             android:name=".livewallpaper.LiveWallpaperSettings"
             android:theme="@android:style/Theme.Light.WallpaperSettings"
             android:exported="true">
    		</activity> 
         
-        <activity
+      <!--   <activity
             android:name=".ui.MainMenuActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Catroid" >
@@ -140,7 +140,7 @@
 
         <service android:name=".transfers.ProjectUploadService" />
         <service android:name=".transfers.ProjectDownloadService" />
-    </application>
+ -->    </application>
 
 </manifest>
 

@@ -22,9 +22,12 @@
  */
 package org.catrobat.catroid.common;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.livewallpaper.LiveWallpaper;
 import org.catrobat.catroid.livewallpaper.WallpaperHelper;
 import org.catrobat.catroid.utils.ImageEditing;
 import org.catrobat.catroid.utils.Utils;
@@ -159,16 +162,16 @@ public class CostumeData implements Serializable {
 	public Bitmap getCostumeBitmap() {
 		if (costumeBitmap == null) {
 			//CODE FOR LOADING FROM SD CARD
-			costumeBitmap = BitmapFactory.decodeFile(getAbsolutePath());
+			//costumeBitmap = BitmapFactory.decodeFile(getAbsolutePath());
 			//____________________________________________________
 
 			//CODE FOR LOADING FROM ASSETS
-			//			try {
-			//				InputStream istr = LiveWallpaper.getContext().getAssets().open(getPath());
-			//				costumeBitmap = BitmapFactory.decodeStream(istr);
-			//			} catch (IOException e) {
-			//				e.printStackTrace();
-			//			}
+			try {
+				InputStream istr = LiveWallpaper.getContext().getAssets().open(getAbsolutePath());
+				costumeBitmap = BitmapFactory.decodeStream(istr);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			//________________________________________________________________________________
 
 		}

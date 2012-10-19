@@ -24,11 +24,11 @@ package org.catrobat.catroid.stage;
 
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.common.Values;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.ui.dialogs.StageDialog;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import org.catrobat.catroid.R;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 

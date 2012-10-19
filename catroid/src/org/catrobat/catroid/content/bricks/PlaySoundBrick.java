@@ -22,10 +22,10 @@
  */
 package org.catrobat.catroid.content.bricks;
 
-import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.SoundInfo;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.io.SoundManager;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.livewallpaper.WallpaperHelper;
 import org.catrobat.catroid.utils.Utils;
 

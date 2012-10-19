@@ -22,8 +22,8 @@
  */
 package org.catrobat.catroid.ui.dialogs;
 
-import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Project;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.livewallpaper.WallpaperHelper;
 
 import android.app.Dialog;

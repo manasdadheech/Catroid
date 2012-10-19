@@ -1,6 +1,5 @@
 package org.catrobat.catroid.livewallpaper;
 
-import org.catrobat.catroid.R;
 import org.catrobat.catroid.ui.dialogs.AboutCatrobatLiveWallpaperDialog;
 import org.catrobat.catroid.ui.dialogs.AboutWallpaperDialog;
 

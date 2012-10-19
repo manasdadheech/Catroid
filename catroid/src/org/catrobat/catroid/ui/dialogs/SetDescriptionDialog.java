@@ -27,7 +27,7 @@ import org.catrobat.catroid.utils.ErrorListenerInterface;
 
 import android.os.Bundle;
 import android.util.Log;
-import org.catrobat.catroid.R;
+import org.catrobat.catroid.livewallpaper.R;
 
 public class SetDescriptionDialog extends MultiLineTextDialog {
 

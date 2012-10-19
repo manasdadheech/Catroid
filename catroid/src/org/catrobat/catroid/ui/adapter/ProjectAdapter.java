@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.catrobat.catroid.io.ProjectScreenshotLoader;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.ui.fragment.ProjectsListFragment.ProjectData;
 import org.catrobat.catroid.utils.UtilFile;
 import org.catrobat.catroid.utils.Utils;
@@ -39,7 +40,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import org.catrobat.catroid.R;
 
 public class ProjectAdapter extends ArrayAdapter<ProjectData> {
 

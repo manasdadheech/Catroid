@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.catrobat.catroid.common.Constants;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.utils.UtilDeviceInfo;
 import org.catrobat.catroid.utils.UtilZip;
 import org.catrobat.catroid.utils.Utils;
@@ -37,7 +38,6 @@ import android.content.Intent;
 import android.os.ResultReceiver;
 import android.util.Log;
 import android.widget.Toast;
-import org.catrobat.catroid.R;
 
 public class ProjectUploadService extends IntentService {
 

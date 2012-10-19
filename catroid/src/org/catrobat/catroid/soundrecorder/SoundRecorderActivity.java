@@ -25,6 +25,7 @@ package org.catrobat.catroid.soundrecorder;
 import java.io.IOException;
 
 import org.catrobat.catroid.common.Constants;
+import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.utils.Utils;
 
 import android.app.Activity;
@@ -40,7 +41,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import org.catrobat.catroid.R;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 

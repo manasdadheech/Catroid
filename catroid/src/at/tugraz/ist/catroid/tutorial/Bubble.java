@@ -156,9 +156,8 @@ public class Bubble implements SurfaceObject {
 			while (temp < text.length() && !(text.charAt(temp) == ' ')) {
 				s += text.charAt(temp);
 				temp++;
-				Log.i("COUNTING", text.length() + "text.charAt " + temp);
 			}
-			//Log.i("COUNTING", text.length() + "text.charAt " + temp);
+
 			width = (int) paint.measureText(s);
 		}
 		return width;
@@ -177,7 +176,6 @@ public class Bubble implements SurfaceObject {
 
 					if (currentPosition > 0 && text.charAt(currentPosition - 1) == ' ') {
 						if ((width + getNextWordLength()) > maxWidth) {
-							Log.i("COUNTING", "bla " + text.charAt(currentPosition) + getNextWordLength());
 
 							if (currentLine < 3) {
 								currentLine++;
@@ -197,8 +195,6 @@ public class Bubble implements SurfaceObject {
 						if (text.charAt(currentPosition) == ' ') {
 							currentPosition++;
 						} else {
-
-							//geht zurück zum Anfang des Wortes
 							resetCurrentPositionToLastBlank();
 						}
 						lastNewlinePosition = currentPosition;

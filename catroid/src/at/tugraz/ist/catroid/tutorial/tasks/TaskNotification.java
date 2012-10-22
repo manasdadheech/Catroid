@@ -56,13 +56,15 @@ public class TaskNotification implements Task {
 			return true;
 		}
 
-		//		if (notificationType == notificationType.PROJECT_LIST_ITEM) {
-		//			//clickDispatcher.setCurrentNotification(notificationType, notificationString);
-		//		}
-		//
-		//		if (notificationType == notificationType.SCRIPTS_ADD_BRICK) {
-		//			return ("DIALOG");
-		//		}
+		if (notificationType == Notification.PROJECT_LIST_ITEM) {
+			//clickDispatcher.setCurrentNotification(notificationType, notificationString);
+			return true;
+		}
+
+		if (notificationType == Notification.SCRIPTS_ADD_BRICK) {
+
+			return true;
+		}
 		//
 		//		if (notificationType == notificationType.BRICK_CATEGORY_DIALOG) {
 		//			return ("DIALOG");

@@ -37,6 +37,7 @@ public class ClickDispatcher {
 	//don't know how to clean up yet...
 
 	public void processNotification(TaskNotification task) {
+
 		switch (task.getNotificationType()) {
 			case CURRENT_PROJECT_BUTTON:
 				dispatchButton(R.id.current_project_button);
@@ -64,6 +65,8 @@ public class ClickDispatcher {
 
 			case SOUNDS_ADD_SOUND:
 			case SCRIPTS_ADD_BRICK:
+				dispatchButton(R.id.btn_action_add_button);
+				break;
 			case PROJECT_ADD_SPRITE:
 				dispatchButton(R.id.btn_action_add_button);
 				break;

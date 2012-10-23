@@ -132,7 +132,7 @@ public class PhysicObject {
 	 * - A collides with B.
 	 * }
 	 */
-	private void setCollisionBits(short categoryBits, short maskBits) {
+	protected void setCollisionBits(short categoryBits, short maskBits) {
 		fixtureDef.filter.categoryBits = categoryBits;
 		fixtureDef.filter.maskBits = maskBits;
 

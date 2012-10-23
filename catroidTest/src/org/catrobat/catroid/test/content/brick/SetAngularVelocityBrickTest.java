@@ -8,11 +8,9 @@ import org.catrobat.catroid.content.bricks.TurnLeftSpeedBrick;
 import org.catrobat.catroid.physics.PhysicObject;
 import org.catrobat.catroid.physics.PhysicWorld;
 
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
-
 public class SetAngularVelocityBrickTest extends TestCase {
-	private float degreesPerSec = 3.50f;
+
+	private float degreesPerSecond = 3.50f;
 	private PhysicWorld physicWorld;
 	private Sprite sprite;
 	private TurnLeftSpeedBrick angularVelocityBrick;
@@ -20,16 +18,18 @@ public class SetAngularVelocityBrickTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		sprite = new Sprite("testSprite");
+
 		physicWorld = new PhysicWorldMock();
-		angularVelocityBrick = new TurnLeftSpeedBrick(physicWorld, sprite, degreesPerSec);
+		sprite = new Sprite("TestSprite");
+		angularVelocityBrick = new TurnLeftSpeedBrick(physicWorld, sprite, degreesPerSecond);
 	}
 
 	@Override
 	protected void tearDown() throws Exception {
 		super.tearDown();
-		sprite = null;
+
 		physicWorld = null;
+		sprite = null;
 		angularVelocityBrick = null;
 	}
 
@@ -54,7 +54,7 @@ public class SetAngularVelocityBrickTest extends TestCase {
 	}
 
 	public void testNullSprite() {
-		angularVelocityBrick = new TurnLeftSpeedBrick(null, sprite, degreesPerSec);
+		angularVelocityBrick = new TurnLeftSpeedBrick(null, sprite, degreesPerSecond);
 		try {
 			angularVelocityBrick.execute();
 			fail("Execution of SetAngularVelocityBrick with null Sprite did not cause a "
@@ -87,7 +87,7 @@ public class SetAngularVelocityBrickTest extends TestCase {
 		public boolean executed;
 
 		public PhysicObjectMock() {
-			super(new BodyMock(null, 0));
+			super(null);
 			executed = false;
 		}
 
@@ -104,14 +104,9 @@ public class SetAngularVelocityBrickTest extends TestCase {
 		public void setType(Type type) {
 		}
 
-	}
-
-	class BodyMock extends Body {
-
-		protected BodyMock(World world, long addr) {
-			super(world, addr);
+		@Override
+		protected void setCollisionBits(short categoryBits, short maskBits) {
 		}
-
 	}
 
 }

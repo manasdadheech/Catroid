@@ -9,9 +9,6 @@ import org.catrobat.catroid.test.utils.TestUtils;
 
 import android.test.AndroidTestCase;
 
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
-
 public class SetMassBrickTest extends AndroidTestCase {
 
 	private float mass = 10.50f;
@@ -93,7 +90,7 @@ public class SetMassBrickTest extends AndroidTestCase {
 		public boolean executed;
 
 		public PhysicObjectMock() {
-			super(new BodyMock(null, 0));
+			super(null);
 			executed = false;
 		}
 
@@ -110,12 +107,8 @@ public class SetMassBrickTest extends AndroidTestCase {
 		public void setType(Type type) {
 		}
 
-	}
-
-	class BodyMock extends Body {
-
-		protected BodyMock(World world, long addr) {
-			super(world, addr);
+		@Override
+		protected void setCollisionBits(short categoryBits, short maskBits) {
 		}
 
 	}

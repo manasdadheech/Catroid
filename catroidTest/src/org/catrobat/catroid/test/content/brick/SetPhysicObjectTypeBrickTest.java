@@ -9,9 +9,6 @@ import org.catrobat.catroid.physics.PhysicWorld;
 
 import android.test.AndroidTestCase;
 
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
-
 public class SetPhysicObjectTypeBrickTest extends AndroidTestCase {
 
 	private PhysicObject.Type type;
@@ -22,6 +19,7 @@ public class SetPhysicObjectTypeBrickTest extends AndroidTestCase {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+
 		sprite = new Sprite("testSprite");
 		physicWorld = new PhysicWorldMock();
 		type = Type.DYNAMIC;
@@ -31,8 +29,10 @@ public class SetPhysicObjectTypeBrickTest extends AndroidTestCase {
 	@Override
 	protected void tearDown() throws Exception {
 		super.tearDown();
+
 		sprite = null;
 		physicWorld = null;
+		type = null;
 		setPhysicObjectTypeBrickTest = null;
 	}
 
@@ -94,8 +94,12 @@ public class SetPhysicObjectTypeBrickTest extends AndroidTestCase {
 		public boolean executed;
 
 		public PhysicObjectMock() {
-			super(new BodyMock(null, 0));
+			super(null);
 			executed = false;
+		}
+
+		public boolean wasExecuted() {
+			return executed;
 		}
 
 		@Override
@@ -103,15 +107,8 @@ public class SetPhysicObjectTypeBrickTest extends AndroidTestCase {
 			executed = true;
 		}
 
-		public boolean wasExecuted() {
-			return executed;
-		}
-	}
-
-	class BodyMock extends Body {
-
-		protected BodyMock(World world, long addr) {
-			super(world, addr);
+		@Override
+		protected void setCollisionBits(short categoryBits, short maskBits) {
 		}
 
 	}

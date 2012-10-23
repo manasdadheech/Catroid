@@ -8,9 +8,6 @@ import org.catrobat.catroid.content.bricks.SetFrictionBrick;
 import org.catrobat.catroid.physics.PhysicObject;
 import org.catrobat.catroid.physics.PhysicWorld;
 
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
-
 public class SetFrictionBrickTest extends TestCase {
 	private float friction = 1.0f;
 	private PhysicWorld physicWorld;
@@ -87,7 +84,7 @@ public class SetFrictionBrickTest extends TestCase {
 		public boolean executed;
 
 		public PhysicObjectMock() {
-			super(new BodyMock(null, 0));
+			super(null);
 			executed = false;
 		}
 
@@ -104,12 +101,8 @@ public class SetFrictionBrickTest extends TestCase {
 		public void setType(Type type) {
 		}
 
-	}
-
-	class BodyMock extends Body {
-
-		protected BodyMock(World world, long addr) {
-			super(world, addr);
+		@Override
+		protected void setCollisionBits(short categoryBits, short maskBits) {
 		}
 
 	}

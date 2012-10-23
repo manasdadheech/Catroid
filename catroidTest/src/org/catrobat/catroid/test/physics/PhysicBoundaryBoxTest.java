@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.catrobat.catroid.common.Values;
 import org.catrobat.catroid.physics.PhysicBoundaryBox;
+import org.catrobat.catroid.physics.PhysicDebugSettings;
 import org.catrobat.catroid.physics.PhysicObject;
 import org.catrobat.catroid.physics.PhysicWorld;
 import org.catrobat.catroid.physics.PhysicWorldConverter;
@@ -36,7 +37,7 @@ public class PhysicBoundaryBoxTest extends AndroidTestCase {
 		world = new World(PhysicWorld.DEFAULT_GRAVITY, PhysicWorld.IGNORE_SLEEPING_OBJECTS);
 	}
 
-	public void testDefaultValues() {
+	public void testDefaultSettings() {
 		assertEquals(5, PhysicBoundaryBox.FRAME_SIZE);
 		assertEquals(0x0002, PhysicBoundaryBox.COLLISION_MASK);
 	}
@@ -58,8 +59,11 @@ public class PhysicBoundaryBoxTest extends AndroidTestCase {
 				Filter filter = fixture.getFilterData();
 				assertEquals(PhysicObject.COLLISION_MASK, filter.maskBits);
 
-				// Fails if you forgot to set PhysicSettings.DEBUGFLAG to true. Only for release issues.
-				//				assertEquals(PhysicBoundaryBox.COLLISION_MASK, filter.categoryBits);
+				if (PhysicDebugSettings.DEBUGFLAG) {
+					assertEquals(PhysicObject.COLLISION_MASK, filter.categoryBits);
+				} else {
+					assertEquals(PhysicBoundaryBox.COLLISION_MASK, filter.categoryBits);
+				}
 			}
 		}
 	}

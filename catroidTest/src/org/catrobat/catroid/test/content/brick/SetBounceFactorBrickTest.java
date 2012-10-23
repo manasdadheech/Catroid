@@ -9,9 +9,6 @@ import org.catrobat.catroid.physics.PhysicObject;
 import org.catrobat.catroid.physics.PhysicWorld;
 import org.catrobat.catroid.test.utils.TestUtils;
 
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.World;
-
 public class SetBounceFactorBrickTest extends TestCase {
 	private float bounceFactor = 35f;
 	private PhysicWorld physicWorld;
@@ -95,7 +92,7 @@ public class SetBounceFactorBrickTest extends TestCase {
 		public boolean executed;
 
 		public PhysicObjectMock() {
-			super(new BodyMock(null, 0));
+			super(null);
 			executed = false;
 		}
 
@@ -112,12 +109,8 @@ public class SetBounceFactorBrickTest extends TestCase {
 		public void setType(Type type) {
 		}
 
-	}
-
-	class BodyMock extends Body {
-
-		protected BodyMock(World world, long addr) {
-			super(world, addr);
+		@Override
+		protected void setCollisionBits(short categoryBits, short maskBits) {
 		}
 
 	}

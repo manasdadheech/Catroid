@@ -26,20 +26,18 @@ public class PhysicCostumeTest extends AndroidTestCase {
 	}
 
 	public void testCheckImageChanged() {
+		Sprite sprite = new Sprite("TestSprite");
 		PhysicWorldMock physicWorld = new PhysicWorldMock();
-		PhysicCostumeMock physicCostume = new PhysicCostumeMock(null, physicWorld, null);
+		PhysicCostumeMock physicCostume = new PhysicCostumeMock(sprite, physicWorld, null);
 
 		physicCostume.setImageChanged(false);
-		boolean checkImageChangedReturnValue = physicCostume.checkImageChanged();
-
-		assertFalse(checkImageChangedReturnValue);
+		assertFalse(physicCostume.checkImageChanged());
 		assertFalse(physicWorld.changeCostumeExecuted);
 
 		physicCostume.setImageChanged(true);
-		checkImageChangedReturnValue = physicCostume.checkImageChanged();
-
-		assertTrue(checkImageChangedReturnValue);
+		assertTrue(physicCostume.checkImageChanged());
 		assertTrue(physicWorld.changeCostumeExecuted);
+		assertEquals(sprite, physicWorld.changeCostumeExecutedWithSprite);
 	}
 
 	public void testUpdatePositionAndRotation() {
@@ -68,9 +66,6 @@ public class PhysicCostumeTest extends AndroidTestCase {
 		PhysicObject physicObject = physicWorld.getPhysicObject(new Sprite("TestSprite"));
 		PhysicCostume physicCostume = new PhysicCostume(null, physicWorld, physicObject);
 
-		float[] values = { 1.2f, -3.4f, 5.6f, 7.8f, -9.0f };
-		assertEquals(5, values.length);
-
 		float x = 1.2f;
 		physicCostume.setXPosition(x);
 		assertEquals(x, physicObject.getXPosition());
@@ -94,12 +89,14 @@ public class PhysicCostumeTest extends AndroidTestCase {
 	}
 
 	public void testSize() {
+		Sprite sprite = new Sprite("TestSprite");
 		PhysicWorldMock physicWorld = new PhysicWorldMock();
-		PhysicCostume physicCostume = new PhysicCostume(null, physicWorld, null);
+		PhysicCostume physicCostume = new PhysicCostume(sprite, physicWorld, null);
 
 		assertFalse(physicWorld.changeCostumeExecuted);
 		physicCostume.setSize(3.14f);
 		assertTrue(physicWorld.changeCostumeExecuted);
+		assertEquals(sprite, physicWorld.changeCostumeExecutedWithSprite);
 	}
 
 	private class PhysicCostumeUpdateMock extends PhysicCostume {
@@ -140,10 +137,12 @@ public class PhysicCostumeTest extends AndroidTestCase {
 	private class PhysicWorldMock extends PhysicWorld {
 
 		public boolean changeCostumeExecuted = false;
+		public Sprite changeCostumeExecutedWithSprite = null;
 
 		@Override
 		public void changeCostume(Sprite sprite) {
 			changeCostumeExecuted = true;
+			changeCostumeExecutedWithSprite = sprite;
 		}
 
 	}

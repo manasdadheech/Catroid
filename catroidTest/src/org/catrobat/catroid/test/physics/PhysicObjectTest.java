@@ -40,7 +40,7 @@ public class PhysicObjectTest extends AndroidTestCase {
 		physicWorld = null;
 	}
 
-	public void testDefaultValues() {
+	public void testDefaultSettings() {
 		assertEquals(1.0f, PhysicObject.DEFAULT_DENSITY);
 		assertEquals(0.2f, PhysicObject.DEFAULT_FRICTION);
 		assertEquals(0.8f, PhysicObject.DEFAULT_RESTITUTION);

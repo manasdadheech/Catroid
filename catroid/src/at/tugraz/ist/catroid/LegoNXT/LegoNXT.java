@@ -129,6 +129,17 @@ public class LegoNXT implements BTConnectable {
 
 	}
 
+	//	public static double getUltrasonicSensor() {
+	//		double sonic_cm = -5;
+	////		Bundle myBundle = new Bundle();
+	////		myBundle.putInt("frequency", frequency);
+	////		myBundle.putInt("duration", duration);
+	//		Message myMessage = btcHandler.obtainMessage();
+	//		myMessage.what = sonic;
+	//		
+	//		return sonic_cm;
+	//	}
+
 	public static synchronized void sendBTCMotorMessage(int delay, int motor, int speed, int angle) {
 		Bundle myBundle = new Bundle();
 		myBundle.putInt("motor", motor);
@@ -154,6 +165,7 @@ public class LegoNXT implements BTConnectable {
 		return btcHandler;
 	}
 
+	@Override
 	public boolean isPairing() {
 		// TODO Auto-generated method stub
 		return pairing;

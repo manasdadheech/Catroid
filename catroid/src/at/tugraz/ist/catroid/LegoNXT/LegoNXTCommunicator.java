@@ -303,6 +303,16 @@ public abstract class LegoNXTCommunicator extends Thread {
 		}
 	}
 
+	public static double getSonicValue() {
+		byte[] message = LCPMessage.getSingleShotSonicMessage();
+		byte[] message2 = LCPMessage.getSonicValueMessage();
+		byte[] message3 = LCPMessage.getSonicValue();
+		Log.i("bto", "message " + (int) message[2] + " message " + (int) message2[2]);
+		Log.i("bto2", "bytes read " + (int) message3[3] + " Value " + (int) message3[4]);
+
+		return message3[4];
+	}
+
 	// receive messages from the UI
 	final Handler myHandler = new Handler() {
 		@Override

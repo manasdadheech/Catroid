@@ -31,6 +31,7 @@ import android.widget.BaseAdapter;
 import android.widget.Spinner;
 import at.tugraz.ist.catroid.R;
 import at.tugraz.ist.catroid.LegoNXT.LegoNXT;
+import at.tugraz.ist.catroid.LegoNXT.LegoNXTCommunicator;
 import at.tugraz.ist.catroid.content.Sprite;
 
 public class NXTMotorStopBrick implements Brick, OnItemSelectedListener {
@@ -66,6 +67,7 @@ public class NXTMotorStopBrick implements Brick, OnItemSelectedListener {
 
 	@Override
 	public void execute() {
+		LegoNXTCommunicator.getSonicValue();
 		if (motorEnum.equals(Motor.ALL_MOTORS)) {
 			LegoNXT.sendBTCMotorMessage(NO_DELAY, Motor.MOTOR_A.ordinal(), 0, 0);
 			LegoNXT.sendBTCMotorMessage(NO_DELAY, Motor.MOTOR_B.ordinal(), 0, 0);

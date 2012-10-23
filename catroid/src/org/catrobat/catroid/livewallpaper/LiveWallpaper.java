@@ -34,7 +34,6 @@ import org.catrobat.catroid.utils.Utils;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.os.Handler;
 import android.service.wallpaper.WallpaperService;
 import android.util.DisplayMetrics;
@@ -86,7 +85,6 @@ public class LiveWallpaper extends WallpaperService {
 
 		private Display display;
 
-		private Paint paint;
 		private List<Sprite> sprites;
 
 		private WallpaperHelper wallpaperHelper = WallpaperHelper.getInstance();
@@ -162,7 +160,7 @@ public class LiveWallpaper extends WallpaperService {
 		public void draw() {
 			SurfaceHolder holder = getSurfaceHolder();
 			Canvas c = null;
-			paint = new Paint();
+
 			try {
 				c = holder.lockCanvas();
 				if (c != null && sprites != null) {
@@ -173,8 +171,8 @@ public class LiveWallpaper extends WallpaperService {
 							wallpaperCostume = sprite.getWallpaperCostume();
 							if (wallpaperCostume != null && wallpaperCostume.getzPosition() == position) {
 								if (wallpaperCostume.getCostume() != null && !wallpaperCostume.isCostumeHidden()) {
-									c.drawBitmap(wallpaperCostume.getCostume(), wallpaperCostume.getTop(),
-											wallpaperCostume.getLeft(), paint);
+									c.drawBitmap(wallpaperCostume.getCostume(), wallpaperCostume.getMatrix(),
+											wallpaperCostume.getPaint());
 
 								}
 								break Sprites;

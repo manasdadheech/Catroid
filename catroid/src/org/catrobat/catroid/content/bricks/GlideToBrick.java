@@ -121,7 +121,8 @@ public class GlideToBrick implements Brick, OnClickListener {
 				sprite.costume.setXYPosition(xDestination, yDestination);
 				sprite.costume.releaseXYWidthHeightLock();
 			} else {
-				wallpaperCostume.setXYPosition(xDestination, yDestination);
+				wallpaperCostume.setX(xDestination);
+				wallpaperCostume.setY(yDestination);
 			}
 		}
 	}
@@ -141,7 +142,8 @@ public class GlideToBrick implements Brick, OnClickListener {
 			int changeXBy = (int) (((float) timePassed / duration) * (xDestination - wallpaperCostume.getX()));
 			int changeYBy = (int) (((float) timePassed / duration) * (yDestination - wallpaperCostume.getY()));
 
-			wallpaperCostume.changeXYBy(changeXBy, changeYBy);
+			wallpaperCostume.changeXBy(changeXBy);
+			wallpaperCostume.changeYby(changeYBy);
 
 		}
 	}

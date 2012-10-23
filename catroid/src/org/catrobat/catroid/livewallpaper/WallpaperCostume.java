@@ -28,36 +28,38 @@ import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.utils.ImageEditing;
 
 import android.graphics.Bitmap;
-import android.util.Log;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 
 public class WallpaperCostume {
 
 	private CostumeData costumeData;
 	private Sprite sprite;
 	private Bitmap costume = null;
+	private Matrix matrix;
+	private Paint paint;
 
 	private int x;
 	private int y;
-	private int top;
-	private int left;
+
+	private int centerX;
+	private int centerY;
+
+	private int costumeWidth;
+	private int costumeHeight;
 
 	float rotation = 0f;
 
 	private int zPosition;
 
-	private float alphaValue = 1f;
+	private int alphaValue = 255;
 	private float brightness = 1f;
 
 	private double size = 1;
 
 	private boolean hidden = false;
 	private boolean isBackground = false;
-	private boolean topNeedsAdjustment = false;
-	private boolean leftNeedsAdjustment = false;
-	private boolean sizeChanged = false;
 	private boolean coordsSwapped = false;
-
-	private Bitmap temp;
 
 	private WallpaperHelper wallpaperHelper;
 
@@ -66,28 +68,26 @@ public class WallpaperCostume {
 		this.wallpaperHelper = WallpaperHelper.getInstance();
 		this.sprite = sprite;
 		this.zPosition = wallpaperHelper.getProject().getSpriteList().indexOf(sprite);
+		this.matrix = new Matrix();
 
 		if (sprite.getName().equals("Background")) {
 			this.isBackground = true;
-			this.top = 0;
-			this.left = 0;
-		} else {
-			setY(0);
-			setX(0);
 		}
+
+		this.x = 0;
+		this.y = 0;
+
+		this.paint = new Paint();
 
 		if (costumeData != null) {
 			setCostume(costumeData);
 		}
-
-		wallpaperHelper.setRefreshRate(50);
-
 		sprite.setWallpaperCostume(this);
 
 	}
 
 	public void clear() {
-		alphaValue = 1f;
+		alphaValue = 255;
 		brightness = 1f;
 		rotation = 0f;
 		size = 1;
@@ -97,108 +97,64 @@ public class WallpaperCostume {
 		costumeData.nullifyBitmaps();
 	}
 
-	public float getTop() {
-		if (topNeedsAdjustment) {
-			this.topNeedsAdjustment = false;
-			if (!wallpaperHelper.isLandscape()) {
-				this.top = wallpaperHelper.getCenterXCoord() + x - (this.costume.getWidth() / 2);
-			} else {
-				this.top = wallpaperHelper.getCenterXCoord() + y - (this.costume.getWidth() / 2);
-			}
+	private void updateMatrix() {
+		matrix.setRotate(rotation, costumeWidth / 2, costumeHeight / 2);
+		matrix.postScale((float) size, (float) size);
+
+		if (wallpaperHelper.isLandscape()) {
+			centerX = wallpaperHelper.getCenterXCoord() - x - (int) (costumeWidth * size) / 2;
+			centerY = wallpaperHelper.getCenterYCoord() - y - (int) (costumeHeight * size) / 2;
+		} else {
+			centerX = wallpaperHelper.getCenterXCoord() + x - (int) (costumeWidth * size) / 2;
+			centerY = wallpaperHelper.getCenterYCoord() + y - (int) (costumeHeight * size) / 2;
 		}
-		return top;
+
+		matrix.postTranslate(centerX, centerY);
 	}
 
-	public float getLeft() {
-		if (leftNeedsAdjustment) {
-			this.leftNeedsAdjustment = false;
-			if (!wallpaperHelper.isLandscape()) {
-				this.left = wallpaperHelper.getCenterYCoord() - y - (this.costume.getHeight() / 2);
-			} else {
-				this.left = wallpaperHelper.getCenterYCoord() + x - (this.costume.getHeight() / 2);
-
-			}
-		}
-		return left;
+	private void updatePaint() {
+		paint.setAlpha(alphaValue);
 	}
 
 	public void setX(int x) {
-		if (wallpaperHelper.isLandscape() && wallpaperHelper.getLandscapeRotationDegree() == -90) {
-			this.x = -x;
-		} else {
-			this.x = x;
-		}
-		this.topNeedsAdjustment = true;
-
+		this.x = x;
 	}
 
 	public void setY(int y) {
-		if (wallpaperHelper.isLandscape() && wallpaperHelper.getLandscapeRotationDegree() == -90) {
-			this.y = -y;
-		} else {
-			this.y = y;
-		}
-		this.leftNeedsAdjustment = true;
+		this.y = y;
 
-	}
-
-	public void setXYPosition(int xPosition, int yPosition) {
-		if (wallpaperHelper.isLandscape() && wallpaperHelper.getLandscapeRotationDegree() == -90) {
-			this.x = -xPosition;
-			this.y = -yPosition;
-		} else {
-			this.x = xPosition;
-			this.y = yPosition;
-		}
-		this.topNeedsAdjustment = true;
-		this.leftNeedsAdjustment = true;
 	}
 
 	public void changeXBy(int x) {
-		if (wallpaperHelper.isLandscape() && wallpaperHelper.getLandscapeRotationDegree() == -90) {
+		if (wallpaperHelper.isLandscape()) {
 			this.x -= x;
 		} else {
 			this.x += x;
 
 		}
-		this.topNeedsAdjustment = true;
 
 	}
 
 	public void changeYby(int y) {
-		if (wallpaperHelper.isLandscape() && wallpaperHelper.getLandscapeRotationDegree() == -90) {
+		if (wallpaperHelper.isLandscape()) {
 			this.y -= y;
 		} else {
 			this.y += y;
 		}
-		this.leftNeedsAdjustment = true;
 	}
 
-	public void changeXYBy(int xValue, int yValue) {
-		if (wallpaperHelper.isLandscape() && wallpaperHelper.getLandscapeRotationDegree() == -90) {
-			this.x -= xValue;
-			this.y -= yValue;
-		} else {
-			this.x += xValue;
-			this.y += yValue;
-
-		}
-		this.topNeedsAdjustment = true;
-		this.leftNeedsAdjustment = true;
-	}
-
-	public boolean touchedInsideTheCostume(float x, float y) {
+	public boolean touchedInsideTheCostume(float touchX, float touchY) {
 		if (isBackground || costume == null) {
 			return false;
 		}
 
-		float right = top;
-		float bottom = left;
+		float right = centerX;
+		float bottom = centerY;
 
-		right += costume.getWidth();
-		bottom += costume.getHeight();
+		right += costumeWidth;
+		bottom += costumeHeight;
 
-		if (x > top && x < right && y > left && y < bottom) {
+		if (touchX > centerX && touchX < right && touchY > centerY && touchY < bottom) {
 			return true;
 		}
 
@@ -207,70 +163,33 @@ public class WallpaperCostume {
 	}
 
 	public Bitmap getCostume() {
-
 		if (wallpaperHelper.isLandscape()) {
-
 			if (!coordsSwapped) {
-				int temp = this.top;
-				this.top = this.left;
-				this.left = temp;
+				int temp = x;
+				x = y;
+				y = temp;
 				this.coordsSwapped = true;
 			}
 
 		}
-
 		return costume;
 	}
 
 	public void setCostume(CostumeData costumeData) {
 		this.costumeData = costumeData;
 		this.costume = costumeData.getCostumeBitmap();
-
-		if (sizeChanged) {
-			resizeCostume();
-		}
+		this.costumeWidth = costume.getWidth();
+		this.costumeHeight = costume.getHeight();
 
 	}
 
 	public void setCostumeSize(double size) {
-		this.sizeChanged = true;
 		this.size = size * 0.01;
-		if (costumeData != null) {
-			this.costume = costumeData.getCostumeBitmap();
-			resizeCostume();
-		}
 
 	}
 
 	public void changeCostumeSizeBy(double changeValue) {
-		this.sizeChanged = true;
 		this.size += (changeValue * 0.01);
-		resizeCostume();
-	}
-
-	private void resizeCostume() {
-		this.temp = costume;
-
-		int newWidth = (int) (temp.getWidth() * size);
-		int newHeight = (int) (temp.getHeight() * size);
-
-		if (newWidth <= 0) {
-			newWidth = 1;
-		}
-
-		if (newHeight <= 0) {
-			newHeight = 1;
-		}
-
-		Log.v("SIZE", String.valueOf(newWidth) + "  " + String.valueOf(newHeight));
-
-		this.temp = ImageEditing.scaleBitmap(temp, newWidth, newHeight);
-		this.costume = temp;
-		this.temp = null;
-
-		this.topNeedsAdjustment = true;
-		this.leftNeedsAdjustment = true;
-
 	}
 
 	public CostumeData getCostumeData() {
@@ -301,14 +220,6 @@ public class WallpaperCostume {
 		this.isBackground = isBackground;
 	}
 
-	public float getAlphaValue() {
-		return alphaValue;
-	}
-
-	public void setAlphaValue(float alphaValue) {
-		this.alphaValue = alphaValue;
-	}
-
 	public float getBrightness() {
 		return brightness;
 	}
@@ -335,59 +246,16 @@ public class WallpaperCostume {
 	}
 
 	private void adjustBrightness() {
-		this.temp = costume;
-		this.temp = ImageEditing.adjustBitmpaBrigthness(temp, brightness);
+		Bitmap temp = costume;
+		temp = ImageEditing.adjustBitmpaBrigthness(temp, brightness);
 		this.costume = temp;
-		this.temp = null;
-	}
-
-	public void setGhostEffect(float alpha) {
-		if (alpha < 0f) {
-			this.alphaValue = 0f;
-		} else if (alpha > 1f) {
-			this.alphaValue = 1f;
-		}
-		this.alphaValue = alpha;
-
-		adjustGhostEffect();
-	}
-
-	public void changeGhostEffect(float alpha) {
-		this.alphaValue += alpha;
-
-		if (this.alphaValue < 0f) {
-			this.alphaValue = 0f;
-		} else if (this.alphaValue > 1f) {
-			this.alphaValue = 1f;
-		}
-
-		adjustGhostEffect();
-
-	}
-
-	private void adjustGhostEffect() {
-		this.temp = costume;
-		this.temp = ImageEditing.adjustBitmapAlphaValue(temp, alphaValue);
-		this.costume = temp;
-		this.temp = null;
-
+		temp = null;
 	}
 
 	public void clearGraphicEffect() {
-		this.alphaValue = 1f;
+		this.alphaValue = 255;
 		this.brightness = 1f;
 		adjustBrightness();
-		adjustGhostEffect();
-	}
-
-	public void rotate() {
-		this.temp = costume;
-		//this.costume = ImageEditing.rotateBitmap(costumeData.getCostumeBitmap(), (int) this.rotation);
-		this.temp = ImageEditing.rotateBitmap(temp, (int) this.rotation);
-		this.costume = temp;
-		this.temp = null;
-		this.topNeedsAdjustment = true;
-		this.leftNeedsAdjustment = true;
 	}
 
 	public int getzPosition() {
@@ -400,7 +268,7 @@ public class WallpaperCostume {
 
 	public void setRotation(float r) {
 		this.rotation += r;
-		rotate();
+
 	}
 
 	public int getX() {
@@ -409,6 +277,24 @@ public class WallpaperCostume {
 
 	public int getY() {
 		return y;
+	}
+
+	public Matrix getMatrix() {
+		updateMatrix();
+		return matrix;
+	}
+
+	public Paint getPaint() {
+		updatePaint();
+		return paint;
+	}
+
+	public int getAlphaValue() {
+		return alphaValue;
+	}
+
+	public void setAlphaValue(int alphaValue) {
+		this.alphaValue = alphaValue;
 	}
 
 }

@@ -56,6 +56,8 @@ public class WallpaperCostume {
 	private boolean sizeChanged = false;
 	private boolean coordsSwapped = false;
 
+	private Bitmap temp;
+
 	private WallpaperHelper wallpaperHelper;
 
 	public WallpaperCostume(Sprite sprite, CostumeData costumeData) {
@@ -76,6 +78,8 @@ public class WallpaperCostume {
 		if (costumeData != null) {
 			setCostume(costumeData);
 		}
+
+		wallpaperHelper.setRefreshRate(50);
 
 		sprite.setWallpaperCostume(this);
 
@@ -244,9 +248,20 @@ public class WallpaperCostume {
 	}
 
 	private void resizeCostume() {
-		int newWidth = (int) (costumeData.getCostumeBitmap().getWidth() * size);
-		int newHeight = (int) (costumeData.getCostumeBitmap().getHeight() * size);
-		this.costume = ImageEditing.scaleBitmap(costumeData.getCostumeBitmap(), newWidth, newHeight);
+		this.temp = costume;
+		int newWidth = (int) (temp.getWidth() * size);
+		int newHeight = (int) (temp.getHeight() * size);
+		if (newWidth <= 0) {
+			newWidth = 1;
+		}
+
+		if (newHeight <= 0) {
+			newHeight = 1;
+		}
+
+		this.temp = ImageEditing.scaleBitmap(temp, newWidth, newHeight);
+		this.costume = temp;
+		this.temp = null;
 
 		this.topNeedsAdjustment = true;
 		this.leftNeedsAdjustment = true;
@@ -315,7 +330,10 @@ public class WallpaperCostume {
 	}
 
 	private void adjustBrightness() {
-		this.costume = ImageEditing.adjustBitmpaBrigthness(costumeData.getCostumeBitmap(), brightness);
+		this.temp = costume;
+		this.temp = ImageEditing.adjustBitmpaBrigthness(temp, brightness);
+		this.costume = temp;
+		this.temp = null;
 	}
 
 	public void setGhostEffect(float alpha) {
@@ -343,7 +361,11 @@ public class WallpaperCostume {
 	}
 
 	private void adjustGhostEffect() {
-		this.costume = ImageEditing.adjustBitmapAlphaValue(costumeData.getCostumeBitmap(), alphaValue);
+		this.temp = costume;
+		this.temp = ImageEditing.adjustBitmapAlphaValue(temp, alphaValue);
+		this.costume = temp;
+		this.temp = null;
+
 	}
 
 	public void clearGraphicEffect() {
@@ -354,7 +376,11 @@ public class WallpaperCostume {
 	}
 
 	public void rotate() {
-		this.costume = ImageEditing.rotateBitmap(costumeData.getCostumeBitmap(), (int) this.rotation);
+		this.temp = costume;
+		//this.costume = ImageEditing.rotateBitmap(costumeData.getCostumeBitmap(), (int) this.rotation);
+		this.temp = ImageEditing.rotateBitmap(temp, (int) this.rotation);
+		this.costume = temp;
+		this.temp = null;
 		this.topNeedsAdjustment = true;
 		this.leftNeedsAdjustment = true;
 	}

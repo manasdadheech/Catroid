@@ -131,12 +131,12 @@ public class SetSizeToBrickTest extends ActivityInstrumentationTestCase2<ScriptT
 		solo.assertCurrentActivity("Not in stage", StageActivity.class);
 
 		solo.goBack();
-		solo.clickOnText(solo.getString(R.string.stagemenu_screenshot));
+		solo.clickOnText(solo.getString(R.string.stage_dialog_screenshot));
 
 		assertTrue("Successful screenshot Toast not found!",
 				solo.searchText(solo.getString(R.string.notification_screenshot_ok)));
 
-		solo.clickOnText(solo.getString(R.string.resume_current_project));
+		solo.clickOnText(solo.getString(R.string.stage_dialog_resume));
 
 		// -------------------------------------------------------------------------------------------------------------
 		Bitmap screenshot = BitmapFactory.decodeFile(Constants.DEFAULT_ROOT + "/" + projectName + "/"

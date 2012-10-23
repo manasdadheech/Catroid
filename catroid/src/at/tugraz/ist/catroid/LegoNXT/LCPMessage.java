@@ -49,7 +49,7 @@ package at.tugraz.ist.catroid.LegoNXT;
  */
 public class LCPMessage {
 
-	// the folowing constants were taken from the leJOS project (http://www.lejos.org) 
+	// the following constants were taken from the leJOS project (http://www.lejos.org) 
 
 	// Command types constants. Indicates type of packet being sent or received.
 
@@ -148,6 +148,92 @@ public class LCPMessage {
 		// Duration of the tone, ms (UWORD)
 		message[4] = (byte) duration;
 		message[5] = (byte) (duration >> 8);
+
+		return message;
+	}
+
+	// do not hardcode everything, change later
+	public static byte[] getSingleShotSonicMessage() {
+		byte tx_data_length = 7;
+		byte rx_data_length = 8;
+		byte[] message = new byte[8];
+
+		//		if (requestConfirmFromDevice) {
+		message[0] = DIRECT_COMMAND_REPLY;
+		//		} else {
+		//			message[0] = DIRECT_COMMAND_NOREPLY;
+		//		}
+
+		message[1] = LS_WRITE;
+		// Edit Comments
+		message[2] = 0x03;
+		message[3] = tx_data_length;
+		message[4] = rx_data_length;
+
+		// Data (sonic comand)
+		message[5] = 0x02;
+		message[6] = 0x41;
+		message[7] = 0x02;
+
+		//		message[8] = 0x02;
+		//		message[9] = 0x10;
+		//		message[10] = 0x03;
+
+		//		message[5] = 0x02;
+		//		message[6] = 0x41;
+		//		message[7] = 0x02;
+
+		return message;
+	}
+
+	// do not hardcode everything, change later
+	public static byte[] getSonicValue() {
+		byte tx_data_length = 7;
+		byte rx_data_length = 20;
+		byte[] message = new byte[20];
+
+		//		if (requestConfirmFromDevice) {
+		message[0] = DIRECT_COMMAND_REPLY;
+		//		} else {
+		//			message[0] = DIRECT_COMMAND_NOREPLY;
+		//		}
+
+		message[1] = LS_READ;
+		// Edit Comments
+		message[2] = 0x03;
+		//		message[3] = tx_data_length;
+		//		message[4] = rx_data_length;
+
+		// Data (sonic comand)
+		//		message[5] = 0x02;
+		//		message[6] = 0x41;
+		//		message[7] = 0x01;
+
+		return message;
+	}
+
+	// do not hardcode everything, change later
+	public static byte[] getSonicValueMessage() {
+		byte tx_data_length = 7;
+		byte rx_data_length = 8;
+		byte[] message = new byte[8];
+
+		//		if (requestConfirmFromDevice) {
+		message[0] = DIRECT_COMMAND_REPLY;
+		//		} else {
+		//			message[0] = DIRECT_COMMAND_NOREPLY;
+		//		}
+
+		message[1] = LS_WRITE;
+		// Edit Comments
+		message[2] = 0x03;
+		message[3] = tx_data_length;
+		message[4] = rx_data_length;
+
+		// Data (sonic comand)
+		message[5] = 0x02;
+		message[6] = 0x40;
+		message[7] = 0x03;
 
 		return message;
 	}

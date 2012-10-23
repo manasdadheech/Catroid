@@ -23,6 +23,7 @@
 package at.tugraz.ist.catroid.formulaeditor;
 
 import at.tugraz.ist.catroid.ProjectManager;
+import at.tugraz.ist.catroid.LegoNXT.LegoNXT;
 import at.tugraz.ist.catroid.content.Costume;
 
 import com.badlogic.gdx.Gdx;
@@ -87,7 +88,7 @@ public class SensorManager {
 			sensorValue = Double.valueOf(getCurrentSpriteCostume().zPosition);
 		}
 		if (sensorName.equals(Sensors.SONIC_.sensorName)) {
-			sensorValue = 0d; //TODO enter nxt function call here
+			sensorValue = LegoNXT.getInstance().getSonicValue();
 
 		}
 

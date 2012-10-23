@@ -207,6 +207,7 @@ public class PreStageActivity extends Activity {
 				switch (resultCode) {
 					case Activity.RESULT_OK:
 						legoNXT = new LegoNXT(this, recieveHandler);
+						LegoNXT.setInstance(legoNXT);
 						String address = data.getExtras().getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
 						autoConnect = data.getExtras().getBoolean(DeviceListActivity.AUTO_CONNECT);
 						legoNXT.startBTCommunicator(address);

@@ -62,6 +62,8 @@ public class LegoNXT implements BTConnectable {
 
 	private static final int REQUEST_CONNECT_DEVICE = 1000;
 
+	private static LegoNXT instance = null;
+
 	private LegoNXTCommunicator myNXTCommunicator;
 
 	private boolean pairing;
@@ -74,6 +76,15 @@ public class LegoNXT implements BTConnectable {
 	public LegoNXT(Activity activity, Handler recieverHandler) {
 		this.activity = activity;
 		this.recieverHandler = recieverHandler;
+
+	}
+
+	public static void setInstance(LegoNXT instance) {
+		LegoNXT.instance = instance;
+	}
+
+	public static LegoNXT getInstance() {
+		return instance;
 	}
 
 	public void startBTCommunicator(String mac_address) {
@@ -129,6 +140,17 @@ public class LegoNXT implements BTConnectable {
 
 	}
 
+	//	public static double getUltrasonicSensor() {
+	//		double sonic_cm = -5;
+	////		Bundle myBundle = new Bundle();
+	////		myBundle.putInt("frequency", frequency);
+	////		myBundle.putInt("duration", duration);
+	//		Message myMessage = btcHandler.obtainMessage();
+	//		myMessage.what = sonic;
+	//		
+	//		return sonic_cm;
+	//	}
+
 	public static synchronized void sendBTCMotorMessage(int delay, int motor, int speed, int angle) {
 		Bundle myBundle = new Bundle();
 		myBundle.putInt("motor", motor);
@@ -150,10 +172,15 @@ public class LegoNXT implements BTConnectable {
 		}
 	}
 
+	public double getSonicValue() {
+		return myNXTCommunicator.getSonicValue();
+	}
+
 	public static Handler getBTCHandler() {
 		return btcHandler;
 	}
 
+	@Override
 	public boolean isPairing() {
 		// TODO Auto-generated method stub
 		return pairing;

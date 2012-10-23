@@ -28,6 +28,7 @@ import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.utils.ImageEditing;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 public class WallpaperCostume {
 
@@ -249,8 +250,10 @@ public class WallpaperCostume {
 
 	private void resizeCostume() {
 		this.temp = costume;
+
 		int newWidth = (int) (temp.getWidth() * size);
 		int newHeight = (int) (temp.getHeight() * size);
+
 		if (newWidth <= 0) {
 			newWidth = 1;
 		}
@@ -258,6 +261,8 @@ public class WallpaperCostume {
 		if (newHeight <= 0) {
 			newHeight = 1;
 		}
+
+		Log.v("SIZE", String.valueOf(newWidth) + "  " + String.valueOf(newHeight));
 
 		this.temp = ImageEditing.scaleBitmap(temp, newWidth, newHeight);
 		this.costume = temp;

@@ -213,7 +213,7 @@ public class CatKeyboardView extends KeyboardView implements KeyboardView.OnKeyb
 						((SherlockFragmentActivity) context).getSupportFragmentManager(),
 						"chooseSpriteVariablesDialogFragment");
 				break;
-			case KeyEvent.KEYCODE_MENU:
+			case CatKeyEvent.KEYCODE_OPERATOR_BUTTON:
 				this.chooseOperatorDialogFragment.show(
 						((SherlockFragmentActivity) context).getSupportFragmentManager(),
 						"chooseOperatorDialogFragment");

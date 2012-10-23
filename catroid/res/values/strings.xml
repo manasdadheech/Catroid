@@ -21,7 +21,7 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<resources>
+<resources>  
     <!-- General terms -->
     <string name="app_name">Catroid</string>
     <string name="project">project</string>
@@ -336,6 +336,7 @@
 	<string name="formula_editor_sensor_azimuth_orientation">azimuth-orientation</string>
 	<string name="formula_editor_sensor_pitch_orientation">pitch-orientation</string>
 	<string name="formula_editor_sensor_roll_orientation">roll-orientation</string>
+   <string name="formula_editor_sensor_sonic">sonic</string>
 	<string name="formula_editor_costume_x">costume-x</string>
 	<string name="formula_editor_costume_y">costume-y</string>
 	<string name="formula_editor_costume_ghosteffect">costume-ghosteffect</string>

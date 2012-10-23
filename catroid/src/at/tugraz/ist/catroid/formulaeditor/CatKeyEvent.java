@@ -54,6 +54,7 @@ public class CatKeyEvent extends KeyEvent {
 	public static final int KEYCODE_SENSOR5 = 1104;
 	public static final int KEYCODE_SENSOR6 = 1105;
 	public static final int KEYCODE_SENSOR7 = 1106;
+	public static final int KEYCODE_SENSOR_SONIC = 1107;
 
 	/* OTHER STUFF */
 	public static final int KEYCODE_BRACKET = 1200;
@@ -72,6 +73,7 @@ public class CatKeyEvent extends KeyEvent {
 	public static final int KEYCODE_GREATER_THAN = 1302;
 	public static final int KEYCODE_LOGICAL_AND = 1303;
 	public static final int KEYCODE_LOGICAL_OR = 1304;
+	public static final int KEYCODE_OPERATOR_BUTTON = 1305;
 
 	// Please update the functions of this class if you add new KEY_CODE constants ^_^
 
@@ -128,7 +130,8 @@ public class CatKeyEvent extends KeyEvent {
 				return buildSensor(Sensors.PITCH_ORIENTATION_);
 			case CatKeyEvent.KEYCODE_SENSOR6:
 				return buildSensor(Sensors.ROLL_ORIENTATION_);
-
+			case CatKeyEvent.KEYCODE_SENSOR_SONIC:
+				return buildSensor(Sensors.SONIC_);
 				//PERIOD
 			case CatKeyEvent.KEYCODE_PERIOD:
 				return buildPeriod();

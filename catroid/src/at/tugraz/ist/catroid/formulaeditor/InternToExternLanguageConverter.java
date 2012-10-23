@@ -66,6 +66,7 @@ public class InternToExternLanguageConverter {
 		internExternLanguageConverterMap.put(Sensors.COSTUME_ROTATION_.sensorName,
 				R.string.formula_editor_costume_rotation);
 		internExternLanguageConverterMap.put(Sensors.COSTUME_LAYER_.sensorName, R.string.formula_editor_costume_layer);
+		internExternLanguageConverterMap.put(Sensors.SONIC_.sensorName, R.string.formula_editor_sensor_roll_sonic);
 	}
 
 	public static String getExternStringForInternTokenValue(String internTokenValue, Context context) {

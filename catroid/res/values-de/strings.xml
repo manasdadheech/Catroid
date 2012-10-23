@@ -338,6 +338,7 @@
 	<string name="formula_editor_sensor_azimuth_orientation">azimuth-orientierung</string>
 	<string name="formula_editor_sensor_pitch_orientation">pitch-orientierung</string>
 	<string name="formula_editor_sensor_roll_orientation">roll-orientierung</string>
+  <string name="formula_editor_sensor_roll_sonic">sonic</string>	
 	<string name="formula_editor_costume_x">kostüm-x</string>
 	<string name="formula_editor_costume_y">kostüm-y</string>
 	<string name="formula_editor_costume_ghosteffect">kostüm-durchsichtigkeits-effekt</string>

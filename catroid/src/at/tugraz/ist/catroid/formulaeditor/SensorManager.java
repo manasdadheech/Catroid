@@ -86,6 +86,10 @@ public class SensorManager {
 		if (sensorName.equals(Sensors.COSTUME_LAYER_.sensorName)) {
 			sensorValue = Double.valueOf(getCurrentSpriteCostume().zPosition);
 		}
+		if (sensorName.equals(Sensors.SONIC_.sensorName)) {
+			sensorValue = 0d; //TODO enter nxt function call here
+
+		}
 
 		sensors = null;
 		return sensorValue;

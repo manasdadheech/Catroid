@@ -25,9 +25,10 @@ package org.catrobat.catroid.livewallpaper;
 
 import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.content.Sprite;
-import org.catrobat.catroid.utils.ImageEditing;
 
 import android.graphics.Bitmap;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 
@@ -53,13 +54,16 @@ public class WallpaperCostume {
 	private int zPosition;
 
 	private int alphaValue = 255;
-	private float brightness = 1f;
+	private float brightness = 0;
 
 	private double size = 1;
 
 	private boolean hidden = false;
 	private boolean isBackground = false;
-	private boolean coordsSwapped = false;
+	private boolean isLandscape = false;
+	private boolean changeMatrix = true;
+
+	private int landscapeRotation;
 
 	private WallpaperHelper wallpaperHelper;
 
@@ -82,6 +86,17 @@ public class WallpaperCostume {
 		if (costumeData != null) {
 			setCostume(costumeData);
 		}
+
+		if (wallpaperHelper.isLandscape()) {
+			int temp = x;
+			x = y;
+			y = temp;
+
+			this.isLandscape = true;
+			this.landscapeRotation = wallpaperHelper.getLandscapeRotationDegree();
+
+		}
+
 		sprite.setWallpaperCostume(this);
 
 	}
@@ -98,49 +113,68 @@ public class WallpaperCostume {
 	}
 
 	private void updateMatrix() {
-		matrix.setRotate(rotation, costumeWidth / 2, costumeHeight / 2);
-		matrix.postScale((float) size, (float) size);
+		if (changeMatrix) {
+			matrix.setRotate(rotation, costumeWidth / 2, costumeHeight / 2);
+			matrix.postScale((float) size, (float) size);
 
-		if (wallpaperHelper.isLandscape()) {
-			centerX = wallpaperHelper.getCenterXCoord() - x - (int) (costumeWidth * size) / 2;
-			centerY = wallpaperHelper.getCenterYCoord() - y - (int) (costumeHeight * size) / 2;
-		} else {
-			centerX = wallpaperHelper.getCenterXCoord() + x - (int) (costumeWidth * size) / 2;
-			centerY = wallpaperHelper.getCenterYCoord() + y - (int) (costumeHeight * size) / 2;
+			if (isLandscape) {
+				centerX = wallpaperHelper.getCenterXCoord() - y - (int) (costumeWidth * size) / 2;
+				centerY = wallpaperHelper.getCenterYCoord() - x - (int) (costumeHeight * size) / 2;
+			} else {
+				centerX = wallpaperHelper.getCenterXCoord() + x - (int) (costumeWidth * size) / 2;
+				centerY = wallpaperHelper.getCenterYCoord() - y - (int) (costumeHeight * size) / 2;
+			}
+
+			matrix.postTranslate(centerX, centerY);
+			changeMatrix = false;
 		}
-
-		matrix.postTranslate(centerX, centerY);
-	}
-
-	private void updatePaint() {
-		paint.setAlpha(alphaValue);
 	}
 
 	public void setX(int x) {
-		this.x = x;
+		if (isLandscape && landscapeRotation == 90) {
+			this.y = -x;
+		} else if (isLandscape && landscapeRotation == -90) {
+			this.y = x;
+		} else {
+			this.x = x;
+		}
+		changeMatrix = true;
 	}
 
 	public void setY(int y) {
-		this.y = y;
+		if (isLandscape && landscapeRotation == 90) {
+			this.x = -y;
+		} else if (isLandscape && landscapeRotation == -90) {
+			this.x = y;
+		} else {
+			this.y = y;
+		}
 
+		changeMatrix = true;
 	}
 
 	public void changeXBy(int x) {
-		if (wallpaperHelper.isLandscape()) {
-			this.x -= x;
+		if (isLandscape && landscapeRotation == 90) {
+			this.y -= x;
+		} else if (isLandscape && landscapeRotation == -90) {
+			this.y += x;
 		} else {
 			this.x += x;
-
 		}
+
+		changeMatrix = true;
 
 	}
 
 	public void changeYby(int y) {
-		if (wallpaperHelper.isLandscape()) {
-			this.y -= y;
+		if (isLandscape && landscapeRotation == 90) {
+			this.x -= y;
+		} else if (isLandscape && landscapeRotation == -90) {
+			this.x += y;
 		} else {
 			this.y += y;
 		}
+		changeMatrix = true;
 	}
 
 	public boolean touchedInsideTheCostume(float touchX, float touchY) {
@@ -163,15 +197,6 @@ public class WallpaperCostume {
 	}
 
 	public Bitmap getCostume() {
-		if (wallpaperHelper.isLandscape()) {
-			if (!coordsSwapped) {
-				int temp = x;
-				x = y;
-				y = temp;
-				this.coordsSwapped = true;
-			}
-
-		}
 		return costume;
 	}
 
@@ -180,16 +205,18 @@ public class WallpaperCostume {
 		this.costume = costumeData.getCostumeBitmap();
 		this.costumeWidth = costume.getWidth();
 		this.costumeHeight = costume.getHeight();
+		changeMatrix = true;
 
 	}
 
 	public void setCostumeSize(double size) {
 		this.size = size * 0.01;
-
+		changeMatrix = true;
 	}
 
 	public void changeCostumeSizeBy(double changeValue) {
 		this.size += (changeValue * 0.01);
+		changeMatrix = true;
 	}
 
 	public CostumeData getCostumeData() {
@@ -216,46 +243,19 @@ public class WallpaperCostume {
 		return isBackground;
 	}
 
-	public void setBackground(boolean isBackground) {
-		this.isBackground = isBackground;
-	}
-
 	public float getBrightness() {
 		return brightness;
 	}
 
-	public void setBrightness(float percentage) {
-
-		if (percentage < 0f) {
-			percentage = 0f;
-		}
-
-		this.brightness = percentage;
-
-		adjustBrightness();
-	}
-
-	public void changeBrightness(float percentage) {
-
-		this.brightness += percentage;
-		if (this.brightness < 0f) {
-			this.brightness = 0f;
-		}
-
-		adjustBrightness();
-	}
-
-	private void adjustBrightness() {
-		Bitmap temp = costume;
-		temp = ImageEditing.adjustBitmpaBrigthness(temp, brightness);
-		this.costume = temp;
-		temp = null;
+	public void setBrightness(float brightness) {
+		this.brightness = brightness;
+		ColorMatrix cm = new ColorMatrix();
+		cm.set(new float[] { 1, 0, 0, 0, brightness, 0, 1, 0, 0, brightness, 0, 0, 1, 0, brightness, 0, 0, 0, 1, 0 });
+		paint.setColorFilter(new ColorMatrixColorFilter(cm));
 	}
 
 	public void clearGraphicEffect() {
-		this.alphaValue = 255;
-		this.brightness = 1f;
-		adjustBrightness();
+		paint = new Paint();
 	}
 
 	public int getzPosition() {
@@ -268,7 +268,7 @@ public class WallpaperCostume {
 
 	public void setRotation(float r) {
 		this.rotation += r;
-
+		changeMatrix = true;
 	}
 
 	public int getX() {
@@ -285,7 +285,6 @@ public class WallpaperCostume {
 	}
 
 	public Paint getPaint() {
-		updatePaint();
 		return paint;
 	}
 
@@ -295,6 +294,7 @@ public class WallpaperCostume {
 
 	public void setAlphaValue(int alphaValue) {
 		this.alphaValue = alphaValue;
+		paint.setAlpha(alphaValue);
 	}
 
 }

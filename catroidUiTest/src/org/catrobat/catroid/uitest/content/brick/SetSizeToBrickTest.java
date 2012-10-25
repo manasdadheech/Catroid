@@ -26,6 +26,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.common.Values;
@@ -53,7 +54,6 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.Smoke;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import org.catrobat.catroid.R;
 
 import com.jayway.android.robotium.solo.Solo;
 
@@ -109,7 +109,7 @@ public class SetSizeToBrickTest extends ActivityInstrumentationTestCase2<ScriptT
 		assertEquals("Incorrect number of bricks.", 2, projectBrickList.size());
 
 		assertEquals("Wrong Brick instance.", projectBrickList.get(0), adapter.getChild(groupCount - 1, 0));
-		assertNotNull("TextView does not exist", solo.getText(getActivity().getString(R.string.brick_set_size_to)));
+		assertNotNull("TextView does not exist", solo.getText(solo.getString(R.string.brick_set_size_to)));
 
 		double newSize = 200;
 
@@ -131,12 +131,12 @@ public class SetSizeToBrickTest extends ActivityInstrumentationTestCase2<ScriptT
 		solo.assertCurrentActivity("Not in stage", StageActivity.class);
 
 		solo.goBack();
-		solo.clickOnText(getActivity().getString(R.string.stagemenu_screenshot));
+		solo.clickOnText(solo.getString(R.string.stage_dialog_screenshot));
 
 		assertTrue("Successful screenshot Toast not found!",
-				solo.searchText(getActivity().getString(R.string.notification_screenshot_ok)));
+				solo.searchText(solo.getString(R.string.notification_screenshot_ok)));
 
-		solo.clickOnText(getActivity().getString(R.string.resume_current_project));
+		solo.clickOnText(solo.getString(R.string.stage_dialog_resume));
 
 		// -------------------------------------------------------------------------------------------------------------
 		Bitmap screenshot = BitmapFactory.decodeFile(Constants.DEFAULT_ROOT + "/" + projectName + "/"
@@ -168,7 +168,7 @@ public class SetSizeToBrickTest extends ActivityInstrumentationTestCase2<ScriptT
 		solo.waitForActivity(MainMenuActivity.class.getSimpleName());
 		createTestProject();
 		solo.sleep(500);
-		solo.clickOnText(getActivity().getString(R.string.current_project_button));
+		solo.clickOnText(solo.getString(R.string.main_menu_continue));
 		solo.waitForActivity(ProjectActivity.class.getSimpleName());
 		solo.clickOnText(solo.getCurrentListViews().get(0).getItemAtPosition(0).toString());
 		solo.waitForActivity(ScriptTabActivity.class.getSimpleName());

@@ -10,7 +10,6 @@ import org.catrobat.catroid.physics.PhysicWorld;
 import android.test.AndroidTestCase;
 
 public class SetPhysicObjectTypeBrickTest extends AndroidTestCase {
-
 	private PhysicObject.Type type;
 	private PhysicWorld physicWorld;
 	private Sprite sprite;
@@ -46,14 +45,21 @@ public class SetPhysicObjectTypeBrickTest extends AndroidTestCase {
 
 	public void testClone() {
 		Brick clone = setPhysicObjectTypeBrickTest.clone();
+
 		assertEquals(setPhysicObjectTypeBrickTest.getSprite(), clone.getSprite());
 		assertEquals(setPhysicObjectTypeBrickTest.getRequiredResources(), clone.getRequiredResources());
 	}
 
 	public void testExecution() {
-		assertFalse(((PhysicWorldMock) physicWorld).wasExecuted());
+		PhysicObjectMock physicObjectMock = (PhysicObjectMock) physicWorld.getPhysicObject(sprite);
+
+		assertFalse(physicObjectMock.executed);
+		assertNull(physicObjectMock.executedWithType);
+
 		setPhysicObjectTypeBrickTest.execute();
-		assertTrue(((PhysicWorldMock) physicWorld).wasExecuted());
+
+		assertTrue(physicObjectMock.executed);
+		assertEquals(type, physicObjectMock.executedWithType);
 	}
 
 	public void testNullSprite() {
@@ -67,50 +73,35 @@ public class SetPhysicObjectTypeBrickTest extends AndroidTestCase {
 		}
 	}
 
-	class PhysicWorldMock extends PhysicWorld {
-
-		private PhysicObjectMock phyMockObj;
-
-		public PhysicWorldMock() {
-			phyMockObj = new PhysicObjectMock();
-		}
-
-		public boolean wasExecuted() {
-			return phyMockObj.wasExecuted();
-		}
+	private class PhysicWorldMock extends PhysicWorld {
+		private PhysicObjectMock physicObjectMock = new PhysicObjectMock();
 
 		@Override
 		public PhysicObject getPhysicObject(Sprite sprite) {
 			if (sprite == null) {
-				return null;
+				throw new NullPointerException();
 			}
 
-			return phyMockObj;
+			return physicObjectMock;
 		}
 	}
 
-	class PhysicObjectMock extends PhysicObject {
-
-		public boolean executed;
+	private class PhysicObjectMock extends PhysicObject {
+		public boolean executed = false;
+		public Type executedWithType = null;
 
 		public PhysicObjectMock() {
 			super(null);
-			executed = false;
-		}
-
-		public boolean wasExecuted() {
-			return executed;
 		}
 
 		@Override
 		public void setType(Type type) {
 			executed = true;
+			executedWithType = type;
 		}
 
 		@Override
 		protected void setCollisionBits(short categoryBits, short maskBits) {
 		}
-
 	}
-
 }

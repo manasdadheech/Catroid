@@ -1,51 +1,50 @@
 package org.catrobat.catroid.test.content.brick;
 
+import junit.framework.TestCase;
+
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.bricks.Brick;
-import org.catrobat.catroid.content.bricks.SetMassBrick;
+import org.catrobat.catroid.content.bricks.TurnRightSpeedBrick;
 import org.catrobat.catroid.physics.PhysicObject;
 import org.catrobat.catroid.physics.PhysicWorld;
-import org.catrobat.catroid.test.utils.TestUtils;
 
-import android.test.AndroidTestCase;
-
-public class SetMassBrickTest extends AndroidTestCase {
-	private float mass = 10.50f;
+public class TurnRightSpeedBrickTest extends TestCase {
+	private float degreesPerSecond = 45.0f;
 	private PhysicWorld physicWorld;
 	private Sprite sprite;
-	private SetMassBrick setMassBrick;
+	private TurnRightSpeedBrick turnRightSpeedBrick;
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 
-		sprite = new Sprite("testSprite");
 		physicWorld = new PhysicWorldMock();
-		setMassBrick = new SetMassBrick(physicWorld, sprite, mass);
+		sprite = new Sprite("TestSprite");
+		turnRightSpeedBrick = new TurnRightSpeedBrick(physicWorld, sprite, degreesPerSecond);
 	}
 
 	@Override
 	protected void tearDown() throws Exception {
 		super.tearDown();
 
-		sprite = null;
 		physicWorld = null;
-		setMassBrick = null;
+		sprite = null;
+		turnRightSpeedBrick = null;
 	}
 
 	public void testRequiredResources() {
-		assertEquals(setMassBrick.getRequiredResources(), Brick.NO_RESOURCES);
+		assertEquals(turnRightSpeedBrick.getRequiredResources(), Brick.NO_RESOURCES);
 	}
 
 	public void testGetSprite() {
-		assertEquals(setMassBrick.getSprite(), sprite);
+		assertEquals(turnRightSpeedBrick.getSprite(), sprite);
 	}
 
 	public void testClone() {
-		Brick clone = setMassBrick.clone();
+		Brick clone = turnRightSpeedBrick.clone();
 
-		assertEquals(setMassBrick.getSprite(), clone.getSprite());
-		assertEquals(setMassBrick.getRequiredResources(), clone.getRequiredResources());
+		assertEquals(turnRightSpeedBrick.getSprite(), clone.getSprite());
+		assertEquals(turnRightSpeedBrick.getRequiredResources(), clone.getRequiredResources());
 	}
 
 	public void testExecution() {
@@ -53,29 +52,25 @@ public class SetMassBrickTest extends AndroidTestCase {
 
 		assertFalse(physicObjectMock.executed);
 
-		setMassBrick.execute();
+		turnRightSpeedBrick.execute();
 
 		assertTrue(physicObjectMock.executed);
-		assertEquals(mass, physicObjectMock.executedWithMass);
+		assertEquals(-degreesPerSecond, physicObjectMock.executedWithDegrees);
 	}
 
 	public void testNullSprite() {
-		setMassBrick = new SetMassBrick(null, sprite, mass);
+		turnRightSpeedBrick = new TurnRightSpeedBrick(null, sprite, degreesPerSecond);
 		try {
-			setMassBrick.execute();
-			fail("Execution of SetMassBrick with null Sprite did not cause a " + "NullPointerException to be thrown");
+			turnRightSpeedBrick.execute();
+			fail("Execution of SetAngularVelocityBrick with null Sprite did not cause a "
+					+ "NullPointerException to be thrown");
 		} catch (NullPointerException expected) {
 			// expected behavior
 		}
 	}
 
-	public void testMass() {
-		float physicObjectMass = (Float) TestUtils.getPrivateField("mass", setMassBrick, false);
-		assertEquals(mass, physicObjectMass);
-	}
-
 	private class PhysicWorldMock extends PhysicWorld {
-		private PhysicObjectMock physicObjectMock = new PhysicObjectMock();
+		public PhysicObjectMock physicObjectMock = new PhysicObjectMock();
 
 		@Override
 		public PhysicObject getPhysicObject(Sprite sprite) {
@@ -85,16 +80,16 @@ public class SetMassBrickTest extends AndroidTestCase {
 
 	private class PhysicObjectMock extends PhysicObject {
 		public boolean executed = false;
-		public float executedWithMass;
+		public float executedWithDegrees;
 
 		public PhysicObjectMock() {
 			super(null);
 		}
 
 		@Override
-		public void setMass(float mass) {
+		public void setRotationSpeed(float degreesPerSecond) {
 			executed = true;
-			executedWithMass = mass;
+			executedWithDegrees = degreesPerSecond;
 		}
 
 		@Override

@@ -8,12 +8,11 @@ import org.catrobat.catroid.content.bricks.TurnLeftSpeedBrick;
 import org.catrobat.catroid.physics.PhysicObject;
 import org.catrobat.catroid.physics.PhysicWorld;
 
-public class SetAngularVelocityBrickTest extends TestCase {
-
+public class TurnLeftSpeedBrickTest extends TestCase {
 	private float degreesPerSecond = 3.50f;
 	private PhysicWorld physicWorld;
 	private Sprite sprite;
-	private TurnLeftSpeedBrick angularVelocityBrick;
+	private TurnLeftSpeedBrick turnLeftSpeedBrick;
 
 	@Override
 	protected void setUp() throws Exception {
@@ -21,7 +20,7 @@ public class SetAngularVelocityBrickTest extends TestCase {
 
 		physicWorld = new PhysicWorldMock();
 		sprite = new Sprite("TestSprite");
-		angularVelocityBrick = new TurnLeftSpeedBrick(physicWorld, sprite, degreesPerSecond);
+		turnLeftSpeedBrick = new TurnLeftSpeedBrick(physicWorld, sprite, degreesPerSecond);
 	}
 
 	@Override
@@ -30,33 +29,39 @@ public class SetAngularVelocityBrickTest extends TestCase {
 
 		physicWorld = null;
 		sprite = null;
-		angularVelocityBrick = null;
+		turnLeftSpeedBrick = null;
 	}
 
 	public void testRequiredResources() {
-		assertEquals(angularVelocityBrick.getRequiredResources(), Brick.NO_RESOURCES);
+		assertEquals(turnLeftSpeedBrick.getRequiredResources(), Brick.NO_RESOURCES);
 	}
 
 	public void testGetSprite() {
-		assertEquals(angularVelocityBrick.getSprite(), sprite);
+		assertEquals(turnLeftSpeedBrick.getSprite(), sprite);
 	}
 
 	public void testClone() {
-		Brick clone = angularVelocityBrick.clone();
-		assertEquals(angularVelocityBrick.getSprite(), clone.getSprite());
-		assertEquals(angularVelocityBrick.getRequiredResources(), clone.getRequiredResources());
+		Brick clone = turnLeftSpeedBrick.clone();
+
+		assertEquals(turnLeftSpeedBrick.getSprite(), clone.getSprite());
+		assertEquals(turnLeftSpeedBrick.getRequiredResources(), clone.getRequiredResources());
 	}
 
 	public void testExecution() {
-		assertFalse(((PhysicWorldMock) physicWorld).wasExecuted());
-		angularVelocityBrick.execute();
-		assertTrue(((PhysicWorldMock) physicWorld).wasExecuted());
+		PhysicObjectMock physicObjectMock = (PhysicObjectMock) physicWorld.getPhysicObject(sprite);
+
+		assertFalse(physicObjectMock.executed);
+
+		turnLeftSpeedBrick.execute();
+
+		assertTrue(physicObjectMock.executed);
+		assertEquals(degreesPerSecond, physicObjectMock.executedWithDegrees);
 	}
 
 	public void testNullSprite() {
-		angularVelocityBrick = new TurnLeftSpeedBrick(null, sprite, degreesPerSecond);
+		turnLeftSpeedBrick = new TurnLeftSpeedBrick(null, sprite, degreesPerSecond);
 		try {
-			angularVelocityBrick.execute();
+			turnLeftSpeedBrick.execute();
 			fail("Execution of SetAngularVelocityBrick with null Sprite did not cause a "
 					+ "NullPointerException to be thrown");
 		} catch (NullPointerException expected) {
@@ -64,40 +69,27 @@ public class SetAngularVelocityBrickTest extends TestCase {
 		}
 	}
 
-	class PhysicWorldMock extends PhysicWorld {
-
-		private PhysicObjectMock phyMockObj;
-
-		public PhysicWorldMock() {
-			phyMockObj = new PhysicObjectMock();
-		}
-
-		public boolean wasExecuted() {
-			return phyMockObj.wasExecuted();
-		}
+	private class PhysicWorldMock extends PhysicWorld {
+		public PhysicObjectMock physicObjectMock = new PhysicObjectMock();
 
 		@Override
 		public PhysicObject getPhysicObject(Sprite sprite) {
-			return phyMockObj;
+			return physicObjectMock;
 		}
 	}
 
-	class PhysicObjectMock extends PhysicObject {
-
-		public boolean executed;
+	private class PhysicObjectMock extends PhysicObject {
+		public boolean executed = false;
+		public float executedWithDegrees;
 
 		public PhysicObjectMock() {
 			super(null);
-			executed = false;
 		}
 
 		@Override
-		public void setRotationSpeed(float radian) {
+		public void setRotationSpeed(float degreesPerSecond) {
 			executed = true;
-		}
-
-		public boolean wasExecuted() {
-			return executed;
+			executedWithDegrees = degreesPerSecond;
 		}
 
 		@Override
@@ -108,5 +100,4 @@ public class SetAngularVelocityBrickTest extends TestCase {
 		protected void setCollisionBits(short categoryBits, short maskBits) {
 		}
 	}
-
 }

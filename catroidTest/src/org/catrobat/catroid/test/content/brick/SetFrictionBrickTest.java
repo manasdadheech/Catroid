@@ -9,7 +9,7 @@ import org.catrobat.catroid.physics.PhysicObject;
 import org.catrobat.catroid.physics.PhysicWorld;
 
 public class SetFrictionBrickTest extends TestCase {
-	private float friction = 1.0f;
+	private float friction = 3.5f;
 	private PhysicWorld physicWorld;
 	private Sprite sprite;
 	private SetFrictionBrick frictionBrick;
@@ -17,6 +17,7 @@ public class SetFrictionBrickTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+
 		sprite = new Sprite("testSprite");
 		physicWorld = new PhysicWorldMock();
 		frictionBrick = new SetFrictionBrick(physicWorld, sprite, friction);
@@ -25,6 +26,7 @@ public class SetFrictionBrickTest extends TestCase {
 	@Override
 	protected void tearDown() throws Exception {
 		super.tearDown();
+
 		sprite = null;
 		physicWorld = null;
 		frictionBrick = null;
@@ -40,14 +42,20 @@ public class SetFrictionBrickTest extends TestCase {
 
 	public void testClone() {
 		Brick clone = frictionBrick.clone();
+
 		assertEquals(frictionBrick.getSprite(), clone.getSprite());
 		assertEquals(frictionBrick.getRequiredResources(), clone.getRequiredResources());
 	}
 
 	public void testExecution() {
-		assertFalse(((PhysicWorldMock) physicWorld).wasExecuted());
+		PhysicObjectMock physicObjectMock = (PhysicObjectMock) physicWorld.getPhysicObject(sprite);
+
+		assertFalse(physicObjectMock.executed);
+
 		frictionBrick.execute();
-		assertTrue(((PhysicWorldMock) physicWorld).wasExecuted());
+
+		assertTrue(physicObjectMock.executed);
+		assertEquals(friction / 100.0f, physicObjectMock.executedWithFriction);
 	}
 
 	public void testNullSprite() {
@@ -61,40 +69,27 @@ public class SetFrictionBrickTest extends TestCase {
 		}
 	}
 
-	class PhysicWorldMock extends PhysicWorld {
-
-		private PhysicObjectMock phyMockObj;
-
-		public PhysicWorldMock() {
-			phyMockObj = new PhysicObjectMock();
-		}
-
-		public boolean wasExecuted() {
-			return phyMockObj.wasExecuted();
-		}
+	private class PhysicWorldMock extends PhysicWorld {
+		private PhysicObjectMock physicObjectMock = new PhysicObjectMock();
 
 		@Override
 		public PhysicObject getPhysicObject(Sprite sprite) {
-			return phyMockObj;
+			return physicObjectMock;
 		}
 	}
 
-	class PhysicObjectMock extends PhysicObject {
-
-		public boolean executed;
+	private class PhysicObjectMock extends PhysicObject {
+		public boolean executed = false;
+		public float executedWithFriction;
 
 		public PhysicObjectMock() {
 			super(null);
-			executed = false;
 		}
 
 		@Override
 		public void setFriction(float friction) {
 			executed = true;
-		}
-
-		public boolean wasExecuted() {
-			return executed;
+			executedWithFriction = friction;
 		}
 
 		@Override
@@ -104,7 +99,5 @@ public class SetFrictionBrickTest extends TestCase {
 		@Override
 		protected void setCollisionBits(short categoryBits, short maskBits) {
 		}
-
 	}
-
 }

@@ -10,7 +10,7 @@ import org.catrobat.catroid.physics.PhysicWorld;
 import org.catrobat.catroid.test.utils.TestUtils;
 
 public class SetBounceFactorBrickTest extends TestCase {
-	private float bounceFactor = 35f;
+	private float bounceFactor = 35.0f;
 	private PhysicWorld physicWorld;
 	private Sprite sprite;
 	private SetBounceFactorBrick bounceFactorBrick;
@@ -18,6 +18,7 @@ public class SetBounceFactorBrickTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+
 		sprite = new Sprite("testSprite");
 		physicWorld = new PhysicWorldMock();
 		bounceFactorBrick = new SetBounceFactorBrick(physicWorld, sprite, bounceFactor);
@@ -26,6 +27,7 @@ public class SetBounceFactorBrickTest extends TestCase {
 	@Override
 	protected void tearDown() throws Exception {
 		super.tearDown();
+
 		sprite = null;
 		physicWorld = null;
 		bounceFactorBrick = null;
@@ -41,6 +43,7 @@ public class SetBounceFactorBrickTest extends TestCase {
 
 	public void testClone() {
 		Brick clone = bounceFactorBrick.clone();
+
 		assertEquals(bounceFactorBrick.getSprite(), clone.getSprite());
 		assertEquals(bounceFactorBrick.getRequiredResources(), clone.getRequiredResources());
 		assertEquals(TestUtils.getPrivateField("bounceFactor", bounceFactorBrick, false),
@@ -48,9 +51,14 @@ public class SetBounceFactorBrickTest extends TestCase {
 	}
 
 	public void testExecution() {
-		assertFalse(((PhysicWorldMock) physicWorld).wasExecuted());
+		PhysicObjectMock physicObjectMock = (PhysicObjectMock) physicWorld.getPhysicObject(sprite);
+
+		assertFalse(physicObjectMock.executed);
+
 		bounceFactorBrick.execute();
-		assertTrue(((PhysicWorldMock) physicWorld).wasExecuted());
+
+		assertTrue(physicObjectMock.executed);
+		assertEquals(bounceFactor / 100.0f, physicObjectMock.executedWithBounceFactor);
 	}
 
 	public void testNullSprite() {
@@ -64,45 +72,27 @@ public class SetBounceFactorBrickTest extends TestCase {
 		}
 	}
 
-	public void testValue() {
-		float physicObjectBounceFactor = (Float) TestUtils.getPrivateField("bounceFactor", bounceFactorBrick, false);
-		assertEquals(bounceFactor, physicObjectBounceFactor);
-	}
-
-	class PhysicWorldMock extends PhysicWorld {
-
-		private PhysicObjectMock phyMockObj;
-
-		public PhysicWorldMock() {
-			phyMockObj = new PhysicObjectMock();
-		}
-
-		public boolean wasExecuted() {
-			return phyMockObj.wasExecuted();
-		}
+	private class PhysicWorldMock extends PhysicWorld {
+		private PhysicObjectMock physicObjectMock = new PhysicObjectMock();
 
 		@Override
 		public PhysicObject getPhysicObject(Sprite sprite) {
-			return phyMockObj;
+			return physicObjectMock;
 		}
 	}
 
-	class PhysicObjectMock extends PhysicObject {
-
-		public boolean executed;
+	private class PhysicObjectMock extends PhysicObject {
+		public boolean executed = false;
+		public float executedWithBounceFactor;
 
 		public PhysicObjectMock() {
 			super(null);
-			executed = false;
 		}
 
 		@Override
-		public void setBounceFactor(float restitution) {
+		public void setBounceFactor(float bounceFactor) {
 			executed = true;
-		}
-
-		public boolean wasExecuted() {
-			return executed;
+			executedWithBounceFactor = bounceFactor;
 		}
 
 		@Override
@@ -112,7 +102,5 @@ public class SetBounceFactorBrickTest extends TestCase {
 		@Override
 		protected void setCollisionBits(short categoryBits, short maskBits) {
 		}
-
 	}
-
 }

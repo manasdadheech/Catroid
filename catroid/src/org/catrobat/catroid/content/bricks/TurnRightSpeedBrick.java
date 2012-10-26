@@ -61,7 +61,7 @@ public class TurnRightSpeedBrick implements Brick, OnClickListener {
 
 	@Override
 	public void execute() {
-		physicWorld.getPhysicObject(sprite).setRotationSpeed(degreesPerSec);
+		physicWorld.getPhysicObject(sprite).setRotationSpeed(-degreesPerSec);
 	}
 
 	public void setPhysicWorld(PhysicWorld physicWorld) {

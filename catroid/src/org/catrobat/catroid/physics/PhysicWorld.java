@@ -41,7 +41,7 @@ public class PhysicWorld {
 	public final static int VELOCITY_ITERATIONS = 20;
 	public final static int POSITION_ITERATIONS = 20;
 
-	public final static Vector2 DEFAULT_GRAVITY = new Vector2(0, -10);
+	public final static Vector2 DEFAULT_GRAVITY = new Vector2(0.0f, -10.0f);
 	public final static boolean IGNORE_SLEEPING_OBJECTS = false;
 
 	private final World world;
@@ -89,8 +89,9 @@ public class PhysicWorld {
 		//				PhysicRenderer.instance.render(perspectiveMatrix);
 
 		if (renderer == null) {
-			renderer = new Box2DDebugRenderer(PhysicDebugSettings.Render.RENDER_BODIES, PhysicDebugSettings.Render.RENDER_JOINTS,
-					PhysicDebugSettings.Render.RENDER_AABBs, PhysicDebugSettings.Render.RENDER_INACTIVE_BODIES);
+			renderer = new Box2DDebugRenderer(PhysicDebugSettings.Render.RENDER_BODIES,
+					PhysicDebugSettings.Render.RENDER_JOINTS, PhysicDebugSettings.Render.RENDER_AABBs,
+					PhysicDebugSettings.Render.RENDER_INACTIVE_BODIES);
 		}
 		renderer.render(world, perspectiveMatrix.scl(PhysicWorld.RATIO));
 	}
@@ -101,7 +102,7 @@ public class PhysicWorld {
 
 	public PhysicObject getPhysicObject(Sprite sprite) {
 		if (sprite == null) {
-			return null;
+			throw new NullPointerException();
 		}
 
 		if (physicObjects.containsKey(sprite)) {

@@ -101,7 +101,6 @@ public class UtilFileTest extends InstrumentationTestCase {
 					org.catrobat.catroid.test.R.raw.longtestsound, getInstrumentation().getContext(),
 					UtilFile.TYPE_SOUND_FILE);
 		}
-
 		expected = decimalFormat.format(2.0) + " MB";
 		assertEquals("not the expected string", expected, UtilFile.getSizeAsString(testDirectory));
 

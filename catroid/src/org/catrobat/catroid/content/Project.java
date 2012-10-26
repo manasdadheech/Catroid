@@ -41,6 +41,8 @@ public class Project implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<Sprite> spriteList = new ArrayList<Sprite>();
 
+	private transient PhysicWorld physicWorld = new PhysicWorld();
+
 	private String programName;
 	private String description;
 	@XMLAlias("screenWidth")
@@ -49,9 +51,7 @@ public class Project implements Serializable {
 	public int virtualScreenHeight = 0;
 	private float catrobatLanguageVersion;
 
-	private transient PhysicWorld physicWorld = new PhysicWorld();;
 	// fields only used on the catrobat.org website so far
-
 	@SuppressWarnings("unused")
 	private String applicationBuildName = "";
 	@SuppressWarnings("unused")
@@ -132,6 +132,10 @@ public class Project implements Serializable {
 		return spriteList;
 	}
 
+	public PhysicWorld getPhysicWorld() {
+		return physicWorld;
+	}
+
 	public void setName(String name) {
 		this.programName = name;
 	}
@@ -172,12 +176,9 @@ public class Project implements Serializable {
 		}
 	}
 
-	public PhysicWorld getPhysicWorld() {
-		return physicWorld;
-	}
-
 	// default constructor for XMLParser
 	public Project() {
+
 	}
 
 }

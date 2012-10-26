@@ -36,7 +36,7 @@ public class PhysicObject {
 
 	public final static float DEFAULT_DENSITY = 1.0f;
 	public final static float DEFAULT_FRICTION = 0.2f;
-	public final static float DEFAULT_RESTITUTION = 0.8f;
+	public final static float DEFAULT_BOUNCE_FACTOR = 0.8f;
 	public final static float DEFAULT_MASS = 1.0f;
 	public final static float MIN_MASS = 0.000001f;
 	public final static short COLLISION_MASK = 0x0004;
@@ -54,7 +54,7 @@ public class PhysicObject {
 		mass = PhysicObject.DEFAULT_MASS;
 		fixtureDef.density = PhysicObject.DEFAULT_DENSITY;
 		fixtureDef.friction = PhysicObject.DEFAULT_FRICTION;
-		fixtureDef.restitution = PhysicObject.DEFAULT_RESTITUTION;
+		fixtureDef.restitution = PhysicObject.DEFAULT_BOUNCE_FACTOR;
 
 		short collisionBits = 0;
 		setCollisionBits(collisionBits, collisionBits);

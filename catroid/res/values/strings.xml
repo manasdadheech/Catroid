@@ -268,9 +268,7 @@
     <string name="brick_set_friction">Set friction to</string>
     <string name="default_friction">20</string>
     <string name="brick_set_bounce_factor">Set bounce factor to</string>
-    <string name="default_bounce_factor">80</string>
-    
-    
+    <string name="default_bounce_factor">80</string>    
     <!-- Actions -->
     <string name="action_tapped">tapped</string>
     <string name="action_doubleTapped">double tapped</string>

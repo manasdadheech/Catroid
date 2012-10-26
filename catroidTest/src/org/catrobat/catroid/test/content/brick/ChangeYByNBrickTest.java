@@ -31,14 +31,6 @@ public class ChangeYByNBrickTest extends AndroidTestCase {
 
 	private int yMovement = 100;
 
-	@Override
-	public void setUp() throws Exception {
-	}
-
-	@Override
-	protected void tearDown() throws Exception {
-	}
-
 	public void testNormalBehavior() {
 		Sprite sprite = new Sprite("testSprite");
 		assertEquals("Unexpected initial sprite x position", 0f, sprite.costume.getXPosition());

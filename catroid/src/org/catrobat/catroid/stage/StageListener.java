@@ -34,8 +34,8 @@ import org.catrobat.catroid.common.Values;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.io.SoundManager;
-import org.catrobat.catroid.physics.PhysicObjectConverter;
 import org.catrobat.catroid.physics.PhysicDebugSettings;
+import org.catrobat.catroid.physics.PhysicObjectConverter;
 import org.catrobat.catroid.ui.dialogs.StageDialog;
 import org.catrobat.catroid.utils.Utils;
 

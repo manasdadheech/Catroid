@@ -29,10 +29,6 @@ import android.test.AndroidTestCase;
 
 public class MoveNStepsBrickTest extends AndroidTestCase {
 
-	@Override
-	public void setUp() throws Exception {
-	}
-
 	public void testMoveHorizontalForward() {
 		Sprite sprite = new Sprite("test");
 		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(sprite, 10);

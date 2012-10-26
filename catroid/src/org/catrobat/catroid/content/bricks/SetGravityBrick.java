@@ -63,7 +63,7 @@ public class SetGravityBrick implements Brick, OnClickListener {
 
 	@Override
 	public void execute() {
-		physicWorld.setGravity(sprite, gravity);
+		physicWorld.setGravity(gravity);
 	}
 
 	public void setPhysicWorld(PhysicWorld physicWorld) {

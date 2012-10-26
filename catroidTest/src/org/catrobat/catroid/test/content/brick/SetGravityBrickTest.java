@@ -76,7 +76,7 @@ public class SetGravityBrickTest extends AndroidTestCase {
 		public Vector2 executedWithGravity = null;
 
 		@Override
-		public void setGravity(Sprite sprite, Vector2 gravity) {
+		public void setGravity(Vector2 gravity) {
 			executed = true;
 			executedWithGravity = gravity;
 		}

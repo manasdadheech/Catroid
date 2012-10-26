@@ -30,10 +30,6 @@ import android.test.AndroidTestCase;
 
 public class PointInDirectionBrickTest extends AndroidTestCase {
 
-	@Override
-	public void setUp() throws Exception {
-	}
-
 	public void testPointRight() {
 		Sprite sprite = new Sprite("test");
 		PointInDirectionBrick pointInDirectionBrick = new PointInDirectionBrick(sprite, Direction.DIRECTION_RIGHT);

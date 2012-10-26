@@ -86,6 +86,7 @@ import org.catrobat.catroid.content.bricks.WaitBrick;
 import org.catrobat.catroid.content.bricks.WhenBrick;
 import org.catrobat.catroid.content.bricks.WhenStartedBrick;
 import org.catrobat.catroid.physics.PhysicObject;
+import org.catrobat.catroid.physics.PhysicObject.Type;
 import org.catrobat.catroid.physics.PhysicWorld;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.adapter.PrototypeBrickAdapter;
@@ -245,18 +246,20 @@ public class AddBrickDialog extends DialogFragment {
 		motionBrickList.add(new PointToBrick(sprite, null));
 		motionBrickList.add(new GlideToBrick(sprite, 800, 0, 1000));
 
-		PhysicWorld physicWorld = ProjectManager.getInstance().getCurrentProject().getPhysicWorld();
+		// XXX: PhysicWorld is created in StageListener.
+		PhysicWorld physicWorld = null;
 		if (!isBackground(sprite)) {
 			motionBrickList.add(new GoNStepsBackBrick(sprite, 1));
 			motionBrickList.add(new ComeToFrontBrick(sprite));
 
-			motionBrickList.add(new SetPhysicObjectTypeBrick(physicWorld, sprite, PhysicObject.Type.DYNAMIC));
+			motionBrickList.add(new SetPhysicObjectTypeBrick(physicWorld, sprite, Type.DYNAMIC));
 			motionBrickList.add(new SetMassBrick(physicWorld, sprite, PhysicObject.DEFAULT_MASS));
-			motionBrickList.add(new SetBounceFactorBrick(physicWorld, sprite, PhysicObject.DEFAULT_RESTITUTION * 100));
+			motionBrickList
+					.add(new SetBounceFactorBrick(physicWorld, sprite, PhysicObject.DEFAULT_BOUNCE_FACTOR * 100));
 			motionBrickList.add(new SetFrictionBrick(physicWorld, sprite, PhysicObject.DEFAULT_FRICTION * 100));
 		}
 		motionBrickList.add(new SetGravityBrick(physicWorld, sprite, PhysicWorld.DEFAULT_GRAVITY));
-		motionBrickList.add(new SetVelocityBrick(physicWorld, sprite, new Vector2(0, 0)));
+		motionBrickList.add(new SetVelocityBrick(physicWorld, sprite, new Vector2()));
 		motionBrickList.add(new TurnLeftSpeedBrick(physicWorld, sprite, 15.0f));
 		motionBrickList.add(new TurnRightSpeedBrick(physicWorld, sprite, 15.0f));
 		brickMap.put(context.getString(R.string.category_motion), motionBrickList);

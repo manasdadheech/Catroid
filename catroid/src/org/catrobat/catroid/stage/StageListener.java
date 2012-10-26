@@ -34,8 +34,9 @@ import org.catrobat.catroid.common.Values;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.io.SoundManager;
-import org.catrobat.catroid.physics.PhysicObjectConverter;
 import org.catrobat.catroid.physics.PhysicDebugSettings;
+import org.catrobat.catroid.physics.PhysicObjectConverter;
+import org.catrobat.catroid.physics.PhysicWorld;
 import org.catrobat.catroid.ui.dialogs.StageDialog;
 import org.catrobat.catroid.utils.Utils;
 
@@ -80,6 +81,7 @@ public class StageListener implements ApplicationListener {
 	private boolean makeScreenshot = false;
 
 	private Project project;
+	private PhysicWorld physicWorld = new PhysicWorld();
 
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
@@ -151,7 +153,8 @@ public class StageListener implements ApplicationListener {
 
 		// TODO: Find better place to replace motion bricks with corresponding physic bricks
 		// if necessary. Maybe change to static method.
-		(new PhysicObjectConverter()).convert(project);
+		PhysicObjectConverter physicObjectConverter = new PhysicObjectConverter(physicWorld);
+		physicObjectConverter.convert(project);
 
 		sprites = project.getSpriteList();
 		for (Sprite sprite : sprites) {
@@ -265,7 +268,8 @@ public class StageListener implements ApplicationListener {
 
 			// TODO: Find better place to replace motion bricks with corresponding physic bricks
 			// if necessary. Maybe change to static method.
-			(new PhysicObjectConverter()).convert(project);
+			PhysicObjectConverter physicObjectConverter = new PhysicObjectConverter(physicWorld);
+			physicObjectConverter.convert(project);
 
 			sprites = project.getSpriteList();
 			for (int i = 0; i < spriteSize; i++) {
@@ -319,7 +323,7 @@ public class StageListener implements ApplicationListener {
 		if (!paused) {
 			float deltaTime = Gdx.graphics.getDeltaTime();
 			stage.act(deltaTime);
-			project.getPhysicWorld().step(deltaTime);
+			physicWorld.step(deltaTime);
 		}
 
 		if (!finished) {
@@ -359,7 +363,7 @@ public class StageListener implements ApplicationListener {
 		}
 
 		if (PhysicDebugSettings.Render.RENDER_COLLISION_FRAMES && !finished) {
-			project.getPhysicWorld().render(camera.combined);
+			physicWorld.render(camera.combined);
 		}
 
 		if (DEBUG) {

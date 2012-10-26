@@ -119,8 +119,7 @@ public class CostumeData implements Serializable {
 	public String getChecksum() {
 		if (fileName == null) {
 			return null;
-		}
-		if (fileName.length() < 32) {
+		} else if (fileName.length() < 32) {
 			return fileName;
 		}
 

@@ -41,10 +41,10 @@ public class Costume extends Image {
 	protected boolean brightnessChanged = false;
 	protected CostumeData costumeData;
 	protected Sprite sprite;
+	protected float rotation;
 	protected float alphaValue;
 	protected float brightnessValue;
 	protected boolean internalPath;
-	protected float rotation;
 	public boolean show;
 	public int zPosition;
 	protected Pixmap pixmap;
@@ -113,8 +113,7 @@ public class Costume extends Image {
 
 	protected boolean checkImageChanged() {
 		imageLock.acquireUninterruptibly();
-
-		boolean returnValue = imageChanged;
+		boolean returnImageChanged = imageChanged;
 		if (imageChanged) {
 			if (costumeData == null) {
 				xYWidthHeightLock.acquireUninterruptibly();
@@ -126,7 +125,7 @@ public class Costume extends Image {
 				this.setRegion(null);
 				imageChanged = false;
 				imageLock.release();
-				return returnValue;
+				return returnImageChanged;
 			}
 
 			pixmap = costumeData.getPixmap();
@@ -156,7 +155,7 @@ public class Costume extends Image {
 			imageChanged = false;
 		}
 		imageLock.release();
-		return returnValue;
+		return returnImageChanged;
 	}
 
 	protected Pixmap adjustBrightness(Pixmap currentPixmap) {
@@ -216,14 +215,6 @@ public class Costume extends Image {
 		this.y = y - (this.height / 2f);
 	}
 
-	public void setRotation(float degrees) {
-		super.rotation = degrees;
-	}
-
-	public float getRotation() {
-		return super.rotation;
-	}
-
 	public float getXPosition() {
 		float xPosition = this.x;
 		xPosition += this.width / 2f;
@@ -246,6 +237,14 @@ public class Costume extends Image {
 
 	public void releaseXYWidthHeightLock() {
 		xYWidthHeightLock.release();
+	}
+
+	public float getRotation() {
+		return this.rotation;
+	}
+
+	public void setRotation(float degrees) {
+		this.rotation = degrees;
 	}
 
 	public void setCostumeData(CostumeData costumeData) {

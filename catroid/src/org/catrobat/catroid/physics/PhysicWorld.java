@@ -28,7 +28,6 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
@@ -46,14 +45,12 @@ public class PhysicWorld {
 
 	private final World world;
 	private final Map<Sprite, PhysicObject> physicObjects;
-	private final PhysicShapeBuilder shapeBuilder;
 	private Box2DDebugRenderer renderer;
 	public int ignoreSteps = 0;
 
 	public PhysicWorld() {
 		world = new World(PhysicWorld.DEFAULT_GRAVITY, PhysicWorld.IGNORE_SLEEPING_OBJECTS);
 		physicObjects = new HashMap<Sprite, PhysicObject>();
-		shapeBuilder = new PhysicShapeBuilder();
 
 		new PhysicBoundaryBox(world).create();
 	}
@@ -96,7 +93,7 @@ public class PhysicWorld {
 		renderer.render(world, perspectiveMatrix.scl(PhysicWorld.RATIO));
 	}
 
-	public void setGravity(Sprite sprite, Vector2 gravity) {
+	public void setGravity(Vector2 gravity) {
 		world.setGravity(gravity);
 	}
 
@@ -109,17 +106,16 @@ public class PhysicWorld {
 			return physicObjects.get(sprite);
 		}
 
-		BodyDef bodyDef = new BodyDef();
-		bodyDef.bullet = true;
-		PhysicObject physicObject = new PhysicObject(world.createBody(bodyDef));
+		PhysicObject physicObject = createPhysicObject();
 		physicObjects.put(sprite, physicObject);
 
 		return physicObject;
 	}
 
-	public void changeCostume(Sprite sprite) {
-		Shape[] shapes = shapeBuilder.getShape(sprite.costume.getCostumeData(), sprite.costume.getSize());
-		physicObjects.get(sprite).setShape(shapes);
-	}
+	protected PhysicObject createPhysicObject() {
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.bullet = true;
 
+		return new PhysicObject(world.createBody(bodyDef));
+	}
 }

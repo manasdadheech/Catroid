@@ -29,7 +29,6 @@ import java.util.List;
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.common.Values;
-import org.catrobat.catroid.physics.PhysicWorld;
 import org.catrobat.catroid.utils.Utils;
 import org.catrobat.catroid.xml.parser.XMLAlias;
 
@@ -49,9 +48,7 @@ public class Project implements Serializable {
 	public int virtualScreenHeight = 0;
 	private float catrobatLanguageVersion;
 
-	private transient PhysicWorld physicWorld = new PhysicWorld();;
 	// fields only used on the catrobat.org website so far
-
 	@SuppressWarnings("unused")
 	private String applicationBuildName = "";
 	@SuppressWarnings("unused")
@@ -172,12 +169,9 @@ public class Project implements Serializable {
 		}
 	}
 
-	public PhysicWorld getPhysicWorld() {
-		return physicWorld;
-	}
-
 	// default constructor for XMLParser
 	public Project() {
+
 	}
 
 }

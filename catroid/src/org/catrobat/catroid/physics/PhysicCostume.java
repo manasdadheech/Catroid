@@ -25,22 +25,25 @@ package org.catrobat.catroid.physics;
 import org.catrobat.catroid.content.Costume;
 import org.catrobat.catroid.content.Sprite;
 
+import com.badlogic.gdx.physics.box2d.Shape;
+
 public class PhysicCostume extends Costume {
 
-	private final PhysicWorld physicWorld;
 	private final PhysicObject physicObject;
+	private final PhysicShapeBuilder physicShapeBuilder;
 
-	public PhysicCostume(Sprite sprite, PhysicWorld physicWorld, PhysicObject physicObject) {
+	public PhysicCostume(Sprite sprite, PhysicShapeBuilder physicShapeBuilder, PhysicObject physicObject) {
 		super(sprite);
 
-		this.physicWorld = physicWorld;
+		this.physicShapeBuilder = physicShapeBuilder;
 		this.physicObject = physicObject;
 	}
 
 	@Override
 	protected boolean checkImageChanged() {
 		if (super.checkImageChanged()) {
-			physicWorld.changeCostume(sprite);
+			Shape[] shapes = physicShapeBuilder.getShape(getCostumeData(), getSize());
+			physicObject.setShape(shapes);
 			return true;
 		}
 
@@ -90,7 +93,9 @@ public class PhysicCostume extends Costume {
 	@Override
 	public void setSize(float size) {
 		super.setSize(size);
-		physicWorld.changeCostume(sprite);
+
+		Shape[] shapes = physicShapeBuilder.getShape(getCostumeData(), getSize());
+		physicObject.setShape(shapes);
 	}
 
 }

@@ -43,11 +43,15 @@ import org.catrobat.catroid.content.bricks.TurnRightSpeedBrick;
  */
 public class PhysicObjectConverter {
 
-	public PhysicObjectConverter() {
+	private final PhysicWorld physicWorld;
+
+	public PhysicObjectConverter(PhysicWorld physicWorld) {
+		this.physicWorld = physicWorld;
 	}
 
 	public void convert(Project project) {
-		PhysicWorld physicWorld = project.getPhysicWorld();
+		PhysicShapeBuilder physicShapeBuilder = new PhysicShapeBuilder();
+
 		physicWorld.ignoreSteps = 0;
 		for (Sprite sprite : project.getSpriteList()) {
 
@@ -64,7 +68,7 @@ public class PhysicObjectConverter {
 
 						if (sprite.costume instanceof Costume) {
 							PhysicObject physicObject = physicWorld.getPhysicObject(sprite);
-							sprite.costume = new PhysicCostume(sprite, physicWorld, physicObject);
+							sprite.costume = new PhysicCostume(sprite, physicShapeBuilder, physicObject);
 						}
 
 						Class<?>[] classes = { PhysicWorld.class };

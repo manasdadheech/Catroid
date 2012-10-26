@@ -43,7 +43,7 @@ public class PhysicObjectTest extends AndroidTestCase {
 	public void testDefaultSettings() {
 		assertEquals(1.0f, PhysicObject.DEFAULT_DENSITY);
 		assertEquals(0.2f, PhysicObject.DEFAULT_FRICTION);
-		assertEquals(0.8f, PhysicObject.DEFAULT_RESTITUTION);
+		assertEquals(0.8f, PhysicObject.DEFAULT_BOUNCE_FACTOR);
 
 		assertEquals(1.0f, PhysicObject.DEFAULT_MASS);
 		assertEquals(0.000001f, PhysicObject.MIN_MASS);
@@ -72,7 +72,7 @@ public class PhysicObjectTest extends AndroidTestCase {
 		FixtureDef fixtureDef = getFixtureDef(physicObject);
 		assertEquals(PhysicObject.DEFAULT_DENSITY, fixtureDef.density);
 		assertEquals(PhysicObject.DEFAULT_FRICTION, fixtureDef.friction);
-		assertEquals(PhysicObject.DEFAULT_RESTITUTION, fixtureDef.restitution);
+		assertEquals(PhysicObject.DEFAULT_BOUNCE_FACTOR, fixtureDef.restitution);
 
 		short collisionBits = 0;
 		checkCollisionMask(physicObject, collisionBits, collisionBits);
@@ -88,7 +88,7 @@ public class PhysicObjectTest extends AndroidTestCase {
 		checkIfShapesAreTheSameAsInPhysicObject(rectangle, getBody(physicObject));
 	}
 
-	public void testSetNewShape() { // CONTINUE HERE!
+	public void testSetNewShape() {
 		PhysicObject physicObject = createPhysicObject();
 		Shape[] shape = new PolygonShape[] { createRectanglePolygonShape(5.0f, 5.0f) };
 		physicObject.setShape(shape);

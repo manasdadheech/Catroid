@@ -102,7 +102,7 @@ public class InternToExternGenerator {
 	private String generateExternStringFromToken(InternToken internToken) {
 		switch (internToken.getInternTokenType()) {
 			case NUMBER:
-				String number = internToken.getTokenSringValue();
+				String number = internToken.getTokenStringValue();
 
 				if (!number.contains(".")) {
 					return number;
@@ -114,7 +114,7 @@ public class InternToExternGenerator {
 				return left + InternToExternLanguageConverter.getExternStringForInternTokenValue(".", context) + right;
 
 			case OPERATOR:
-				return internToken.getTokenSringValue();
+				return internToken.getTokenStringValue();
 
 			case BRACKET_OPEN:
 			case FUNCTION_PARAMETERS_BRACKET_OPEN:
@@ -127,7 +127,7 @@ public class InternToExternGenerator {
 
 			default:
 				return InternToExternLanguageConverter.getExternStringForInternTokenValue(
-						internToken.getTokenSringValue(), context);
+						internToken.getTokenStringValue(), context);
 
 				//TODO handle all cases(UserVariables etc...)
 		}

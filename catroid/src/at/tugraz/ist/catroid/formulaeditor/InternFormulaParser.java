@@ -182,7 +182,7 @@ public class InternFormulaParser {
 		String operatorStringValue;
 		while (currentToken.isOperator()) {
 
-			operatorStringValue = currentToken.getTokenSringValue();
+			operatorStringValue = currentToken.getTokenStringValue();
 			getNextToken();
 
 			loopTermTree = term();
@@ -198,7 +198,7 @@ public class InternFormulaParser {
 		FormulaElement termTree = new FormulaElement(FormulaElement.ElementType.NUMBER, null, null);
 		FormulaElement curElem = termTree;
 
-		if (currentToken.isOperator() && currentToken.getTokenSringValue().equals("-")) {
+		if (currentToken.isOperator() && currentToken.getTokenStringValue().equals("-")) {
 
 			curElem = new FormulaElement(FormulaElement.ElementType.NUMBER, null, termTree, null, null);
 			termTree.replaceElement(FormulaElement.ElementType.OPERATOR, "-", null, curElem);
@@ -246,7 +246,7 @@ public class InternFormulaParser {
 		//TODO check if user-variable exists
 
 		FormulaElement costumeTree = new FormulaElement(FormulaElement.ElementType.USER_VARIABLE,
-				currentToken.getTokenSringValue(), null);
+				currentToken.getTokenStringValue(), null);
 
 		getNextToken();
 
@@ -255,12 +255,12 @@ public class InternFormulaParser {
 
 	private FormulaElement costume() throws InternFormulaParserException {
 
-		if (!Sensors.isSensor(currentToken.getTokenSringValue())) {
+		if (!Sensors.isSensor(currentToken.getTokenStringValue())) {
 			throw new InternFormulaParserException("Parse Error");
 		}
 
 		FormulaElement costumeTree = new FormulaElement(FormulaElement.ElementType.SENSOR,
-				currentToken.getTokenSringValue(), null);
+				currentToken.getTokenStringValue(), null);
 
 		getNextToken();
 
@@ -269,12 +269,12 @@ public class InternFormulaParser {
 
 	private FormulaElement sensor() throws InternFormulaParserException {
 
-		if (!Sensors.isSensor(currentToken.getTokenSringValue())) {
+		if (!Sensors.isSensor(currentToken.getTokenStringValue())) {
 			throw new InternFormulaParserException("Parse Error");
 		}
 
 		FormulaElement sensorTree = new FormulaElement(FormulaElement.ElementType.SENSOR,
-				currentToken.getTokenSringValue(), null);
+				currentToken.getTokenStringValue(), null);
 
 		getNextToken();
 
@@ -284,11 +284,11 @@ public class InternFormulaParser {
 	private FormulaElement function() throws InternFormulaParserException {
 		FormulaElement functionTree = new FormulaElement(FormulaElement.ElementType.FUNCTION, null, null);
 
-		if (!Functions.isFunction(currentToken.getTokenSringValue())) {
+		if (!Functions.isFunction(currentToken.getTokenStringValue())) {
 			throw new InternFormulaParserException("Parse Error");
 		}
 
-		functionTree = new FormulaElement(FormulaElement.ElementType.FUNCTION, currentToken.getTokenSringValue(), null);
+		functionTree = new FormulaElement(FormulaElement.ElementType.FUNCTION, currentToken.getTokenStringValue(), null);
 		getNextToken();
 
 		if (currentToken.isFunctionParameterBracketOpen()) {
@@ -312,7 +312,7 @@ public class InternFormulaParser {
 
 	private String number() throws InternFormulaParserException {
 
-		String numberToCheck = currentToken.getTokenSringValue();
+		String numberToCheck = currentToken.getTokenStringValue();
 
 		if (!numberToCheck.matches("(\\d)+(\\.(\\d)+)?")) {
 			throw new InternFormulaParserException("Parse Error");

@@ -42,7 +42,7 @@ public class InternTokenModify {
 
 	public static InternToken insertIntoNumberToken(InternToken numberTokenToBeModified, int externNumberOffset,
 			String numberToInsert) {
-		String numberString = numberTokenToBeModified.getTokenSringValue();
+		String numberString = numberTokenToBeModified.getTokenStringValue();
 		String leftPart = numberString.substring(0, externNumberOffset);
 		String rightPart = numberString.substring(externNumberOffset);
 
@@ -152,7 +152,7 @@ public class InternTokenModify {
 
 	public static InternToken deleteNumberByOffset(InternToken cursorPositionInternToken, int externNumberOffset) {
 
-		String numberString = cursorPositionInternToken.getTokenSringValue();
+		String numberString = cursorPositionInternToken.getTokenStringValue();
 
 		if (externNumberOffset < 1) {
 			return cursorPositionInternToken;
@@ -167,7 +167,7 @@ public class InternTokenModify {
 
 		cursorPositionInternToken.setTokenStringValue(leftPart + rightPart);
 
-		if (cursorPositionInternToken.getTokenSringValue().length() == 0) {
+		if (cursorPositionInternToken.getTokenStringValue().length() == 0) {
 			return null;
 		}
 

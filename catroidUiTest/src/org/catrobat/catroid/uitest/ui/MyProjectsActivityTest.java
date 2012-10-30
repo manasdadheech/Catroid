@@ -851,14 +851,12 @@ public class MyProjectsActivityTest extends ActivityInstrumentationTestCase2<Mai
 		solo.clickOnButton(buttonOkText);
 
 		solo.sleep(200);
-		assertTrue("No or wrong error message shown",
-				solo.searchText(solo.getString(R.string.error_project_exists)));
+		assertTrue("No or wrong error message shown", solo.searchText(solo.getString(R.string.error_project_exists)));
 		solo.sleep(100);
 		solo.clickOnButton(buttonCloseText);
 		solo.sleep(100);
 		solo.clickOnButton(buttonOkText);
-		assertTrue("No or wrong error message shown",
-				solo.searchText(solo.getString(R.string.error_project_exists)));
+		assertTrue("No or wrong error message shown", solo.searchText(solo.getString(R.string.error_project_exists)));
 		solo.clickOnButton(buttonCloseText);
 	}
 
@@ -1143,8 +1141,7 @@ public class MyProjectsActivityTest extends ActivityInstrumentationTestCase2<Mai
 			solo.clickOnText(buttonPositiveText);
 		}
 		solo.waitForDialogToClose(500);
-		solo.clickOnText(solo.getString(R.string.project_name)); //just to get focus for solo
-		assertTrue("List was not updated after rename", solo.searchText(UiTestUtils.PROJECTNAME3));
+		assertTrue("List was not updated after copy", solo.searchText(UiTestUtils.PROJECTNAME3));
 	}
 
 	public void testResetActiveDialogId() {

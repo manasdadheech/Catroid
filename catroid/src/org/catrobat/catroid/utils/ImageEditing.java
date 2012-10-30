@@ -169,33 +169,4 @@ public class ImageEditing {
 
 	}
 
-	public static Bitmap adjustBitmapAlphaValue(Bitmap bitmap, float alphaValue) {
-
-		Bitmap resultBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), bitmap.getConfig());
-
-		for (int width = 0; width < bitmap.getWidth(); width++) {
-			for (int height = 0; height < bitmap.getHeight(); height++) {
-
-				int oldPixelColor = bitmap.getPixel(width, height);
-
-				int red = Color.red(oldPixelColor);
-				int green = Color.green(oldPixelColor);
-				int blue = Color.blue(oldPixelColor);
-				int alpha = Color.alpha(oldPixelColor) + (int) (255 * (alphaValue - 1));
-
-				if (alpha > 255) {
-					alpha = 255;
-				} else if (alpha < 0) {
-					alpha = 0;
-				}
-
-				int newPixel = Color.argb(alpha, red, green, blue);
-				resultBitmap.setPixel(width, height, newPixel);
-			}
-		}
-
-		return resultBitmap;
-
-	}
-
 }

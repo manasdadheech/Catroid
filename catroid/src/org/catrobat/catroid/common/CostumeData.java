@@ -176,9 +176,12 @@ public class CostumeData implements Serializable {
 
 		}
 
-		if (WallpaperHelper.getInstance().isLandscape()) {
+		WallpaperHelper wallpaperHelper = WallpaperHelper.getInstance();
+
+		if (wallpaperHelper.isLandscape()) {
 			if (landscapeCostumeBitmap == null) {
-				landscapeCostumeBitmap = ImageEditing.rotateBitmap(costumeBitmap, 90);
+				landscapeCostumeBitmap = ImageEditing.rotateBitmap(costumeBitmap,
+						wallpaperHelper.getLandscapeRotationDegree());
 			}
 			return landscapeCostumeBitmap;
 		} else {

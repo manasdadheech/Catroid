@@ -74,6 +74,7 @@ public class ProjectsListFragment extends SherlockListFragment implements OnProj
 	private List<ProjectData> projectList;
 	private ProjectData projectToEdit;
 	private ProjectAdapter adapter;
+	private ProjectsListFragment parentFragment = this;
 
 	private int activeDialogId = NO_DIALOG_FRAGMENT_ACTIVE;
 
@@ -190,7 +191,7 @@ public class ProjectsListFragment extends SherlockListFragment implements OnProj
 					activeFragmentDialog = getFragmentManager()
 							.findFragmentByTag(CopyProjectDialog.DIALOG_FRAGMENT_TAG);
 					CopyProjectDialog displayingCopyProjectDialog = (CopyProjectDialog) activeFragmentDialog;
-					displayingCopyProjectDialog.setOnCopyProjectListener(ProjectsListFragment.this);
+					displayingCopyProjectDialog.setParentFragment(this);
 					break;
 			}
 		}
@@ -313,7 +314,7 @@ public class ProjectsListFragment extends SherlockListFragment implements OnProj
 						break;
 					case CONTEXT_MENU_ITEM_COPY:
 						CopyProjectDialog dialogCopyProject = CopyProjectDialog.newInstance(projectToEdit.projectName);
-						dialogCopyProject.setOnCopyProjectListener(ProjectsListFragment.this);
+						dialogCopyProject.setParentFragment(parentFragment);
 						dialogCopyProject.show(getActivity().getSupportFragmentManager(),
 								CopyProjectDialog.DIALOG_FRAGMENT_TAG);
 						break;

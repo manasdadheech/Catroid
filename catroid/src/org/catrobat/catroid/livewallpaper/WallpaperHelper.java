@@ -34,6 +34,10 @@ public class WallpaperHelper {
 	private int centerXCoord;
 	private int centerYCoord;
 
+	private int landscapeRotationDegree = 0;
+
+	private long refreshRate = 100;
+
 	private Handler drawingThreadHandler;
 	private Runnable drawingThread;
 
@@ -133,18 +137,6 @@ public class WallpaperHelper {
 
 	public void setLandscape(boolean isLandscape) {
 		this.isLandscape = isLandscape;
-
-		if (isLandscape) {
-			switchCoordinates();
-		}
-	}
-
-	private void switchCoordinates() {
-		if (LiveWallpaper.getContext() == null) {
-			int temp = this.centerXCoord;
-			this.centerXCoord = this.centerYCoord;
-			this.centerYCoord = temp;
-		}
 	}
 
 	public boolean isSoundAllowed() {
@@ -153,6 +145,22 @@ public class WallpaperHelper {
 
 	public void setSoundAllowed(boolean soundAllowed) {
 		this.soundAllowed = soundAllowed;
+	}
+
+	public long getRefreshRate() {
+		return refreshRate;
+	}
+
+	public void setRefreshRate(long refreshRate) {
+		this.refreshRate = refreshRate;
+	}
+
+	public int getLandscapeRotationDegree() {
+		return landscapeRotationDegree;
+	}
+
+	public void setLandscapeRotationDegree(int landscapeRotationDegree) {
+		this.landscapeRotationDegree = landscapeRotationDegree;
 	}
 
 }

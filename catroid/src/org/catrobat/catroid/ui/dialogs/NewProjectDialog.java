@@ -156,6 +156,7 @@ public class NewProjectDialog extends DialogFragment implements OnRegistrationCo
 		Intent intent = new Intent(getActivity(), ProjectActivity.class);
 		getActivity().startActivity(intent);
 
+		dismiss();
 		return true;
 	}
 

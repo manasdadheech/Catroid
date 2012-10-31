@@ -40,6 +40,8 @@ public class Project implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<Sprite> spriteList = new ArrayList<Sprite>();
 
+	private transient PhysicWorld physicWorld = new PhysicWorld();
+
 	private String programName;
 	private String description;
 	@XMLAlias("screenWidth")
@@ -127,6 +129,10 @@ public class Project implements Serializable {
 
 	public List<Sprite> getSpriteList() {
 		return spriteList;
+	}
+
+	public PhysicWorld getPhysicWorld() {
+		return physicWorld;
 	}
 
 	public void setName(String name) {

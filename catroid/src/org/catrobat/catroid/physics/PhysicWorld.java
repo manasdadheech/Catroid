@@ -43,10 +43,12 @@ public class PhysicWorld {
 	public final static Vector2 DEFAULT_GRAVITY = new Vector2(0.0f, -10.0f);
 	public final static boolean IGNORE_SLEEPING_OBJECTS = false;
 
+	public final static int STABILIZING_STEPS = 6;
+
 	private final World world;
 	private final Map<Sprite, PhysicObject> physicObjects;
 	private Box2DDebugRenderer renderer;
-	public int ignoreSteps = 0;
+	private int stabilizingStep = 0;
 
 	public PhysicWorld() {
 		world = new World(PhysicWorld.DEFAULT_GRAVITY, PhysicWorld.IGNORE_SLEEPING_OBJECTS);
@@ -56,13 +58,12 @@ public class PhysicWorld {
 	}
 
 	public void step(float deltaTime) {
-		if (ignoreSteps < 6) {
-			ignoreSteps += 1;
+		if (stabilizingStep < STABILIZING_STEPS) {
+			stabilizingStep++;
 		} else {
 			world.step(deltaTime, PhysicWorld.VELOCITY_ITERATIONS, PhysicWorld.POSITION_ITERATIONS);
 		}
 		updateSprites();
-
 	}
 
 	private void updateSprites() {
@@ -112,7 +113,7 @@ public class PhysicWorld {
 		return physicObject;
 	}
 
-	protected PhysicObject createPhysicObject() {
+	private PhysicObject createPhysicObject() {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.bullet = true;
 

@@ -152,7 +152,7 @@ public class PhysicObject {
 		body.setTransform(body.getPosition(), PhysicWorldConverter.angleCatToBox2d(angle));
 	}
 
-	public Vector2 getXYPosition() {
+	public Vector2 getPosition() {
 		return PhysicWorldConverter.vecBox2dToCat(body.getPosition());
 	}
 

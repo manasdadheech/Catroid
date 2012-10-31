@@ -41,7 +41,7 @@ public class Costume extends Image {
 	protected boolean brightnessChanged = false;
 	protected CostumeData costumeData;
 	protected Sprite sprite;
-	protected float rotation;
+	protected float rotation; // Needed, but use super.rotation instead.
 	protected float alphaValue;
 	protected float brightnessValue;
 	protected boolean internalPath;
@@ -59,7 +59,6 @@ public class Costume extends Image {
 		this.brightnessValue = 1f;
 		this.scaleX = 1f;
 		this.scaleY = 1f;
-		this.rotation = 0f;
 		this.width = 0f;
 		this.height = 0f;
 		this.touchable = true;
@@ -240,11 +239,11 @@ public class Costume extends Image {
 	}
 
 	public float getRotation() {
-		return this.rotation;
+		return super.rotation;
 	}
 
 	public void setRotation(float degrees) {
-		this.rotation = degrees;
+		super.rotation = degrees;
 	}
 
 	public void setCostumeData(CostumeData costumeData) {

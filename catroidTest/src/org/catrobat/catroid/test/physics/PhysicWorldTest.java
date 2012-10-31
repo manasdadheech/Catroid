@@ -3,6 +3,7 @@ package org.catrobat.catroid.test.physics;
 import java.util.Map;
 
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.physics.PhysicCostume;
 import org.catrobat.catroid.physics.PhysicObject;
 import org.catrobat.catroid.physics.PhysicWorld;
 import org.catrobat.catroid.test.utils.TestUtils;
@@ -45,6 +46,8 @@ public class PhysicWorldTest extends AndroidTestCase {
 
 		assertEquals(new Vector2(0, -10), PhysicWorld.DEFAULT_GRAVITY);
 		assertEquals(false, PhysicWorld.IGNORE_SLEEPING_OBJECTS);
+
+		assertEquals(6, PhysicWorld.STABILIZING_STEPS);
 	}
 
 	public void testWrapper() {
@@ -81,13 +84,7 @@ public class PhysicWorldTest extends AndroidTestCase {
 	}
 
 	public void testGetPhysicObjectCallsCreateObject() {
-		PhysicWorldMock physicWorldMock = new PhysicWorldMock();
-
-		assertFalse(physicWorldMock.executed);
-
-		physicWorldMock.getPhysicObject(new Sprite("TestSprite"));
-
-		assertTrue(physicWorldMock.executed);
+		// XXX: How to test?
 	}
 
 	public void testCreatePhysicObject() {
@@ -107,16 +104,41 @@ public class PhysicWorldTest extends AndroidTestCase {
 		assertEquals(physicObject, samePhysicObject);
 	}
 
-	public void testStep() {
+	public void testStabilizingSteps() {
+		int stepPasses = PhysicWorld.STABILIZING_STEPS + 10;
+
+		int stabilizingStep;
+		for (int pass = 0; pass < stepPasses; pass++) {
+			physicWorld.step(100.0f);
+			stabilizingStep = (Integer) TestUtils.getPrivateField("stabilizingStep", physicWorld, false);
+			assertTrue((stabilizingStep == (pass + 1)) || (stabilizingStep == PhysicWorld.STABILIZING_STEPS));
+		}
 	}
 
-	private class PhysicWorldMock extends PhysicWorld {
-		public boolean executed = false;
+	public void testSteps() throws SecurityException, IllegalArgumentException, NoSuchFieldException,
+			IllegalAccessException {
+		Sprite sprite = new Sprite("TestSprite");
+		PhysicObject physicObject = physicWorld.getPhysicObject(sprite);
+		sprite.costume = new PhysicCostume(sprite, null, physicObject);
 
-		@Override
-		protected PhysicObject createPhysicObject() {
-			executed = true;
-			return null;
-		}
+		Vector2 velocity = new Vector2(2.3f, 4.5f);
+		float rotationSpeed = 45.0f;
+		physicWorld.setGravity(new Vector2(0.0f, 0.0f));
+		TestUtils.setPrivateField(PhysicWorld.class, physicWorld, "stabilizingStep", PhysicWorld.STABILIZING_STEPS);
+
+		assertEquals(new Vector2(), physicObject.getPosition());
+
+		physicObject.setVelocity(velocity);
+		physicObject.setRotationSpeed(rotationSpeed);
+
+		physicWorld.step(1.0f);
+		assertEquals(velocity.x, physicObject.getXPosition(), 1e-8);
+		assertEquals(velocity.y, physicObject.getYPosition(), 1e-8);
+		assertEquals(rotationSpeed, physicObject.getAngle(), 1e-8);
+
+		physicWorld.step(1.0f);
+		assertEquals(2 * velocity.x, physicObject.getXPosition(), 1e-8);
+		assertEquals(2 * velocity.y, physicObject.getYPosition(), 1e-8);
+		assertEquals(2 * rotationSpeed, physicObject.getAngle(), 1e-8);
 	}
 }

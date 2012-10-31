@@ -1,5 +1,6 @@
 package org.catrobat.catroid.test.physics;
 
+import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.physics.PhysicCostume;
 import org.catrobat.catroid.physics.PhysicObject;
@@ -9,6 +10,7 @@ import org.catrobat.catroid.physics.PhysicWorld;
 import android.test.AndroidTestCase;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 
 public class PhysicCostumeTest extends AndroidTestCase {
@@ -27,18 +29,25 @@ public class PhysicCostumeTest extends AndroidTestCase {
 	}
 
 	public void testCheckImageChanged() {
-		//		Sprite sprite = new Sprite("TestSprite");
-		//		PhysicShapeBuilderMock physicShapeBuilderMock = new PhysicShapeBuilderMock();
-		//		PhysicCostumeMock physicCostume = new PhysicCostumeMock(sprite, physicShapeBuilderMock, null);
-		//
-		//		physicCostume.setImageChanged(false);
-		//		assertFalse(physicCostume.checkImageChanged());
-		//		assertFalse(physicShapeBuilderMock.changeCostumeExecuted);
-		//
-		//		physicCostume.setImageChanged(true);
-		//		assertTrue(physicCostume.checkImageChanged());
-		//		assertTrue(physicWorld.changeCostumeExecuted);
-		//		assertEquals(sprite, physicWorld.changeCostumeExecutedWithSprite);
+		Sprite sprite = new Sprite("TestSprite");
+		PhysicShapeBuilder physicShapeBuilder = new PhysicShapeBuilderMock();
+
+		PhysicObjectMock physicObjectMock = new PhysicObjectMock();
+		PhysicCostumeMock physicCostume = new PhysicCostumeMock(sprite, physicShapeBuilder, physicObjectMock);
+
+		Shape[] shapes = physicShapeBuilder.getShape(physicCostume.getCostumeData(), physicCostume.getSize());
+
+		assertNotNull(shapes);
+
+		physicCostume.setImageChanged(false);
+		assertFalse(physicCostume.checkImageChanged());
+		assertFalse(physicObjectMock.setShapeExecuted);
+		assertNull(physicObjectMock.setShapeExecutedWithSpahes);
+
+		physicCostume.setImageChanged(true);
+		assertTrue(physicCostume.checkImageChanged());
+		assertTrue(physicObjectMock.setShapeExecuted);
+		assertEquals(shapes, physicObjectMock.setShapeExecutedWithSpahes);
 	}
 
 	public void testUpdatePositionAndRotation() {
@@ -78,7 +87,7 @@ public class PhysicCostumeTest extends AndroidTestCase {
 		x = 5.6f;
 		y = 7.8f;
 		physicCostume.setXYPosition(x, y);
-		assertEquals(new Vector2(x, y), physicObject.getXYPosition());
+		assertEquals(new Vector2(x, y), physicObject.getPosition());
 
 		float rotation = 9.0f;
 		physicCostume.setRotation(rotation);
@@ -90,14 +99,21 @@ public class PhysicCostumeTest extends AndroidTestCase {
 	}
 
 	public void testSize() {
-		//		Sprite sprite = new Sprite("TestSprite");
-		//		PhysicWorldMock physicWorld = new PhysicWorldMock();
-		//		PhysicCostume physicCostume = new PhysicCostume(sprite, null, null);
-		//
-		//		assertFalse(physicWorld.changeCostumeExecuted);
-		//		physicCostume.setSize(3.14f);
-		//		assertTrue(physicWorld.changeCostumeExecuted);
-		//		assertEquals(sprite, physicWorld.changeCostumeExecutedWithSprite);
+		Sprite sprite = new Sprite("TestSprite");
+		PhysicShapeBuilder physicShapeBuilder = new PhysicShapeBuilder();
+		PhysicObjectMock physicObjectMock = new PhysicObjectMock();
+		PhysicCostume physicCostume = new PhysicCostume(sprite, physicShapeBuilder, physicObjectMock);
+		float size = 3.14f;
+
+		assertFalse(physicObjectMock.setShapeExecuted);
+		assertNull(physicObjectMock.setShapeExecutedWithSpahes);
+
+		physicCostume.setSize(size);
+		assertEquals(size, physicCostume.getSize());
+
+		Shape[] shapes = physicShapeBuilder.getShape(physicCostume.getCostumeData(), size);
+		assertTrue(physicObjectMock.setShapeExecuted);
+		assertEquals(shapes, physicObjectMock.setShapeExecutedWithSpahes);
 	}
 
 	private class PhysicCostumeUpdateMock extends PhysicCostume {
@@ -134,15 +150,35 @@ public class PhysicCostumeTest extends AndroidTestCase {
 		}
 	}
 
-	//	private class PhysicShapeBuilderMock extends PhysicShapeBuilder {
-	//
-	//		public boolean executed = false;
-	//		public CostumeData executedWithCostumeData = null;
-	//		public float executedWithScaleFactor;
-	//
-	//		@Override
-	//		public Shape[] getShape(CostumeData costumeData, float scaleFactor) {
-	//			return super.getShape(costumeData, scaleFactor);
-	//		}
-	//	}
+	private class PhysicObjectMock extends PhysicObject {
+		public boolean setShapeExecuted = false;
+		public Shape[] setShapeExecutedWithSpahes = null;
+
+		public PhysicObjectMock() {
+			super(null);
+		}
+
+		@Override
+		public void setShape(Shape[] shapes) {
+			setShapeExecuted = true;
+			setShapeExecutedWithSpahes = shapes;
+		}
+
+		@Override
+		protected void setCollisionBits(short categoryBits, short maskBits) {
+		}
+
+		@Override
+		public void setType(Type type) {
+		}
+	}
+
+	private class PhysicShapeBuilderMock extends PhysicShapeBuilder {
+		private final Shape[] shapes = new Shape[4];
+
+		@Override
+		public Shape[] getShape(CostumeData costumeData, float scaleFactor) {
+			return shapes;
+		}
+	}
 }

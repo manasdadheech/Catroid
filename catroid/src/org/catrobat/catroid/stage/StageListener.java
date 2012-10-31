@@ -81,7 +81,7 @@ public class StageListener implements ApplicationListener {
 	private boolean makeScreenshot = false;
 
 	private Project project;
-	private PhysicWorld physicWorld = new PhysicWorld();
+	private PhysicWorld physicWorld;
 
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
@@ -153,6 +153,7 @@ public class StageListener implements ApplicationListener {
 
 		// TODO: Find better place to replace motion bricks with corresponding physic bricks
 		// if necessary. Maybe change to static method.
+		physicWorld = new PhysicWorld();
 		PhysicObjectConverter physicObjectConverter = new PhysicObjectConverter(physicWorld);
 		physicObjectConverter.convert(project);
 
@@ -268,6 +269,7 @@ public class StageListener implements ApplicationListener {
 
 			// TODO: Find better place to replace motion bricks with corresponding physic bricks
 			// if necessary. Maybe change to static method.
+			physicWorld = new PhysicWorld();
 			PhysicObjectConverter physicObjectConverter = new PhysicObjectConverter(physicWorld);
 			physicObjectConverter.convert(project);
 

@@ -52,36 +52,42 @@ public class PhysicObjectConverter {
 	public void convert(Project project) {
 		PhysicShapeBuilder physicShapeBuilder = new PhysicShapeBuilder();
 
-		physicWorld.ignoreSteps = 0;
 		for (Sprite sprite : project.getSpriteList()) {
-
 			for (int scriptIndex = 0; scriptIndex < sprite.getNumberOfScripts(); scriptIndex++) {
 				Script script = sprite.getScript(scriptIndex);
 
 				for (Brick brick : script.getBrickList()) {
-
-					// For god's sake, what have I done here?
-					if (brick instanceof SetPhysicObjectTypeBrick || brick instanceof SetMassBrick
-							|| brick instanceof SetGravityBrick || brick instanceof SetVelocityBrick
-							|| brick instanceof TurnLeftSpeedBrick || brick instanceof TurnRightSpeedBrick
-							|| brick instanceof SetBounceFactorBrick || brick instanceof SetFrictionBrick) {
-
+					if (isPhysicBrick(brick)) {
 						if (sprite.costume instanceof Costume) {
 							PhysicObject physicObject = physicWorld.getPhysicObject(sprite);
 							sprite.costume = new PhysicCostume(sprite, physicShapeBuilder, physicObject);
 						}
-
-						Class<?>[] classes = { PhysicWorld.class };
-						Method setter;
-						try {
-							setter = brick.getClass().getDeclaredMethod("setPhysicWorld", classes);
-							setter.invoke(brick, physicWorld);
-						} catch (Exception exception) {
-							exception.printStackTrace();
-						}
+						setPhysicWorld(brick);
 					}
 				}
 			}
+		}
+	}
+
+	private boolean isPhysicBrick(Brick brick) {
+		if (brick instanceof SetPhysicObjectTypeBrick || brick instanceof SetMassBrick
+				|| brick instanceof SetGravityBrick || brick instanceof SetVelocityBrick
+				|| brick instanceof TurnLeftSpeedBrick || brick instanceof TurnRightSpeedBrick
+				|| brick instanceof SetBounceFactorBrick || brick instanceof SetFrictionBrick) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private void setPhysicWorld(Brick brick) {
+		Class<?>[] classes = { PhysicWorld.class };
+		Method setter;
+		try {
+			setter = brick.getClass().getDeclaredMethod("setPhysicWorld", classes);
+			setter.invoke(brick, physicWorld);
+		} catch (Exception exception) {
+			exception.printStackTrace();
 		}
 	}
 }

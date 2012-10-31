@@ -26,7 +26,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.common.Values;
 import org.catrobat.catroid.utils.Utils;
@@ -34,13 +33,12 @@ import org.catrobat.catroid.xml.parser.XMLAlias;
 
 import android.content.Context;
 import android.os.Build;
+import org.catrobat.catroid.R;
 
 public class Project implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private List<Sprite> spriteList = new ArrayList<Sprite>();
-
-	private transient PhysicWorld physicWorld = new PhysicWorld();
 
 	private String programName;
 	private String description;
@@ -129,10 +127,6 @@ public class Project implements Serializable {
 
 	public List<Sprite> getSpriteList() {
 		return spriteList;
-	}
-
-	public PhysicWorld getPhysicWorld() {
-		return physicWorld;
 	}
 
 	public void setName(String name) {

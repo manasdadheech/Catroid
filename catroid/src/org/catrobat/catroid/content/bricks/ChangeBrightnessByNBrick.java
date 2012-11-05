@@ -135,8 +135,8 @@ public class ChangeBrightnessByNBrick implements Brick, OnClickListener {
 			wallpaperCostume = new WallpaperCostume(sprite, null);
 		}
 
-		float brightness = wallpaperCostume.getBrightness() + (float) (255 * (this.changeBrightness / 100));
-		wallpaperCostume.setBrightness(brightness);
+		//		float brightness = wallpaperCostume.getBrightness() + (float) (255 * (this.changeBrightness / 100));
+		wallpaperCostume.setBrightness(wallpaperCostume.getBrightness() + (float) (this.changeBrightness / 100));
 
 	}
 

@@ -54,7 +54,7 @@ public class WallpaperCostume {
 	private int zPosition;
 
 	private float alphaValue = 1f;
-	private float brightness = 1f;
+	private float brightness = 0;
 
 	private double size = 1;
 
@@ -258,7 +258,7 @@ public class WallpaperCostume {
 	void updatePaint() {
 		ColorMatrix cm = new ColorMatrix();
 
-		cm.set(new float[] { brightness, 0, 0, 0, 0, 0, brightness, 0, 0, 0, 0, 0, brightness, 0, 0, 0, 0, 0,
+		cm.set(new float[] { 1, 0, 0, 0, brightness, 0, 1, 0, 0, brightness, 0, 0, 1, 0, brightness, 0, 0, 0,
 				alphaValue, 0 });
 
 		paint.setColorFilter(new ColorMatrixColorFilter(cm));

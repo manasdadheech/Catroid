@@ -53,7 +53,7 @@ public class WallpaperCostume {
 
 	private int zPosition;
 
-	private int alphaValue = 255;
+	private float alphaValue = 1f;
 	private float brightness = 0;
 
 	private double size = 1;
@@ -62,6 +62,7 @@ public class WallpaperCostume {
 	private boolean isBackground = false;
 	private boolean isLandscape = false;
 	private boolean changeMatrix = true;
+	private boolean changePaint = true;
 
 	private int landscapeRotation;
 
@@ -113,21 +114,19 @@ public class WallpaperCostume {
 	}
 
 	private void updateMatrix() {
-		if (changeMatrix) {
-			matrix.setRotate(rotation, costumeWidth / 2, costumeHeight / 2);
-			matrix.postScale((float) size, (float) size);
+		matrix.setRotate(rotation, costumeWidth / 2, costumeHeight / 2);
+		matrix.postScale((float) size, (float) size);
 
-			if (isLandscape) {
-				centerX = wallpaperHelper.getCenterXCoord() - y - (int) (costumeWidth * size) / 2;
-				centerY = wallpaperHelper.getCenterYCoord() - x - (int) (costumeHeight * size) / 2;
-			} else {
-				centerX = wallpaperHelper.getCenterXCoord() + x - (int) (costumeWidth * size) / 2;
-				centerY = wallpaperHelper.getCenterYCoord() - y - (int) (costumeHeight * size) / 2;
-			}
-
-			matrix.postTranslate(centerX, centerY);
-			changeMatrix = false;
+		if (isLandscape) {
+			centerX = wallpaperHelper.getCenterXCoord() - y - (int) (costumeWidth * size) / 2;
+			centerY = wallpaperHelper.getCenterYCoord() - x - (int) (costumeHeight * size) / 2;
+		} else {
+			centerX = wallpaperHelper.getCenterXCoord() + x - (int) (costumeWidth * size) / 2;
+			centerY = wallpaperHelper.getCenterYCoord() - y - (int) (costumeHeight * size) / 2;
 		}
+
+		matrix.postTranslate(centerX, centerY);
+
 	}
 
 	public void setX(int x) {
@@ -231,14 +230,6 @@ public class WallpaperCostume {
 		this.hidden = hideCostume;
 	}
 
-	public Sprite getSprite() {
-		return sprite;
-	}
-
-	public void setSprite(Sprite sprite) {
-		this.sprite = sprite;
-	}
-
 	public boolean isBackground() {
 		return isBackground;
 	}
@@ -249,8 +240,23 @@ public class WallpaperCostume {
 
 	public void setBrightness(float brightness) {
 		this.brightness = brightness;
+		this.changePaint = true;
+	}
+
+	public float getAlphaValue() {
+		return alphaValue;
+	}
+
+	public void setAlphaValue(float alphaValue) {
+		this.alphaValue = alphaValue;
+		this.changePaint = true;
+	}
+
+	void updatePaint() {
 		ColorMatrix cm = new ColorMatrix();
-		cm.set(new float[] { 1, 0, 0, 0, brightness, 0, 1, 0, 0, brightness, 0, 0, 1, 0, brightness, 0, 0, 0, 1, 0 });
+		cm.set(new float[] { 1, 0, 0, 0, brightness, 0, 1, 0, 0, brightness, 0, 0, 1, 0, brightness, 0, 0, 0,
+				alphaValue, 0 });
+
 		paint.setColorFilter(new ColorMatrixColorFilter(cm));
 	}
 
@@ -280,21 +286,19 @@ public class WallpaperCostume {
 	}
 
 	public Matrix getMatrix() {
-		updateMatrix();
+		if (changeMatrix) {
+			updateMatrix();
+			changeMatrix = false;
+		}
 		return matrix;
 	}
 
 	public Paint getPaint() {
+		if (changePaint) {
+			updatePaint();
+			changePaint = false;
+		}
 		return paint;
-	}
-
-	public int getAlphaValue() {
-		return alphaValue;
-	}
-
-	public void setAlphaValue(int alphaValue) {
-		this.alphaValue = alphaValue;
-		paint.setAlpha(alphaValue);
 	}
 
 }

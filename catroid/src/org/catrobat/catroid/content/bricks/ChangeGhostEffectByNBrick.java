@@ -134,10 +134,9 @@ public class ChangeGhostEffectByNBrick implements Brick, OnClickListener {
 			wallpaperCostume = new WallpaperCostume(sprite, null);
 		}
 
-		float changePercentage = (float) changeGhostEffect / 100;
-		int alpha = wallpaperCostume.getAlphaValue() - (int) (changePercentage * 255);
+		float changePercentage = (float) this.changeGhostEffect / 100;
 
-		wallpaperCostume.setAlphaValue(alpha);
+		wallpaperCostume.setAlphaValue(wallpaperCostume.getAlphaValue() - changePercentage);
 
 	}
 }

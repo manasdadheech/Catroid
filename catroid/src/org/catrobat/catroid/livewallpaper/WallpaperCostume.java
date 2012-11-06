@@ -53,7 +53,7 @@ public class WallpaperCostume {
 
 	private int zPosition;
 
-	private int alphaValue = 255;
+	private float alphaValue = 1f;
 	private float brightness = 0;
 
 	private double size = 1;
@@ -249,8 +249,18 @@ public class WallpaperCostume {
 
 	public void setBrightness(float brightness) {
 		this.brightness = brightness;
+	}
+
+	public void setAlphaValue(float alphaValue) {
+		this.alphaValue = alphaValue;
+	}
+
+	void updatePaint() {
 		ColorMatrix cm = new ColorMatrix();
-		cm.set(new float[] { 1, 0, 0, 0, brightness, 0, 1, 0, 0, brightness, 0, 0, 1, 0, brightness, 0, 0, 0, 1, 0 });
+
+		cm.set(new float[] { 1, 0, 0, 0, brightness, 0, 1, 0, 0, brightness, 0, 0, 1, 0, brightness, 0, 0, 0,
+				alphaValue, 0 });
+
 		paint.setColorFilter(new ColorMatrixColorFilter(cm));
 	}
 
@@ -285,16 +295,12 @@ public class WallpaperCostume {
 	}
 
 	public Paint getPaint() {
+		updatePaint();
 		return paint;
 	}
 
-	public int getAlphaValue() {
+	public float getAlphaValue() {
 		return alphaValue;
-	}
-
-	public void setAlphaValue(int alphaValue) {
-		this.alphaValue = alphaValue;
-		paint.setAlpha(alphaValue);
 	}
 
 }

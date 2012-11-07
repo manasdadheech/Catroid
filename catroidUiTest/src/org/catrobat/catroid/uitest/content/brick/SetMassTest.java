@@ -104,7 +104,7 @@ public class SetMassTest extends ActivityInstrumentationTestCase2<ScriptTabActiv
 		project = new Project(null, "testProject");
 		Sprite sprite = new Sprite("cat");
 		Script script = new StartScript(sprite);
-		setMassBrick = new SetMassBrick(null, sprite, 0.0f);
+		setMassBrick = new SetMassBrick(sprite, 0.0f);
 		script.addBrick(setMassBrick);
 
 		sprite.addScript(script);

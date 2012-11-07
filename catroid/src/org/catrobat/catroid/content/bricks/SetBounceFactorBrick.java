@@ -22,7 +22,11 @@
  */
 package org.catrobat.catroid.content.bricks;
 
-import org.catrobat.catroid.physics.PhysicWorld;
+import org.catrobat.catroid.R;
+import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.physics.PhysicObject;
+import org.catrobat.catroid.ui.ScriptTabActivity;
+import org.catrobat.catroid.ui.dialogs.BrickTextDialog;
 
 import android.content.Context;
 import android.text.InputType;
@@ -31,15 +35,11 @@ import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
-import org.catrobat.catroid.R;
-import org.catrobat.catroid.content.Sprite;
-import org.catrobat.catroid.ui.ScriptTabActivity;
-import org.catrobat.catroid.ui.dialogs.BrickTextDialog;
 
 public class SetBounceFactorBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
 
-	private transient PhysicWorld physicWorld;
+	private PhysicObject physicObject;
 	private Sprite sprite;
 	private float bounceFactor;
 
@@ -48,8 +48,7 @@ public class SetBounceFactorBrick implements Brick, OnClickListener {
 	public SetBounceFactorBrick() {
 	}
 
-	public SetBounceFactorBrick(PhysicWorld physicWorld, Sprite sprite, float bounceFactor) {
-		this.physicWorld = physicWorld;
+	public SetBounceFactorBrick(Sprite sprite, float bounceFactor) {
 		this.sprite = sprite;
 		this.bounceFactor = bounceFactor;
 	}
@@ -61,11 +60,11 @@ public class SetBounceFactorBrick implements Brick, OnClickListener {
 
 	@Override
 	public void execute() {
-		physicWorld.getPhysicObject(sprite).setBounceFactor(bounceFactor / 100.0f);
+		physicObject.setBounceFactor(bounceFactor / 100.0f);
 	}
 
-	public void setPhysicWorld(PhysicWorld physicWorld) {
-		this.physicWorld = physicWorld;
+	public void setPhysicObject(PhysicObject physicObject) {
+		this.physicObject = physicObject;
 	}
 
 	@Override
@@ -91,7 +90,7 @@ public class SetBounceFactorBrick implements Brick, OnClickListener {
 
 	@Override
 	public Brick clone() {
-		return new SetBounceFactorBrick(physicWorld, sprite, bounceFactor);
+		return new SetBounceFactorBrick(sprite, bounceFactor);
 	}
 
 	@Override

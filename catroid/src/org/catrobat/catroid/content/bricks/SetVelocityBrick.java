@@ -24,7 +24,7 @@ package org.catrobat.catroid.content.bricks;
 
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
-import org.catrobat.catroid.physics.PhysicWorld;
+import org.catrobat.catroid.physics.PhysicObject;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.dialogs.BrickTextDialog;
 
@@ -41,7 +41,7 @@ import com.badlogic.gdx.math.Vector2;
 public class SetVelocityBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
 
-	private PhysicWorld physicWorld;
+	private PhysicObject physicObject;
 	private Sprite sprite;
 	private Vector2 velocity;
 
@@ -50,8 +50,7 @@ public class SetVelocityBrick implements Brick, OnClickListener {
 	public SetVelocityBrick() {
 	}
 
-	public SetVelocityBrick(PhysicWorld physicWorld, Sprite sprite, Vector2 velocity) {
-		this.physicWorld = physicWorld;
+	public SetVelocityBrick(Sprite sprite, Vector2 velocity) {
 		this.sprite = sprite;
 		this.velocity = velocity.cpy();
 	}
@@ -63,11 +62,11 @@ public class SetVelocityBrick implements Brick, OnClickListener {
 
 	@Override
 	public void execute() {
-		physicWorld.getPhysicObject(sprite).setVelocity(velocity);
+		physicObject.setVelocity(velocity);
 	}
 
-	public void setPhysicWorld(PhysicWorld physicWorld) {
-		this.physicWorld = physicWorld;
+	public void setPhysicObject(PhysicObject physicObject) {
+		this.physicObject = physicObject;
 	}
 
 	@Override
@@ -97,7 +96,7 @@ public class SetVelocityBrick implements Brick, OnClickListener {
 
 	@Override
 	public Brick clone() {
-		return new SetVelocityBrick(physicWorld, sprite, velocity);
+		return new SetVelocityBrick(sprite, velocity);
 	}
 
 	@Override

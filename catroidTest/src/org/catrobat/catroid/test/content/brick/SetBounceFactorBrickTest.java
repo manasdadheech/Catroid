@@ -21,7 +21,8 @@ public class SetBounceFactorBrickTest extends TestCase {
 
 		sprite = new Sprite("testSprite");
 		physicWorld = new PhysicWorldMock();
-		bounceFactorBrick = new SetBounceFactorBrick(physicWorld, sprite, bounceFactor);
+		bounceFactorBrick = new SetBounceFactorBrick(sprite, bounceFactor);
+		bounceFactorBrick.setPhysicObject(physicWorld.getPhysicObject(sprite));
 	}
 
 	@Override
@@ -61,8 +62,8 @@ public class SetBounceFactorBrickTest extends TestCase {
 		assertEquals(bounceFactor / 100.0f, physicObjectMock.executedWithBounceFactor);
 	}
 
-	public void testNullSprite() {
-		bounceFactorBrick = new SetBounceFactorBrick(null, sprite, bounceFactor);
+	public void testUnsetPhysicObject() {
+		bounceFactorBrick = new SetBounceFactorBrick(sprite, bounceFactor);
 		try {
 			bounceFactorBrick.execute();
 			fail("Execution of SetBounceFactorBrick with null Sprite did not cause a "

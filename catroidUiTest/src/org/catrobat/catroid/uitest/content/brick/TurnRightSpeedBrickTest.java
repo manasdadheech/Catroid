@@ -2,10 +2,6 @@ package org.catrobat.catroid.uitest.content.brick;
 
 import java.util.ArrayList;
 
-import org.catrobat.catroid.content.bricks.TurnLeftSpeedBrick;
-
-import android.test.ActivityInstrumentationTestCase2;
-import android.test.suitebuilder.annotation.Smoke;
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Project;
@@ -13,20 +9,24 @@ import org.catrobat.catroid.content.Script;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.StartScript;
 import org.catrobat.catroid.content.bricks.Brick;
+import org.catrobat.catroid.content.bricks.TurnLeftSpeedBrick;
 import org.catrobat.catroid.ui.MainMenuActivity;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.adapter.BrickAdapter;
 import org.catrobat.catroid.ui.fragment.ScriptFragment;
 import org.catrobat.catroid.uitest.util.UiTestUtils;
 
+import android.test.ActivityInstrumentationTestCase2;
+import android.test.suitebuilder.annotation.Smoke;
+
 import com.jayway.android.robotium.solo.Solo;
 
-public class LeftRotationSpeedBrickTest extends ActivityInstrumentationTestCase2<MainMenuActivity> {
+public class TurnRightSpeedBrickTest extends ActivityInstrumentationTestCase2<MainMenuActivity> {
 	private Solo solo;
 	private Project project;
-	private TurnLeftSpeedBrick setAngularVelocityBrick;
+	private TurnLeftSpeedBrick turnRightSpeedBrick;
 
-	public LeftRotationSpeedBrickTest() {
+	public TurnRightSpeedBrickTest() {
 		super(MainMenuActivity.class);
 	}
 
@@ -70,7 +70,7 @@ public class LeftRotationSpeedBrickTest extends ActivityInstrumentationTestCase2
 		float angularVelocity = 10.0f;
 
 		UiTestUtils.clickEnterClose(solo, 0, Float.toString(angularVelocity));
-		float actualAngularVelocity = (Float) UiTestUtils.getPrivateField("degreesPerSec", setAngularVelocityBrick);
+		float actualAngularVelocity = (Float) UiTestUtils.getPrivateField("degreesPerSec", turnRightSpeedBrick);
 		assertEquals("Text not updated", Float.toString(angularVelocity), solo.getEditText(0).getText().toString());
 		assertEquals("Value in Brick is not updated", angularVelocity, actualAngularVelocity);
 	}
@@ -88,8 +88,8 @@ public class LeftRotationSpeedBrickTest extends ActivityInstrumentationTestCase2
 		project = new Project(null, "testProject");
 		Sprite sprite = new Sprite("cat");
 		Script script = new StartScript(sprite);
-		setAngularVelocityBrick = new TurnLeftSpeedBrick(null, sprite, 0.0f);
-		script.addBrick(setAngularVelocityBrick);
+		turnRightSpeedBrick = new TurnLeftSpeedBrick(sprite, 0.0f);
+		script.addBrick(turnRightSpeedBrick);
 
 		sprite.addScript(script);
 		project.addSprite(sprite);

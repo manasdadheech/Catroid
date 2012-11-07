@@ -25,7 +25,6 @@ package org.catrobat.catroid.content.bricks;
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.physics.PhysicObject;
-import org.catrobat.catroid.physics.PhysicWorld;
 
 import android.content.Context;
 import android.view.View;
@@ -38,7 +37,7 @@ import android.widget.Spinner;
 public class SetPhysicObjectTypeBrick implements Brick {
 	private static final long serialVersionUID = 1L;
 
-	private transient PhysicWorld physicWorld;
+	private PhysicObject physicObject;
 	private Sprite sprite;
 	private int type;
 
@@ -47,8 +46,7 @@ public class SetPhysicObjectTypeBrick implements Brick {
 	public SetPhysicObjectTypeBrick() {
 	}
 
-	public SetPhysicObjectTypeBrick(PhysicWorld physicWorld, Sprite sprite, PhysicObject.Type type) {
-		this.physicWorld = physicWorld;
+	public SetPhysicObjectTypeBrick(Sprite sprite, PhysicObject.Type type) {
 		this.sprite = sprite;
 		this.type = type.ordinal();
 	}
@@ -61,16 +59,21 @@ public class SetPhysicObjectTypeBrick implements Brick {
 	@Override
 	public void execute() {
 		PhysicObject.Type physicObjectType = PhysicObject.Type.values()[type];
-		physicWorld.getPhysicObject(sprite).setType(physicObjectType);
+		physicObject.setType(physicObjectType);
 	}
 
-	public void setPhysicWorld(PhysicWorld physicWorld) {
-		this.physicWorld = physicWorld;
+	public void setPhysicObject(PhysicObject physicObject) {
+		this.physicObject = physicObject;
 	}
 
 	@Override
 	public Sprite getSprite() {
 		return this.sprite;
+	}
+
+	@Override
+	public Brick clone() {
+		return new SetPhysicObjectTypeBrick(sprite, PhysicObject.Type.values()[type]);
 	}
 
 	@Override
@@ -124,10 +127,5 @@ public class SetPhysicObjectTypeBrick implements Brick {
 	@Override
 	public View getPrototypeView(Context context) {
 		return View.inflate(context, R.layout.brick_set_physic_object_type, null);
-	}
-
-	@Override
-	public Brick clone() {
-		return new SetPhysicObjectTypeBrick(physicWorld, sprite, PhysicObject.Type.values()[type]);
 	}
 }

@@ -22,7 +22,8 @@ public class SetGravityBrickTest extends AndroidTestCase {
 
 		sprite = new Sprite("testSprite");
 		physicWorld = new PhysicWorldMock();
-		setGravityBrick = new SetGravityBrick(physicWorld, sprite, gravity);
+		setGravityBrick = new SetGravityBrick(sprite, gravity);
+		setGravityBrick.setPhysicWorld(physicWorld);
 	}
 
 	@Override
@@ -60,8 +61,8 @@ public class SetGravityBrickTest extends AndroidTestCase {
 		assertEquals(gravity, physicWorldMock.executedWithGravity);
 	}
 
-	public void testNullSprite() {
-		setGravityBrick = new SetGravityBrick(null, sprite, gravity);
+	public void testNullPhysicWorld() {
+		setGravityBrick = new SetGravityBrick(sprite, gravity);
 		try {
 			setGravityBrick.execute();
 			fail("Execution of SetGravityBrick with null Sprite did not cause a " + "NullPointerException to be thrown");

@@ -81,13 +81,6 @@ public class PhysicBoundaryBoxTest extends AndroidTestCase {
 		List<Float> boundaryYValues = Arrays.asList(new Float[] { -(halfHeight + frameSize), -halfHeight, halfHeight,
 				halfHeight + frameSize });
 
-		// TODO: Implement these values to check correctness:
-		//		Rect upperBoundaryBox = new Rect(-400, 320, 400, 325);
-		//		Rect lowerBoundaryBox = new Rect(-400, -320, 400, -325);
-		//
-		//		Rect leftBoundaryBox = new Rect(-405, -320, -400, 325);
-		//		Rect rightBoundaryBox = new Rect(400, -320, 405, 325);
-
 		assertEquals(0, world.getBodyCount());
 		new PhysicBoundaryBox(world).create();
 		assertEquals(4, world.getBodyCount());

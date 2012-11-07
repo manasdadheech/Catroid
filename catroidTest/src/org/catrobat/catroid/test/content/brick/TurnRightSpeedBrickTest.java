@@ -20,7 +20,8 @@ public class TurnRightSpeedBrickTest extends TestCase {
 
 		physicWorld = new PhysicWorldMock();
 		sprite = new Sprite("TestSprite");
-		turnRightSpeedBrick = new TurnRightSpeedBrick(physicWorld, sprite, degreesPerSecond);
+		turnRightSpeedBrick = new TurnRightSpeedBrick(sprite, degreesPerSecond);
+		turnRightSpeedBrick.setPhysicObject(physicWorld.getPhysicObject(sprite));
 	}
 
 	@Override
@@ -58,8 +59,8 @@ public class TurnRightSpeedBrickTest extends TestCase {
 		assertEquals(-degreesPerSecond, physicObjectMock.executedWithDegrees);
 	}
 
-	public void testNullSprite() {
-		turnRightSpeedBrick = new TurnRightSpeedBrick(null, sprite, degreesPerSecond);
+	public void testNullPhysicObject() {
+		turnRightSpeedBrick = new TurnRightSpeedBrick(sprite, degreesPerSecond);
 		try {
 			turnRightSpeedBrick.execute();
 			fail("Execution of SetAngularVelocityBrick with null Sprite did not cause a "

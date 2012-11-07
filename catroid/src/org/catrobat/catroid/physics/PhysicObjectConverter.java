@@ -24,7 +24,6 @@ package org.catrobat.catroid.physics;
 
 import java.lang.reflect.Method;
 
-import org.catrobat.catroid.content.Costume;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Script;
 import org.catrobat.catroid.content.Sprite;
@@ -53,30 +52,44 @@ public class PhysicObjectConverter {
 		PhysicShapeBuilder physicShapeBuilder = new PhysicShapeBuilder();
 
 		for (Sprite sprite : project.getSpriteList()) {
+			PhysicObject physicObject = null;
+
 			for (int scriptIndex = 0; scriptIndex < sprite.getNumberOfScripts(); scriptIndex++) {
 				Script script = sprite.getScript(scriptIndex);
 
 				for (Brick brick : script.getBrickList()) {
-					if (isPhysicBrick(brick)) {
-						if (sprite.costume instanceof Costume) {
-							PhysicObject physicObject = physicWorld.getPhysicObject(sprite);
+					if (hasPhysicWorld(brick)) {
+						setPhysicWorld(brick);
+					} else if (hasPhysicObject(brick)) {
+						if (physicObject == null) {
+							physicObject = physicWorld.getPhysicObject(sprite);
 							sprite.costume = new PhysicCostume(sprite, physicShapeBuilder, physicObject);
 						}
-						setPhysicWorld(brick);
+						setPhysicObject(brick, physicObject);
 					}
 				}
 			}
 		}
 	}
 
-	private boolean isPhysicBrick(Brick brick) {
-		if (brick instanceof SetPhysicObjectTypeBrick || brick instanceof SetMassBrick
-				|| brick instanceof SetGravityBrick || brick instanceof SetVelocityBrick
-				|| brick instanceof TurnLeftSpeedBrick || brick instanceof TurnRightSpeedBrick
-				|| brick instanceof SetBounceFactorBrick || brick instanceof SetFrictionBrick) {
-			return true;
-		} else {
-			return false;
+	private boolean hasPhysicObject(Brick brick) {
+		return (brick instanceof SetPhysicObjectTypeBrick || brick instanceof SetMassBrick
+				|| brick instanceof SetVelocityBrick || brick instanceof TurnLeftSpeedBrick
+				|| brick instanceof TurnRightSpeedBrick || brick instanceof SetBounceFactorBrick || brick instanceof SetFrictionBrick);
+	}
+
+	private boolean hasPhysicWorld(Brick brick) {
+		return (brick instanceof SetGravityBrick);
+	}
+
+	private void setPhysicObject(Brick brick, PhysicObject physicObject) {
+		Class<?>[] classes = { PhysicObject.class };
+		Method setter;
+		try {
+			setter = brick.getClass().getDeclaredMethod("setPhysicObject", classes);
+			setter.invoke(brick, physicObject);
+		} catch (Exception exception) {
+			exception.printStackTrace();
 		}
 	}
 

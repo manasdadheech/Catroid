@@ -2,11 +2,6 @@ package org.catrobat.catroid.uitest.content.brick;
 
 import java.util.ArrayList;
 
-import org.catrobat.catroid.content.bricks.SetFrictionBrick;
-
-import android.test.ActivityInstrumentationTestCase2;
-import android.test.suitebuilder.annotation.Smoke;
-import android.widget.EditText;
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Project;
@@ -14,10 +9,15 @@ import org.catrobat.catroid.content.Script;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.StartScript;
 import org.catrobat.catroid.content.bricks.Brick;
+import org.catrobat.catroid.content.bricks.SetFrictionBrick;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.adapter.BrickAdapter;
 import org.catrobat.catroid.ui.fragment.ScriptFragment;
 import org.catrobat.catroid.uitest.util.UiTestUtils;
+
+import android.test.ActivityInstrumentationTestCase2;
+import android.test.suitebuilder.annotation.Smoke;
+import android.widget.EditText;
 
 import com.jayway.android.robotium.solo.Solo;
 
@@ -91,7 +91,7 @@ public class SetFrictionBrickTest extends ActivityInstrumentationTestCase2<Scrip
 		project = new Project(null, "testProject");
 		Sprite sprite = new Sprite("cat");
 		Script script = new StartScript(sprite);
-		setFrictionBrick = new SetFrictionBrick(null, sprite, 0.0f);
+		setFrictionBrick = new SetFrictionBrick(sprite, 0.0f);
 		script.addBrick(setFrictionBrick);
 
 		sprite.addScript(script);

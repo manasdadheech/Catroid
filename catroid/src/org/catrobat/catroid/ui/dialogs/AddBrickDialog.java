@@ -246,22 +246,19 @@ public class AddBrickDialog extends DialogFragment {
 		motionBrickList.add(new PointToBrick(sprite, null));
 		motionBrickList.add(new GlideToBrick(sprite, 800, 0, 1000));
 
-		// XXX: PhysicWorld is created in StageListener.
-		PhysicWorld physicWorld = null;
 		if (!isBackground(sprite)) {
 			motionBrickList.add(new GoNStepsBackBrick(sprite, 1));
 			motionBrickList.add(new ComeToFrontBrick(sprite));
 
-			motionBrickList.add(new SetPhysicObjectTypeBrick(physicWorld, sprite, Type.DYNAMIC));
-			motionBrickList.add(new SetMassBrick(physicWorld, sprite, PhysicObject.DEFAULT_MASS));
-			motionBrickList
-					.add(new SetBounceFactorBrick(physicWorld, sprite, PhysicObject.DEFAULT_BOUNCE_FACTOR * 100));
-			motionBrickList.add(new SetFrictionBrick(physicWorld, sprite, PhysicObject.DEFAULT_FRICTION * 100));
+			motionBrickList.add(new SetPhysicObjectTypeBrick(sprite, Type.DYNAMIC));
+			motionBrickList.add(new SetMassBrick(sprite, PhysicObject.DEFAULT_MASS));
+			motionBrickList.add(new SetBounceFactorBrick(sprite, PhysicObject.DEFAULT_BOUNCE_FACTOR * 100));
+			motionBrickList.add(new SetFrictionBrick(sprite, PhysicObject.DEFAULT_FRICTION * 100));
 		}
-		motionBrickList.add(new SetGravityBrick(physicWorld, sprite, PhysicWorld.DEFAULT_GRAVITY));
-		motionBrickList.add(new SetVelocityBrick(physicWorld, sprite, new Vector2()));
-		motionBrickList.add(new TurnLeftSpeedBrick(physicWorld, sprite, 15.0f));
-		motionBrickList.add(new TurnRightSpeedBrick(physicWorld, sprite, 15.0f));
+		motionBrickList.add(new SetGravityBrick(sprite, PhysicWorld.DEFAULT_GRAVITY));
+		motionBrickList.add(new SetVelocityBrick(sprite, new Vector2()));
+		motionBrickList.add(new TurnLeftSpeedBrick(sprite, 15.0f));
+		motionBrickList.add(new TurnRightSpeedBrick(sprite, 15.0f));
 		brickMap.put(context.getString(R.string.category_motion), motionBrickList);
 
 		List<Brick> looksBrickList = new ArrayList<Brick>();

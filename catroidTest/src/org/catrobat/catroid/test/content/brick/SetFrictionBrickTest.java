@@ -20,7 +20,8 @@ public class SetFrictionBrickTest extends TestCase {
 
 		sprite = new Sprite("testSprite");
 		physicWorld = new PhysicWorldMock();
-		frictionBrick = new SetFrictionBrick(physicWorld, sprite, friction);
+		frictionBrick = new SetFrictionBrick(sprite, friction);
+		frictionBrick.setPhysicObject(physicWorld.getPhysicObject(sprite));
 	}
 
 	@Override
@@ -58,8 +59,8 @@ public class SetFrictionBrickTest extends TestCase {
 		assertEquals(friction / 100.0f, physicObjectMock.executedWithFriction);
 	}
 
-	public void testNullSprite() {
-		frictionBrick = new SetFrictionBrick(null, sprite, friction);
+	public void testNullPhysicObject() {
+		frictionBrick = new SetFrictionBrick(sprite, friction);
 		try {
 			frictionBrick.execute();
 			fail("Execution of SetFrictionBrick with null Sprite did not cause a "

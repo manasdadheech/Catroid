@@ -41,7 +41,7 @@ import com.badlogic.gdx.math.Vector2;
 public class SetGravityBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
 
-	private transient PhysicWorld physicWorld;
+	private PhysicWorld physicWorld;
 	private Sprite sprite;
 	private Vector2 gravity;
 
@@ -50,8 +50,7 @@ public class SetGravityBrick implements Brick, OnClickListener {
 	public SetGravityBrick() {
 	}
 
-	public SetGravityBrick(PhysicWorld physicWorld, Sprite sprite, Vector2 gravity) {
-		this.physicWorld = physicWorld;
+	public SetGravityBrick(Sprite sprite, Vector2 gravity) {
 		this.sprite = sprite;
 		this.gravity = gravity.cpy();
 	}
@@ -99,7 +98,7 @@ public class SetGravityBrick implements Brick, OnClickListener {
 
 	@Override
 	public Brick clone() {
-		return new SetGravityBrick(physicWorld, sprite, gravity);
+		return new SetGravityBrick(sprite, gravity);
 	}
 
 	@Override

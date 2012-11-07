@@ -9,7 +9,8 @@ import org.catrobat.catroid.content.Script;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.StartScript;
 import org.catrobat.catroid.content.bricks.Brick;
-import org.catrobat.catroid.content.bricks.SetGravityBrick;
+import org.catrobat.catroid.content.bricks.TurnLeftSpeedBrick;
+import org.catrobat.catroid.ui.MainMenuActivity;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.adapter.BrickAdapter;
 import org.catrobat.catroid.ui.fragment.ScriptFragment;
@@ -18,16 +19,15 @@ import org.catrobat.catroid.uitest.util.UiTestUtils;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.Smoke;
 
-import com.badlogic.gdx.math.Vector2;
 import com.jayway.android.robotium.solo.Solo;
 
-public class SetGravityTest extends ActivityInstrumentationTestCase2<ScriptTabActivity> {
+public class TurnLeftSpeedBrickTest extends ActivityInstrumentationTestCase2<MainMenuActivity> {
 	private Solo solo;
 	private Project project;
-	private SetGravityBrick setGravityBrick;
+	private TurnLeftSpeedBrick turnLeftSpeedBrick;
 
-	public SetGravityTest() {
-		super(ScriptTabActivity.class);
+	public TurnLeftSpeedBrickTest() {
+		super(MainMenuActivity.class);
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class SetGravityTest extends ActivityInstrumentationTestCase2<ScriptTabAc
 	}
 
 	@Smoke
-	public void testSetGravityByBrick() {
+	public void testSetAngularVelocityBrick() {
 		ScriptTabActivity activity = (ScriptTabActivity) solo.getCurrentActivity();
 		ScriptFragment fragment = (ScriptFragment) activity.getTabFragment(ScriptTabActivity.INDEX_TAB_SCRIPTS);
 		BrickAdapter adapter = fragment.getAdapter();
@@ -64,24 +64,20 @@ public class SetGravityTest extends ActivityInstrumentationTestCase2<ScriptTabAc
 		assertEquals("Incorrect number of bricks.", 1, projectBrickList.size());
 
 		assertEquals("Wrong Brick instance.", projectBrickList.get(0), adapter.getChild(groupCount - 1, 0));
-		String textSetGravity = solo.getString(R.string.brick_set_gravity);
-		assertNotNull("TextView does not exist.", solo.getText(textSetGravity));
-		Vector2 gravity = new Vector2(1.2f, -3.4f);
+		String textSetRotationSpeed = solo.getString(R.string.brick_turn_left_speed);
+		assertNotNull("TextView does not exist.", solo.getText(textSetRotationSpeed));
 
-		UiTestUtils.clickEnterClose(solo, 0, Float.toString(gravity.x));
-		Vector2 actualGravity = (Vector2) UiTestUtils.getPrivateField("gravity", setGravityBrick);
-		assertEquals("Text not updated", Float.toString(gravity.x), solo.getEditText(0).getText().toString());
-		assertEquals("Value in Brick is not updated", gravity.x, actualGravity.x);
+		float angularVelocity = 10.0f;
 
-		UiTestUtils.clickEnterClose(solo, 1, Float.toString(gravity.y));
-		actualGravity = (Vector2) UiTestUtils.getPrivateField("gravity", setGravityBrick);
-		assertEquals("Text not updated", Float.toString(gravity.y), solo.getEditText(1).getText().toString());
-		assertEquals("Value in Brick is not updated", gravity.y, actualGravity.y);
+		UiTestUtils.clickEnterClose(solo, 0, Float.toString(angularVelocity));
+		float actualAngularVelocity = (Float) UiTestUtils.getPrivateField("degreesPerSec", turnLeftSpeedBrick);
+		assertEquals("Text not updated", Float.toString(angularVelocity), solo.getEditText(0).getText().toString());
+		assertEquals("Value in Brick is not updated", angularVelocity, actualAngularVelocity);
 	}
 
 	public void testResizeInputField() {
-		for (int editTextIndex = 0; editTextIndex < 2; editTextIndex++) {
-			UiTestUtils.testDoubleEditText(solo, editTextIndex, 123456.0, 50, false);
+		for (int editTextIndex = 0; editTextIndex < 1; editTextIndex++) {
+			UiTestUtils.testDoubleEditText(solo, editTextIndex, 123456789.0, 50, false);
 			UiTestUtils.testDoubleEditText(solo, editTextIndex, 1.0, 50, true);
 			UiTestUtils.testDoubleEditText(solo, editTextIndex, 123.0, 50, true);
 			UiTestUtils.testDoubleEditText(solo, editTextIndex, -1, 50, true);
@@ -92,8 +88,8 @@ public class SetGravityTest extends ActivityInstrumentationTestCase2<ScriptTabAc
 		project = new Project(null, "testProject");
 		Sprite sprite = new Sprite("cat");
 		Script script = new StartScript(sprite);
-		setGravityBrick = new SetGravityBrick(sprite, new Vector2(0, 0));
-		script.addBrick(setGravityBrick);
+		turnLeftSpeedBrick = new TurnLeftSpeedBrick(sprite, 0.0f);
+		script.addBrick(turnLeftSpeedBrick);
 
 		sprite.addScript(script);
 		project.addSprite(sprite);

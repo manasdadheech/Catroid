@@ -25,7 +25,6 @@ package org.catrobat.catroid.content.bricks;
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.physics.PhysicObject;
-import org.catrobat.catroid.physics.PhysicWorld;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.dialogs.BrickTextDialog;
 
@@ -40,7 +39,7 @@ import android.widget.Toast;
 public class SetMassBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
 
-	private transient PhysicWorld physicWorld;
+	private PhysicObject physicObject;
 	private Sprite sprite;
 	private float mass;
 
@@ -49,8 +48,7 @@ public class SetMassBrick implements Brick, OnClickListener {
 	public SetMassBrick() {
 	}
 
-	public SetMassBrick(PhysicWorld physicWorld, Sprite sprite, float mass) {
-		this.physicWorld = physicWorld;
+	public SetMassBrick(Sprite sprite, float mass) {
 		this.sprite = sprite;
 		this.mass = mass;
 	}
@@ -62,11 +60,11 @@ public class SetMassBrick implements Brick, OnClickListener {
 
 	@Override
 	public void execute() {
-		physicWorld.getPhysicObject(sprite).setMass(mass);
+		physicObject.setMass(mass);
 	}
 
-	public void setPhysicWorld(PhysicWorld physicWorld) {
-		this.physicWorld = physicWorld;
+	public void setPhysicObject(PhysicObject physicObject) {
+		this.physicObject = physicObject;
 	}
 
 	@Override
@@ -92,7 +90,7 @@ public class SetMassBrick implements Brick, OnClickListener {
 
 	@Override
 	public Brick clone() {
-		return new SetMassBrick(physicWorld, getSprite(), mass);
+		return new SetMassBrick(getSprite(), mass);
 	}
 
 	@Override

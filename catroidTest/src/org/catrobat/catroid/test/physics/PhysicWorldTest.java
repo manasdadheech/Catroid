@@ -68,7 +68,7 @@ public class PhysicWorldTest extends AndroidTestCase {
 			@SuppressWarnings("unused")
 			PhysicObject physicObject = physicWorld.getPhysicObject(null);
 			fail();
-		} catch (Exception exception) {
+		} catch (NullPointerException exception) {
 			// Expected behavior
 		}
 	}
@@ -81,10 +81,6 @@ public class PhysicWorldTest extends AndroidTestCase {
 		assertEquals(1, physicObjects.size());
 		assertTrue(physicObjects.containsKey(sprite));
 		assertTrue(physicObjects.containsValue(physicObject));
-	}
-
-	public void testGetPhysicObjectCallsCreateObject() {
-		// XXX: How to test?
 	}
 
 	public void testCreatePhysicObject() {
@@ -111,7 +107,8 @@ public class PhysicWorldTest extends AndroidTestCase {
 		for (int pass = 0; pass < stepPasses; pass++) {
 			physicWorld.step(100.0f);
 			stabilizingStep = (Integer) TestUtils.getPrivateField("stabilizingStep", physicWorld, false);
-			assertTrue((stabilizingStep == (pass + 1)) || (stabilizingStep == PhysicWorld.STABILIZING_STEPS));
+			assertTrue(((stabilizingStep == (pass + 1)) && (stabilizingStep < PhysicWorld.STABILIZING_STEPS))
+					|| (stabilizingStep == PhysicWorld.STABILIZING_STEPS));
 		}
 	}
 

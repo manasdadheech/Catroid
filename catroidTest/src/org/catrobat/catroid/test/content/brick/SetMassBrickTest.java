@@ -21,7 +21,8 @@ public class SetMassBrickTest extends AndroidTestCase {
 
 		sprite = new Sprite("testSprite");
 		physicWorld = new PhysicWorldMock();
-		setMassBrick = new SetMassBrick(physicWorld, sprite, mass);
+		setMassBrick = new SetMassBrick(sprite, mass);
+		setMassBrick.setPhysicObject(physicWorld.getPhysicObject(sprite));
 	}
 
 	@Override
@@ -59,8 +60,8 @@ public class SetMassBrickTest extends AndroidTestCase {
 		assertEquals(mass, physicObjectMock.executedWithMass);
 	}
 
-	public void testNullSprite() {
-		setMassBrick = new SetMassBrick(null, sprite, mass);
+	public void testNullPhysicObject() {
+		setMassBrick = new SetMassBrick(sprite, mass);
 		try {
 			setMassBrick.execute();
 			fail("Execution of SetMassBrick with null Sprite did not cause a " + "NullPointerException to be thrown");

@@ -2,11 +2,6 @@ package org.catrobat.catroid.uitest.content.brick;
 
 import java.util.ArrayList;
 
-import org.catrobat.catroid.content.bricks.SetPhysicObjectTypeBrick;
-import org.catrobat.catroid.physics.PhysicObject;
-
-import android.test.ActivityInstrumentationTestCase2;
-import android.test.suitebuilder.annotation.Smoke;
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Project;
@@ -14,9 +9,14 @@ import org.catrobat.catroid.content.Script;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.StartScript;
 import org.catrobat.catroid.content.bricks.Brick;
+import org.catrobat.catroid.content.bricks.SetPhysicObjectTypeBrick;
+import org.catrobat.catroid.physics.PhysicObject;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.adapter.BrickAdapter;
 import org.catrobat.catroid.ui.fragment.ScriptFragment;
+
+import android.test.ActivityInstrumentationTestCase2;
+import android.test.suitebuilder.annotation.Smoke;
 
 import com.jayway.android.robotium.solo.Solo;
 
@@ -86,7 +86,7 @@ public class SetPhysicObjectTypeBrickTest extends ActivityInstrumentationTestCas
 		Sprite sprite = new Sprite("cat");
 		Script script = new StartScript(sprite);
 		PhysicObject.Type type = PhysicObject.Type.DYNAMIC;
-		setPhysicObjectTypeBrick = new SetPhysicObjectTypeBrick(null, sprite, type);
+		setPhysicObjectTypeBrick = new SetPhysicObjectTypeBrick(sprite, type);
 		script.addBrick(setPhysicObjectTypeBrick);
 
 		sprite.addScript(script);

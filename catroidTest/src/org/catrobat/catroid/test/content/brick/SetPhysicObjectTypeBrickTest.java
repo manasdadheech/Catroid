@@ -22,7 +22,8 @@ public class SetPhysicObjectTypeBrickTest extends AndroidTestCase {
 		sprite = new Sprite("testSprite");
 		physicWorld = new PhysicWorldMock();
 		type = Type.DYNAMIC;
-		setPhysicObjectTypeBrickTest = new SetPhysicObjectTypeBrick(physicWorld, sprite, type);
+		setPhysicObjectTypeBrickTest = new SetPhysicObjectTypeBrick(sprite, type);
+		setPhysicObjectTypeBrickTest.setPhysicObject(physicWorld.getPhysicObject(sprite));
 	}
 
 	@Override
@@ -62,8 +63,8 @@ public class SetPhysicObjectTypeBrickTest extends AndroidTestCase {
 		assertEquals(type, physicObjectMock.executedWithType);
 	}
 
-	public void testNullSprite() {
-		setPhysicObjectTypeBrickTest = new SetPhysicObjectTypeBrick(physicWorld, null, type);
+	public void testNullPhysicObject() {
+		setPhysicObjectTypeBrickTest = new SetPhysicObjectTypeBrick(null, type);
 		try {
 			setPhysicObjectTypeBrickTest.execute();
 			fail("Execution of SetPhysicObjectTypeBrick with null Sprite did not cause a "

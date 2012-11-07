@@ -23,7 +23,8 @@ public class SetVelocityBrickTest extends AndroidTestCase {
 
 		sprite = new Sprite("testSprite");
 		physicWorld = new PhysicWorldMock();
-		setVelocityBrick = new SetVelocityBrick(physicWorld, sprite, velocity);
+		setVelocityBrick = new SetVelocityBrick(sprite, velocity);
+		setVelocityBrick.setPhysicObject(physicWorld.getPhysicObject(sprite));
 	}
 
 	@Override
@@ -64,8 +65,8 @@ public class SetVelocityBrickTest extends AndroidTestCase {
 		assertEquals(velocity, physicObjectMock.executedWithVelocity);
 	}
 
-	public void testNullSprite() {
-		setVelocityBrick = new SetVelocityBrick(null, sprite, velocity);
+	public void testNullPhysicObject() {
+		setVelocityBrick = new SetVelocityBrick(sprite, velocity);
 		try {
 			setVelocityBrick.execute();
 			fail("Execution of SetVelocityBrick with null Sprite did not cause a "

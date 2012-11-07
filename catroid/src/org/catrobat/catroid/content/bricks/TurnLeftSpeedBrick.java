@@ -24,7 +24,7 @@ package org.catrobat.catroid.content.bricks;
 
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
-import org.catrobat.catroid.physics.PhysicWorld;
+import org.catrobat.catroid.physics.PhysicObject;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.dialogs.BrickTextDialog;
 
@@ -39,7 +39,7 @@ import android.widget.Toast;
 public class TurnLeftSpeedBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
 
-	private transient PhysicWorld physicWorld;
+	private PhysicObject physicObject;
 	private Sprite sprite;
 	private float degreesPerSec;
 
@@ -48,8 +48,7 @@ public class TurnLeftSpeedBrick implements Brick, OnClickListener {
 	public TurnLeftSpeedBrick() {
 	}
 
-	public TurnLeftSpeedBrick(PhysicWorld physicWorld, Sprite sprite, float degrees) {
-		this.physicWorld = physicWorld;
+	public TurnLeftSpeedBrick(Sprite sprite, float degrees) {
 		this.sprite = sprite;
 		this.degreesPerSec = degrees;
 	}
@@ -61,11 +60,11 @@ public class TurnLeftSpeedBrick implements Brick, OnClickListener {
 
 	@Override
 	public void execute() {
-		physicWorld.getPhysicObject(sprite).setRotationSpeed(degreesPerSec);
+		physicObject.setRotationSpeed(degreesPerSec);
 	}
 
-	public void setPhysicWorld(PhysicWorld physicWorld) {
-		this.physicWorld = physicWorld;
+	public void setPhysicObject(PhysicObject physicObject) {
+		this.physicObject = physicObject;
 	}
 
 	@Override
@@ -92,7 +91,7 @@ public class TurnLeftSpeedBrick implements Brick, OnClickListener {
 
 	@Override
 	public Brick clone() {
-		return new TurnLeftSpeedBrick(physicWorld, sprite, degreesPerSec);
+		return new TurnLeftSpeedBrick(sprite, degreesPerSec);
 	}
 
 	@Override

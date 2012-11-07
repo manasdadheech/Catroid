@@ -2,10 +2,6 @@ package org.catrobat.catroid.uitest.content.brick;
 
 import java.util.ArrayList;
 
-import org.catrobat.catroid.content.bricks.SetVelocityBrick;
-
-import android.test.ActivityInstrumentationTestCase2;
-import android.test.suitebuilder.annotation.Smoke;
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Project;
@@ -13,10 +9,14 @@ import org.catrobat.catroid.content.Script;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.StartScript;
 import org.catrobat.catroid.content.bricks.Brick;
+import org.catrobat.catroid.content.bricks.SetVelocityBrick;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.adapter.BrickAdapter;
 import org.catrobat.catroid.ui.fragment.ScriptFragment;
 import org.catrobat.catroid.uitest.util.UiTestUtils;
+
+import android.test.ActivityInstrumentationTestCase2;
+import android.test.suitebuilder.annotation.Smoke;
 
 import com.badlogic.gdx.math.Vector2;
 import com.jayway.android.robotium.solo.Solo;
@@ -92,7 +92,7 @@ public class SetVelocityBrickTest extends ActivityInstrumentationTestCase2<Scrip
 		project = new Project(null, "testProject");
 		Sprite sprite = new Sprite("cat");
 		Script script = new StartScript(sprite);
-		setVelocityBrick = new SetVelocityBrick(null, sprite, new Vector2());
+		setVelocityBrick = new SetVelocityBrick(sprite, new Vector2());
 		script.addBrick(setVelocityBrick);
 
 		sprite.addScript(script);

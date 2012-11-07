@@ -6,30 +6,30 @@ import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.TurnRightSpeedBrick;
 import org.catrobat.catroid.physics.PhysicObject;
-import org.catrobat.catroid.physics.PhysicWorld;
+import org.catrobat.catroid.test.utils.TestUtils;
 
 public class TurnRightSpeedBrickTest extends TestCase {
 	private float degreesPerSecond = 45.0f;
-	private PhysicWorld physicWorld;
-	private Sprite sprite;
 	private TurnRightSpeedBrick turnRightSpeedBrick;
+	private Sprite sprite;
+	private PhysicObjectMock physicObjectMock;
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 
-		physicWorld = new PhysicWorldMock();
 		sprite = new Sprite("TestSprite");
+		physicObjectMock = new PhysicObjectMock();
 		turnRightSpeedBrick = new TurnRightSpeedBrick(sprite, degreesPerSecond);
-		turnRightSpeedBrick.setPhysicObject(physicWorld.getPhysicObject(sprite));
+		turnRightSpeedBrick.setPhysicObject(physicObjectMock);
 	}
 
 	@Override
 	protected void tearDown() throws Exception {
 		super.tearDown();
 
-		physicWorld = null;
 		sprite = null;
+		physicObjectMock = null;
 		turnRightSpeedBrick = null;
 	}
 
@@ -41,6 +41,10 @@ public class TurnRightSpeedBrickTest extends TestCase {
 		assertEquals(turnRightSpeedBrick.getSprite(), sprite);
 	}
 
+	public void testSetPhysicObject() {
+		assertEquals(physicObjectMock, TestUtils.getPrivateField("physicObject", turnRightSpeedBrick, false));
+	}
+
 	public void testClone() {
 		Brick clone = turnRightSpeedBrick.clone();
 
@@ -49,9 +53,8 @@ public class TurnRightSpeedBrickTest extends TestCase {
 	}
 
 	public void testExecution() {
-		PhysicObjectMock physicObjectMock = (PhysicObjectMock) physicWorld.getPhysicObject(sprite);
-
 		assertFalse(physicObjectMock.executed);
+		assertNotSame(-degreesPerSecond, physicObjectMock.executedWithDegrees);
 
 		turnRightSpeedBrick.execute();
 
@@ -67,15 +70,6 @@ public class TurnRightSpeedBrickTest extends TestCase {
 					+ "NullPointerException to be thrown");
 		} catch (NullPointerException expected) {
 			// expected behavior
-		}
-	}
-
-	private class PhysicWorldMock extends PhysicWorld {
-		public PhysicObjectMock physicObjectMock = new PhysicObjectMock();
-
-		@Override
-		public PhysicObject getPhysicObject(Sprite sprite) {
-			return physicObjectMock;
 		}
 	}
 

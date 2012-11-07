@@ -39,7 +39,7 @@ import android.widget.Toast;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class SetVelocityBrick implements Brick, PhysicObjectBrick, OnClickListener {
+public class SetVelocityBrick implements PhysicObjectBrick, OnClickListener {
 	private static final long serialVersionUID = 1L;
 
 	private PhysicObject physicObject;

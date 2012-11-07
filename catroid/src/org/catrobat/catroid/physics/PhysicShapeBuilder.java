@@ -19,8 +19,6 @@
 package org.catrobat.catroid.physics;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,121 +30,61 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 
 public class PhysicShapeBuilder {
+	private final Map<String, Shape[]> shapeMap = new HashMap<String, Shape[]>();
+	private PhysicShapeBuilderStrategy strategy;
 
-	private final Map<String, Shape[]> shapes;
-	float width;
-	float height;
-
-	public PhysicShapeBuilder() {
-		shapes = new HashMap<String, Shape[]>();
+	public PhysicShapeBuilder(PhysicShapeBuilderStrategy strategy) {
+		this.strategy = strategy;
 	}
 
-	public Shape[] getShape(CostumeData costumeData, float scaleFactor) {
+	public synchronized Shape[] getShape(CostumeData costumeData, float scaleFactor) {
 		if (costumeData == null) {
 			return null;
 		}
 
-		int scale = (int) (scaleFactor * 10);
-		String key = costumeData.getChecksum() + scale;
-
-		if (shapes.containsKey(key)) {
-			return shapes.get(key);
+		String key = getKey(costumeData, scaleFactor);
+		if (shapeMap.containsKey(key)) {
+			return shapeMap.get(key);
 		}
 
-		List<Pixel> convexGrahamPoints = ImageProcessor.getShape(costumeData.getAbsolutePath());
-
-		int[] size = costumeData.getResolution();
-		width = size[0];
-		height = size[1];
-
-		Vector2[] vec = new Vector2[convexGrahamPoints.size()];
-
-		for (int i = 0; i < convexGrahamPoints.size(); i++) {
-			Pixel pixel = convexGrahamPoints.get(i);
-			vec[i] = PhysicWorldConverter.vecCatToBox2d(new Vector2((float) pixel.x() - (width / 2), height
-					- (float) pixel.y() - height / 2));
+		Shape[] shapes = shapeMap.get(getKey(costumeData, 1.0f));
+		if (shapes == null) {
+			shapes = strategy.build(costumeData);
+			shapeMap.put(getKey(costumeData, 1.0f), shapes);
 		}
-
-		Vector2[] x = new Vector2[ImageProcessor.points.size()];
-		for (int index = 0; index < x.length; index++) {
-			Pixel pixel = ImageProcessor.points.get(index);
-			x[index] = PhysicWorldConverter.vecCatToBox2d(new Vector2((float) pixel.x() - (width / 2), height
-					- (float) pixel.y() - height / 2));
-		}
-
-		//PhysicRenderer.getInstance().shapes.add(x);
-		//PhysicRenderer.getInstance().shapes.add(vec);
-
-		Shape[] shapes2 = devideShape(vec);
 
 		if (scaleFactor != 1.0f) {
-			List<Shape> scaledShapes = new ArrayList<Shape>();
-
-			for (Shape shape : shapes2) {
-				List<Vector2> vertices = new ArrayList<Vector2>();
-
-				PolygonShape polygon = (PolygonShape) shape;
-				for (int index = 0; index < polygon.getVertexCount(); index++) {
-					Vector2 vertex = new Vector2();
-					polygon.getVertex(index, vertex);
-					vertex = vertex.mul(scaleFactor);
-					vertices.add(vertex);
-				}
-
-				PolygonShape polygonShape = new PolygonShape();
-				polygonShape.set(vertices.toArray(new Vector2[vertices.size()]));
-				scaledShapes.add(polygonShape);
-			}
-
-			shapes2 = scaledShapes.toArray(new Shape[scaledShapes.size()]);
+			Shape[] scaledShapes = scaleShapes(shapes, scaleFactor);
+			shapeMap.put(key, scaledShapes);
+			shapes = scaledShapes;
 		}
 
-		shapes.put(key, shapes2);
-
-		return shapes2;
+		return shapes;
 	}
 
-	private Shape[] devideShape(Vector2[] convexpoints) {
+	private String getKey(CostumeData costumeData, float scaleFactor) {
+		return costumeData.getChecksum() + (int) (scaleFactor * 10);
+	}
 
-		if (convexpoints.length < 9) {
-			List<Vector2> x = Arrays.asList(convexpoints);
-			Collections.reverse(x);
+	private Shape[] scaleShapes(Shape[] shapes, float scaleFactor) {
+		List<Shape> scaledShapes = new ArrayList<Shape>();
 
-			PolygonShape polygon = new PolygonShape();
-			polygon.set(x.toArray(new Vector2[x.size()]));
-			return new Shape[] { polygon };
+		for (Shape shape : shapes) {
+			List<Vector2> vertices = new ArrayList<Vector2>();
+
+			PolygonShape polygon = (PolygonShape) shape;
+			for (int index = 0; index < polygon.getVertexCount(); index++) {
+				Vector2 vertex = new Vector2();
+				polygon.getVertex(index, vertex);
+				vertex = vertex.mul(scaleFactor);
+				vertices.add(vertex);
+			}
+
+			PolygonShape polygonShape = new PolygonShape();
+			polygonShape.set(vertices.toArray(new Vector2[vertices.size()]));
+			scaledShapes.add(polygonShape);
 		}
 
-		List<Shape> shapes = new ArrayList<Shape>(convexpoints.length / 6 + 1);
-		List<Vector2> pointsPerShape = new ArrayList<Vector2>(8);
-
-		Vector2 rome = convexpoints[0];
-		int index = 1;
-		while (index < convexpoints.length - 1) {
-			int k = index + 7;
-
-			int remainingPointsCount = convexpoints.length - index;
-			if (remainingPointsCount > 7 && remainingPointsCount < 9) {
-				k -= 3;
-			}
-
-			pointsPerShape.add(rome);
-			for (; index < k && index < convexpoints.length; index++) {
-				pointsPerShape.add(convexpoints[index]);
-			}
-
-			if (index < convexpoints.length) {
-				index--;
-			}
-			Collections.reverse(pointsPerShape);
-
-			PolygonShape polygon = new PolygonShape();
-			polygon.set(pointsPerShape.toArray(new Vector2[pointsPerShape.size()]));
-			shapes.add(polygon);
-
-			pointsPerShape.clear();
-		}
-
-		return shapes.toArray(new Shape[shapes.size()]);
+		return scaledShapes.toArray(new Shape[scaledShapes.size()]);
 	}
 }

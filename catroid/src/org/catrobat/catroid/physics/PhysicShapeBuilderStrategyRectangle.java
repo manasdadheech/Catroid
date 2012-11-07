@@ -22,13 +22,23 @@
  */
 package org.catrobat.catroid.physics;
 
-import org.catrobat.catroid.content.bricks.Brick;
+import org.catrobat.catroid.common.CostumeData;
 
-/**
- * @author robert
- * 
- */
-public interface PhysicWorldBrick extends Brick {
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Shape;
 
-	public void setPhysicWorld(PhysicWorld physicWorld);
+public class PhysicShapeBuilderStrategyRectangle implements PhysicShapeBuilderStrategy {
+
+	@Override
+	public Shape[] build(CostumeData costumeData) {
+		int[] size = costumeData.getResolution();
+		float width = size[0];
+		float height = size[1];
+
+		PolygonShape polygonShape = new PolygonShape();
+		polygonShape.setAsBox(PhysicWorldConverter.lengthCatToBox2d(width / 2.0f),
+				PhysicWorldConverter.lengthCatToBox2d(height / 2.0f));
+
+		return new Shape[] { polygonShape };
+	}
 }

@@ -4,7 +4,6 @@ import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.SetVelocityBrick;
 import org.catrobat.catroid.physics.PhysicObject;
-import org.catrobat.catroid.physics.PhysicWorld;
 import org.catrobat.catroid.test.utils.TestUtils;
 
 import android.test.AndroidTestCase;
@@ -13,18 +12,18 @@ import com.badlogic.gdx.math.Vector2;
 
 public class SetVelocityBrickTest extends AndroidTestCase {
 	private Vector2 velocity = new Vector2(3.4f, -4.5f);
-	private PhysicWorld physicWorld;
-	private Sprite sprite;
 	private SetVelocityBrick setVelocityBrick;
+	private Sprite sprite;
+	private PhysicObjectMock physicObjectMock;
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 
 		sprite = new Sprite("testSprite");
-		physicWorld = new PhysicWorldMock();
+		physicObjectMock = new PhysicObjectMock();
 		setVelocityBrick = new SetVelocityBrick(sprite, velocity);
-		setVelocityBrick.setPhysicObject(physicWorld.getPhysicObject(sprite));
+		setVelocityBrick.setPhysicObject(physicObjectMock);
 	}
 
 	@Override
@@ -32,7 +31,7 @@ public class SetVelocityBrickTest extends AndroidTestCase {
 		super.tearDown();
 
 		sprite = null;
-		physicWorld = null;
+		physicObjectMock = null;
 		setVelocityBrick = null;
 	}
 
@@ -42,6 +41,10 @@ public class SetVelocityBrickTest extends AndroidTestCase {
 
 	public void testGetSprite() {
 		assertEquals(setVelocityBrick.getSprite(), sprite);
+	}
+
+	public void testSetPhysicObject() {
+		assertEquals(physicObjectMock, TestUtils.getPrivateField("physicObject", setVelocityBrick, false));
 	}
 
 	public void testClone() {
@@ -54,10 +57,8 @@ public class SetVelocityBrickTest extends AndroidTestCase {
 	}
 
 	public void testExecution() {
-		PhysicObjectMock physicObjectMock = (PhysicObjectMock) physicWorld.getPhysicObject(sprite);
-
 		assertFalse(physicObjectMock.executed);
-		assertNull(physicObjectMock.executedWithVelocity);
+		assertNotSame(velocity, physicObjectMock.executedWithVelocity);
 
 		setVelocityBrick.execute();
 
@@ -73,15 +74,6 @@ public class SetVelocityBrickTest extends AndroidTestCase {
 					+ "NullPointerException to be thrown");
 		} catch (NullPointerException expected) {
 			// expected behavior
-		}
-	}
-
-	private class PhysicWorldMock extends PhysicWorld {
-		private PhysicObjectMock physicObjectMock = new PhysicObjectMock();
-
-		@Override
-		public PhysicObject getPhysicObject(Sprite sprite) {
-			return physicObjectMock;
 		}
 	}
 

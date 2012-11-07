@@ -4,26 +4,26 @@ import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.SetGravityBrick;
 import org.catrobat.catroid.physics.PhysicWorld;
+import org.catrobat.catroid.test.utils.TestUtils;
 
 import android.test.AndroidTestCase;
 
 import com.badlogic.gdx.math.Vector2;
 
 public class SetGravityBrickTest extends AndroidTestCase {
-
 	private Vector2 gravity = new Vector2(1.2f, -3.4f);
-	private PhysicWorld physicWorld;
-	private Sprite sprite;
 	private SetGravityBrick setGravityBrick;
+	private Sprite sprite;
+	private PhysicWorldMock physicWorldMock;
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 
 		sprite = new Sprite("testSprite");
-		physicWorld = new PhysicWorldMock();
+		physicWorldMock = new PhysicWorldMock();
 		setGravityBrick = new SetGravityBrick(sprite, gravity);
-		setGravityBrick.setPhysicWorld(physicWorld);
+		setGravityBrick.setPhysicWorld(physicWorldMock);
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class SetGravityBrickTest extends AndroidTestCase {
 		super.tearDown();
 
 		sprite = null;
-		physicWorld = null;
+		physicWorldMock = null;
 		setGravityBrick = null;
 	}
 
@@ -43,6 +43,10 @@ public class SetGravityBrickTest extends AndroidTestCase {
 		assertEquals(setGravityBrick.getSprite(), sprite);
 	}
 
+	public void testSetPhysicWorld() {
+		assertEquals(physicWorldMock, TestUtils.getPrivateField("physicWorld", setGravityBrick, false));
+	}
+
 	public void testClone() {
 		Brick clone = setGravityBrick.clone();
 		assertEquals(setGravityBrick.getSprite(), clone.getSprite());
@@ -50,10 +54,8 @@ public class SetGravityBrickTest extends AndroidTestCase {
 	}
 
 	public void testExecution() {
-		PhysicWorldMock physicWorldMock = (PhysicWorldMock) physicWorld;
-
 		assertFalse(physicWorldMock.executed);
-		assertNull(physicWorldMock.executedWithGravity);
+		assertNotSame(gravity, physicWorldMock.executedWithGravity);
 
 		setGravityBrick.execute();
 
@@ -72,7 +74,6 @@ public class SetGravityBrickTest extends AndroidTestCase {
 	}
 
 	private class PhysicWorldMock extends PhysicWorld {
-
 		public boolean executed = false;
 		public Vector2 executedWithGravity = null;
 

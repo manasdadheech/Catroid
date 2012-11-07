@@ -37,7 +37,7 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class TurnRightSpeedBrick implements Brick, PhysicObjectBrick, OnClickListener {
+public class TurnRightSpeedBrick implements PhysicObjectBrick, OnClickListener {
 	private static final long serialVersionUID = 1L;
 
 	private PhysicObject physicObject;

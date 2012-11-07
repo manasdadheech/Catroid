@@ -5,85 +5,74 @@ import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.SetPhysicObjectTypeBrick;
 import org.catrobat.catroid.physics.PhysicObject;
 import org.catrobat.catroid.physics.PhysicObject.Type;
-import org.catrobat.catroid.physics.PhysicWorld;
+import org.catrobat.catroid.test.utils.TestUtils;
 
 import android.test.AndroidTestCase;
 
 public class SetPhysicObjectTypeBrickTest extends AndroidTestCase {
 	private PhysicObject.Type type;
-	private PhysicWorld physicWorld;
+	private SetPhysicObjectTypeBrick setPhysicObjectTypeBrick;
 	private Sprite sprite;
-	private SetPhysicObjectTypeBrick setPhysicObjectTypeBrickTest;
+	private PhysicObjectMock physicObjectMock;
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 
-		sprite = new Sprite("testSprite");
-		physicWorld = new PhysicWorldMock();
 		type = Type.DYNAMIC;
-		setPhysicObjectTypeBrickTest = new SetPhysicObjectTypeBrick(sprite, type);
-		setPhysicObjectTypeBrickTest.setPhysicObject(physicWorld.getPhysicObject(sprite));
+		sprite = new Sprite("testSprite");
+		physicObjectMock = new PhysicObjectMock();
+		setPhysicObjectTypeBrick = new SetPhysicObjectTypeBrick(sprite, type);
+		setPhysicObjectTypeBrick.setPhysicObject(physicObjectMock);
 	}
 
 	@Override
 	protected void tearDown() throws Exception {
 		super.tearDown();
 
-		sprite = null;
-		physicWorld = null;
 		type = null;
-		setPhysicObjectTypeBrickTest = null;
+		sprite = null;
+		physicObjectMock = null;
+		setPhysicObjectTypeBrick = null;
 	}
 
 	public void testRequiredResources() {
-		assertEquals(setPhysicObjectTypeBrickTest.getRequiredResources(), Brick.NO_RESOURCES);
+		assertEquals(setPhysicObjectTypeBrick.getRequiredResources(), Brick.NO_RESOURCES);
 	}
 
 	public void testGetSprite() {
-		assertEquals(setPhysicObjectTypeBrickTest.getSprite(), sprite);
+		assertEquals(setPhysicObjectTypeBrick.getSprite(), sprite);
+	}
+
+	public void testSetPhysicObject() {
+		assertEquals(physicObjectMock, TestUtils.getPrivateField("physicObject", setPhysicObjectTypeBrick, false));
 	}
 
 	public void testClone() {
-		Brick clone = setPhysicObjectTypeBrickTest.clone();
+		Brick clone = setPhysicObjectTypeBrick.clone();
 
-		assertEquals(setPhysicObjectTypeBrickTest.getSprite(), clone.getSprite());
-		assertEquals(setPhysicObjectTypeBrickTest.getRequiredResources(), clone.getRequiredResources());
+		assertEquals(setPhysicObjectTypeBrick.getSprite(), clone.getSprite());
+		assertEquals(setPhysicObjectTypeBrick.getRequiredResources(), clone.getRequiredResources());
 	}
 
 	public void testExecution() {
-		PhysicObjectMock physicObjectMock = (PhysicObjectMock) physicWorld.getPhysicObject(sprite);
-
 		assertFalse(physicObjectMock.executed);
-		assertNull(physicObjectMock.executedWithType);
+		assertNotSame(type, physicObjectMock.executedWithType);
 
-		setPhysicObjectTypeBrickTest.execute();
+		setPhysicObjectTypeBrick.execute();
 
 		assertTrue(physicObjectMock.executed);
 		assertEquals(type, physicObjectMock.executedWithType);
 	}
 
 	public void testNullPhysicObject() {
-		setPhysicObjectTypeBrickTest = new SetPhysicObjectTypeBrick(null, type);
+		setPhysicObjectTypeBrick = new SetPhysicObjectTypeBrick(null, type);
 		try {
-			setPhysicObjectTypeBrickTest.execute();
+			setPhysicObjectTypeBrick.execute();
 			fail("Execution of SetPhysicObjectTypeBrick with null Sprite did not cause a "
 					+ "NullPointerException to be thrown");
 		} catch (NullPointerException expected) {
 			// expected behavior
-		}
-	}
-
-	private class PhysicWorldMock extends PhysicWorld {
-		private PhysicObjectMock physicObjectMock = new PhysicObjectMock();
-
-		@Override
-		public PhysicObject getPhysicObject(Sprite sprite) {
-			if (sprite == null) {
-				throw new NullPointerException();
-			}
-
-			return physicObjectMock;
 		}
 	}
 

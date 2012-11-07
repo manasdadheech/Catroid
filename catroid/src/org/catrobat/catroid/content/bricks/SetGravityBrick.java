@@ -39,7 +39,7 @@ import android.widget.Toast;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class SetGravityBrick implements Brick, PhysicWorldBrick, OnClickListener {
+public class SetGravityBrick implements PhysicWorldBrick, OnClickListener {
 	private static final long serialVersionUID = 1L;
 
 	private PhysicWorld physicWorld;

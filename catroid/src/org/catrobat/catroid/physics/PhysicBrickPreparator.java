@@ -30,16 +30,15 @@ import org.catrobat.catroid.content.bricks.Brick;
 /**
  * TODO: Find better name.
  */
-public class PhysicObjectConverter {
-
+public class PhysicBrickPreparator {
 	private final PhysicWorld physicWorld;
 
-	public PhysicObjectConverter(PhysicWorld physicWorld) {
+	public PhysicBrickPreparator(PhysicWorld physicWorld) {
 		this.physicWorld = physicWorld;
 	}
 
-	public void convert(Project project) {
-		PhysicShapeBuilder physicShapeBuilder = new PhysicShapeBuilder();
+	public void prepare(Project project) {
+		PhysicShapeBuilder physicShapeBuilder = new PhysicShapeBuilder(new PhysicShapeBuilderStrategyComplex());
 
 		for (Sprite sprite : project.getSpriteList()) {
 			PhysicObject physicObject = null;

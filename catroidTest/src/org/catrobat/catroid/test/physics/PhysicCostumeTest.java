@@ -100,7 +100,7 @@ public class PhysicCostumeTest extends AndroidTestCase {
 
 	public void testSize() {
 		Sprite sprite = new Sprite("TestSprite");
-		PhysicShapeBuilder physicShapeBuilder = new PhysicShapeBuilder();
+		PhysicShapeBuilder physicShapeBuilder = new PhysicShapeBuilderMock();
 		PhysicObjectMock physicObjectMock = new PhysicObjectMock();
 		PhysicCostume physicCostume = new PhysicCostume(sprite, physicShapeBuilder, physicObjectMock);
 		float size = 3.14f;
@@ -175,6 +175,10 @@ public class PhysicCostumeTest extends AndroidTestCase {
 
 	private class PhysicShapeBuilderMock extends PhysicShapeBuilder {
 		private final Shape[] shapes = new Shape[4];
+
+		public PhysicShapeBuilderMock() {
+			super(null);
+		}
 
 		@Override
 		public Shape[] getShape(CostumeData costumeData, float scaleFactor) {

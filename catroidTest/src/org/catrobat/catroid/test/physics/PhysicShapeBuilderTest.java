@@ -3,10 +3,6 @@ package org.catrobat.catroid.test.physics;
 import java.io.File;
 import java.io.IOException;
 
-import org.catrobat.catroid.physics.PhysicShapeBuilder;
-import org.catrobat.catroid.physics.PhysicWorldConverter;
-
-import android.test.AndroidTestCase;
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.common.CostumeData;
@@ -14,16 +10,21 @@ import org.catrobat.catroid.content.Costume;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.io.StorageHandler;
+import org.catrobat.catroid.physics.PhysicShapeBuilder;
+import org.catrobat.catroid.physics.PhysicShapeBuilderStrategyRectangle;
+import org.catrobat.catroid.physics.PhysicWorldConverter;
 import org.catrobat.catroid.test.R;
 import org.catrobat.catroid.test.utils.TestUtils;
 import org.catrobat.catroid.utils.UtilFile;
+
+import android.test.AndroidTestCase;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 
 public class PhysicShapeBuilderTest extends AndroidTestCase {
-
+	// TODO: Refactor test.
 	private static final int IMAGE_FILE_ID = R.raw.icon;
 
 	private PhysicShapeBuilder builder;
@@ -44,8 +45,7 @@ public class PhysicShapeBuilderTest extends AndroidTestCase {
 		Sprite sprite = new Sprite("");
 		costume = new Costume(sprite);
 		costume.setCostumeData(costumeData);
-		builder = new PhysicShapeBuilder();
-
+		builder = new PhysicShapeBuilder(new PhysicShapeBuilderStrategyRectangle());
 	}
 
 	@Override

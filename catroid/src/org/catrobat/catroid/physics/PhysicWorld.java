@@ -37,8 +37,8 @@ public class PhysicWorld {
 	}
 
 	public final static float RATIO = 40.0f;
-	public final static int VELOCITY_ITERATIONS = 20;
-	public final static int POSITION_ITERATIONS = 20;
+	public final static int VELOCITY_ITERATIONS = 8;
+	public final static int POSITION_ITERATIONS = 3;
 
 	public final static Vector2 DEFAULT_GRAVITY = new Vector2(0.0f, -10.0f);
 	public final static boolean IGNORE_SLEEPING_OBJECTS = false;

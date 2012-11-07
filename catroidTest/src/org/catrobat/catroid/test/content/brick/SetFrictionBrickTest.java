@@ -6,22 +6,22 @@ import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.SetFrictionBrick;
 import org.catrobat.catroid.physics.PhysicObject;
-import org.catrobat.catroid.physics.PhysicWorld;
+import org.catrobat.catroid.test.utils.TestUtils;
 
 public class SetFrictionBrickTest extends TestCase {
 	private float friction = 3.5f;
-	private PhysicWorld physicWorld;
+	private SetFrictionBrick setFrictionBrick;
 	private Sprite sprite;
-	private SetFrictionBrick frictionBrick;
+	private PhysicObjectMock physicObjectMock;
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 
 		sprite = new Sprite("testSprite");
-		physicWorld = new PhysicWorldMock();
-		frictionBrick = new SetFrictionBrick(sprite, friction);
-		frictionBrick.setPhysicObject(physicWorld.getPhysicObject(sprite));
+		physicObjectMock = new PhysicObjectMock();
+		setFrictionBrick = new SetFrictionBrick(sprite, friction);
+		setFrictionBrick.setPhysicObject(physicObjectMock);
 	}
 
 	@Override
@@ -29,53 +29,47 @@ public class SetFrictionBrickTest extends TestCase {
 		super.tearDown();
 
 		sprite = null;
-		physicWorld = null;
-		frictionBrick = null;
+		physicObjectMock = null;
+		setFrictionBrick = null;
 	}
 
 	public void testRequiredResources() {
-		assertEquals(frictionBrick.getRequiredResources(), Brick.NO_RESOURCES);
+		assertEquals(setFrictionBrick.getRequiredResources(), Brick.NO_RESOURCES);
 	}
 
 	public void testGetSprite() {
-		assertEquals(frictionBrick.getSprite(), sprite);
+		assertEquals(setFrictionBrick.getSprite(), sprite);
+	}
+
+	public void testSetPhysicObject() {
+		assertEquals(physicObjectMock, TestUtils.getPrivateField("physicObject", setFrictionBrick, false));
 	}
 
 	public void testClone() {
-		Brick clone = frictionBrick.clone();
+		Brick clone = setFrictionBrick.clone();
 
-		assertEquals(frictionBrick.getSprite(), clone.getSprite());
-		assertEquals(frictionBrick.getRequiredResources(), clone.getRequiredResources());
+		assertEquals(setFrictionBrick.getSprite(), clone.getSprite());
+		assertEquals(setFrictionBrick.getRequiredResources(), clone.getRequiredResources());
 	}
 
 	public void testExecution() {
-		PhysicObjectMock physicObjectMock = (PhysicObjectMock) physicWorld.getPhysicObject(sprite);
-
 		assertFalse(physicObjectMock.executed);
+		assertNotSame(friction / 100.0f, physicObjectMock.executedWithFriction);
 
-		frictionBrick.execute();
+		setFrictionBrick.execute();
 
 		assertTrue(physicObjectMock.executed);
 		assertEquals(friction / 100.0f, physicObjectMock.executedWithFriction);
 	}
 
 	public void testNullPhysicObject() {
-		frictionBrick = new SetFrictionBrick(sprite, friction);
+		setFrictionBrick = new SetFrictionBrick(sprite, friction);
 		try {
-			frictionBrick.execute();
+			setFrictionBrick.execute();
 			fail("Execution of SetFrictionBrick with null Sprite did not cause a "
 					+ "NullPointerException to be thrown");
 		} catch (NullPointerException expected) {
 			// expected behavior
-		}
-	}
-
-	private class PhysicWorldMock extends PhysicWorld {
-		private PhysicObjectMock physicObjectMock = new PhysicObjectMock();
-
-		@Override
-		public PhysicObject getPhysicObject(Sprite sprite) {
-			return physicObjectMock;
 		}
 	}
 

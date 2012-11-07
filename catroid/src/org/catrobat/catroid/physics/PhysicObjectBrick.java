@@ -22,11 +22,13 @@
  */
 package org.catrobat.catroid.physics;
 
+import org.catrobat.catroid.content.bricks.Brick;
+
 /**
  * @author robert
  * 
  */
-public interface PhysicObjectBrick {
+public interface PhysicObjectBrick extends Brick {
 
 	public void setPhysicObject(PhysicObject physicObject);
 }

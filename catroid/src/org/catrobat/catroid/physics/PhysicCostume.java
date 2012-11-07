@@ -28,7 +28,6 @@ import org.catrobat.catroid.content.Sprite;
 import com.badlogic.gdx.physics.box2d.Shape;
 
 public class PhysicCostume extends Costume {
-
 	private final PhysicObject physicObject;
 	private final PhysicShapeBuilder physicShapeBuilder;
 

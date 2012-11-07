@@ -4,25 +4,24 @@ import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.SetMassBrick;
 import org.catrobat.catroid.physics.PhysicObject;
-import org.catrobat.catroid.physics.PhysicWorld;
 import org.catrobat.catroid.test.utils.TestUtils;
 
 import android.test.AndroidTestCase;
 
 public class SetMassBrickTest extends AndroidTestCase {
 	private float mass = 10.50f;
-	private PhysicWorld physicWorld;
-	private Sprite sprite;
 	private SetMassBrick setMassBrick;
+	private Sprite sprite;
+	private PhysicObjectMock physicObjectMock;
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 
 		sprite = new Sprite("testSprite");
-		physicWorld = new PhysicWorldMock();
+		physicObjectMock = new PhysicObjectMock();
 		setMassBrick = new SetMassBrick(sprite, mass);
-		setMassBrick.setPhysicObject(physicWorld.getPhysicObject(sprite));
+		setMassBrick.setPhysicObject(physicObjectMock);
 	}
 
 	@Override
@@ -30,7 +29,7 @@ public class SetMassBrickTest extends AndroidTestCase {
 		super.tearDown();
 
 		sprite = null;
-		physicWorld = null;
+		physicObjectMock = null;
 		setMassBrick = null;
 	}
 
@@ -42,6 +41,10 @@ public class SetMassBrickTest extends AndroidTestCase {
 		assertEquals(setMassBrick.getSprite(), sprite);
 	}
 
+	public void testSetPhysicObject() {
+		assertEquals(physicObjectMock, TestUtils.getPrivateField("physicObject", setMassBrick, false));
+	}
+
 	public void testClone() {
 		Brick clone = setMassBrick.clone();
 
@@ -50,9 +53,8 @@ public class SetMassBrickTest extends AndroidTestCase {
 	}
 
 	public void testExecution() {
-		PhysicObjectMock physicObjectMock = (PhysicObjectMock) physicWorld.getPhysicObject(sprite);
-
 		assertFalse(physicObjectMock.executed);
+		assertNotSame(mass, physicObjectMock.executedWithMass);
 
 		setMassBrick.execute();
 
@@ -73,15 +75,6 @@ public class SetMassBrickTest extends AndroidTestCase {
 	public void testMass() {
 		float physicObjectMass = (Float) TestUtils.getPrivateField("mass", setMassBrick, false);
 		assertEquals(mass, physicObjectMass);
-	}
-
-	private class PhysicWorldMock extends PhysicWorld {
-		private PhysicObjectMock physicObjectMock = new PhysicObjectMock();
-
-		@Override
-		public PhysicObject getPhysicObject(Sprite sprite) {
-			return physicObjectMock;
-		}
 	}
 
 	private class PhysicObjectMock extends PhysicObject {

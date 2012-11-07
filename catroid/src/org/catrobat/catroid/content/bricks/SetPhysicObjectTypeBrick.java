@@ -35,7 +35,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Spinner;
 
-public class SetPhysicObjectTypeBrick implements Brick, PhysicObjectBrick {
+public class SetPhysicObjectTypeBrick implements PhysicObjectBrick {
 	private static final long serialVersionUID = 1L;
 
 	private PhysicObject physicObject;

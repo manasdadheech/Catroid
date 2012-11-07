@@ -34,8 +34,8 @@ import org.catrobat.catroid.common.Values;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.io.SoundManager;
+import org.catrobat.catroid.physics.PhysicBrickPreparator;
 import org.catrobat.catroid.physics.PhysicDebugSettings;
-import org.catrobat.catroid.physics.PhysicObjectConverter;
 import org.catrobat.catroid.physics.PhysicWorld;
 import org.catrobat.catroid.ui.dialogs.StageDialog;
 import org.catrobat.catroid.utils.Utils;
@@ -152,10 +152,10 @@ public class StageListener implements ApplicationListener {
 		camera.position.set(0, 0, 0);
 
 		// TODO: Find better place to replace motion bricks with corresponding physic bricks
-		// if necessary. Maybe change to static method.
+		// if necessary.
 		physicWorld = new PhysicWorld();
-		PhysicObjectConverter physicObjectConverter = new PhysicObjectConverter(physicWorld);
-		physicObjectConverter.convert(project);
+		PhysicBrickPreparator physicBrickPreparator = new PhysicBrickPreparator(physicWorld);
+		physicBrickPreparator.prepare(project);
 
 		sprites = project.getSpriteList();
 		for (Sprite sprite : sprites) {
@@ -268,10 +268,10 @@ public class StageListener implements ApplicationListener {
 			project = ProjectManager.getInstance().getCurrentProject();
 
 			// TODO: Find better place to replace motion bricks with corresponding physic bricks
-			// if necessary. Maybe change to static method.
+			// if necessary.
 			physicWorld = new PhysicWorld();
-			PhysicObjectConverter physicObjectConverter = new PhysicObjectConverter(physicWorld);
-			physicObjectConverter.convert(project);
+			PhysicBrickPreparator physicBrickPreparator = new PhysicBrickPreparator(physicWorld);
+			physicBrickPreparator.prepare(project);
 
 			sprites = project.getSpriteList();
 			for (int i = 0; i < spriteSize; i++) {

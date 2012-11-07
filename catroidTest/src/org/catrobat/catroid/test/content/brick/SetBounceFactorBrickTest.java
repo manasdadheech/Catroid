@@ -6,23 +6,22 @@ import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.SetBounceFactorBrick;
 import org.catrobat.catroid.physics.PhysicObject;
-import org.catrobat.catroid.physics.PhysicWorld;
 import org.catrobat.catroid.test.utils.TestUtils;
 
 public class SetBounceFactorBrickTest extends TestCase {
 	private float bounceFactor = 35.0f;
-	private PhysicWorld physicWorld;
+	private SetBounceFactorBrick setBounceFactorBrick;
 	private Sprite sprite;
-	private SetBounceFactorBrick bounceFactorBrick;
+	private PhysicObjectMock physicObjectMock;
 
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 
 		sprite = new Sprite("testSprite");
-		physicWorld = new PhysicWorldMock();
-		bounceFactorBrick = new SetBounceFactorBrick(sprite, bounceFactor);
-		bounceFactorBrick.setPhysicObject(physicWorld.getPhysicObject(sprite));
+		physicObjectMock = new PhysicObjectMock();
+		setBounceFactorBrick = new SetBounceFactorBrick(sprite, bounceFactor);
+		setBounceFactorBrick.setPhysicObject(physicObjectMock);
 	}
 
 	@Override
@@ -30,55 +29,49 @@ public class SetBounceFactorBrickTest extends TestCase {
 		super.tearDown();
 
 		sprite = null;
-		physicWorld = null;
-		bounceFactorBrick = null;
+		physicObjectMock = null;
+		setBounceFactorBrick = null;
 	}
 
 	public void testRequiredResources() {
-		assertEquals(bounceFactorBrick.getRequiredResources(), Brick.NO_RESOURCES);
+		assertEquals(setBounceFactorBrick.getRequiredResources(), Brick.NO_RESOURCES);
 	}
 
 	public void testGetSprite() {
-		assertEquals(bounceFactorBrick.getSprite(), sprite);
+		assertEquals(setBounceFactorBrick.getSprite(), sprite);
+	}
+
+	public void testSetPhysicObject() {
+		assertEquals(physicObjectMock, TestUtils.getPrivateField("physicObject", setBounceFactorBrick, false));
 	}
 
 	public void testClone() {
-		Brick clone = bounceFactorBrick.clone();
+		Brick clone = setBounceFactorBrick.clone();
 
-		assertEquals(bounceFactorBrick.getSprite(), clone.getSprite());
-		assertEquals(bounceFactorBrick.getRequiredResources(), clone.getRequiredResources());
-		assertEquals(TestUtils.getPrivateField("bounceFactor", bounceFactorBrick, false),
+		assertEquals(setBounceFactorBrick.getSprite(), clone.getSprite());
+		assertEquals(setBounceFactorBrick.getRequiredResources(), clone.getRequiredResources());
+		assertEquals(TestUtils.getPrivateField("bounceFactor", setBounceFactorBrick, false),
 				TestUtils.getPrivateField("bounceFactor", clone, false));
 	}
 
 	public void testExecution() {
-		PhysicObjectMock physicObjectMock = (PhysicObjectMock) physicWorld.getPhysicObject(sprite);
-
 		assertFalse(physicObjectMock.executed);
+		assertNotSame(bounceFactor / 100.0f, physicObjectMock.executedWithBounceFactor);
 
-		bounceFactorBrick.execute();
+		setBounceFactorBrick.execute();
 
 		assertTrue(physicObjectMock.executed);
 		assertEquals(bounceFactor / 100.0f, physicObjectMock.executedWithBounceFactor);
 	}
 
-	public void testUnsetPhysicObject() {
-		bounceFactorBrick = new SetBounceFactorBrick(sprite, bounceFactor);
+	public void testNullPhysicObject() {
+		setBounceFactorBrick = new SetBounceFactorBrick(sprite, bounceFactor);
 		try {
-			bounceFactorBrick.execute();
+			setBounceFactorBrick.execute();
 			fail("Execution of SetBounceFactorBrick with null Sprite did not cause a "
 					+ "NullPointerException to be thrown");
 		} catch (NullPointerException expected) {
 			// expected behavior
-		}
-	}
-
-	private class PhysicWorldMock extends PhysicWorld {
-		private PhysicObjectMock physicObjectMock = new PhysicObjectMock();
-
-		@Override
-		public PhysicObject getPhysicObject(Sprite sprite) {
-			return physicObjectMock;
 		}
 	}
 

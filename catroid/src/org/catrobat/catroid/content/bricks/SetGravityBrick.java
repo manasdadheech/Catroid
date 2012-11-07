@@ -25,6 +25,7 @@ package org.catrobat.catroid.content.bricks;
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.physics.PhysicWorld;
+import org.catrobat.catroid.physics.PhysicWorldBrick;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.dialogs.BrickTextDialog;
 
@@ -38,7 +39,7 @@ import android.widget.Toast;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class SetGravityBrick implements Brick, OnClickListener {
+public class SetGravityBrick implements Brick, PhysicWorldBrick, OnClickListener {
 	private static final long serialVersionUID = 1L;
 
 	private PhysicWorld physicWorld;
@@ -65,6 +66,7 @@ public class SetGravityBrick implements Brick, OnClickListener {
 		physicWorld.setGravity(gravity);
 	}
 
+	@Override
 	public void setPhysicWorld(PhysicWorld physicWorld) {
 		this.physicWorld = physicWorld;
 	}

@@ -25,6 +25,7 @@ package org.catrobat.catroid.content.bricks;
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.physics.PhysicObject;
+import org.catrobat.catroid.physics.PhysicObjectBrick;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.dialogs.BrickTextDialog;
 
@@ -36,7 +37,7 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class SetFrictionBrick implements Brick, OnClickListener {
+public class SetFrictionBrick implements Brick, PhysicObjectBrick, OnClickListener {
 	private static final long serialVersionUID = 1L;
 
 	private PhysicObject physicObject;
@@ -63,6 +64,7 @@ public class SetFrictionBrick implements Brick, OnClickListener {
 		physicObject.setFriction(friction / 100.0f);
 	}
 
+	@Override
 	public void setPhysicObject(PhysicObject physicObject) {
 		this.physicObject = physicObject;
 	}

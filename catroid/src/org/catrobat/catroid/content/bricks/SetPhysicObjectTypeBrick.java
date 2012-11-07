@@ -25,6 +25,7 @@ package org.catrobat.catroid.content.bricks;
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.physics.PhysicObject;
+import org.catrobat.catroid.physics.PhysicObjectBrick;
 
 import android.content.Context;
 import android.view.View;
@@ -34,7 +35,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Spinner;
 
-public class SetPhysicObjectTypeBrick implements Brick {
+public class SetPhysicObjectTypeBrick implements Brick, PhysicObjectBrick {
 	private static final long serialVersionUID = 1L;
 
 	private PhysicObject physicObject;
@@ -62,6 +63,7 @@ public class SetPhysicObjectTypeBrick implements Brick {
 		physicObject.setType(physicObjectType);
 	}
 
+	@Override
 	public void setPhysicObject(PhysicObject physicObject) {
 		this.physicObject = physicObject;
 	}

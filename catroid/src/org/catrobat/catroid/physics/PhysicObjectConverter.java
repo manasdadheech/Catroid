@@ -22,20 +22,10 @@
  */
 package org.catrobat.catroid.physics;
 
-import java.lang.reflect.Method;
-
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Script;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.bricks.Brick;
-import org.catrobat.catroid.content.bricks.SetBounceFactorBrick;
-import org.catrobat.catroid.content.bricks.SetFrictionBrick;
-import org.catrobat.catroid.content.bricks.SetGravityBrick;
-import org.catrobat.catroid.content.bricks.SetMassBrick;
-import org.catrobat.catroid.content.bricks.SetPhysicObjectTypeBrick;
-import org.catrobat.catroid.content.bricks.SetVelocityBrick;
-import org.catrobat.catroid.content.bricks.TurnLeftSpeedBrick;
-import org.catrobat.catroid.content.bricks.TurnRightSpeedBrick;
 
 /**
  * TODO: Find better name.
@@ -58,49 +48,17 @@ public class PhysicObjectConverter {
 				Script script = sprite.getScript(scriptIndex);
 
 				for (Brick brick : script.getBrickList()) {
-					if (hasPhysicWorld(brick)) {
-						setPhysicWorld(brick);
-					} else if (hasPhysicObject(brick)) {
+					if (brick instanceof PhysicWorldBrick) {
+						((PhysicWorldBrick) brick).setPhysicWorld(physicWorld);
+					} else if (brick instanceof PhysicObjectBrick) {
 						if (physicObject == null) {
 							physicObject = physicWorld.getPhysicObject(sprite);
 							sprite.costume = new PhysicCostume(sprite, physicShapeBuilder, physicObject);
 						}
-						setPhysicObject(brick, physicObject);
+						((PhysicObjectBrick) brick).setPhysicObject(physicObject);
 					}
 				}
 			}
-		}
-	}
-
-	private boolean hasPhysicObject(Brick brick) {
-		return (brick instanceof SetPhysicObjectTypeBrick || brick instanceof SetMassBrick
-				|| brick instanceof SetVelocityBrick || brick instanceof TurnLeftSpeedBrick
-				|| brick instanceof TurnRightSpeedBrick || brick instanceof SetBounceFactorBrick || brick instanceof SetFrictionBrick);
-	}
-
-	private boolean hasPhysicWorld(Brick brick) {
-		return (brick instanceof SetGravityBrick);
-	}
-
-	private void setPhysicObject(Brick brick, PhysicObject physicObject) {
-		Class<?>[] classes = { PhysicObject.class };
-		Method setter;
-		try {
-			setter = brick.getClass().getDeclaredMethod("setPhysicObject", classes);
-			setter.invoke(brick, physicObject);
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		}
-	}
-
-	private void setPhysicWorld(Brick brick) {
-		Class<?>[] classes = { PhysicWorld.class };
-		Method setter;
-		try {
-			setter = brick.getClass().getDeclaredMethod("setPhysicWorld", classes);
-			setter.invoke(brick, physicWorld);
-		} catch (Exception exception) {
-			exception.printStackTrace();
 		}
 	}
 }

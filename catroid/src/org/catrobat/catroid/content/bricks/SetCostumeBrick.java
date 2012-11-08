@@ -157,7 +157,7 @@ public class SetCostumeBrick implements Brick {
 
 		WallpaperCostume wallpaperCostume = sprite.getWallpaperCostume();
 
-		if (wallpaperCostume != null) {
+		if (wallpaperCostume != null && costume != null) {
 			wallpaperCostume.setCostume(costume);
 		} else {
 			new WallpaperCostume(sprite, costume);

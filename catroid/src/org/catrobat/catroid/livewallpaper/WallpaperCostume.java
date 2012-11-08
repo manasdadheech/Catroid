@@ -272,6 +272,10 @@ public class WallpaperCostume {
 		this.zPosition = zPosition;
 	}
 
+	public double getRotation() {
+		return this.rotation;
+	}
+
 	public void setRotation(float r) {
 		this.rotation += r;
 		changeMatrix = true;

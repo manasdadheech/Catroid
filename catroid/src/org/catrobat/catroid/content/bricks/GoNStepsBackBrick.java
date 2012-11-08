@@ -24,6 +24,7 @@ package org.catrobat.catroid.content.bricks;
 
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.livewallpaper.WallpaperCostume;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.dialogs.BrickTextDialog;
 
@@ -127,6 +128,19 @@ public class GoNStepsBackBrick implements Brick, OnClickListener {
 	@Override
 	public void executeLiveWallpaper() {
 		// TODO Auto-generated method stub
+		WallpaperCostume wallpaperCostume = sprite.getWallpaperCostume();
+		if (wallpaperCostume == null) {
+			wallpaperCostume = new WallpaperCostume(sprite, null);
+		}
 
+		int zPosition_wp = wallpaperCostume.getzPosition();
+
+		if (steps > 0 && (zPosition_wp - steps) > zPosition_wp) {
+			wallpaperCostume.setzPosition(Integer.MIN_VALUE);
+		} else if (steps < 0 && (zPosition_wp - steps) < zPosition_wp) {
+			wallpaperCostume.setzPosition(Integer.MAX_VALUE);
+		} else {
+			wallpaperCostume.setzPosition(wallpaperCostume.getzPosition() - steps);
+		}
 	}
 }

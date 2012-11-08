@@ -127,17 +127,16 @@ public class GoNStepsBackBrick implements Brick, OnClickListener {
 
 	@Override
 	public void executeLiveWallpaper() {
-		// TODO Auto-generated method stub
 		WallpaperCostume wallpaperCostume = sprite.getWallpaperCostume();
 		if (wallpaperCostume == null) {
 			wallpaperCostume = new WallpaperCostume(sprite, null);
 		}
 
-		int zPosition_wp = wallpaperCostume.getzPosition();
+		int zPosition = wallpaperCostume.getzPosition();
 
-		if (steps > 0 && (zPosition_wp - steps) > zPosition_wp) {
+		if (steps > 0 && (zPosition - steps) > zPosition) {
 			wallpaperCostume.setzPosition(Integer.MIN_VALUE);
-		} else if (steps < 0 && (zPosition_wp - steps) < zPosition_wp) {
+		} else if (steps < 0 && (zPosition - steps) < zPosition) {
 			wallpaperCostume.setzPosition(Integer.MAX_VALUE);
 		} else {
 			wallpaperCostume.setzPosition(wallpaperCostume.getzPosition() - steps);

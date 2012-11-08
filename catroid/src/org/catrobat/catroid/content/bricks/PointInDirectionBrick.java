@@ -136,12 +136,16 @@ public class PointInDirectionBrick implements Brick, OnItemSelectedListener {
 
 	@Override
 	public void executeLiveWallpaper() {
-		// TODO Auto-generated method stub
 		WallpaperCostume wallpaperCostume = sprite.getWallpaperCostume();
 		if (wallpaperCostume == null) {
 			wallpaperCostume = new WallpaperCostume(sprite, null);
 		}
 
-		wallpaperCostume.setRotation((float) degrees);
+		float newRotation = (float) (-degrees + 90.0f);
+
+		if (!(wallpaperCostume.getRotation() == newRotation)) {
+			wallpaperCostume.setRotation((float) (-degrees + 90.0f));
+		}
+
 	}
 }

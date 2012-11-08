@@ -22,9 +22,6 @@
  */
 package org.catrobat.catroid.content.bricks;
 
-import java.util.List;
-
-import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.livewallpaper.WallpaperCostume;
@@ -140,8 +137,6 @@ public class MoveNStepsBrick implements Brick, OnClickListener {
 
 	@Override
 	public void executeLiveWallpaper() {
-		// TODO Auto-generated method stub
-		List<Sprite> sprites = ProjectManager.getInstance().getCurrentProject().getSpriteList();
 		WallpaperCostume wallpaperCostume = sprite.getWallpaperCostume();
 
 		if (wallpaperCostume == null) {
@@ -149,13 +144,10 @@ public class MoveNStepsBrick implements Brick, OnClickListener {
 		}
 
 		double radians = Math.toRadians(wallpaperCostume.getRotation());
-
 		int newXPosition = (int) Math.round(wallpaperCostume.getX() + steps * Math.cos(radians));
-
 		int newYPosition = (int) Math.round(wallpaperCostume.getY() + steps * Math.sin(radians));
 
 		wallpaperCostume.setX(newXPosition);
-
 		wallpaperCostume.setY(newYPosition);
 
 	}

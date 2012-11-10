@@ -25,7 +25,8 @@ package org.catrobat.catroid.physics;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.Gdx;
+import org.catrobat.catroid.common.CostumeData;
+
 import com.badlogic.gdx.graphics.Pixmap;
 
 public class ImageProcessor {
@@ -33,9 +34,9 @@ public class ImageProcessor {
 	public static List<Pixel> points;
 	private static Pixmap pixmap;
 
-	public static List<Pixel> getShape(String filePath) {
+	public static List<Pixel> getShape(CostumeData costumeData) {
 		points = new ArrayList<Pixel>();
-		pixmap = new Pixmap(Gdx.files.absolute(filePath));
+		pixmap = costumeData.getPixmap();
 		proceed();
 		List<Pixel> convexpoints = GrahamScan.run(points);
 		return convexpoints;

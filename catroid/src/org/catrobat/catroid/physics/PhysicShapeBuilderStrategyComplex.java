@@ -36,7 +36,7 @@ import com.badlogic.gdx.physics.box2d.Shape;
 public class PhysicShapeBuilderStrategyComplex implements PhysicShapeBuilderStrategy {
 	@Override
 	public Shape[] build(CostumeData costumeData) {
-		List<Pixel> convexGrahamPoints = ImageProcessor.getShape(costumeData.getAbsolutePath());
+		List<Pixel> convexGrahamPoints = ImageProcessor.getShape(costumeData);
 
 		int[] size = costumeData.getResolution();
 		float width = size[0];

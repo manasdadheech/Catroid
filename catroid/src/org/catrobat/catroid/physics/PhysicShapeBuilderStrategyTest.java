@@ -22,20 +22,31 @@
  */
 package org.catrobat.catroid.physics;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.catrobat.catroid.common.CostumeData;
 
-import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.physics.box2d.Shape;
 
-public class PhysicShapeBuilderStrategyRectangle implements PhysicShapeBuilderStrategy {
+public class PhysicShapeBuilderStrategyTest implements PhysicShapeBuilderStrategy {
 
 	@Override
 	public Shape[] build(CostumeData costumeData) {
-		int[] size = costumeData.getResolution();
-		PolygonShape polygonShape = new PolygonShape();
-		polygonShape.setAsBox(PhysicWorldConverter.lengthCatToBox2d(size[0] / 2.0f),
-				PhysicWorldConverter.lengthCatToBox2d(size[1] / 2.0f));
+		Pixmap pixmap = costumeData.getPixmap();
 
-		return new Shape[] { polygonShape };
+		List<Pixel> points = new ArrayList<Pixel>();
+		for (int y = 0; y < pixmap.getHeight(); y++) {
+			for (int x = 0; x < pixmap.getWidth(); x++) {
+				int alpha = pixmap.getPixel(x, y) & 0xff;
+
+				if (alpha > 0) {
+					points.add(new Pixel(x, y));
+				}
+			}
+		}
+
+		return null;
 	}
 }

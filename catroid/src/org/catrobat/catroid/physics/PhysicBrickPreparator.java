@@ -38,7 +38,7 @@ public class PhysicBrickPreparator {
 	}
 
 	public void prepare(Project project) {
-		PhysicShapeBuilder physicShapeBuilder = new PhysicShapeBuilder(new PhysicShapeBuilderStrategyComplex());
+		PhysicShapeBuilder physicShapeBuilder = new PhysicShapeBuilder(new PhysicShapeBuilderStrategyRectangle());
 
 		for (Sprite sprite : project.getSpriteList()) {
 			PhysicObject physicObject = null;

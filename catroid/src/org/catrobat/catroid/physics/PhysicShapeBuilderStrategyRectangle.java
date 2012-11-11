@@ -24,6 +24,10 @@ package org.catrobat.catroid.physics;
 
 import org.catrobat.catroid.common.CostumeData;
 
+import android.graphics.Point;
+
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 
@@ -31,10 +35,57 @@ public class PhysicShapeBuilderStrategyRectangle implements PhysicShapeBuilderSt
 
 	@Override
 	public Shape[] build(CostumeData costumeData) {
-		int[] size = costumeData.getResolution();
+		Pixmap pixmap = costumeData.getPixmap();
+
+		Point start = null;
+		Point end = null;
+		for (int y = 0; y < pixmap.getHeight(); y++) {
+			for (int x = 0; x < pixmap.getWidth(); x++) {
+				int alpha = pixmap.getPixel(x, y) & 0xff;
+
+				if (alpha > 0) {
+					if (start == null) {
+						start = new Point(x, y);
+						end = new Point(x, y);
+						continue;
+					}
+
+					if (x < start.x) {
+						start.x = x;
+					} else if (x > end.x) {
+						end.x = x;
+					}
+
+					if (y < start.y) {
+						start.y = y;
+					} else if (y > end.y) {
+						end.y = y;
+					}
+				}
+			}
+		}
+
+		if (start == null) {
+			return null;
+		}
+
+		int width = end.x - start.x;
+		int height = end.y - start.y;
+
+		if (width == 0) {
+			width = 1;
+		}
+
+		if (height == 0) {
+			height = 1;
+		}
+
+		float box2dWidth = PhysicWorldConverter.lengthCatToBox2d(width) / 2.0f;
+		float box2dHeight = PhysicWorldConverter.lengthCatToBox2d(height) / 2.0f;
+		Vector2 center = new Vector2(box2dWidth - PhysicWorldConverter.lengthCatToBox2d(pixmap.getWidth() / 2.0f),
+				box2dHeight - PhysicWorldConverter.lengthCatToBox2d(pixmap.getHeight() / 2.0f));
 		PolygonShape polygonShape = new PolygonShape();
-		polygonShape.setAsBox(PhysicWorldConverter.lengthCatToBox2d(size[0] / 2.0f),
-				PhysicWorldConverter.lengthCatToBox2d(size[1] / 2.0f));
+		polygonShape.setAsBox(box2dWidth, box2dHeight, center, 0.0f);
 
 		return new Shape[] { polygonShape };
 	}

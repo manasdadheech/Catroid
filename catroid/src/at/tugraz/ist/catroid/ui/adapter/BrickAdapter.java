@@ -74,6 +74,7 @@ public class BrickAdapter extends BaseAdapter implements DragAndDropListener {
 		insertLoop = false;
 	}
 
+	@Override
 	public void drag(int from, int to) {
 		fromTest = from;
 		int scriptFrom = getScriptId(from);
@@ -185,6 +186,7 @@ public class BrickAdapter extends BaseAdapter implements DragAndDropListener {
 		notifyDataSetChanged();
 	}
 
+	@Override
 	public void drop(int to) {
 		boolean toLastScript = false;
 		boolean intersect = false;
@@ -444,6 +446,7 @@ public class BrickAdapter extends BaseAdapter implements DragAndDropListener {
 		if (!intersect) {
 			clearScriptBricks();
 		}
+
 		notifyDataSetChanged();
 	}
 
@@ -479,6 +482,7 @@ public class BrickAdapter extends BaseAdapter implements DragAndDropListener {
 		return 0;
 	}
 
+	@Override
 	public void remove(int index) {
 
 		if (index < 0) {
@@ -569,6 +573,7 @@ public class BrickAdapter extends BaseAdapter implements DragAndDropListener {
 		return longClickListener;
 	}
 
+	@Override
 	public int getCount() {
 
 		int count = 0;
@@ -578,6 +583,7 @@ public class BrickAdapter extends BaseAdapter implements DragAndDropListener {
 		return count;
 	}
 
+	@Override
 	public Object getItem(int element) {
 
 		int count = 0;
@@ -596,10 +602,12 @@ public class BrickAdapter extends BaseAdapter implements DragAndDropListener {
 		return sprite.getScript(scriptIndex).getBrickList().size();
 	}
 
+	@Override
 	public long getItemId(int index) {
 		return index;
 	}
 
+	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		if (getItem(position) instanceof Brick) {
@@ -698,6 +706,7 @@ public class BrickAdapter extends BaseAdapter implements DragAndDropListener {
 		return sprite.getNumberOfScripts();
 	}
 
+	@Override
 	public void setTouchedScript(int index) {
 		if (!(index == currentScriptPosition)) {
 			if (!(index < 0)) {
@@ -715,6 +724,7 @@ public class BrickAdapter extends BaseAdapter implements DragAndDropListener {
 		currentScriptPosition = position;
 	}
 
+	@Override
 	public int getSpriteSize() {
 		return sprite.getNumberOfScripts();
 	}

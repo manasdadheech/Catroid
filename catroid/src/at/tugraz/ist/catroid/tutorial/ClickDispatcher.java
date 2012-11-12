@@ -91,7 +91,20 @@ public class ClickDispatcher {
 			case PROJECT_STAGE_BUTTON:
 				dispatchButton(R.id.btn_action_play);
 				break;
+
+			case BRICK_DIALOG_DONE:
+				dispatchDragAndDrop(R.id.brick_list_view);
+				break;
 		}
+	}
+
+	private void dispatchDragAndDrop(int itemNr) {
+		Log.i("ANGI", "gehts noch??");
+		ClickableArea ca = new ClickableArea(100, 100, 200, 300);
+		CloudController co = new CloudController();
+		co.show();
+		co.fadeTo(ca);
+
 	}
 
 	private void dispatchAddBrick(int itemNr) {

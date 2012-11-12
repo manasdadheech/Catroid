@@ -46,6 +46,7 @@ import at.tugraz.ist.catroid.common.SoundInfo;
 import at.tugraz.ist.catroid.content.Sprite;
 import at.tugraz.ist.catroid.stage.PreStageActivity;
 import at.tugraz.ist.catroid.stage.StageActivity;
+import at.tugraz.ist.catroid.tutorial.Tutorial;
 import at.tugraz.ist.catroid.ui.dialogs.AddBrickDialog;
 import at.tugraz.ist.catroid.ui.dialogs.BrickCategoryDialog;
 import at.tugraz.ist.catroid.ui.dialogs.DeleteCostumeDialog;
@@ -256,7 +257,6 @@ public class ScriptTabActivity extends TabActivity implements OnDismissListener,
 		dismissDialog(DIALOG_RENAME_COSTUME);
 	}
 
-	//<<<<<<< HEAD
 	public void handlePositiveButtonDeleteCostume(View v) {
 		deleteCostumeDialog.handleOkButton();
 	}
@@ -273,9 +273,7 @@ public class ScriptTabActivity extends TabActivity implements OnDismissListener,
 		dismissDialog(DIALOG_DELETE_SOUND);
 	}
 
-	//=======
 	@Override
-	//>>>>>>> tutorial_otto
 	public void onDismiss(DialogInterface dialogInterface) {
 
 		if (!dontcreateNewBrick) {
@@ -286,8 +284,9 @@ public class ScriptTabActivity extends TabActivity implements OnDismissListener,
 					addScript = false;
 				}
 
+				Tutorial.getInstance(null).pauseTutorial();
 				((ScriptActivity) getCurrentActivity()).updateAdapterAfterAddNewBrick(dialogInterface);
-
+				Tutorial.getInstance(null).resumeTutorial();
 			}
 			isCanceled = false;
 		}

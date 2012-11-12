@@ -116,10 +116,12 @@ public class LayoutExaminer {
 
 	public ClickableArea examineAddBrickDialog(int itemNr) {
 		Dialog dialog = Tutorial.getInstance(null).getDialog();
-		ListView dings = (ListView) dialog.findViewById(R.id.brick_list_view);
+		ListView dings = (ListView) dialog.findViewById(R.id.addBrickDialogListView);
+
 		View tmp = null;
 		if (dings.getChildCount() < itemNr) {
-			Log.i("faxxe", "LE: There is no such item! in ADD-Brick-- resetting");
+
+			dings.smoothScrollToPosition(itemNr);
 			itemNr = 0;
 		}
 		while (tmp == null) {

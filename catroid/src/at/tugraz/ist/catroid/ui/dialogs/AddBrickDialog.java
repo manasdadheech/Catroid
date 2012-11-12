@@ -217,14 +217,11 @@ public class AddBrickDialog extends Dialog {
 
 		listView.setAdapter(adapter);
 
-		Tutorial.getInstance(null).setDialog(this);
 		listView.setOnItemClickListener(new ListView.OnItemClickListener() {
-			//<<<<<<< HEAD
 
-			//=======
 			@Override
-			//>>>>>>> tutorial_otto
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
 				Brick addedBrick = adapter.getItem(position);
 				ProjectManager projectManager = ProjectManager.getInstance();
 

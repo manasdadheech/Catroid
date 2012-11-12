@@ -110,5 +110,6 @@ public class BrickCategoryDialog extends Dialog {
 				Tutorial.getInstance(activity).resumeTutorial();
 			}
 		});
+
 	}
 }

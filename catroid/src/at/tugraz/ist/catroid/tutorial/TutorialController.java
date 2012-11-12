@@ -271,6 +271,7 @@ public class TutorialController {
 	}
 
 	public void setDialog(Dialog dialog) {
+		activityChanged = true;
 		this.dialog = dialog;
 	}
 

@@ -153,6 +153,7 @@ public class ScriptActivity extends Activity implements OnCancelListener {
 			adapter.setInsertedBrickpos(pos);
 			listView.setInsertedBrick(pos);
 		}
+
 		adapter.notifyDataSetChanged();
 	}
 

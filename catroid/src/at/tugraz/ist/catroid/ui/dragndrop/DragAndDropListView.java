@@ -128,7 +128,6 @@ public class DragAndDropListView extends ListView implements OnLongClickListener
 	@Override
 	public void draw(Canvas canvas) {
 		super.draw(canvas);
-
 		if (dimBackground) {
 			Rect rect = new Rect(0, 0, canvas.getWidth(), canvas.getHeight());
 			Paint paint = new Paint();
@@ -207,6 +206,7 @@ public class DragAndDropListView extends ListView implements OnLongClickListener
 		maximumDragViewHeight = height / 3;
 	}
 
+	@Override
 	public boolean onLongClick(View view) {
 		int itemPosition = calculateItemPositionAndTouchPointY(view);
 

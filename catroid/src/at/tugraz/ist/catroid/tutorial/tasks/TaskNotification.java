@@ -65,6 +65,14 @@ public class TaskNotification implements Task {
 
 			return true;
 		}
+
+		if (notificationType == Notification.BRICK_DIALOG_DONE) {
+			return true;
+		}
+
+		if (notificationType == Notification.PROJECT_STAGE_BUTTON) {
+			return true;
+		}
 		//
 		//		if (notificationType == notificationType.BRICK_CATEGORY_DIALOG) {
 		//			return ("DIALOG");

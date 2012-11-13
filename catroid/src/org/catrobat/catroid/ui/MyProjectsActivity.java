@@ -23,24 +23,22 @@
 package org.catrobat.catroid.ui;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.ui.dialogs.NewProjectDialog;
 import org.catrobat.catroid.utils.ErrorListenerInterface;
 import org.catrobat.catroid.utils.Utils;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import org.catrobat.catroid.R;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
-public class MyProjectsActivity extends SherlockFragmentActivity implements ErrorListenerInterface {
+public class MyProjectsActivity extends BaseSlidingFragmentActivity implements ErrorListenerInterface {
 
 	private ActionBar actionBar;
 
@@ -83,12 +81,6 @@ public class MyProjectsActivity extends SherlockFragmentActivity implements Erro
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case android.R.id.home: {
-				Intent intent = new Intent(this, MainMenuActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(intent);
-				return true;
-			}
 			case R.id.menu_add: {
 				NewProjectDialog dialog = new NewProjectDialog();
 				dialog.show(getSupportFragmentManager(), NewProjectDialog.DIALOG_FRAGMENT_TAG);

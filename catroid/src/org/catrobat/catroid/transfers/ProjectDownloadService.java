@@ -25,8 +25,8 @@ package org.catrobat.catroid.transfers;
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.io.StorageHandler;
-import org.catrobat.catroid.ui.MainMenuActivity;
 import org.catrobat.catroid.ui.dialogs.OverwriteRenameDialog;
+import org.catrobat.catroid.utils.ErrorListenerInterface;
 import org.catrobat.catroid.utils.StatusBarNotificationManager;
 import org.catrobat.catroid.utils.UtilZip;
 import org.catrobat.catroid.utils.Utils;
@@ -40,6 +40,8 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.ResultReceiver;
 import android.widget.Toast;
+
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 public class ProjectDownloadService extends IntentService {
 
@@ -110,9 +112,15 @@ public class ProjectDownloadService extends IntentService {
 			StatusBarNotificationManager.INSTANCE.downloadProjectZipFileString.add(zipFileString);
 			try {
 				//The context of the calling activity is needed, otherwise an exception occurs
-				MainMenuActivity activity = StatusBarNotificationManager.INSTANCE.getActivity(notificationId);
+				final SherlockFragmentActivity activity = (SherlockFragmentActivity) StatusBarNotificationManager.INSTANCE
+						.getActivity(notificationId);
 				OverwriteRenameDialog renameDialog = new OverwriteRenameDialog(activity, projectName, zipFileString,
-						activity);
+						new ErrorListenerInterface() {
+							@Override
+							public void showErrorDialog(String errorMessage) {
+								Utils.displayErrorMessageFragment(activity.getSupportFragmentManager(), errorMessage);
+							}
+						});
 				renameDialog.show();
 			} catch (RuntimeException e) {
 				e.printStackTrace();

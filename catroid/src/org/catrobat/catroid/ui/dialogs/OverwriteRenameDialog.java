@@ -26,12 +26,12 @@ import java.util.UUID;
 
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.R;
-import org.catrobat.catroid.ui.MainMenuActivity;
 import org.catrobat.catroid.utils.ErrorListenerInterface;
 import org.catrobat.catroid.utils.StatusBarNotificationManager;
 import org.catrobat.catroid.utils.UtilZip;
 import org.catrobat.catroid.utils.Utils;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -59,9 +59,9 @@ public class OverwriteRenameDialog extends Dialog implements OnClickListener {
 		this.errorListenerInterface = errorListenerInterface;
 	}
 
-	public void setActivity(MainMenuActivity activity) {
+	public void setActivity(Activity activity, ErrorListenerInterface errorListenerInterface) {
 		this.context = activity;
-		this.errorListenerInterface = activity;
+		this.errorListenerInterface = errorListenerInterface;
 	}
 
 	@Override

@@ -38,11 +38,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
-public class ProjectActivity extends SherlockFragmentActivity implements ErrorListenerInterface {
+public class ProjectActivity extends BaseSlidingFragmentActivity implements ErrorListenerInterface {
 
 	private ActionBar actionBar;
 	private SpritesListFragment spritesListFragment;
@@ -97,12 +96,6 @@ public class ProjectActivity extends SherlockFragmentActivity implements ErrorLi
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case android.R.id.home: {
-				Intent intent = new Intent(this, MainMenuActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(intent);
-				break;
-			}
 			case R.id.show_details: {
 				if (spritesListFragment.getShowDetails()) {
 					spritesListFragment.setShowDetails(false);

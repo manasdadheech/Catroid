@@ -22,7 +22,8 @@
  */
 package org.catrobat.catroid.content.bricks;
 
-import org.catrobat.catroid.common.CostumeData;
+import org.catrobat.catroid.R;
+import org.catrobat.catroid.common.LookData;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.stage.NativeAppActivity;
 
@@ -34,19 +35,18 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import org.catrobat.catroid.R;
 
-public class SetCostumeBrick implements Brick {
+public class SetLookBrick implements Brick {
 	private static final long serialVersionUID = 1L;
 	private Sprite sprite;
-	private CostumeData costume;
+	private LookData look;
 	private transient View view;
 
-	public SetCostumeBrick(Sprite sprite) {
+	public SetLookBrick(Sprite sprite) {
 		this.sprite = sprite;
 	}
 
-	public SetCostumeBrick() {
+	public SetLookBrick() {
 
 	}
 
@@ -55,17 +55,17 @@ public class SetCostumeBrick implements Brick {
 		return NO_RESOURCES;
 	}
 
-	public void setCostume(CostumeData costumeData) {
-		this.costume = costumeData;
+	public void setLook(LookData lookData) {
+		this.look = lookData;
 	}
 
 	@Override
 	public void execute() {
-		if (costume != null && sprite != null && sprite.getCostumeDataList().contains(costume)) {
+		if (look != null && sprite != null && sprite.getLookDataList().contains(look)) {
 			if (!NativeAppActivity.isRunning()) {
-				sprite.costume.setCostumeData(costume);
+				sprite.look.setLookData(look);
 			} else {
-				sprite.costume.setCostumeDataInternal(costume);
+				sprite.look.setLookDataInternal(look);
 			}
 		}
 	}
@@ -76,26 +76,26 @@ public class SetCostumeBrick implements Brick {
 	}
 
 	public String getImagePath() {
-		return costume.getAbsolutePath();
+		return look.getAbsolutePath();
 	}
 
 	@Override
 	public View getView(final Context context, int brickId, BaseAdapter adapter) {
 
-		view = View.inflate(context, R.layout.brick_set_costume, null);
+		view = View.inflate(context, R.layout.brick_set_look, null);
 
-		Spinner costumebrickSpinner = (Spinner) view.findViewById(R.id.setcostume_spinner);
-		costumebrickSpinner.setAdapter(createCostumeAdapter(context));
-		costumebrickSpinner.setClickable(true);
-		costumebrickSpinner.setFocusable(true);
+		Spinner lookbrickSpinner = (Spinner) view.findViewById(R.id.setlook_spinner);
+		lookbrickSpinner.setAdapter(createLookAdapter(context));
+		lookbrickSpinner.setClickable(true);
+		lookbrickSpinner.setFocusable(true);
 
-		costumebrickSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+		lookbrickSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				if (position == 0) {
-					costume = null;
+					look = null;
 				} else {
-					costume = (CostumeData) parent.getItemAtPosition(position);
+					look = (LookData) parent.getItemAtPosition(position);
 				}
 			}
 
@@ -104,38 +104,37 @@ public class SetCostumeBrick implements Brick {
 			}
 		});
 
-		if (sprite.getCostumeDataList().contains(costume)) {
-			costumebrickSpinner.setSelection(sprite.getCostumeDataList().indexOf(costume) + 1, true);
+		if (sprite.getLookDataList().contains(look)) {
+			lookbrickSpinner.setSelection(sprite.getLookDataList().indexOf(look) + 1, true);
 		} else {
-			costumebrickSpinner.setSelection(0);
+			lookbrickSpinner.setSelection(0);
 		}
 
 		if (sprite.getName().equals(context.getString(R.string.background))) {
-			TextView textView = (TextView) view.findViewById(R.id.tv_set_costume);
+			TextView textView = (TextView) view.findViewById(R.id.tv_set_look);
 			textView.setText(R.string.brick_set_background);
 		}
 
 		return view;
 	}
 
-	private ArrayAdapter<?> createCostumeAdapter(Context context) {
-		ArrayAdapter<CostumeData> arrayAdapter = new ArrayAdapter<CostumeData>(context,
-				android.R.layout.simple_spinner_item);
+	private ArrayAdapter<?> createLookAdapter(Context context) {
+		ArrayAdapter<LookData> arrayAdapter = new ArrayAdapter<LookData>(context, android.R.layout.simple_spinner_item);
 		arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		CostumeData dummyCostumeData = new CostumeData();
-		dummyCostumeData.setCostumeName(context.getString(R.string.broadcast_nothing_selected));
-		arrayAdapter.add(dummyCostumeData);
-		for (CostumeData costumeData : sprite.getCostumeDataList()) {
-			arrayAdapter.add(costumeData);
+		LookData dummyLookData = new LookData();
+		dummyLookData.setLookName(context.getString(R.string.broadcast_nothing_selected));
+		arrayAdapter.add(dummyLookData);
+		for (LookData lookData : sprite.getLookDataList()) {
+			arrayAdapter.add(lookData);
 		}
 		return arrayAdapter;
 	}
 
 	@Override
 	public View getPrototypeView(Context context) {
-		View prototypeView = View.inflate(context, R.layout.brick_set_costume, null);
+		View prototypeView = View.inflate(context, R.layout.brick_set_look, null);
 		if (sprite.getName().equals(context.getString(R.string.background))) {
-			TextView textView = (TextView) prototypeView.findViewById(R.id.tv_set_costume);
+			TextView textView = (TextView) prototypeView.findViewById(R.id.tv_set_look);
 			textView.setText(R.string.brick_set_background);
 		}
 		return prototypeView;
@@ -143,9 +142,9 @@ public class SetCostumeBrick implements Brick {
 
 	@Override
 	public Brick clone() {
-		SetCostumeBrick clonedBrick = new SetCostumeBrick(getSprite());
-		if (sprite.costume != null) {
-			clonedBrick.setCostume(null);
+		SetLookBrick clonedBrick = new SetLookBrick(getSprite());
+		if (sprite.look != null) {
+			clonedBrick.setLook(null);
 		}
 
 		return clonedBrick;

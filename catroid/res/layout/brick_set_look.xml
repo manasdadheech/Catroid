@@ -25,11 +25,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/brick_violet"
-    android:orientation="horizontal" >
+    android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textview_next_costume"
-        style="@style/brick_text_style"
-        android:text="@string/brick_next_look" />
+        <TextView style="@style/brick_text_style"
+            android:id="@+id/tv_set_look"
+            android:layout_marginLeft="3dp"
+            android:text="@string/brick_set_look" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <Spinner
+                android:id="@+id/setlook_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false" />
+        </LinearLayout>
 </LinearLayout>

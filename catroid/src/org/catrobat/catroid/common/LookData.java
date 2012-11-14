@@ -30,12 +30,13 @@ import org.catrobat.catroid.utils.Utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class CostumeData implements Serializable {
+public class LookData implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -80,7 +81,7 @@ public class CostumeData implements Serializable {
 
 	}
 
-	public CostumeData() {
+	public LookData() {
 	}
 
 	public String getAbsolutePath() {
@@ -99,19 +100,19 @@ public class CostumeData implements Serializable {
 		}
 	}
 
-	public String getCostumeName() {
+	public String getLookName() {
 		return name;
 	}
 
-	public void setCostumeName(String name) {
+	public void setLookName(String name) {
 		this.name = name;
 	}
 
-	public void setCostumeFilename(String fileName) {
+	public void setLookFilename(String fileName) {
 		this.fileName = fileName;
 	}
 
-	public String getCostumeFileName() {
+	public String getLookFileName() {
 		return fileName;
 	}
 

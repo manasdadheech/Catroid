@@ -33,19 +33,19 @@ import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class RenameCostumeDialog extends TextDialog {
+public class RenameLookDialog extends TextDialog {
 
-	private static final String BUNDLE_ARGUMENTS_OLD_COSTUME_NAME = "old_costume_name";
-	public static final String EXTRA_NEW_COSTUME_NAME = "new_costume_name";
-	public static final String DIALOG_FRAGMENT_TAG = "dialog_rename_costume";
+	private static final String BUNDLE_ARGUMENTS_OLD_LOOK_NAME = "old_look_name";
+	public static final String EXTRA_NEW_LOOK_NAME = "new_look_name";
+	public static final String DIALOG_FRAGMENT_TAG = "dialog_rename_look";
 
-	private String oldCostumeName;
+	private String oldLookName;
 
-	public static RenameCostumeDialog newInstance(String oldCostumeName) {
-		RenameCostumeDialog dialog = new RenameCostumeDialog();
+	public static RenameLookDialog newInstance(String oldLookName) {
+		RenameLookDialog dialog = new RenameLookDialog();
 
 		Bundle arguments = new Bundle();
-		arguments.putString(BUNDLE_ARGUMENTS_OLD_COSTUME_NAME, oldCostumeName);
+		arguments.putString(BUNDLE_ARGUMENTS_OLD_LOOK_NAME, oldLookName);
 		dialog.setArguments(arguments);
 
 		return dialog;
@@ -53,27 +53,27 @@ public class RenameCostumeDialog extends TextDialog {
 
 	@Override
 	protected void initialize() {
-		oldCostumeName = getArguments().getString(BUNDLE_ARGUMENTS_OLD_COSTUME_NAME);
-		input.setText(oldCostumeName);
+		oldLookName = getArguments().getString(BUNDLE_ARGUMENTS_OLD_LOOK_NAME);
+		input.setText(oldLookName);
 	}
 
 	@Override
 	protected boolean handleOkButton() {
-		String newCostumeName = (input.getText().toString()).trim();
+		String newLookName = (input.getText().toString()).trim();
 
-		if (newCostumeName.equals(oldCostumeName)) {
+		if (newLookName.equals(oldLookName)) {
 			dismiss();
 		}
 
-		if (newCostumeName != null && !newCostumeName.equalsIgnoreCase("")) {
-			newCostumeName = Utils.getUniqueCostumeName(newCostumeName);
+		if (newLookName != null && !newLookName.equalsIgnoreCase("")) {
+			newLookName = Utils.getUniqueLookName(newLookName);
 		} else {
 			Utils.displayErrorMessageFragment(getFragmentManager(), getString(R.string.lookname_invalid));
 			dismiss();
 		}
 
-		Intent intent = new Intent(ScriptTabActivity.ACTION_COSTUME_RENAMED);
-		intent.putExtra(EXTRA_NEW_COSTUME_NAME, newCostumeName);
+		Intent intent = new Intent(ScriptTabActivity.ACTION_LOOK_RENAMED);
+		intent.putExtra(EXTRA_NEW_LOOK_NAME, newLookName);
 		getActivity().sendBroadcast(intent);
 		return true;
 	}

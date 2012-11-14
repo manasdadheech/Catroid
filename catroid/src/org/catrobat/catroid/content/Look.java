@@ -24,15 +24,14 @@ package org.catrobat.catroid.content;
 
 import java.util.concurrent.Semaphore;
 
-import org.catrobat.catroid.common.CostumeData;
-
+import org.catrobat.catroid.common.LookData;
 
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-public class Costume extends Image {
+public class Look extends Image {
 	protected Semaphore xYWidthHeightLock = new Semaphore(1);
 	protected Semaphore imageLock = new Semaphore(1);
 	protected Semaphore scaleLock = new Semaphore(1);
@@ -40,7 +39,7 @@ public class Costume extends Image {
 	protected Semaphore brightnessLock = new Semaphore(1);
 	protected boolean imageChanged = false;
 	protected boolean brightnessChanged = false;
-	protected CostumeData costumeData;
+	protected LookData lookData;
 	protected Sprite sprite;
 	protected float alphaValue;
 	protected float brightnessValue;
@@ -49,7 +48,7 @@ public class Costume extends Image {
 	public int zPosition;
 	protected Pixmap pixmap;
 
-	public Costume(Sprite sprite) {
+	public Look(Sprite sprite) {
 		this.sprite = sprite;
 		this.x = 0f;
 		this.y = 0f;
@@ -114,7 +113,7 @@ public class Costume extends Image {
 	protected void checkImageChanged() {
 		imageLock.acquireUninterruptibly();
 		if (imageChanged) {
-			if (costumeData == null) {
+			if (lookData == null) {
 				xYWidthHeightLock.acquireUninterruptibly();
 				this.x += this.width / 2f;
 				this.y += this.height / 2f;
@@ -127,7 +126,7 @@ public class Costume extends Image {
 				return;
 			}
 
-			pixmap = costumeData.getPixmap();
+			pixmap = lookData.getPixmap();
 
 			xYWidthHeightLock.acquireUninterruptibly();
 			this.x += this.width / 2f;
@@ -142,13 +141,13 @@ public class Costume extends Image {
 
 			brightnessLock.acquireUninterruptibly();
 			if (brightnessChanged) {
-				costumeData.setPixmap(adjustBrightness(costumeData.getOriginalPixmap()));
-				costumeData.setTextureRegion();
+				lookData.setPixmap(adjustBrightness(lookData.getOriginalPixmap()));
+				lookData.setTextureRegion();
 				brightnessChanged = false;
 			}
 			brightnessLock.release();
 
-			TextureRegion region = costumeData.getTextureRegion();
+			TextureRegion region = lookData.getTextureRegion();
 			setRegion(region);
 
 			imageChanged = false;
@@ -237,17 +236,17 @@ public class Costume extends Image {
 		xYWidthHeightLock.release();
 	}
 
-	public void setCostumeData(CostumeData costumeData) {
+	public void setLookData(LookData lookData) {
 		imageLock.acquireUninterruptibly();
-		this.costumeData = costumeData;
+		this.lookData = lookData;
 		imageChanged = true;
 		imageLock.release();
 	}
 
-	public void setCostumeDataInternal(CostumeData costumeData) {
+	public void setLookDataInternal(LookData lookData) {
 		imageLock.acquireUninterruptibly();
 		internalPath = true;
-		this.costumeData = costumeData;
+		this.lookData = lookData;
 		imageChanged = true;
 		imageLock.release();
 	}
@@ -255,12 +254,12 @@ public class Costume extends Image {
 	public String getImagePath() {
 		imageLock.acquireUninterruptibly();
 		String path;
-		if (this.costumeData == null) {
+		if (this.lookData == null) {
 			path = "";
 		} else if (internalPath) {
-			path = this.costumeData.getInternalPath();
+			path = this.lookData.getInternalPath();
 		} else {
-			path = this.costumeData.getAbsolutePath();
+			path = this.lookData.getAbsolutePath();
 		}
 		imageLock.release();
 		return path;
@@ -344,8 +343,7 @@ public class Costume extends Image {
 		return brightness;
 	}
 
-	public CostumeData getCostumeData() {
-		return costumeData;
+	public LookData getLookData() {
+		return lookData;
 	}
-
 }

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+/**
  *  Catroid: An on-device visual programming system for Android devices
  *  Copyright (C) 2010-2012 The Catrobat Team
  *  (<http://developer.catrobat.org/credits>)
@@ -20,26 +19,32 @@
  *  
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+ */
+package org.catrobat.catroid.stage;
 
-    <item
-        android:id="@+id/menu_add"
-        android:showAsAction="ifRoom|withText"
-        android:title="@string/add">
-        <menu>
-            <item
-                android:id="@+id/menu_add_costume_from_camera"
-                android:title="@string/add_look_from_camera"/>
-            <item
-                android:id="@+id/menu_add_costume_from_gallery"
-                android:title="@string/add_look_from_gallery"/>
-        </menu>
-    </item>
-    <item
-        android:id="@+id/menu_start"
-        android:icon="@drawable/ic_play_black"
-        android:showAsAction="ifRoom"
-        android:title="@string/start"/>
+import java.util.Comparator;
 
-</menu>
+import org.catrobat.catroid.content.Look;
+
+import com.badlogic.gdx.scenes.scene2d.Actor;
+
+/**
+ * @author Johannes Iber
+ * 
+ */
+public class LookComparator implements Comparator<Actor> {
+
+	@Override
+	public int compare(Actor object1, Actor object2) {
+		Look look1 = (Look) object1;
+		Look look2 = (Look) object2;
+		if (look1.zPosition < look2.zPosition) {
+			return -1;
+		} else if (look1.zPosition == look2.zPosition) {
+			return 0;
+		} else {
+			return 1;
+		}
+	}
+
+}

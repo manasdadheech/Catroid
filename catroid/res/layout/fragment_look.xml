@@ -26,7 +26,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white" >
 
-    <!-- Costume list -->
+    <!-- Look list -->
 
     <ListView
         android:id="@android:id/list"
@@ -35,7 +35,7 @@
         android:cacheColorHint="#00000000" />
 
     <LinearLayout
-        android:id="@+id/view_below_costumelist_non_scrollable"
+        android:id="@+id/view_below_looklist_non_scrollable"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@android:id/list"

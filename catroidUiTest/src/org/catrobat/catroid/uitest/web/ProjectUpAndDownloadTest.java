@@ -32,6 +32,7 @@ import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.io.StorageHandler;
 import org.catrobat.catroid.livewallpaper.R;
 import org.catrobat.catroid.ui.MainMenuActivity;
+import org.catrobat.catroid.ui.ProgramMenuActivity;
 import org.catrobat.catroid.uitest.util.UiTestUtils;
 import org.catrobat.catroid.utils.UtilFile;
 import org.catrobat.catroid.web.ServerCalls;
@@ -285,6 +286,8 @@ public class ProjectUpAndDownloadTest extends ActivityInstrumentationTestCase2<M
 
 	private void addABrickToProject() {
 		solo.clickInList(0);
+		solo.waitForActivity(ProgramMenuActivity.class.getSimpleName());
+		solo.clickOnText(solo.getString(R.string.scripts));
 		UiTestUtils.addNewBrick(solo, R.string.brick_wait);
 		UiTestUtils.goToHomeActivity(getActivity());
 	}

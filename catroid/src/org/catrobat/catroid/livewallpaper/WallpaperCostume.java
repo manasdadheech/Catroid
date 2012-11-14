@@ -24,9 +24,12 @@
 package org.catrobat.catroid.livewallpaper;
 
 import org.catrobat.catroid.common.CostumeData;
+import org.catrobat.catroid.common.Values;
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.utils.ImageEditing;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
@@ -109,7 +112,9 @@ public class WallpaperCostume {
 		hidden = false;
 		zPosition = wallpaperHelper.getProject().getSpriteList().indexOf(sprite);
 		costume = null;
-		costumeData.nullifyBitmaps();
+		if (costumeData != null) {
+			costumeData.nullifyBitmaps();
+		}
 	}
 
 	private void updateMatrix() {
@@ -197,6 +202,12 @@ public class WallpaperCostume {
 	}
 
 	public Bitmap getCostume() {
+		if (isBackground && costume == null) {
+			costume = ImageEditing.createSingleColorBitmap(Values.SCREEN_WIDTH, Values.SCREEN_HEIGHT, Color.WHITE);
+			setX(-360);
+			setY(592);
+		}
+
 		return costume;
 	}
 
@@ -264,6 +275,10 @@ public class WallpaperCostume {
 
 	public void setzPosition(int zPosition) {
 		this.zPosition = zPosition;
+	}
+
+	public double getRotation() {
+		return this.rotation;
 	}
 
 	public void setRotation(float r) {

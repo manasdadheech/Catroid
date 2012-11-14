@@ -24,6 +24,7 @@ package org.catrobat.catroid.content.bricks;
 
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.livewallpaper.R;
+import org.catrobat.catroid.livewallpaper.WallpaperCostume;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.dialogs.BrickTextDialog;
 
@@ -136,7 +137,18 @@ public class MoveNStepsBrick implements Brick, OnClickListener {
 
 	@Override
 	public void executeLiveWallpaper() {
-		// TODO Auto-generated method stub
+		WallpaperCostume wallpaperCostume = sprite.getWallpaperCostume();
+
+		if (wallpaperCostume == null) {
+			wallpaperCostume = new WallpaperCostume(sprite, null);
+		}
+
+		double radians = Math.toRadians(wallpaperCostume.getRotation());
+		int newXPosition = (int) Math.round(wallpaperCostume.getX() + steps * Math.cos(radians));
+		int newYPosition = (int) Math.round(wallpaperCostume.getY() + steps * Math.sin(radians));
+
+		wallpaperCostume.setX(newXPosition);
+		wallpaperCostume.setY(newYPosition);
 
 	}
 }

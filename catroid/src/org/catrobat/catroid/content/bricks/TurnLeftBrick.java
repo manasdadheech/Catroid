@@ -129,7 +129,7 @@ public class TurnLeftBrick implements Brick, OnClickListener {
 			wallpaperCostume = new WallpaperCostume(sprite, null);
 		}
 
-		wallpaperCostume.setRotation((float) -degrees);
+		wallpaperCostume.rotate((float) -degrees);
 	}
 
 }

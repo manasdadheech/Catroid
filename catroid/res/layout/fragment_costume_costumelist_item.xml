@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawableTop="@drawable/ic_paintroid_logo"
-            android:text="@string/edit_costume_paintroid" />
+            android:text="@string/edit_look_paintroid" />
 
         <Button
             android:id="@+id/btn_costume_copy"
@@ -125,7 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawableTop="@drawable/ic_copy"
-            android:text="@string/copy_costume" />
+            android:text="@string/copy_look" />
 
         <Button
             android:id="@+id/btn_costume_delete"

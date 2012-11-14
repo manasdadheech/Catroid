@@ -41,7 +41,7 @@
         android:drawableLeft="@drawable/program_menu_costumes"
         android:drawableRight="@drawable/ic_media_play"
         android:onClick="handleCostumesButton"
-        android:text="@string/costumes" />
+        android:text="@string/looks" />
 
     <Button
         android:id="@+id/btn_sounds"

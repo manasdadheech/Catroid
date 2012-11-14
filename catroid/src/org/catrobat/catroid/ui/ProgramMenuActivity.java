@@ -67,7 +67,7 @@ public class ProgramMenuActivity extends SherlockFragmentActivity implements Err
 				if (ProjectManager.INSTANCE.getCurrentSpritePosition() == 0) {
 					((Button) findViewById(R.id.btn_costumes)).setText(R.string.backgrounds);
 				} else {
-					((Button) findViewById(R.id.btn_costumes)).setText(R.string.costumes);
+					((Button) findViewById(R.id.btn_costumes)).setText(R.string.looks);
 				}
 				return true;
 			}

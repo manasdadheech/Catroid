@@ -30,6 +30,6 @@
     <TextView
         android:id="@+id/textview_next_costume"
         style="@style/brick_text_style"
-        android:text="@string/brick_next_costume" />
+        android:text="@string/brick_next_look" />
 
 </LinearLayout>

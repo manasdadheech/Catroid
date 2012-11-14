@@ -94,7 +94,7 @@ public class ScriptTabActivity extends SherlockFragmentActivity implements Error
 			setupTab(R.drawable.ic_tab_background_selector, getString(R.string.backgrounds), CostumeFragment.class,
 					null);
 		} else {
-			setupTab(R.drawable.ic_tab_costumes_selector, getString(R.string.costumes), CostumeFragment.class, null);
+			setupTab(R.drawable.ic_tab_costumes_selector, getString(R.string.looks), CostumeFragment.class, null);
 		}
 
 		setupTab(R.drawable.ic_tab_sounds_selector, getString(R.string.sounds), SoundFragment.class, null);

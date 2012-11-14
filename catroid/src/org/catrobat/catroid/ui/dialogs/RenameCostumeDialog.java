@@ -22,6 +22,7 @@
  */
 package org.catrobat.catroid.ui.dialogs;
 
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.utils.Utils;
 
@@ -31,7 +32,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.Toast;
-import org.catrobat.catroid.R;
 
 public class RenameCostumeDialog extends TextDialog {
 
@@ -68,7 +68,7 @@ public class RenameCostumeDialog extends TextDialog {
 		if (newCostumeName != null && !newCostumeName.equalsIgnoreCase("")) {
 			newCostumeName = Utils.getUniqueCostumeName(newCostumeName);
 		} else {
-			Utils.displayErrorMessageFragment(getFragmentManager(), getString(R.string.costumename_invalid));
+			Utils.displayErrorMessageFragment(getFragmentManager(), getString(R.string.lookname_invalid));
 			dismiss();
 		}
 
@@ -80,7 +80,7 @@ public class RenameCostumeDialog extends TextDialog {
 
 	@Override
 	protected String getTitle() {
-		return getString(R.string.rename_costume_dialog);
+		return getString(R.string.rename_look_dialog);
 	}
 
 	@Override

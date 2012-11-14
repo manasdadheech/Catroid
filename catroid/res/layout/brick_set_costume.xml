@@ -38,7 +38,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="3dip"
-            android:text="@string/brick_set_costume" />
+            android:text="@string/brick_set_look" />
 
         <LinearLayout
             android:layout_width="match_parent"

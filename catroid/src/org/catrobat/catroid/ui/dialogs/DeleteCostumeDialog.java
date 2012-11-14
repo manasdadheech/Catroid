@@ -25,6 +25,7 @@ package org.catrobat.catroid.ui.dialogs;
 import java.util.ArrayList;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.io.StorageHandler;
 import org.catrobat.catroid.ui.ScriptTabActivity;
@@ -36,7 +37,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import org.catrobat.catroid.R;
 
 public class DeleteCostumeDialog extends DialogFragment {
 
@@ -57,7 +57,7 @@ public class DeleteCostumeDialog extends DialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		final int selectedPosition = getArguments().getInt(BUNDLE_ARGUMENTS_SELECTED_POSITION);
 
-		Dialog dialog = new AlertDialog.Builder(getActivity()).setTitle(R.string.delete_costume_dialog)
+		Dialog dialog = new AlertDialog.Builder(getActivity()).setTitle(R.string.delete_look_dialog)
 				.setNegativeButton(R.string.cancel_button, new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {

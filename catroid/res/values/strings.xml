@@ -85,7 +85,7 @@
     <string name="project_name">Project:</string>
     <string name="number_of_scripts">Scripts:</string>
     <string name="number_of_bricks">Bricks:</string>
-    <string name="number_of_costumes">Costumes:</string>
+    <string name="number_of_looks">Looks:</string>
     <string name="number_of_sounds">Sounds:</string>
     <string name="show_details">Show Details</string>
     <string name="hide_details">Hide Details</string>
@@ -95,24 +95,24 @@
     <string name="spritelist_footer_image_description">Tap to add new sprite</string>
     <!-- ScriptTab activity -->
     <string name="scripts">Scripts</string>
-    <string name="costumes">Costumes</string>
+    <string name="looks">Looks</string>
     <string name="sounds">Sounds</string>
     <string name="backgrounds">Backgrounds</string>
-    <!-- Costume activity -->
-    <string name="rename_costume_dialog">Rename costume</string>
-    <string name="edit_costume_paintroid">Paintroid</string>
-    <string name="copy_costume">copy</string>
-    <string name="costumename_invalid">This costume\'s name is invalid</string>
-    <string name="copy_costume_addition">copy</string>
+    <!-- Look activity -->
+    <string name="rename_look_dialog">Rename look</string>
+    <string name="edit_look_paintroid">Paintroid</string>
+    <string name="copy_look">copy</string>
+    <string name="lookname_invalid">This look\'s name is invalid</string>
+    <string name="copy_look_addition">copy</string>
     <string name="paintroid_not_installed">Paintroid is not installed!\nDo you want to install it?</string>
-    <string name="default_costume_name">costume</string>
-    <string name="delete_costume_dialog">Delete costume?</string>
-    <string name="add_costume_from_camera">From Camera</string>
-    <string name="add_costume_from_gallery">From Gallery</string>
-    <string name="select_costume_from_gallery">Select image</string>
-    <string name="select_costume_from_camera">Select photo</string>
-    <string name="costumelist_footer_image_description_for_camera">Tap to add new photo</string>
-    <string name="costumelist_footer_image_description_for_gallery">Tap to add new image</string>
+    <string name="default_look_name">look</string>
+    <string name="delete_look_dialog">Delete look?</string>
+    <string name="add_look_from_camera">From Camera</string>
+    <string name="add_look_from_gallery">From Gallery</string>
+    <string name="select_look_from_gallery">Select image</string>
+    <string name="select_look_from_camera">Select photo</string>
+    <string name="looklist_footer_image_description_for_camera">Tap to add new photo</string>
+    <string name="looklist_footer_image_description_for_gallery">Tap to add new image</string>
     <!-- Sound activity -->
     <string name="rename_sound_dialog">Rename sound</string>
     <string name="soundname_invalid">This sound\'s name is invalid</string>
@@ -222,7 +222,7 @@
     <string name="brick_glide">Glide</string>
     <string name="brick_glide_to">to</string>
     <!-- Looks bricks -->
-    <string name="brick_set_costume">Switch to costume</string>
+    <string name="brick_set_look">Switch to look</string>
     <string name="brick_set_background">Set background</string>
     <string name="brick_set_size_to">Set size to</string>
     <string name="brick_change_size_by">Change size by</string>
@@ -235,7 +235,7 @@
     <string name="by_label">by</string>
     <string name="to_label">to</string>
     <string name="brick_clear_graphic_effect">Clear graphic effects</string>
-    <string name="brick_next_costume">Next costume</string>
+    <string name="brick_next_look">Next look</string>
     <string name="brick_next_background">Next background</string>
     <!-- Sound bricks -->
     <string name="brick_play_sound">Start sound</string>
@@ -340,7 +340,7 @@
     <string name="formula_editor_parse_fail">Error in the input! Fix or press again to discard.</string>
     <string name="formula_nothing_selected">Define the brick´s input value</string>
     <string name="formula_editor_parse_fail_formula_too_long">Formula too long! Fix or press again to discard.</string>
-    <string name="formula_editor_choose_costume_variable">Choose your Costume Variable:</string>
+    <string name="formula_editor_choose_look_variable">Choose your Look Variable:</string>
     <string name="formula_editor_function_sin">sin</string>
     <string name="formula_editor_function_cos">cos</string>
     <string name="formula_editor_function_tan">tan</string>
@@ -358,12 +358,12 @@
     <string name="formula_editor_sensor_azimuth_orientation">azimuth-orientation</string>
     <string name="formula_editor_sensor_pitch_orientation">pitch-orientation</string>
     <string name="formula_editor_sensor_roll_orientation">roll-orientation</string>
-    <string name="formula_editor_costume_x">costume-x</string>
-    <string name="formula_editor_costume_y">costume-y</string>
-    <string name="formula_editor_costume_ghosteffect">costume-ghosteffect</string>
-    <string name="formula_editor_costume_brightness">costume-brightness</string>
-    <string name="formula_editor_costume_size">costume-size</string>
-    <string name="formula_editor_costume_rotation">costume-rotation</string>
-    <string name="formula_editor_costume_layer">costume-layer</string>
+    <string name="formula_editor_look_x">look-x</string>
+    <string name="formula_editor_look_y">look-y</string>
+    <string name="formula_editor_look_ghosteffect">look-ghosteffect</string>
+    <string name="formula_editor_look_brightness">look-brightness</string>
+    <string name="formula_editor_look_size">look-size</string>
+    <string name="formula_editor_look_rotation">look-rotation</string>
+    <string name="formula_editor_look_layer">look-layer</string>
 
 </resources>

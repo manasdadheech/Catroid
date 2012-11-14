@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.content.Sprite;
@@ -65,7 +66,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
-import org.catrobat.catroid.R;
 
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.Menu;
@@ -122,7 +122,7 @@ public class CostumeFragment extends SherlockListFragment implements OnCostumeEd
 
 			boolean uriIsSet = savedInstanceState.getBoolean(BUNDLE_ARGUMENTS_URI_IS_SET);
 			if (uriIsSet) {
-				String defCostumeName = getString(R.string.default_costume_name);
+				String defCostumeName = getString(R.string.default_look_name);
 				costumeFromCameraUri = UtilCamera.getDefaultCostumeFromCameraUri(defCostumeName);
 			}
 		}
@@ -266,7 +266,7 @@ public class CostumeFragment extends SherlockListFragment implements OnCostumeEd
 				loadPaintroidImageIntoCatroid(data);
 				break;
 			case REQUEST_TAKE_PICTURE:
-				String defCostumeName = getString(R.string.default_costume_name);
+				String defCostumeName = getString(R.string.default_look_name);
 				costumeFromCameraUri = UtilCamera.rotatePictureIfNecessary(costumeFromCameraUri, defCostumeName);
 				loadPictureFromCameraIntoCatroid();
 				break;
@@ -394,10 +394,10 @@ public class CostumeFragment extends SherlockListFragment implements OnCostumeEd
 	}
 
 	private void selectImageFromCamera() {
-		costumeFromCameraUri = UtilCamera.getDefaultCostumeFromCameraUri(getString(R.string.default_costume_name));
+		costumeFromCameraUri = UtilCamera.getDefaultCostumeFromCameraUri(getString(R.string.default_look_name));
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, costumeFromCameraUri);
-		Intent chooser = Intent.createChooser(intent, getString(R.string.select_costume_from_camera));
+		Intent chooser = Intent.createChooser(intent, getString(R.string.select_look_from_camera));
 		startActivityForResult(chooser, REQUEST_TAKE_PICTURE);
 	}
 
@@ -406,11 +406,11 @@ public class CostumeFragment extends SherlockListFragment implements OnCostumeEd
 
 		Bundle bundleForPaintroid = new Bundle();
 		bundleForPaintroid.putString(Constants.EXTRA_PICTURE_PATH_PAINTROID, "");
-		bundleForPaintroid.putString(Constants.EXTRA_PICTURE_NAME_PAINTROID, getString(R.string.default_costume_name));
+		bundleForPaintroid.putString(Constants.EXTRA_PICTURE_NAME_PAINTROID, getString(R.string.default_look_name));
 
 		intent.setType("image/*");
 		intent.putExtras(bundleForPaintroid);
-		Intent chooser = Intent.createChooser(intent, getString(R.string.select_costume_from_gallery));
+		Intent chooser = Intent.createChooser(intent, getString(R.string.select_look_from_gallery));
 		startActivityForResult(chooser, REQUEST_SELECT_IMAGE);
 	}
 
@@ -554,7 +554,7 @@ public class CostumeFragment extends SherlockListFragment implements OnCostumeEd
 		try {
 			String projectName = ProjectManager.getInstance().getCurrentProject().getName();
 			StorageHandler.getInstance().copyImage(projectName, costumeData.getAbsolutePath(), null);
-			String imageName = costumeData.getCostumeName() + "_" + getString(R.string.copy_costume_addition);
+			String imageName = costumeData.getCostumeName() + "_" + getString(R.string.copy_look_addition);
 			String imageFileName = costumeData.getCostumeFileName();
 			updateCostumeAdapter(imageName, imageFileName);
 		} catch (IOException e) {

@@ -33,7 +33,7 @@
         android:id="@+id/tabsIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingRight="5dip"
+        android:paddingRight="5dp"
         android:visibility="gone" />
 
     <TextView

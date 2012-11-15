@@ -19,7 +19,7 @@
  *  GNU Affero General Public License for more details.
  *  
  *  You should have received a copy of the GNU Affero General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ProjectActivityRoot"
@@ -31,11 +31,10 @@
         android:id="@+id/bottom_bar"
         layout="@layout/bottom_bar" />
 
-    <fragment
+    <fragment class="org.catrobat.catroid.ui.fragment.SpritesListFragment"
         android:id="@+id/fr_sprites_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_bar"
-        class="org.catrobat.catroid.ui.fragment.SpritesListFragment" />
+        android:layout_above="@id/bottom_bar" />
 
 </RelativeLayout>

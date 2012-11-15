@@ -44,8 +44,8 @@
             android:id="@+id/sprite_img"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginLeft="5dip"
-            android:layout_marginRight="6dip"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="6dp"
             android:scaleType="centerCrop" />
 
         <RelativeLayout
@@ -74,16 +74,16 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:textColor="@color/backbrown"
-                    android:textSize="12dip" />
+                    android:textSize="12sp" />
 
                 <TextView
-                    android:id="@+id/textView_number_of_costumes"
+                    android:id="@+id/textView_number_of_looks"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textView_number_of_scripts"
                     android:paddingLeft="10dp"
                     android:textColor="@color/backbrown"
-                    android:textSize="12dip" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/textView_number_of_bricks"
@@ -92,7 +92,7 @@
                     android:layout_alignParentRight="true"
                     android:paddingRight="8dp"
                     android:textColor="@color/backbrown"
-                    android:textSize="12dip" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/textView_number_of_sounds"
@@ -102,7 +102,7 @@
                     android:layout_below="@id/textView_number_of_bricks"
                     android:paddingRight="8dp"
                     android:textColor="@color/backbrown"
-                    android:textSize="12dip" />
+                    android:textSize="12sp" />
             </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>
@@ -110,7 +110,7 @@
     <View
         android:id="@+id/sprite_divider"
         android:layout_width="match_parent"
-        android:layout_height="2px"
+        android:layout_height="1dp"
         android:background="@color/divider"
         android:visibility="visible" />
 

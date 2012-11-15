@@ -27,9 +27,8 @@
     android:background="@drawable/brick_script"
     android:orientation="horizontal" >
 
-    <TextView
+    <TextView style="@style/brick_text_style"
         android:id="@+id/StartedBrick"
-        style="@style/brick_text_style"
         android:text="@string/brick_when_started" >
     </TextView>
 

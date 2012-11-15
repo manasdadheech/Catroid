@@ -27,17 +27,13 @@
     android:background="@drawable/brick_script"
     android:orientation="horizontal" >
 
-    <TextView
+    <TextView style="@style/brick_text_style"
         android:id="@+id/WhenBrick"
-        style="@style/brick_text_style"
-        android:layout_gravity="center_vertical"
         android:text="@string/brick_when" >
     </TextView>
 
-    <TextView
+    <TextView style="@style/brick_text_style"
         android:id="@+id/WhenBrickActionTapped"
-        style="@style/brick_text_style"
-        android:layout_gravity="center_vertical"
         android:text="@string/action_tapped" />
 
     <!--

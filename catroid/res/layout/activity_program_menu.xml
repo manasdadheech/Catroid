@@ -27,25 +27,22 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
-    <Button
+    <Button style="@style/ProgramMenuButton"
         android:id="@+id/btn_scripts"
-        style="@style/ProgramMenuButton"
         android:drawableLeft="@drawable/program_menu_scripts"
         android:drawableRight="@drawable/ic_media_play"
         android:onClick="handleScriptsButton"
         android:text="@string/scripts" />
 
-    <Button
-        android:id="@+id/btn_costumes"
-        style="@style/ProgramMenuButton"
-        android:drawableLeft="@drawable/program_menu_costumes"
+    <Button style="@style/ProgramMenuButton"
+        android:id="@+id/btn_looks"
+        android:drawableLeft="@drawable/program_menu_looks"
         android:drawableRight="@drawable/ic_media_play"
-        android:onClick="handleCostumesButton"
+        android:onClick="handleLooksButton"
         android:text="@string/looks" />
 
-    <Button
+    <Button style="@style/ProgramMenuButton"
         android:id="@+id/btn_sounds"
-        style="@style/ProgramMenuButton"
         android:drawableLeft="@drawable/program_menu_sounds"
         android:drawableRight="@drawable/ic_media_play"
         android:onClick="handleSoundsButton"

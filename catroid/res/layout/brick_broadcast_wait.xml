@@ -24,16 +24,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal" >
+    android:background="@drawable/brick_yellow"
+    android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/brick_yellow"
-        android:orientation="vertical" >
-
-        <TextView
-            style="@style/brick_text_style"
+        <TextView style="@style/brick_text_style"
             android:text="@string/brick_broadcast_wait" />
 
         <LinearLayout
@@ -58,6 +52,4 @@
                 android:focusable="false"
                 android:text="@string/new_broadcast_message" />
         </LinearLayout>
-    </LinearLayout>
-
 </LinearLayout>

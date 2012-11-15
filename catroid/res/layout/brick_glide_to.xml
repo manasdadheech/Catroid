@@ -27,158 +27,78 @@
     android:background="@drawable/brick_blue"
     android:orientation="vertical" >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true" >
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
 
-        <TextView
-            style="@style/brick_text_style"
-            android:layout_centerVertical="true"
-            android:paddingRight="10dip"
+        <TextView style="@style/brick_text_style"
+            android:paddingRight="5dp"
             android:text="@string/brick_glide" >
         </TextView>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true" >
-
-            <TextView
-                android:id="@+id/brick_glide_to_duration_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dip"
-                android:background="@color/white"
-                android:gravity="right"
-                android:minHeight="30dip"
-                android:minWidth="50dip"
-                android:paddingRight="5dip"
-                android:text="3"
-                android:textSize="20dip" >
-            </TextView>
-
-            <EditText
-                android:id="@+id/brick_glide_to_duration_edit_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:gravity="right"
-                android:inputType="number"
-                android:maxLength="8"
-                android:maxLines="1"
-                android:minWidth="60dip"
-                android:text="3"
-                android:visibility="gone" >
-            </EditText>
-
-            <TextView
-                style="@style/brick_text_style"
-                android:paddingLeft="10dip"
-                android:paddingRight="10dip"
-                android:text="@string/seconds" >
-            </TextView>
-        </LinearLayout>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true" >
-
-        <TextView
-            style="@style/brick_text_style"
-            android:layout_centerVertical="true"
-            android:paddingRight="10dip"
-            android:text="@string/brick_glide_to" >
+        <TextView style="@style/brick_input_text_style"
+            android:id="@+id/brick_glide_to_duration_text_view"
+            android:text="@string/brick_glide_to_seconds_default" >
         </TextView>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:paddingTop="5dip" >
+        <EditText style="@style/brick_input_edit_text_style"
+            android:id="@+id/brick_glide_to_duration_edit_text"
+            android:inputType="number"
+            android:text="@string/brick_glide_to_seconds_default" >
+        </EditText>
 
-            <TextView
-                style="@style/brick_text_style"
-                android:paddingRight="10dip"
-                android:text="@string/x_label" >
-            </TextView>
+         <TextView style="@style/brick_text_style"
+             android:paddingLeft="10dp"
+             android:text="@string/seconds" >
+         </TextView>
+     </LinearLayout>
 
-            <TextView
-                android:id="@+id/brick_glide_to_x_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dip"
-                android:background="@color/white"
-                android:gravity="right"
-                android:minHeight="30dip"
-                android:minWidth="50dip"
-                android:paddingRight="5dip"
-                android:text="0"
-                android:textSize="20dip" >
-            </TextView>
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:paddingTop="5dp"
+         android:gravity="center_vertical"
+         android:orientation="horizontal" >
 
-            <EditText
-                android:id="@+id/brick_glide_to_x_edit_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:gravity="right"
-                android:inputType="number|numberDecimal|numberSigned"
-                android:maxLength="6"
-                android:maxLines="1"
-                android:minWidth="60dip"
-                android:text="0"
-                android:visibility="gone" >
-            </EditText>
+         <TextView style="@style/brick_text_style"
+             android:paddingRight="5dp"
+             android:text="@string/brick_glide_to" >
+         </TextView>
 
-            <TextView
-                style="@style/brick_text_style"
-                android:paddingLeft="10dip"
-                android:paddingRight="10dip"
-                android:text="@string/y_label" >
-            </TextView>
+         <TextView style="@style/brick_text_style"
+             android:paddingRight="5dp"
+             android:text="@string/x_label" >
+         </TextView>
 
-            <TextView
-                android:id="@+id/brick_glide_to_y_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dip"
-                android:background="@color/white"
-                android:gravity="right"
-                android:minHeight="30dip"
-                android:minWidth="50dip"
-                android:paddingRight="5dip"
-                android:text="0"
-                android:textSize="20dip" >
-            </TextView>
+         <TextView style="@style/brick_input_text_style"
+             android:id="@+id/brick_glide_to_x_text_view"
+             android:text="@string/brick_glide_to_xy_default" >
+         </TextView>
 
-            <EditText
-                android:id="@+id/brick_glide_to_y_edit_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:gravity="right"
-                android:inputType="number|numberDecimal|numberSigned"
-                android:maxLength="6"
-                android:maxLines="1"
-                android:minWidth="60dip"
-                android:text="0"
-                android:visibility="gone" >
-            </EditText>
-        </LinearLayout>
-    </RelativeLayout>
+         <EditText style="@style/brick_input_edit_text_style"
+             android:id="@+id/brick_glide_to_x_edit_text"
+             android:inputType="number|numberDecimal|numberSigned"
+             android:text="@string/brick_glide_to_xy_default" >
+         </EditText>
 
+         <TextView style="@style/brick_text_style"
+             android:paddingLeft="5dp"
+             android:paddingRight="5dp"
+             android:text="@string/y_label" >
+         </TextView>
+
+         <TextView style="@style/brick_input_text_style"
+             android:id="@+id/brick_glide_to_y_text_view"
+             android:text="@string/brick_glide_to_xy_default" >
+         </TextView>
+
+         <EditText style="@style/brick_input_edit_text_style"
+             android:id="@+id/brick_glide_to_y_edit_text"
+             android:inputType="number|numberDecimal|numberSigned"
+             android:text="@string/brick_glide_to_xy_default" >
+         </EditText>
+
+     </LinearLayout>
 </LinearLayout>

@@ -27,53 +27,46 @@
     android:layout_height="wrap_content"
     android:background="@android:color/white"
     android:gravity="left"
-    android:paddingLeft="5dip"
-    android:paddingRight="5dip" >
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp" >
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <Button
+        <Button style="@style/StageButton"
             android:id="@+id/stage_dialog_button_back"
-            style="@style/StageButton"
             android:drawableTop="@drawable/stage_dialog_back"
             android:text="@string/stage_dialog_back" >
         </Button>
 
-        <Button
+        <Button style="@style/StageButton"
             android:id="@+id/stage_dialog_button_resume"
-            style="@style/StageButton"
             android:drawableTop="@drawable/stage_dialog_resume"
             android:text="@string/stage_dialog_resume" >
         </Button>
 
-        <Button
+        <Button style="@style/StageButton"
             android:id="@+id/stage_dialog_button_restart"
-            style="@style/StageButton"
             android:drawableTop="@drawable/stage_dialog_restart"
             android:text="@string/stage_dialog_restart" >
         </Button>
 
-        <Button
+        <Button style="@style/StageButton"
             android:id="@+id/stage_dialog_button_toggle_axes"
-            style="@style/StageButton"
             android:drawableTop="@drawable/stage_dialog_toggle_axes"
             android:text="@string/stage_dialog_axes_on" >
         </Button>
 
-        <Button
+        <Button style="@style/StageButton"
             android:id="@+id/stage_dialog_button_maximize"
-            style="@style/StageButton"
             android:drawableTop="@drawable/stage_dialog_maximize"
             android:text="@string/stage_dialog_maximize" >
         </Button>
 
-        <Button
+        <Button style="@style/StageButton"
             android:id="@+id/stage_dialog_button_screenshot"
-            style="@style/StageButton"
             android:drawableTop="@drawable/stage_dialog_screenshot"
             android:text="@string/stage_dialog_screenshot" >
         </Button>

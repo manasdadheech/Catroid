@@ -27,12 +27,9 @@
     android:background="@drawable/brick_blue"
     android:orientation="horizontal" >
 
-    <TextView
+    <TextView style="@style/brick_text_style"
         android:id="@+id/ValueTextView"
-        style="@style/brick_text_style"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:paddingRight="10dip"
+        android:paddingRight="10dp"
         android:text="@string/brick_point_in_direction" >
     </TextView>
 

@@ -26,10 +26,9 @@
     android:layout_height="wrap_content"
     android:background="@drawable/brick_yellow" >
 
-    <TextView
-        style="@style/brick_text_style"
-        android:paddingBottom="15dip"
-        android:paddingTop="15dip"
+    <TextView style="@style/brick_text_style"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
         android:text="@string/category_control" >
     </TextView>
 

@@ -29,7 +29,6 @@
 
         <TextView style="@style/brick_text_style"
             android:id="@+id/tv_set_look"
-            android:layout_marginLeft="3dp"
             android:text="@string/brick_set_look" />
 
         <LinearLayout

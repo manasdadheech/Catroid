@@ -34,87 +34,44 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true" >
 
-        <TextView
+        <TextView style="@style/brick_text_style"
             android:id="@+id/TextView01"
-            style="@style/brick_text_style"
-            android:paddingRight="10dip"
+            android:paddingRight="10dp"
             android:text="@string/x_label" >
         </TextView>
 
-        <TextView
+        <TextView style="@style/brick_input_text_style"
             android:id="@+id/brick_place_at_x_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dip"
-            android:background="@color/white"
-            android:gravity="right"
-            android:minHeight="30dip"
-            android:minWidth="50dip"
-            android:paddingRight="5dip"
-            android:text="0"
-            android:textSize="20dip" >
+            android:text="@string/brick_place_at_default" >
         </TextView>
 
-        <EditText
+        <EditText style="@style/brick_input_edit_text_style"
             android:id="@+id/brick_place_at_x_edit_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:gravity="right"
             android:inputType="number|numberDecimal|numberSigned"
-            android:maxLength="5"
-            android:maxLines="1"
-            android:minWidth="60dip"
-            android:text="0"
-            android:visibility="gone" >
+            android:text="@string/brick_place_at_default" >
         </EditText>
 
-        <TextView
+        <TextView style="@style/brick_text_style"
             android:id="@+id/TextView02"
-            style="@style/brick_text_style"
-            android:paddingLeft="10dip"
-            android:paddingRight="10dip"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="@string/y_label" >
         </TextView>
 
-        <TextView
+        <TextView style="@style/brick_input_text_style"
             android:id="@+id/brick_place_at_y_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="5dip"
-            android:background="@color/white"
-            android:gravity="right"
-            android:minHeight="30dip"
-            android:minWidth="50dip"
-            android:paddingRight="5dip"
-            android:text="0"
-            android:textSize="20dip" >
+            android:text="@string/brick_place_at_default" >
         </TextView>
 
-        <EditText
+        <EditText style="@style/brick_input_edit_text_style"
             android:id="@+id/brick_place_at_y_edit_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:gravity="right"
             android:inputType="number|numberDecimal|numberSigned"
-            android:maxLength="5"
-            android:maxLines="1"
-            android:minWidth="60dip"
-            android:text="0"
-            android:visibility="gone" >
+            android:text="@string/brick_place_at_default" >
         </EditText>
     </LinearLayout>
 
-    <TextView
+    <TextView style="@style/brick_text_style"
         android:id="@+id/ValueTextViewXY"
-        style="@style/brick_text_style"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/brick_place_at_linear_layout"

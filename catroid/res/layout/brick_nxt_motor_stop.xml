@@ -27,33 +27,16 @@
     android:background="@drawable/brick_red"
     android:orientation="horizontal" >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true" >
-
-        <TextView
+        <TextView style="@style/brick_text_style"
             android:id="@+id/ValueTextView"
-            style="@style/brick_text_style"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:paddingRight="10dip"
+            android:paddingRight="10dp"
             android:text="@string/motor_stop" >
         </TextView>
 
-        <LinearLayout
+        <Spinner
+            android:id="@+id/stop_motor_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true" >
-
-            <Spinner
-                android:id="@+id/stop_motor_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:focusable="false" />
-        </LinearLayout>
-    </RelativeLayout>
-
+            android:clickable="false"
+            android:focusable="false" />
 </LinearLayout>

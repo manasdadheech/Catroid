@@ -27,8 +27,7 @@
     android:background="@drawable/brick_yellow"
     android:orientation="horizontal" >
 
-    <TextView
-        style="@style/brick_text_style"
+    <TextView style="@style/brick_text_style"
         android:text="@string/brick_loop_end" />
 
 </LinearLayout>

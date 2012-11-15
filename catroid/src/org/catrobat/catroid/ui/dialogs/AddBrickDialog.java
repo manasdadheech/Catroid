@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.BroadcastScript;
 import org.catrobat.catroid.content.Script;
 import org.catrobat.catroid.content.Sprite;
@@ -52,17 +53,18 @@ import org.catrobat.catroid.content.bricks.LegoNxtMotorStopBrick;
 import org.catrobat.catroid.content.bricks.LegoNxtMotorTurnAngleBrick;
 import org.catrobat.catroid.content.bricks.LegoNxtPlayToneBrick;
 import org.catrobat.catroid.content.bricks.MoveNStepsBrick;
-import org.catrobat.catroid.content.bricks.NextCostumeBrick;
+import org.catrobat.catroid.content.bricks.NextLookBrick;
 import org.catrobat.catroid.content.bricks.NoteBrick;
 import org.catrobat.catroid.content.bricks.PlaceAtBrick;
 import org.catrobat.catroid.content.bricks.PlaySoundBrick;
 import org.catrobat.catroid.content.bricks.PointInDirectionBrick;
+import org.catrobat.catroid.content.bricks.PointInDirectionBrick.Direction;
 import org.catrobat.catroid.content.bricks.PointToBrick;
 import org.catrobat.catroid.content.bricks.RepeatBrick;
 import org.catrobat.catroid.content.bricks.ScriptBrick;
 import org.catrobat.catroid.content.bricks.SetBrightnessBrick;
-import org.catrobat.catroid.content.bricks.SetCostumeBrick;
 import org.catrobat.catroid.content.bricks.SetGhostEffectBrick;
+import org.catrobat.catroid.content.bricks.SetLookBrick;
 import org.catrobat.catroid.content.bricks.SetSizeToBrick;
 import org.catrobat.catroid.content.bricks.SetVolumeToBrick;
 import org.catrobat.catroid.content.bricks.SetXBrick;
@@ -75,7 +77,6 @@ import org.catrobat.catroid.content.bricks.TurnRightBrick;
 import org.catrobat.catroid.content.bricks.WaitBrick;
 import org.catrobat.catroid.content.bricks.WhenBrick;
 import org.catrobat.catroid.content.bricks.WhenStartedBrick;
-import org.catrobat.catroid.content.bricks.PointInDirectionBrick.Direction;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.adapter.PrototypeBrickAdapter;
 import org.catrobat.catroid.ui.fragment.ScriptFragment;
@@ -94,7 +95,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.TextView;
-import org.catrobat.catroid.R;
 
 public class AddBrickDialog extends DialogFragment {
 
@@ -239,8 +239,8 @@ public class AddBrickDialog extends DialogFragment {
 		brickMap.put(context.getString(R.string.category_motion), motionBrickList);
 
 		List<Brick> looksBrickList = new ArrayList<Brick>();
-		looksBrickList.add(new SetCostumeBrick(sprite));
-		looksBrickList.add(new NextCostumeBrick(sprite));
+		looksBrickList.add(new SetLookBrick(sprite));
+		looksBrickList.add(new NextLookBrick(sprite));
 		looksBrickList.add(new SetSizeToBrick(sprite, 100));
 		looksBrickList.add(new ChangeSizeByNBrick(sprite, 20));
 		looksBrickList.add(new HideBrick(sprite));

@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.catrobat.catroid.R;
-import org.catrobat.catroid.common.CostumeData;
+import org.catrobat.catroid.common.LookData;
 import org.catrobat.catroid.content.Sprite;
 
 import android.content.Context;
@@ -70,7 +70,7 @@ public class SpriteAdapter extends ArrayAdapter<Sprite> {
 		private View divider;
 		private TextView scripts;
 		private TextView bricks;
-		private TextView costumes;
+		private TextView looks;
 		private TextView sounds;
 		//private TextView detail;
 	}
@@ -113,7 +113,7 @@ public class SpriteAdapter extends ArrayAdapter<Sprite> {
 			holder.divider = spriteView.findViewById(R.id.sprite_divider);
 			holder.scripts = (TextView) spriteView.findViewById(R.id.textView_number_of_scripts);
 			holder.bricks = (TextView) spriteView.findViewById(R.id.textView_number_of_bricks);
-			holder.costumes = (TextView) spriteView.findViewById(R.id.textView_number_of_costumes);
+			holder.looks = (TextView) spriteView.findViewById(R.id.textView_number_of_looks);
 			holder.sounds = (TextView) spriteView.findViewById(R.id.textView_number_of_sounds);
 			spriteView.setTag(holder);
 		} else {
@@ -150,17 +150,17 @@ public class SpriteAdapter extends ArrayAdapter<Sprite> {
 		}
 		//------------------------------------------------------------
 		Sprite sprite = getItem(position);
-		CostumeData firstCostumeData = null;
-		if (sprite.getCostumeDataList().size() > 0) {
-			firstCostumeData = sprite.getCostumeDataList().get(0);
+		LookData firstLookData = null;
+		if (sprite.getLookDataList().size() > 0) {
+			firstLookData = sprite.getLookDataList().get(0);
 		}
 		//------------------------------------------------------------
 
 		holder.text.setText(sprite.getName());
-		if (firstCostumeData == null) {
+		if (firstLookData == null) {
 			holder.image.setImageBitmap(null);
 		} else {
-			holder.image.setImageBitmap(firstCostumeData.getThumbnailBitmap());
+			holder.image.setImageBitmap(firstLookData.getThumbnailBitmap());
 		}
 
 		holder.scripts.setText(context.getResources().getString(R.string.number_of_scripts) + " "
@@ -169,8 +169,8 @@ public class SpriteAdapter extends ArrayAdapter<Sprite> {
 		holder.bricks.setText(context.getResources().getString(R.string.number_of_bricks) + " "
 				+ (sprite.getNumberOfBricks() + sprite.getNumberOfScripts()));
 
-		holder.costumes.setText(context.getResources().getString(R.string.number_of_looks) + " "
-				+ sprite.getCostumeDataList().size());
+		holder.looks.setText(context.getResources().getString(R.string.number_of_looks) + " "
+				+ sprite.getLookDataList().size());
 
 		holder.sounds.setText(context.getResources().getString(R.string.number_of_sounds) + " "
 				+ sprite.getSoundList().size());
@@ -178,12 +178,12 @@ public class SpriteAdapter extends ArrayAdapter<Sprite> {
 		if (!showDetails) {
 			holder.scripts.setVisibility(View.GONE);
 			holder.bricks.setVisibility(View.GONE);
-			holder.costumes.setVisibility(View.GONE);
+			holder.looks.setVisibility(View.GONE);
 			holder.sounds.setVisibility(View.GONE);
 		} else {
 			holder.scripts.setVisibility(View.VISIBLE);
 			holder.bricks.setVisibility(View.VISIBLE);
-			holder.costumes.setVisibility(View.VISIBLE);
+			holder.looks.setVisibility(View.VISIBLE);
 			holder.sounds.setVisibility(View.VISIBLE);
 		}
 

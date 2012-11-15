@@ -29,7 +29,7 @@ import org.catrobat.catroid.content.bricks.ComeToFrontBrick;
 import org.catrobat.catroid.content.bricks.GlideToBrick;
 import org.catrobat.catroid.content.bricks.HideBrick;
 import org.catrobat.catroid.content.bricks.PlaySoundBrick;
-import org.catrobat.catroid.content.bricks.SetCostumeBrick;
+import org.catrobat.catroid.content.bricks.SetLookBrick;
 import org.catrobat.catroid.content.bricks.ShowBrick;
 import org.catrobat.catroid.io.StorageHandler;
 import org.catrobat.catroid.stage.NativeAppActivity;
@@ -90,7 +90,7 @@ public class StorageHandlerTest extends InstrumentationTestCase {
 						loadedProject.getSpriteList().get(1).getScript(0).getBrickList().get(2), false));
 		assertEquals("ComeToFrontBrick was not loaded right", ComeToFrontBrick.class, loadedProject.getSpriteList()
 				.get(1).getScript(0).getBrickList().get(3).getClass());
-		assertEquals("SetCostumeBrick was not loaded right", SetCostumeBrick.class, loadedProject.getSpriteList()
+		assertEquals("SetLookBrick was not loaded right", SetLookBrick.class, loadedProject.getSpriteList()
 				.get(1).getScript(0).getBrickList().get(4).getClass());
 
 		assertEquals(

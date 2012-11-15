@@ -26,11 +26,11 @@ import java.io.File;
 import java.util.ArrayList;
 
 import org.catrobat.catroid.ProjectManager;
-import org.catrobat.catroid.common.CostumeData;
+import org.catrobat.catroid.common.LookData;
 import org.catrobat.catroid.common.SoundInfo;
 import org.catrobat.catroid.ui.MainMenuActivity;
 import org.catrobat.catroid.ui.ScriptTabActivity;
-import org.catrobat.catroid.ui.fragment.CostumeFragment;
+import org.catrobat.catroid.ui.fragment.LookFragment;
 import org.catrobat.catroid.ui.fragment.SoundFragment;
 import org.catrobat.catroid.uitest.util.UiTestUtils;
 
@@ -48,10 +48,10 @@ public class DeleteDialogTest extends ActivityInstrumentationTestCase2<MainMenuA
 	private final int RESOURCE_SOUND2 = org.catrobat.catroid.uitest.R.raw.testsoundui;
 	private Solo solo;
 
-	private String costumeName = "costumeNametest";
+	private String lookName = "lookNametest";
 	private File imageFile;
 	private File imageFile2;
-	private ArrayList<CostumeData> costumeDataList;
+	private ArrayList<LookData> lookDataList;
 
 	private String soundName = "testSound1";
 	private String soundName2 = "testSound2";
@@ -70,7 +70,7 @@ public class DeleteDialogTest extends ActivityInstrumentationTestCase2<MainMenuA
 		UiTestUtils.createTestProject();
 		solo = new Solo(getInstrumentation(), getActivity());
 		soundInfoList = ProjectManager.INSTANCE.getCurrentSprite().getSoundList();
-		costumeDataList = ProjectManager.INSTANCE.getCurrentSprite().getCostumeDataList();
+		lookDataList = ProjectManager.INSTANCE.getCurrentSprite().getLookDataList();
 	}
 
 	@Override
@@ -83,36 +83,36 @@ public class DeleteDialogTest extends ActivityInstrumentationTestCase2<MainMenuA
 		solo = null;
 	}
 
-	public void testDeleteCostumes() throws Exception {
-		addCostumesToProject();
+	public void testDeleteLooks() throws Exception {
+		addLooksToProject();
 		String buttonOkText = solo.getString(R.string.ok);
 		String buttonCancelText = solo.getString(R.string.cancel_button);
-		String deleteCostumeText = solo.getString(R.string.delete_lowercase);
+		String deleteLookText = solo.getString(R.string.delete_lowercase);
 		UiTestUtils.getIntoScriptTabActivityFromMainMenu(solo);
 
 		solo.clickOnText(solo.getString(R.string.backgrounds));
 		solo.sleep(200);
-		solo.clickOnButton(deleteCostumeText);
+		solo.clickOnButton(deleteLookText);
 
 		assertTrue("No ok button found", solo.searchButton(buttonOkText));
 		assertTrue("No cancel button found", solo.searchButton(buttonCancelText));
 
 		ScriptTabActivity activity = (ScriptTabActivity) solo.getCurrentActivity();
-		CostumeFragment fragment = (CostumeFragment) activity.getTabFragment(ScriptTabActivity.INDEX_TAB_COSTUMES);
+		LookFragment fragment = (LookFragment) activity.getTabFragment(ScriptTabActivity.INDEX_TAB_LOOKS);
 		ListAdapter adapter = fragment.getListAdapter();
 
 		int oldCount = adapter.getCount();
 		solo.clickOnButton(buttonCancelText);
 		int newCount = adapter.getCount();
-		assertEquals("The costume number not ok after canceling the deletion", newCount, oldCount);
+		assertEquals("The look number not ok after canceling the deletion", newCount, oldCount);
 
-		solo.clickOnButton(deleteCostumeText);
+		solo.clickOnButton(deleteLookText);
 		solo.clickOnButton(buttonOkText);
 
 		solo.sleep(500);
 		newCount = adapter.getCount();
-		assertEquals("The costume was not deleted", oldCount - 1, newCount);
-		assertEquals("The costume was not deleted from costumeDataList", newCount, costumeDataList.size());
+		assertEquals("The look was not deleted", oldCount - 1, newCount);
+		assertEquals("The look was not deleted from lookDataList", newCount, lookDataList.size());
 	}
 
 	public void testDeleteSounds() throws Exception {
@@ -135,7 +135,7 @@ public class DeleteDialogTest extends ActivityInstrumentationTestCase2<MainMenuA
 		int oldCount = adapter.getCount();
 		solo.clickOnButton(buttonCancelText);
 		int newCount = adapter.getCount();
-		assertEquals("The costume number not ok after canceling the deletion", newCount, oldCount);
+		assertEquals("The look number not ok after canceling the deletion", newCount, oldCount);
 
 		solo.clickOnButton(deleteSoundText);
 		solo.clickOnButton(buttonOkText);
@@ -143,29 +143,29 @@ public class DeleteDialogTest extends ActivityInstrumentationTestCase2<MainMenuA
 		solo.sleep(500);
 		newCount = adapter.getCount();
 		assertEquals("The sound was not deleted", oldCount - 1, newCount);
-		assertEquals("The sound was not deleted from costumeDataList", newCount, soundInfoList.size());
+		assertEquals("The sound was not deleted from lookDataList", newCount, soundInfoList.size());
 	}
 
 	@SuppressWarnings("deprecation")
-	private void addCostumesToProject() throws Exception {
+	private void addLooksToProject() throws Exception {
 		imageFile = UiTestUtils.saveFileToProject(UiTestUtils.DEFAULT_TEST_PROJECT_NAME, "catroid_sunglasses.png",
 				RESOURCE_IMAGE, getActivity(), UiTestUtils.FileTypes.IMAGE);
 		imageFile2 = UiTestUtils.saveFileToProject(UiTestUtils.DEFAULT_TEST_PROJECT_NAME, "catroid_banzai.png",
 				RESOURCE_IMAGE2, getActivity(), UiTestUtils.FileTypes.IMAGE);
 
-		costumeDataList = ProjectManager.INSTANCE.getCurrentSprite().getCostumeDataList();
-		CostumeData costumeData = new CostumeData();
-		costumeData.setCostumeFilename(imageFile.getName());
-		costumeData.setCostumeName(costumeName);
-		costumeDataList.add(costumeData);
-		ProjectManager.INSTANCE.getFileChecksumContainer().addChecksum(costumeData.getChecksum(),
-				costumeData.getAbsolutePath());
-		costumeData = new CostumeData();
-		costumeData.setCostumeFilename(imageFile2.getName());
-		costumeData.setCostumeName("costumeNameTest2");
-		costumeDataList.add(costumeData);
-		ProjectManager.INSTANCE.getFileChecksumContainer().addChecksum(costumeData.getChecksum(),
-				costumeData.getAbsolutePath());
+		lookDataList = ProjectManager.INSTANCE.getCurrentSprite().getLookDataList();
+		LookData lookData = new LookData();
+		lookData.setLookFilename(imageFile.getName());
+		lookData.setLookName(lookName);
+		lookDataList.add(lookData);
+		ProjectManager.INSTANCE.getFileChecksumContainer().addChecksum(lookData.getChecksum(),
+				lookData.getAbsolutePath());
+		lookData = new LookData();
+		lookData.setLookFilename(imageFile2.getName());
+		lookData.setLookName("lookNameTest2");
+		lookDataList.add(lookData);
+		ProjectManager.INSTANCE.getFileChecksumContainer().addChecksum(lookData.getChecksum(),
+				lookData.getAbsolutePath());
 		Display display = getActivity().getWindowManager().getDefaultDisplay();
 		ProjectManager.INSTANCE.getCurrentProject().virtualScreenWidth = display.getWidth();
 		ProjectManager.INSTANCE.getCurrentProject().virtualScreenHeight = display.getHeight();

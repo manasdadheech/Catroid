@@ -35,7 +35,6 @@ import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.xml.parser.CatroidXMLConstants;
 import org.catrobat.catroid.xml.parser.ObjectCreator;
 
-
 public class BrickSerializer extends Serializer {
 	private final String brickTabs = tab + tab + tab + tab + tab;
 
@@ -46,7 +45,7 @@ public class BrickSerializer extends Serializer {
 		super.serializedScript = serializedScript;
 		super.brickList = serializedScript.getBrickList();
 		referenceStrings = new ArrayList<String>();
-		costumeList = serializedSprite.getCostumeDataList();
+		lookList = serializedSprite.getLookDataList();
 		super.spriteList = serializedProject.getSpriteList();
 		super.soundList = serializedSprite.getSoundList();
 	}

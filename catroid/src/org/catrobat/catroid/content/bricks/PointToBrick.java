@@ -25,6 +25,7 @@ package org.catrobat.catroid.content.bricks;
 import java.util.ArrayList;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
 
 import android.content.Context;
@@ -35,7 +36,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Spinner;
-import org.catrobat.catroid.R;
 
 public class PointToBrick implements Brick {
 
@@ -78,14 +78,14 @@ public class PointToBrick implements Brick {
 		int pointedSpriteXPosition = 0, pointedSpriteYPosition = 0;
 		double base = 0.0, height = 0.0, value = 0.0;
 
-		sprite.costume.aquireXYWidthHeightLock();
-		spriteXPosition = (int) sprite.costume.getXPosition();
-		spriteYPosition = (int) sprite.costume.getYPosition();
-		sprite.costume.releaseXYWidthHeightLock();
-		pointedSprite.costume.aquireXYWidthHeightLock();
-		pointedSpriteXPosition = (int) pointedSprite.costume.getXPosition();
-		pointedSpriteYPosition = (int) pointedSprite.costume.getYPosition();
-		pointedSprite.costume.releaseXYWidthHeightLock();
+		sprite.look.aquireXYWidthHeightLock();
+		spriteXPosition = (int) sprite.look.getXPosition();
+		spriteYPosition = (int) sprite.look.getYPosition();
+		sprite.look.releaseXYWidthHeightLock();
+		pointedSprite.look.aquireXYWidthHeightLock();
+		pointedSpriteXPosition = (int) pointedSprite.look.getXPosition();
+		pointedSpriteYPosition = (int) pointedSprite.look.getYPosition();
+		pointedSprite.look.releaseXYWidthHeightLock();
 
 		double rotationDegrees;
 		if (spriteXPosition == pointedSpriteXPosition && spriteYPosition == pointedSpriteYPosition) {
@@ -124,7 +124,7 @@ public class PointToBrick implements Brick {
 				}
 			}
 		}
-		sprite.costume.rotation = (-(float) rotationDegrees) + 90f;
+		sprite.look.rotation = (-(float) rotationDegrees) + 90f;
 	}
 
 	@Override

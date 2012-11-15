@@ -29,19 +29,19 @@ import java.io.InputStream;
 
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.common.Constants;
-import org.catrobat.catroid.common.CostumeData;
+import org.catrobat.catroid.common.LookData;
 import org.catrobat.catroid.common.FileChecksumContainer;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Script;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.StartScript;
-import org.catrobat.catroid.content.bricks.SetCostumeBrick;
+import org.catrobat.catroid.content.bricks.SetLookBrick;
 import org.catrobat.catroid.io.StorageHandler;
 import org.catrobat.catroid.stage.StageActivity;
 import org.catrobat.catroid.ui.MainMenuActivity;
 import org.catrobat.catroid.ui.ProjectActivity;
 import org.catrobat.catroid.ui.ScriptTabActivity;
-import org.catrobat.catroid.ui.fragment.CostumeFragment;
+import org.catrobat.catroid.ui.fragment.LookFragment;
 import org.catrobat.catroid.uitest.util.UiTestUtils;
 import org.catrobat.catroid.utils.Utils;
 
@@ -52,10 +52,10 @@ import org.catrobat.catroid.R;
 
 import com.jayway.android.robotium.solo.Solo;
 
-public class SwitchToCostumeCrashTest extends ActivityInstrumentationTestCase2<MainMenuActivity> {
+public class SwitchToLookCrashTest extends ActivityInstrumentationTestCase2<MainMenuActivity> {
 	private Solo solo;
 
-	public SwitchToCostumeCrashTest() {
+	public SwitchToLookCrashTest() {
 		super(MainMenuActivity.class);
 	}
 
@@ -74,7 +74,7 @@ public class SwitchToCostumeCrashTest extends ActivityInstrumentationTestCase2<M
 		solo = null;
 	}
 
-	public void testSwitchToCostumeCrashPNG() throws IOException {
+	public void testSwitchToLookCrashPNG() throws IOException {
 		prepareTest();
 
 		String nyanCatPath = "";
@@ -82,7 +82,7 @@ public class SwitchToCostumeCrashTest extends ActivityInstrumentationTestCase2<M
 		String nyanCatPng = "nyancat_crash.png";
 		try {
 			// need to load image from assets, not from resources folder.
-			// this way, the image is loaded similar to catroid, when importing an costume.
+			// this way, the image is loaded similar to catroid, when importing an look.
 			// if we use the image from res-folder instead of assets, test would
 			// pass even if the needed code in copyImageIntoCatroid() was deleted
 			InputStream inputStream = getInstrumentation().getContext().getResources().getAssets().open(nyanCatPng);
@@ -101,7 +101,7 @@ public class SwitchToCostumeCrashTest extends ActivityInstrumentationTestCase2<M
 				org.catrobat.catroid.uitest.mockups.MockGalleryActivity.class);
 		intent.putExtras(bundleForGallery);
 
-		getCostumeFragment().startActivityForResult(intent, CostumeFragment.REQUEST_SELECT_IMAGE);
+		getLookFragment().startActivityForResult(intent, LookFragment.REQUEST_SELECT_IMAGE);
 		solo.sleep(200);
 		assertTrue("Testfile not added from mockActivity", solo.searchText(nyanCat));
 
@@ -109,14 +109,14 @@ public class SwitchToCostumeCrashTest extends ActivityInstrumentationTestCase2<M
 		assertTrue("Checksum not in checksumcontainer", ProjectManager.INSTANCE.getFileChecksumContainer()
 				.containsChecksum(checksumNyanCatImageFile));
 
-		boolean isInCostumeDataList = false;
-		for (CostumeData costumeData : ProjectManager.INSTANCE.getCurrentSprite().getCostumeDataList()) {
-			if (costumeData.getChecksum().equalsIgnoreCase(checksumNyanCatImageFile)) {
-				isInCostumeDataList = true;
+		boolean isInLookDataList = false;
+		for (LookData lookData : ProjectManager.INSTANCE.getCurrentSprite().getLookDataList()) {
+			if (lookData.getChecksum().equalsIgnoreCase(checksumNyanCatImageFile)) {
+				isInLookDataList = true;
 			}
 		}
-		if (!isInCostumeDataList) {
-			fail("File not added in CostumeDataList");
+		if (!isInLookDataList) {
+			fail("File not added in LookDataList");
 		}
 
 		solo.clickOnText(solo.getString(R.string.scripts));
@@ -128,7 +128,7 @@ public class SwitchToCostumeCrashTest extends ActivityInstrumentationTestCase2<M
 		solo.sleep(5000);
 	}
 
-	public void testSwitchToCostumeCrashJPG() throws IOException {
+	public void testSwitchToLookCrashJPG() throws IOException {
 		prepareTest();
 
 		String manImagePath = "";
@@ -136,7 +136,7 @@ public class SwitchToCostumeCrashTest extends ActivityInstrumentationTestCase2<M
 		String manImageJpg = "man_crash.jpg";
 		try {
 			// need to load image from assets, not from resources folder.
-			// this way, the image is loaded similar to catroid, when importing an costume.
+			// this way, the image is loaded similar to catroid, when importing an look.
 			// if we use the image from res-folder instead of assets, test would
 			// pass even if the needed code in copyImageIntoCatroid() was deleted
 			InputStream inputStream = getInstrumentation().getContext().getResources().getAssets().open(manImageJpg);
@@ -155,7 +155,7 @@ public class SwitchToCostumeCrashTest extends ActivityInstrumentationTestCase2<M
 				org.catrobat.catroid.uitest.mockups.MockGalleryActivity.class);
 		intent.putExtras(bundleForGallery);
 
-		getCostumeFragment().startActivityForResult(intent, CostumeFragment.REQUEST_SELECT_IMAGE);
+		getLookFragment().startActivityForResult(intent, LookFragment.REQUEST_SELECT_IMAGE);
 		solo.sleep(200);
 		assertTrue("Testfile not added from mockActivity", solo.searchText(manImage));
 
@@ -163,14 +163,14 @@ public class SwitchToCostumeCrashTest extends ActivityInstrumentationTestCase2<M
 		assertTrue("Checksum not in checksumcontainer", ProjectManager.INSTANCE.getFileChecksumContainer()
 				.containsChecksum(checksumNyanCatImageFile));
 
-		boolean isInCostumeDataList = false;
-		for (CostumeData costumeData : ProjectManager.INSTANCE.getCurrentSprite().getCostumeDataList()) {
-			if (costumeData.getChecksum().equalsIgnoreCase(checksumNyanCatImageFile)) {
-				isInCostumeDataList = true;
+		boolean isInLookDataList = false;
+		for (LookData lookData : ProjectManager.INSTANCE.getCurrentSprite().getLookDataList()) {
+			if (lookData.getChecksum().equalsIgnoreCase(checksumNyanCatImageFile)) {
+				isInLookDataList = true;
 			}
 		}
-		if (!isInCostumeDataList) {
-			fail("File not added in CostumeDataList");
+		if (!isInLookDataList) {
+			fail("File not added in LookDataList");
 		}
 
 		solo.clickOnText(solo.getString(R.string.scripts));
@@ -210,9 +210,9 @@ public class SwitchToCostumeCrashTest extends ActivityInstrumentationTestCase2<M
 
 		Sprite backgroundSprite = project.getSpriteList().get(0);
 		Script startScript = new StartScript(backgroundSprite);
-		SetCostumeBrick setCostumeBrick = new SetCostumeBrick(backgroundSprite);
+		SetLookBrick setLookBrick = new SetLookBrick(backgroundSprite);
 
-		startScript.addBrick(setCostumeBrick);
+		startScript.addBrick(setLookBrick);
 		backgroundSprite.addScript(startScript);
 		project.addSprite(backgroundSprite);
 
@@ -223,8 +223,8 @@ public class SwitchToCostumeCrashTest extends ActivityInstrumentationTestCase2<M
 		storageHandler.saveProject(project);
 	}
 
-	private CostumeFragment getCostumeFragment() {
+	private LookFragment getLookFragment() {
 		ScriptTabActivity activity = (ScriptTabActivity) solo.getCurrentActivity();
-		return (CostumeFragment) activity.getTabFragment(ScriptTabActivity.INDEX_TAB_COSTUMES);
+		return (LookFragment) activity.getTabFragment(ScriptTabActivity.INDEX_TAB_LOOKS);
 	}
 }

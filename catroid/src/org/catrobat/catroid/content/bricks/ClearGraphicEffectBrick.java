@@ -22,13 +22,13 @@
  */
 package org.catrobat.catroid.content.bricks;
 
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.BaseAdapter;
-import org.catrobat.catroid.R;
 
 public class ClearGraphicEffectBrick implements Brick {
 	private static final long serialVersionUID = 1L;
@@ -51,8 +51,8 @@ public class ClearGraphicEffectBrick implements Brick {
 
 	@Override
 	public void execute() {
-		sprite.costume.setBrightnessValue(1f);
-		sprite.costume.setAlphaValue(1f);
+		sprite.look.setBrightnessValue(1f);
+		sprite.look.setAlphaValue(1f);
 	}
 
 	@Override

@@ -34,7 +34,7 @@ import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import org.catrobat.catroid.common.CostumeData;
+import org.catrobat.catroid.common.LookData;
 import org.catrobat.catroid.content.Script;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.bricks.Brick;
@@ -50,7 +50,7 @@ public class BrickParser {
 
 	References references;
 	ObjectCreator objectGetter = new ObjectCreator();
-	CostumeParser costumeParser;
+	LookParser lookParser;
 	XPathFactory xpathFactory = XPathFactory.newInstance();
 	XPath xpath = xpathFactory.newXPath();
 
@@ -159,13 +159,13 @@ public class BrickParser {
 				String referenceAttribute = References.getReferenceAttribute(brickValue);
 				if (referenceAttribute != null) {
 					if (!referenceAttribute.equals("")) {
-						if (brickvalueName.equals("Costume")) {
-							costumeParser = new CostumeParser();
-							Boolean costumeSet = costumeParser.setCostumedataOfBrick(brickObject, valueField,
+						if (brickvalueName.equals("Look")) {
+							lookParser = new LookParser();
+							Boolean lookSet = lookParser.setLookdataOfBrick(brickObject, valueField,
 									referenceAttribute, referencedObjects, forwardRefs);
-							if (!costumeSet) {
+							if (!lookSet) {
 								references = new References();
-								references.resolveReference(objectGetter.getobjectOfClass(CostumeData.class, ""),
+								references.resolveReference(objectGetter.getobjectOfClass(LookData.class, ""),
 										brickValue, referenceAttribute, referencedObjects, forwardRefs);
 							}
 							continue;

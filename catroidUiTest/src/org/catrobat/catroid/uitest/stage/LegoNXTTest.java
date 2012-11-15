@@ -31,7 +31,7 @@ import org.catrobat.catroid.R;
 import org.catrobat.catroid.LegoNXT.LegoNXTBtCommunicator;
 import org.catrobat.catroid.LegoNXT.LegoNXTCommunicator;
 import org.catrobat.catroid.bluetooth.DeviceListActivity;
-import org.catrobat.catroid.common.CostumeData;
+import org.catrobat.catroid.common.LookData;
 import org.catrobat.catroid.common.Values;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Script;
@@ -42,7 +42,7 @@ import org.catrobat.catroid.content.bricks.LegoNxtMotorActionBrick;
 import org.catrobat.catroid.content.bricks.LegoNxtMotorStopBrick;
 import org.catrobat.catroid.content.bricks.LegoNxtMotorTurnAngleBrick;
 import org.catrobat.catroid.content.bricks.LegoNxtPlayToneBrick;
-import org.catrobat.catroid.content.bricks.SetCostumeBrick;
+import org.catrobat.catroid.content.bricks.SetLookBrick;
 import org.catrobat.catroid.content.bricks.WaitBrick;
 import org.catrobat.catroid.io.StorageHandler;
 import org.catrobat.catroid.stage.StageActivity;
@@ -296,7 +296,7 @@ public class LegoNXTTest extends ActivityInstrumentationTestCase2<MainMenuActivi
 		Sprite firstSprite = new Sprite("sprite1");
 		Script startScript = new StartScript(firstSprite);
 		Script whenScript = new WhenScript(firstSprite);
-		SetCostumeBrick setCostumeBrick = new SetCostumeBrick(firstSprite);
+		SetLookBrick setLookBrick = new SetLookBrick(firstSprite);
 
 		LegoNxtMotorActionBrick nxt = new LegoNxtMotorActionBrick(firstSprite, LegoNxtMotorActionBrick.Motor.MOTOR_A_C,
 				100);
@@ -325,7 +325,7 @@ public class LegoNXTTest extends ActivityInstrumentationTestCase2<MainMenuActivi
 		whenScript.addBrick(wait3);
 		whenScript.addBrick(nxtTone);
 
-		startScript.addBrick(setCostumeBrick);
+		startScript.addBrick(setLookBrick);
 		firstSprite.addScript(startScript);
 		firstSprite.addScript(whenScript);
 
@@ -339,11 +339,11 @@ public class LegoNXTTest extends ActivityInstrumentationTestCase2<MainMenuActivi
 		o.inJustDecodeBounds = true;
 		BitmapFactory.decodeFile(image1.getAbsolutePath(), o);
 
-		CostumeData costumeData = new CostumeData();
-		costumeData.setCostumeFilename(image1.getName());
-		costumeData.setCostumeName("image1");
-		setCostumeBrick.setCostume(costumeData);
-		firstSprite.getCostumeDataList().add(costumeData);
+		LookData lookData = new LookData();
+		lookData.setLookFilename(image1.getName());
+		lookData.setLookName("image1");
+		setLookBrick.setLook(lookData);
+		firstSprite.getLookDataList().add(lookData);
 
 		storageHandler.saveProject(project);
 	}

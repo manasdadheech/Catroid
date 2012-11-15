@@ -23,15 +23,15 @@
 package org.catrobat.catroid.nativetest.content.brick;
 
 import org.catrobat.catroid.ProjectManager;
-import org.catrobat.catroid.common.CostumeData;
+import org.catrobat.catroid.common.LookData;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Sprite;
-import org.catrobat.catroid.content.bricks.SetCostumeBrick;
+import org.catrobat.catroid.content.bricks.SetLookBrick;
 import org.catrobat.catroid.stage.NativeAppActivity;
 
 import android.test.InstrumentationTestCase;
 
-public class SetCostumeBrickTest extends InstrumentationTestCase {
+public class SetLookBrickTest extends InstrumentationTestCase {
 	private String testName = "testName";
 
 	@Override
@@ -40,7 +40,7 @@ public class SetCostumeBrickTest extends InstrumentationTestCase {
 		super.tearDown();
 	}
 
-	public void testSetCostume() throws Exception {
+	public void testSetLook() throws Exception {
 		NativeAppActivity.setContext(getInstrumentation().getContext());
 
 		String projectName = "myProject";
@@ -48,16 +48,16 @@ public class SetCostumeBrickTest extends InstrumentationTestCase {
 		ProjectManager.getInstance().setProject(project);
 
 		Sprite sprite = new Sprite("new sprite");
-		SetCostumeBrick setCostumeBrick = new SetCostumeBrick(sprite);
-		CostumeData costumeData = new CostumeData();
-		costumeData.setCostumeFilename(testName);
-		sprite.getCostumeDataList().add(costumeData);
-		setCostumeBrick.setCostume(costumeData);
+		SetLookBrick setLookBrick = new SetLookBrick(sprite);
+		LookData lookData = new LookData();
+		lookData.setLookFilename(testName);
+		sprite.getLookDataList().add(lookData);
+		setLookBrick.setLook(lookData);
 
-		assertEquals("Image path not empty", "", sprite.costume.getImagePath());
+		assertEquals("Image path not empty", "", sprite.look.getImagePath());
 
-		setCostumeBrick.execute();
+		setLookBrick.execute();
 
-		assertEquals("Image path not correct", "images/" + testName, sprite.costume.getImagePath());
+		assertEquals("Image path not correct", "images/" + testName, sprite.look.getImagePath());
 	}
 }

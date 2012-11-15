@@ -29,7 +29,7 @@ import org.catrobat.catroid.ui.MainMenuActivity;
 import org.catrobat.catroid.ui.ProgramMenuActivity;
 import org.catrobat.catroid.ui.ProjectActivity;
 import org.catrobat.catroid.ui.ScriptTabActivity;
-import org.catrobat.catroid.ui.fragment.CostumeFragment;
+import org.catrobat.catroid.ui.fragment.LookFragment;
 import org.catrobat.catroid.ui.fragment.ScriptFragment;
 import org.catrobat.catroid.ui.fragment.SoundFragment;
 import org.catrobat.catroid.uitest.util.UiTestUtils;
@@ -50,15 +50,15 @@ public class ScriptTabActivityTest extends ActivityInstrumentationTestCase2<Scri
 	private final String[] backgroundsTabHexValues = { "7ee9e9e9", "5bdbdbdb", "0", "7e1e1e1e", "5b2a2a2a", "0" };
 	private final String[] soundsTabHexValues = { "ffe4e4e4", "ffd2d2d2", "ffd4d4d4", "ff9b9b9b", "ff999999",
 			"ff9a9a9a" };
-	private final String[] costumesTabHexValues = { "ffffffff", "0", "ffffffff", "ff797979", "0", "ff797979" };
+	private final String[] looksTabHexValues = { "ffffffff", "0", "ffffffff", "ff797979", "0", "ff797979" };
 	private final int[] scriptsXCoords = { 12, 6, 9 };
 	private final int[] scriptsYCoords = { 12, 19, 3 };
 	private final int[] backgroundsXCoords = { 15, 5, 5 };
 	private final int[] backgroundsYCoords = { 15, 7, 15 };
 	private final int[] soundsXCoords = { 15, 5, 10 };
 	private final int[] soundsYCoords = { 15, 5, 6 };
-	private final int[] costumesXCoords = { 7, 4, 23 };
-	private final int[] costumesYCoords = { 21, 5, 8 };
+	private final int[] looksXCoords = { 7, 4, 23 };
+	private final int[] looksYCoords = { 21, 5, 8 };
 
 	public ScriptTabActivityTest() {
 		super(ScriptTabActivity.class);
@@ -97,13 +97,13 @@ public class ScriptTabActivityTest extends ActivityInstrumentationTestCase2<Scri
 				activity.getCurrentTabFragment() instanceof ScriptFragment);
 	}
 
-	public void testCostumesTab() {
+	public void testLooksTab() {
 		solo.clickOnText(solo.getCurrentActivity().getString(R.string.backgrounds));
 		solo.sleep(100);
 
 		ScriptTabActivity activity = (ScriptTabActivity) solo.getCurrentActivity();
-		assertTrue("Clicking on Costumes Tab did not cause CostumeFragment to be displayed",
-				activity.getCurrentTabFragment() instanceof CostumeFragment);
+		assertTrue("Clicking on Looks Tab did not cause LookFragment to be displayed",
+				activity.getCurrentTabFragment() instanceof LookFragment);
 	}
 
 	public void testSoundsTab() {
@@ -115,7 +115,7 @@ public class ScriptTabActivityTest extends ActivityInstrumentationTestCase2<Scri
 				activity.getCurrentTabFragment() instanceof SoundFragment);
 	}
 
-	public void testTabCostumeOrBackgroundLabel() {
+	public void testTabLookOrBackgroundLabel() {
 		String spriteDog = "dog";
 		String spriteBear = "bear";
 		String spriteFrog = "frog";
@@ -152,8 +152,8 @@ public class ScriptTabActivityTest extends ActivityInstrumentationTestCase2<Scri
 			solo.waitForActivity(ProgramMenuActivity.class.getSimpleName());
 			solo.clickOnText(solo.getString(R.string.scripts));
 			solo.waitForActivity(ScriptTabActivity.class.getSimpleName());
-			assertTrue("Wrong label - Tab should be named \"Costumes\"",
-					solo.searchText(solo.getString(R.string.costumes)));
+			assertTrue("Wrong label - Tab should be named \"Looks\"",
+					solo.searchText(solo.getString(R.string.looks)));
 		}
 	}
 
@@ -171,12 +171,12 @@ public class ScriptTabActivityTest extends ActivityInstrumentationTestCase2<Scri
 		String scriptsLabel = solo.getString(R.string.scripts);
 		String backgroundsLabel = solo.getString(R.string.backgrounds);
 		String soundsLabel = solo.getString(R.string.sounds);
-		String costumesLabel = solo.getString(R.string.costumes);
+		String looksLabel = solo.getString(R.string.looks);
 
 		int scriptsSelector = R.drawable.ic_tab_scripts_selector;
 		int backgroundsSelector = R.drawable.ic_tab_background_selector;
 		int soundsSelector = R.drawable.ic_tab_sounds_selector;
-		int costumesSelector = R.drawable.ic_tab_costumes_selector;
+		int looksSelector = R.drawable.ic_tab_looks_selector;
 
 		testTabText(new String[] { scriptsLabel, backgroundsLabel, soundsLabel });
 		testTabIcons(new int[] { scriptsSelector, backgroundsSelector, soundsSelector });
@@ -197,13 +197,13 @@ public class ScriptTabActivityTest extends ActivityInstrumentationTestCase2<Scri
 		solo.clickInList(2);
 		solo.waitForActivity(ProgramMenuActivity.class.getSimpleName());
 		solo.clickOnText(solo.getString(R.string.scripts));
-		testTabText(new String[] { scriptsLabel, costumesLabel, soundsLabel });
-		testTabIcons(new int[] { scriptsSelector, costumesSelector, soundsSelector });
+		testTabText(new String[] { scriptsLabel, looksLabel, soundsLabel });
+		testTabIcons(new int[] { scriptsSelector, looksSelector, soundsSelector });
 
 		solo.sleep(100);
-		solo.clickOnText(costumesLabel);
-		testTabText(new String[] { costumesLabel, scriptsLabel, soundsLabel });
-		testTabIcons(new int[] { costumesSelector, scriptsSelector, soundsSelector });
+		solo.clickOnText(looksLabel);
+		testTabText(new String[] { looksLabel, scriptsLabel, soundsLabel });
+		testTabIcons(new int[] { looksSelector, scriptsSelector, soundsSelector });
 	}
 
 	private void addNewSprite(String spriteName) {
@@ -274,8 +274,8 @@ public class ScriptTabActivityTest extends ActivityInstrumentationTestCase2<Scri
 			case R.drawable.ic_tab_sounds_selector:
 				testPixelsOfTabIcon(icon, soundsXCoords, soundsYCoords, soundsTabHexValues, activeTab);
 				break;
-			case R.drawable.ic_tab_costumes_selector:
-				testPixelsOfTabIcon(icon, costumesXCoords, costumesYCoords, costumesTabHexValues, activeTab);
+			case R.drawable.ic_tab_looks_selector:
+				testPixelsOfTabIcon(icon, looksXCoords, looksYCoords, looksTabHexValues, activeTab);
 				break;
 			default:
 				fail("Wrong Icon Selector");

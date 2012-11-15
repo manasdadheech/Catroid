@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.R;
-import org.catrobat.catroid.common.CostumeData;
+import org.catrobat.catroid.common.LookData;
 import org.catrobat.catroid.common.SoundInfo;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Script;
@@ -102,18 +102,18 @@ public class ProgramMenuActivityTest extends ActivityInstrumentationTestCase2<Ma
 				activityInfo.screenOrientation);
 	}
 
-	public void testCostumeButtonTextChange() {
+	public void testLookButtonTextChange() {
 		createProject();
 		solo.clickOnButton(solo.getString(R.string.main_menu_continue));
 		solo.waitForActivity(ProjectActivity.class.getSimpleName());
 		addNewSprite("sprite1");
 		solo.clickOnText("sprite1");
 		solo.waitForActivity(ProgramMenuActivity.class.getSimpleName());
-		assertTrue("Text on costume button is not 'Costumes'", solo.searchText(solo.getString(R.string.costumes)));
+		assertTrue("Text on look button is not 'Looks'", solo.searchText(solo.getString(R.string.looks)));
 		UiTestUtils.clickOnUpActionBarButton(solo.getCurrentActivity());
 		solo.clickOnButton(solo.getString(R.string.main_menu_continue));
 		solo.clickOnText("Background");
-		assertTrue("Text on costume button is not 'Backgrounds'", solo.searchText(solo.getString(R.string.backgrounds)));
+		assertTrue("Text on look button is not 'Backgrounds'", solo.searchText(solo.getString(R.string.backgrounds)));
 	}
 
 	public void testSpriteChangeViaSpinner() {
@@ -193,12 +193,12 @@ public class ProgramMenuActivityTest extends ActivityInstrumentationTestCase2<Ma
 				org.catrobat.catroid.uitest.R.drawable.catroid_sunglasses, getActivity(), UiTestUtils.FileTypes.IMAGE);
 
 		ProjectManager projectManager = ProjectManager.getInstance();
-		ArrayList<CostumeData> costumeDataList = projectManager.getCurrentSprite().getCostumeDataList();
-		CostumeData costumeData = new CostumeData();
-		costumeData.setCostumeFilename(imageFile.getName());
-		costumeData.setCostumeName("Catroid sun");
-		costumeDataList.add(costumeData);
-		projectManager.getFileChecksumContainer().addChecksum(costumeData.getChecksum(), costumeData.getAbsolutePath());
+		ArrayList<LookData> lookDataList = projectManager.getCurrentSprite().getLookDataList();
+		LookData lookData = new LookData();
+		lookData.setLookFilename(imageFile.getName());
+		lookData.setLookName("Catroid sun");
+		lookDataList.add(lookData);
+		projectManager.getFileChecksumContainer().addChecksum(lookData.getChecksum(), lookData.getAbsolutePath());
 
 		File soundFile = UiTestUtils.saveFileToProject(project.getName(), "longsound.mp3",
 				org.catrobat.catroid.uitest.R.raw.longsound, getInstrumentation().getContext(),

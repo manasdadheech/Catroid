@@ -29,7 +29,6 @@ import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.xml.parser.CatroidXMLConstants;
 
-
 public class SpriteSerializer extends Serializer {
 
 	public SpriteSerializer(Project serializedProject) {
@@ -45,9 +44,9 @@ public class SpriteSerializer extends Serializer {
 		xmlElementString = tab + tab + getStartTag(CatroidXMLConstants.SPRITE_ELEMENT_NAME);
 		spriteStrings.add(xmlElementString);
 
-		if (sprite.getCostumeDataList().size() > 0) {
-			CostumeSerializer costumeStrings = new CostumeSerializer();
-			spriteStrings.addAll(costumeStrings.serializeCostumeList(sprite.getCostumeDataList()));
+		if (sprite.getLookDataList().size() > 0) {
+			LookSerializer lookStrings = new LookSerializer();
+			spriteStrings.addAll(lookStrings.serializeLookList(sprite.getLookDataList()));
 		}
 		spriteStrings.add(tab + tab + tab + getSpriteNameElement(sprite));
 

@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import org.catrobat.catroid.common.CostumeData;
+import org.catrobat.catroid.common.LookData;
 import org.catrobat.catroid.common.SoundInfo;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Sprite;
@@ -39,7 +39,7 @@ import org.catrobat.catroid.content.bricks.PlaySoundBrick;
 import org.catrobat.catroid.content.bricks.PointInDirectionBrick;
 import org.catrobat.catroid.content.bricks.PointToBrick;
 import org.catrobat.catroid.content.bricks.RepeatBrick;
-import org.catrobat.catroid.content.bricks.SetCostumeBrick;
+import org.catrobat.catroid.content.bricks.SetLookBrick;
 import org.catrobat.catroid.content.bricks.SetSizeToBrick;
 import org.catrobat.catroid.content.bricks.ShowBrick;
 import org.catrobat.catroid.content.bricks.PointInDirectionBrick.Direction;
@@ -152,7 +152,7 @@ public class FullParserTest extends InstrumentationTestCase {
 		assertNotNull("direction is null, read resolve not run", dir);
 	}
 
-	public void testCostumeListParsing() {
+	public void testLookListParsing() {
 		FullParser parser = new FullParser();
 
 		Project testProject = null;
@@ -168,19 +168,19 @@ public class FullParserTest extends InstrumentationTestCase {
 		assertEquals("all sprites not given", 2, sprites.size());
 		Sprite testSprite = sprites.get(1);
 		@SuppressWarnings("unchecked")
-		List<CostumeData> givenCostumes = (List<CostumeData>) TestUtils.getPrivateField("costumeList", testSprite,
+		List<LookData> givenLooks = (List<LookData>) TestUtils.getPrivateField("lookList", testSprite,
 				false);
 
-		assertEquals("costumes number wrong", 3, givenCostumes.size());
-		CostumeData testData = givenCostumes.get(1);
+		assertEquals("looks number wrong", 3, givenLooks.size());
+		LookData testData = givenLooks.get(1);
 		String testfileName = (String) TestUtils.getPrivateField("fileName", testData, false);
-		assertEquals("Costume file name wrong", "FE5DF421A5746EC7FC916AC1B94ECC17_banzaiCat", testfileName);
+		assertEquals("Look file name wrong", "FE5DF421A5746EC7FC916AC1B94ECC17_banzaiCat", testfileName);
 		WhenScript script = (WhenScript) testSprite.getScript(1);
-		SetCostumeBrick costumeBrick = (SetCostumeBrick) script.getBrick(0);
-		assertNotNull("brick sprite is null", costumeBrick.getSprite());
-		testData = (CostumeData) TestUtils.getPrivateField("costume", costumeBrick, false);
+		SetLookBrick lookBrick = (SetLookBrick) script.getBrick(0);
+		assertNotNull("brick sprite is null", lookBrick.getSprite());
+		testData = (LookData) TestUtils.getPrivateField("look", lookBrick, false);
 		testfileName = (String) TestUtils.getPrivateField("fileName", testData, false);
-		assertEquals("costume data wrong", "FE5DF421A5746EC7FC916AC1B94ECC17_banzaiCat", testfileName);
+		assertEquals("look data wrong", "FE5DF421A5746EC7FC916AC1B94ECC17_banzaiCat", testfileName);
 		StartScript startScript = (StartScript) testSprite.getScript(0);
 		RepeatBrick repeatBrick = (RepeatBrick) startScript.getBrick(1);
 
@@ -188,7 +188,7 @@ public class FullParserTest extends InstrumentationTestCase {
 		int timestoRepeat = (Integer) TestUtils.getPrivateField("timesToRepeat", repeatBrick, false);
 		assertEquals("repeat brick times to repeat incorrect", 3, timestoRepeat);
 		LoopEndBrick loopEndBrick = repeatBrick.getLoopEndBrick();
-		assertNotNull("Costume data null", loopEndBrick);
+		assertNotNull("Look data null", loopEndBrick);
 		LoopEndBrick lebFromXML = (LoopEndBrick) startScript.getBrick(3);
 		assertNotNull("The LoopEndBrick is null", lebFromXML);
 		LoopBeginBrick repeatBrickFromLoopEnd = lebFromXML.getLoopBeginBrick();

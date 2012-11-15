@@ -22,6 +22,7 @@
  */
 package org.catrobat.catroid.content.bricks;
 
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.dialogs.BrickTextDialog;
@@ -34,7 +35,6 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import org.catrobat.catroid.R;
 
 public class ChangeYByNBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
@@ -59,8 +59,8 @@ public class ChangeYByNBrick implements Brick, OnClickListener {
 
 	@Override
 	public void execute() {
-		sprite.costume.aquireXYWidthHeightLock();
-		int yPosition = (int) sprite.costume.getYPosition();
+		sprite.look.aquireXYWidthHeightLock();
+		int yPosition = (int) sprite.look.getYPosition();
 
 		if (yPosition > 0 && yMovement > 0 && yPosition + yMovement < 0) {
 			yPosition = Integer.MAX_VALUE;
@@ -70,8 +70,8 @@ public class ChangeYByNBrick implements Brick, OnClickListener {
 			yPosition += yMovement;
 		}
 
-		sprite.costume.setXYPosition(sprite.costume.getXPosition(), yPosition);
-		sprite.costume.releaseXYWidthHeightLock();
+		sprite.look.setXYPosition(sprite.look.getXPosition(), yPosition);
+		sprite.look.releaseXYWidthHeightLock();
 	}
 
 	@Override

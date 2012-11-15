@@ -22,6 +22,7 @@
  */
 package org.catrobat.catroid.content.bricks;
 
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.dialogs.BrickTextDialog;
@@ -34,7 +35,6 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import org.catrobat.catroid.R;
 
 public class GoNStepsBackBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
@@ -57,13 +57,13 @@ public class GoNStepsBackBrick implements Brick, OnClickListener {
 
 	@Override
 	public void execute() {
-		int zPosition = sprite.costume.zPosition;
+		int zPosition = sprite.look.zPosition;
 		if (steps > 0 && (zPosition - steps) > zPosition) {
-			sprite.costume.zPosition = Integer.MIN_VALUE;
+			sprite.look.zPosition = Integer.MIN_VALUE;
 		} else if (steps < 0 && (zPosition - steps) < zPosition) {
-			sprite.costume.zPosition = Integer.MAX_VALUE;
+			sprite.look.zPosition = Integer.MAX_VALUE;
 		} else {
-			sprite.costume.zPosition -= steps;
+			sprite.look.zPosition -= steps;
 		}
 	}
 

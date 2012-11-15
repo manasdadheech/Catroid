@@ -22,6 +22,7 @@
  */
 package org.catrobat.catroid.content.bricks;
 
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.ui.ScriptTabActivity;
 import org.catrobat.catroid.ui.dialogs.BrickTextDialog;
@@ -34,7 +35,6 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import org.catrobat.catroid.R;
 
 public class GlideToBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
@@ -71,7 +71,7 @@ public class GlideToBrick implements Brick, OnClickListener {
 		//				latch.countDown();
 		//			}
 		//		});
-		//		sprite.costume.action(action);
+		//		sprite.look.action(action);
 		//		try {
 		//			latch.await();
 		//		} catch (InterruptedException e) {
@@ -110,22 +110,22 @@ public class GlideToBrick implements Brick, OnClickListener {
 		if (!sprite.isAlive(Thread.currentThread())) {
 			// -stay at last position
 		} else {
-			sprite.costume.aquireXYWidthHeightLock();
-			sprite.costume.setXYPosition(xDestination, yDestination);
-			sprite.costume.releaseXYWidthHeightLock();
+			sprite.look.aquireXYWidthHeightLock();
+			sprite.look.setXYPosition(xDestination, yDestination);
+			sprite.look.releaseXYWidthHeightLock();
 		}
 	}
 
 	private void updatePositions(int timePassed, int duration) {
-		sprite.costume.aquireXYWidthHeightLock();
-		float xPosition = sprite.costume.getXPosition();
-		float yPosition = sprite.costume.getYPosition();
+		sprite.look.aquireXYWidthHeightLock();
+		float xPosition = sprite.look.getXPosition();
+		float yPosition = sprite.look.getYPosition();
 
 		xPosition += ((float) timePassed / duration) * (xDestination - xPosition);
 		yPosition += ((float) timePassed / duration) * (yDestination - yPosition);
 
-		sprite.costume.setXYPosition(xPosition, yPosition);
-		sprite.costume.releaseXYWidthHeightLock();
+		sprite.look.setXYPosition(xPosition, yPosition);
+		sprite.look.releaseXYWidthHeightLock();
 	}
 
 	@Override
@@ -218,7 +218,7 @@ public class GlideToBrick implements Brick, OnClickListener {
 				return true;
 			}
 		};
-		
+
 		editDialog.show(activity.getSupportFragmentManager(), "dialog_glide_to_brick");
 	}
 }

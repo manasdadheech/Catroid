@@ -192,7 +192,7 @@ public class UiTestUtils {
 		brickCategoryMap.put(R.string.brick_point_to, R.string.category_motion);
 		brickCategoryMap.put(R.string.brick_glide, R.string.category_motion);
 
-		brickCategoryMap.put(R.string.brick_set_costume, R.string.category_looks);
+		brickCategoryMap.put(R.string.brick_set_look, R.string.category_looks);
 		brickCategoryMap.put(R.string.brick_set_size_to, R.string.category_looks);
 		brickCategoryMap.put(R.string.brick_change_size_by, R.string.category_looks);
 		brickCategoryMap.put(R.string.brick_hide, R.string.category_looks);

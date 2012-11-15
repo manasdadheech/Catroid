@@ -30,7 +30,7 @@ import org.catrobat.catroid.stage.StageActivity;
 import org.catrobat.catroid.ui.adapter.BrickAdapter;
 import org.catrobat.catroid.ui.adapter.TabsPagerAdapter;
 import org.catrobat.catroid.ui.dragndrop.DragAndDropListView;
-import org.catrobat.catroid.ui.fragment.CostumeFragment;
+import org.catrobat.catroid.ui.fragment.LookFragment;
 import org.catrobat.catroid.ui.fragment.ScriptFragment;
 import org.catrobat.catroid.ui.fragment.SoundFragment;
 import org.catrobat.catroid.utils.ErrorListenerInterface;
@@ -60,11 +60,11 @@ public class ScriptTabActivity extends SherlockFragmentActivity implements Error
 	public static final String ACTION_SPRITES_LIST_INIT = "org.catrobat.catroid.SPRITES_LIST_INIT";
 	public static final String ACTION_NEW_BRICK_ADDED = "org.catrobat.catroid.NEW_BRICK_ADDED";
 	public static final String ACTION_BRICK_LIST_CHANGED = "org.catrobat.catroid.BRICK_LIST_CHANGED";
-	public static final String ACTION_COSTUME_DELETED = "org.catrobat.catroid.COSTUME_DELETED";
-	public static final String ACTION_COSTUME_RENAMED = "org.catrobat.catroid.COSTUME_RENAMED";
+	public static final String ACTION_LOOK_DELETED = "org.catrobat.catroid.LOOK_DELETED";
+	public static final String ACTION_LOOK_RENAMED = "org.catrobat.catroid.LOOK_RENAMED";
 
 	public static final int INDEX_TAB_SCRIPTS = 0;
-	public static final int INDEX_TAB_COSTUMES = 1;
+	public static final int INDEX_TAB_LOOKS = 1;
 	public static final int INDEX_TAB_SOUNDS = 2;
 
 	private ActionBar actionBar;
@@ -91,10 +91,9 @@ public class ScriptTabActivity extends SherlockFragmentActivity implements Error
 
 		Sprite currentSprite = ProjectManager.getInstance().getCurrentSprite();
 		if (ProjectManager.getInstance().getCurrentProject().getSpriteList().indexOf(currentSprite) == 0) {
-			setupTab(R.drawable.ic_tab_background_selector, getString(R.string.backgrounds), CostumeFragment.class,
-					null);
+			setupTab(R.drawable.ic_tab_background_selector, getString(R.string.backgrounds), LookFragment.class, null);
 		} else {
-			setupTab(R.drawable.ic_tab_costumes_selector, getString(R.string.looks), CostumeFragment.class, null);
+			setupTab(R.drawable.ic_tab_looks_selector, getString(R.string.looks), LookFragment.class, null);
 		}
 
 		setupTab(R.drawable.ic_tab_sounds_selector, getString(R.string.sounds), SoundFragment.class, null);

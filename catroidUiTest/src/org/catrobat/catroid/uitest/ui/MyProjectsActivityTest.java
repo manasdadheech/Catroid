@@ -34,7 +34,7 @@ import junit.framework.AssertionFailedError;
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.Constants;
-import org.catrobat.catroid.common.CostumeData;
+import org.catrobat.catroid.common.LookData;
 import org.catrobat.catroid.common.StandardProjectHandler;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Sprite;
@@ -164,7 +164,7 @@ public class MyProjectsActivityTest extends ActivityInstrumentationTestCase2<Mai
 		}
 
 		Project activeProject = ProjectManager.INSTANCE.getCurrentProject();
-		ArrayList<CostumeData> catroidCostumeList = activeProject.getSpriteList().get(1).getCostumeDataList();
+		ArrayList<LookData> catroidLookList = activeProject.getSpriteList().get(1).getLookDataList();
 
 		solo.clickOnButton(solo.getString(R.string.main_menu_programs));
 		solo.waitForActivity(MainMenuActivity.class.getSimpleName());
@@ -178,8 +178,8 @@ public class MyProjectsActivityTest extends ActivityInstrumentationTestCase2<Mai
 
 		File imageFile;
 
-		for (CostumeData currentCostumeData : catroidCostumeList) {
-			imageFile = new File(currentCostumeData.getAbsolutePath());
+		for (LookData currentLookData : catroidLookList) {
+			imageFile = new File(currentLookData.getAbsolutePath());
 			assertFalse("Imagefile should be deleted", imageFile.exists());
 		}
 	}
@@ -1016,9 +1016,9 @@ public class MyProjectsActivityTest extends ActivityInstrumentationTestCase2<Mai
 		solo.sleep(200);
 
 		Project oldProject = ProjectManager.getInstance().getCurrentProject();
-		ArrayList<CostumeData> costumeDataListOldProject = oldProject.getSpriteList().get(1).getCostumeDataList();
-		CostumeData costumeDataOldProject = costumeDataListOldProject.get(0);
-		String oldChecksum = costumeDataOldProject.getChecksum();
+		ArrayList<LookData> lookDataListOldProject = oldProject.getSpriteList().get(1).getLookDataList();
+		LookData lookDataOldProject = lookDataListOldProject.get(0);
+		String oldChecksum = lookDataOldProject.getChecksum();
 
 		solo.sleep(200);
 		assertTrue("click on project '" + UiTestUtils.COPIED_PROJECT_NAME + "' in list not successful",
@@ -1032,11 +1032,11 @@ public class MyProjectsActivityTest extends ActivityInstrumentationTestCase2<Mai
 		assertTrue("The sprite name should be: 'testSprite'", solo.searchText("testSprite", 1, false));
 
 		Project copiedProject = ProjectManager.getInstance().getCurrentProject();
-		ArrayList<CostumeData> costumeDataListCopiedProject = copiedProject.getSpriteList().get(1).getCostumeDataList();
-		CostumeData costumeDataCopiedProject = costumeDataListCopiedProject.get(0);
-		String copiedCostumeChecksum = costumeDataCopiedProject.getChecksum();
+		ArrayList<LookData> lookDataListCopiedProject = copiedProject.getSpriteList().get(1).getLookDataList();
+		LookData lookDataCopiedProject = lookDataListCopiedProject.get(0);
+		String copiedLookChecksum = lookDataCopiedProject.getChecksum();
 
-		assertTrue("Checksum should be the same", oldChecksum.equals(copiedCostumeChecksum));
+		assertTrue("Checksum should be the same", oldChecksum.equals(copiedLookChecksum));
 	}
 
 	public void testCopyProject() {
@@ -1179,12 +1179,12 @@ public class MyProjectsActivityTest extends ActivityInstrumentationTestCase2<Mai
 		File imageFile = UiTestUtils.saveFileToProject(UiTestUtils.DEFAULT_TEST_PROJECT_NAME, "catroid_sunglasses.png",
 				IMAGE_RESOURCE_1, getActivity(), UiTestUtils.FileTypes.IMAGE);
 
-		ArrayList<CostumeData> costumeDataList = projectManager.getCurrentSprite().getCostumeDataList();
-		CostumeData costumeData = new CostumeData();
-		costumeData.setCostumeFilename(imageFile.getName());
-		costumeData.setCostumeName("testname");
-		costumeDataList.add(costumeData);
-		projectManager.getFileChecksumContainer().addChecksum(costumeData.getChecksum(), costumeData.getAbsolutePath());
+		ArrayList<LookData> lookDataList = projectManager.getCurrentSprite().getLookDataList();
+		LookData lookData = new LookData();
+		lookData.setLookFilename(imageFile.getName());
+		lookData.setLookName("testname");
+		lookDataList.add(lookData);
+		projectManager.getFileChecksumContainer().addChecksum(lookData.getChecksum(), lookData.getAbsolutePath());
 
 		StorageHandler.getInstance().saveProject(project1);
 

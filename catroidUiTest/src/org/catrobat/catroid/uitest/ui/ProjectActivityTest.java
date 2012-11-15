@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.R;
-import org.catrobat.catroid.common.CostumeData;
+import org.catrobat.catroid.common.LookData;
 import org.catrobat.catroid.common.SoundInfo;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Script;
@@ -443,45 +443,45 @@ public class ProjectActivityTest extends ActivityInstrumentationTestCase2<MainMe
 
 		TextView tvScriptCount = ((TextView) solo.getView(R.id.textView_number_of_scripts));
 		TextView tvBrickCount = ((TextView) solo.getView(R.id.textView_number_of_bricks));
-		TextView tvCostumeCount = ((TextView) solo.getView(R.id.textView_number_of_costumes));
+		TextView tvLookCount = ((TextView) solo.getView(R.id.textView_number_of_looks));
 		TextView tvSoundCount = ((TextView) solo.getView(R.id.textView_number_of_sounds));
 		String scriptCountString = tvScriptCount.getText().toString();
 		String brickCountString = tvBrickCount.getText().toString();
-		String costumeCountString = tvCostumeCount.getText().toString();
+		String lookCountString = tvLookCount.getText().toString();
 		String soundCountString = tvSoundCount.getText().toString();
 
 		boolean scriptCountShowing = tvScriptCount.getVisibility() == View.GONE ? false : true;
 		boolean brickCountShowing = tvBrickCount.getVisibility() == View.GONE ? false : true;
-		boolean costumeCountShowing = tvCostumeCount.getVisibility() == View.GONE ? false : true;
+		boolean lookCountShowing = tvLookCount.getVisibility() == View.GONE ? false : true;
 		boolean soundCountShowing = tvSoundCount.getVisibility() == View.GONE ? false : true;
 
-		assertFalse("Details are not hidden!", scriptCountShowing || brickCountShowing || costumeCountShowing
+		assertFalse("Details are not hidden!", scriptCountShowing || brickCountShowing || lookCountShowing
 				|| soundCountShowing);
 
 		solo.clickOnMenuItem(solo.getString(R.string.show_details));
 		solo.sleep(300);
 		scriptCountShowing = tvScriptCount.getVisibility() == View.VISIBLE ? true : false;
 		brickCountShowing = tvBrickCount.getVisibility() == View.VISIBLE ? true : false;
-		costumeCountShowing = tvCostumeCount.getVisibility() == View.VISIBLE ? true : false;
+		lookCountShowing = tvLookCount.getVisibility() == View.VISIBLE ? true : false;
 		soundCountShowing = tvSoundCount.getVisibility() == View.VISIBLE ? true : false;
 
 		assertTrue("Details are not showing after being enabled!", scriptCountShowing && brickCountShowing
-				&& costumeCountShowing && soundCountShowing);
+				&& lookCountShowing && soundCountShowing);
 
 		solo.clickOnMenuItem(solo.getString(R.string.hide_details));
 		solo.sleep(300);
 		scriptCountShowing = tvScriptCount.getVisibility() == View.GONE ? false : true;
 		brickCountShowing = tvBrickCount.getVisibility() == View.GONE ? false : true;
-		costumeCountShowing = tvCostumeCount.getVisibility() == View.GONE ? false : true;
+		lookCountShowing = tvLookCount.getVisibility() == View.GONE ? false : true;
 		soundCountShowing = tvSoundCount.getVisibility() == View.GONE ? false : true;
 
-		assertFalse("Details are not hidden!", scriptCountShowing || brickCountShowing || costumeCountShowing
+		assertFalse("Details are not hidden!", scriptCountShowing || brickCountShowing || lookCountShowing
 				|| soundCountShowing);
 
 		Sprite sprite = ProjectManager.getInstance().getCurrentSprite();
 		int scriptCount = sprite.getNumberOfScripts();
 		int brickCount = sprite.getNumberOfBricks();
-		int costumeCount = sprite.getCostumeDataList().size();
+		int lookCount = sprite.getLookDataList().size();
 		int soundCount = sprite.getSoundList().size();
 
 		int scriptCountActual = Integer.parseInt(scriptCountString.substring(scriptCountString.lastIndexOf(' ') + 1));
@@ -491,9 +491,9 @@ public class ProjectActivityTest extends ActivityInstrumentationTestCase2<MainMe
 		int brickCountExpected = scriptCount + brickCount;
 		assertEquals("Displayed the wrong number of bricks", brickCountExpected, brickCountActual);
 
-		int costumeCountActual = Integer
-				.parseInt(costumeCountString.substring(costumeCountString.lastIndexOf(' ') + 1));
-		assertEquals("Displayed wrong number of costumes", costumeCount, costumeCountActual);
+		int lookCountActual = Integer
+				.parseInt(lookCountString.substring(lookCountString.lastIndexOf(' ') + 1));
+		assertEquals("Displayed wrong number of looks", lookCount, lookCountActual);
 
 		int soundCountActual = Integer.parseInt(soundCountString.substring(soundCountString.lastIndexOf(' ') + 1));
 		assertEquals("Displayed wrong number of sound", soundCount, soundCountActual);
@@ -605,12 +605,12 @@ public class ProjectActivityTest extends ActivityInstrumentationTestCase2<MainMe
 				org.catrobat.catroid.uitest.R.drawable.catroid_sunglasses, getActivity(), UiTestUtils.FileTypes.IMAGE);
 
 		ProjectManager projectManager = ProjectManager.getInstance();
-		ArrayList<CostumeData> costumeDataList = projectManager.getCurrentSprite().getCostumeDataList();
-		CostumeData costumeData = new CostumeData();
-		costumeData.setCostumeFilename(imageFile.getName());
-		costumeData.setCostumeName("Catroid sun");
-		costumeDataList.add(costumeData);
-		projectManager.getFileChecksumContainer().addChecksum(costumeData.getChecksum(), costumeData.getAbsolutePath());
+		ArrayList<LookData> lookDataList = projectManager.getCurrentSprite().getLookDataList();
+		LookData lookData = new LookData();
+		lookData.setLookFilename(imageFile.getName());
+		lookData.setLookName("Catroid sun");
+		lookDataList.add(lookData);
+		projectManager.getFileChecksumContainer().addChecksum(lookData.getChecksum(), lookData.getAbsolutePath());
 
 		File soundFile = UiTestUtils.saveFileToProject(project.getName(), "longsound.mp3",
 				org.catrobat.catroid.uitest.R.raw.longsound, getInstrumentation().getContext(),

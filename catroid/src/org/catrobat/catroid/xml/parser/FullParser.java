@@ -46,13 +46,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
 public class FullParser {
 
 	Map<String, Object> referencedObjects = new HashMap<String, Object>();
 	List<ForwardReferences> forwardRefs = new ArrayList<ForwardReferences>();
 	ObjectCreator objectGetter = new ObjectCreator();
-	CostumeParser costumeParser = new CostumeParser();
+	LookParser lookParser = new LookParser();
 	SoundInfoParser soundParser = new SoundInfoParser();
 	ScriptParser scriptParser = new ScriptParser();
 
@@ -104,11 +103,11 @@ public class FullParser {
 				String spriteName = getSpriteName(spriteElement);
 				Sprite foundSprite = new Sprite(spriteName);
 
-				Node costumeListItem = spriteElement
-						.getElementsByTagName(CatroidXMLConstants.COSTUME_LIST_ELEMENT_NAME).item(0);
-				if (costumeListItem != null) {
-					NodeList costumeNodes = costumeListItem.getChildNodes();
-					costumeParser.parseCostumeList(costumeNodes, foundSprite, referencedObjects);
+				Node lookListItem = spriteElement.getElementsByTagName(CatroidXMLConstants.LOOK_LIST_ELEMENT_NAME)
+						.item(0);
+				if (lookListItem != null) {
+					NodeList lookNodes = lookListItem.getChildNodes();
+					lookParser.parseLookList(lookNodes, foundSprite, referencedObjects);
 				}
 
 				Node scriptListItem = spriteElement.getElementsByTagName(CatroidXMLConstants.SCRIPT_LIST_ELEMENT_NAME)

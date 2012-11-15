@@ -65,9 +65,9 @@ public class ProgramMenuActivity extends SherlockFragmentActivity implements Err
 			public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 				ProjectManager.INSTANCE.setCurrentSprite(spinnerAdapter.getItem(itemPosition));
 				if (ProjectManager.INSTANCE.getCurrentSpritePosition() == 0) {
-					((Button) findViewById(R.id.btn_costumes)).setText(R.string.backgrounds);
+					((Button) findViewById(R.id.btn_looks)).setText(R.string.backgrounds);
 				} else {
-					((Button) findViewById(R.id.btn_costumes)).setText(R.string.looks);
+					((Button) findViewById(R.id.btn_looks)).setText(R.string.looks);
 				}
 				return true;
 			}
@@ -121,7 +121,7 @@ public class ProgramMenuActivity extends SherlockFragmentActivity implements Err
 		startActivity(intent);
 	}
 
-	public void handleCostumesButton(View v) {
+	public void handleLooksButton(View v) {
 		//TODO: start LookActivity
 		Intent intent = new Intent(this, ScriptTabActivity.class);
 		startActivity(intent);

@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.catrobat.catroid.common.CostumeData;
+import org.catrobat.catroid.common.LookData;
 import org.catrobat.catroid.common.SoundInfo;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Script;
@@ -35,7 +35,6 @@ import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.xml.parser.CatroidXMLConstants;
 import org.catrobat.catroid.xml.parser.ObjectCreator;
-
 
 public abstract class Serializer {
 	ObjectCreator objectCreator;
@@ -45,7 +44,7 @@ public abstract class Serializer {
 	Script serializedScript;
 	List<Brick> brickList;
 	List<String> referenceStrings;
-	List<CostumeData> costumeList;
+	List<LookData> lookList;
 	List<Sprite> spriteList;
 	List<SoundInfo> soundList;
 
@@ -81,9 +80,9 @@ public abstract class Serializer {
 					} else {
 						reference = "TODO for bricks of other scripts";
 					}
-				} else if (referencedObjectName.equals(CatroidXMLConstants.COSTUME_DATA_CLASS_NAME)) {
-					reference = CatroidXMLConstants.COSTUMEREFERENCE_FROM_BRICK;
-					reference = getReferenceIndexSuffix(reference, referencedObject, costumeList);
+				} else if (referencedObjectName.equals(CatroidXMLConstants.LOOK_DATA_CLASS_NAME)) {
+					reference = CatroidXMLConstants.LOOKREFERENCE_FROM_BRICK;
+					reference = getReferenceIndexSuffix(reference, referencedObject, lookList);
 				} else if (referencedObjectName.equals(CatroidXMLConstants.SPRITE_ELEMENT_NAME)) {
 					reference = CatroidXMLConstants.SPRITEREFERENCE_FROM_BRICK;
 					reference = getReferenceIndexSuffix(reference, referencedObject, spriteList);

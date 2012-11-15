@@ -22,6 +22,7 @@
  */
 package org.catrobat.catroid.content.bricks;
 
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
 
 import android.content.Context;
@@ -31,7 +32,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Spinner;
-import org.catrobat.catroid.R;
 
 public class PointInDirectionBrick implements Brick, OnItemSelectedListener {
 
@@ -84,7 +84,7 @@ public class PointInDirectionBrick implements Brick, OnItemSelectedListener {
 	@Override
 	public void execute() {
 		double degreeOffset = 90f;
-		sprite.costume.rotation = (float) (-degrees + degreeOffset);
+		sprite.look.rotation = (float) (-degrees + degreeOffset);
 	}
 
 	@Override

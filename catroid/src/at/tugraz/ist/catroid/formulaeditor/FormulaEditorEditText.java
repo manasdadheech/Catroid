@@ -166,6 +166,8 @@ public class FormulaEditorEditText extends EditText implements OnTouchListener {
 
 		internFormula.selectParseErrorTokenAndSetCursor();
 		highlightSelection();
+		setSelection(absoluteCursorPosition);
+
 	}
 
 	public void handleKeyEvent(CatKeyEvent catKey) {

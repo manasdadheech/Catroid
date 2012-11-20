@@ -176,10 +176,6 @@ public class PhysicCostumeTest extends AndroidTestCase {
 	private class PhysicShapeBuilderMock extends PhysicShapeBuilder {
 		private final Shape[] shapes = new Shape[4];
 
-		public PhysicShapeBuilderMock() {
-			super(null);
-		}
-
 		@Override
 		public Shape[] getShape(CostumeData costumeData, float scaleFactor) {
 			return shapes;

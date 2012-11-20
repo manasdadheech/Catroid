@@ -31,10 +31,9 @@ import com.badlogic.gdx.physics.box2d.Shape;
 
 public class PhysicShapeBuilder {
 	private final Map<String, Shape[]> shapeMap = new HashMap<String, Shape[]>();
-	private PhysicShapeBuilderStrategy strategy;
+	private PhysicShapeBuilderStrategy strategy = new PhysicShapeBuilderStrategyComplex();
 
-	public PhysicShapeBuilder(PhysicShapeBuilderStrategy strategy) {
-		this.strategy = strategy;
+	public PhysicShapeBuilder() {
 	}
 
 	public synchronized Shape[] getShape(CostumeData costumeData, float scaleFactor) {

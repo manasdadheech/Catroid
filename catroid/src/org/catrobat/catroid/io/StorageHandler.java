@@ -28,15 +28,22 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.common.FileChecksumContainer;
 import org.catrobat.catroid.common.SoundInfo;
 import org.catrobat.catroid.content.Project;
+import org.catrobat.catroid.content.Script;
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.content.StartScript;
+import org.catrobat.catroid.content.WhenScript;
+import org.catrobat.catroid.content.bricks.SetCostumeBrick;
+import org.catrobat.catroid.content.bricks.WaitBrick;
 import org.catrobat.catroid.stage.NativeAppActivity;
 import org.catrobat.catroid.ui.fragment.ProjectsListFragment.ProjectData;
 import org.catrobat.catroid.utils.ImageEditing;
@@ -45,19 +52,32 @@ import org.catrobat.catroid.utils.Utils;
 import org.catrobat.catroid.xml.parser.FullParser;
 import org.catrobat.catroid.xml.serializer.XmlSerializer;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.util.Log;
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.converters.reflection.FieldDictionary;
+import com.thoughtworks.xstream.converters.reflection.PureJavaReflectionProvider;
+
 public class StorageHandler {
+	private static final String SIMON_TUTORIAL_CAT = "SIMON";
 
 	private static final int JPG_COMPRESSION_SETTING = 95;
 	private static final String TAG = StorageHandler.class.getSimpleName();
 	private static StorageHandler instance;
 	private FullParser fullParser;
 	private XmlSerializer serializer;
+	private XStream xstream;
 
 	private StorageHandler() throws IOException {
+
+		xstream = new XStream(new PureJavaReflectionProvider(new FieldDictionary(new CatroidFieldKeySorter())));
+		xstream.processAnnotations(Project.class);
+		xstream.aliasPackage("Bricks", "at.tugraz.ist.catroid.content.bricks");
+		xstream.aliasPackage("Common", "at.tugraz.ist.catroid.common");
+		xstream.aliasPackage("Content", "at.tugraz.ist.catroid.content");
 
 		fullParser = new FullParser();
 		serializer = new XmlSerializer();
@@ -154,6 +174,186 @@ public class StorageHandler {
 			return UtilFile.deleteDirectory(new File(Utils.buildProjectPath(project.getName())));
 		}
 		return false;
+	}
+
+	/**
+	 * Creates the default project and saves it to the filesystem
+	 * 
+	 * @return the default project object if successful, else null
+	 * @throws IOException
+	 */
+	public Project createDefaultProject(Context context) throws IOException {
+		String projectName = context.getString(R.string.default_project_name);
+		return createDefaultProject(projectName, context);
+	}
+
+	/**
+	 * Creates the default project and saves it to the file system
+	 * 
+	 * @return the default project object if successful, else null
+	 * @throws IOException
+	 */
+	public Project createDefaultProject(String projectName, Context context) throws IOException {
+		Project defaultProject = new Project(context, projectName);
+		saveProject(defaultProject);
+		ProjectManager.getInstance().setProject(defaultProject);
+		Sprite sprite = new Sprite("Catroid");
+		Sprite backgroundSprite = defaultProject.getSpriteList().get(0);
+
+		Script backgroundStartScript = new StartScript(backgroundSprite);
+		Script startScript = new StartScript(sprite);
+		Script whenScript = new WhenScript(sprite);
+
+		File normalCatTemp = savePictureFromResourceInProject(projectName, NORMAL_CAT, R.drawable.catroid, context);
+		File banzaiCatTemp = savePictureFromResourceInProject(projectName, BANZAI_CAT, R.drawable.catroid_banzai,
+				context);
+		File cheshireCatTemp = savePictureFromResourceInProject(projectName, CHESHIRE_CAT, R.drawable.catroid_cheshire,
+				context);
+		File backgroundTemp = savePictureFromResourceInProject(projectName, BACKGROUND, R.drawable.background_blueish,
+				context);
+
+		String directoryName = Utils.buildPath(Constants.DEFAULT_ROOT, projectName, Constants.IMAGE_DIRECTORY);
+		File normalCat = new File(Utils.buildPath(directoryName,
+				Utils.md5Checksum(normalCatTemp) + "_" + normalCatTemp.getName()));
+		File banzaiCat = new File(Utils.buildPath(directoryName,
+				Utils.md5Checksum(banzaiCatTemp) + "_" + banzaiCatTemp.getName()));
+		File cheshireCat = new File(Utils.buildPath(directoryName, Utils.md5Checksum(cheshireCatTemp) + "_"
+				+ cheshireCatTemp.getName()));
+		File background = new File(Utils.buildPath(directoryName, Utils.md5Checksum(backgroundTemp) + "_"
+				+ backgroundTemp.getName()));
+
+		normalCatTemp.renameTo(normalCat);
+		banzaiCatTemp.renameTo(banzaiCat);
+		cheshireCatTemp.renameTo(cheshireCat);
+		backgroundTemp.renameTo(background);
+
+		CostumeData normalCatCostumeData = new CostumeData();
+		normalCatCostumeData.setCostumeName(NORMAL_CAT);
+		normalCatCostumeData.setCostumeFilename(normalCat.getName());
+
+		CostumeData banzaiCatCostumeData = new CostumeData();
+		banzaiCatCostumeData.setCostumeName(BANZAI_CAT);
+		banzaiCatCostumeData.setCostumeFilename(banzaiCat.getName());
+
+		CostumeData cheshireCatCostumeData = new CostumeData();
+		cheshireCatCostumeData.setCostumeName(CHESHIRE_CAT);
+		cheshireCatCostumeData.setCostumeFilename(cheshireCat.getName());
+
+		CostumeData backgroundCostumeData = new CostumeData();
+		backgroundCostumeData.setCostumeName(BACKGROUND);
+		backgroundCostumeData.setCostumeFilename(background.getName());
+
+		ArrayList<CostumeData> costumeDataList = sprite.getCostumeDataList();
+		costumeDataList.add(normalCatCostumeData);
+		costumeDataList.add(banzaiCatCostumeData);
+		costumeDataList.add(cheshireCatCostumeData);
+		ArrayList<CostumeData> costumeDataList2 = backgroundSprite.getCostumeDataList();
+		costumeDataList2.add(backgroundCostumeData);
+
+		SetCostumeBrick setCostumeBrick = new SetCostumeBrick(sprite);
+		setCostumeBrick.setCostume(normalCatCostumeData);
+
+		SetCostumeBrick setCostumeBrick1 = new SetCostumeBrick(sprite);
+		setCostumeBrick1.setCostume(normalCatCostumeData);
+
+		SetCostumeBrick setCostumeBrick2 = new SetCostumeBrick(sprite);
+		setCostumeBrick2.setCostume(banzaiCatCostumeData);
+
+		SetCostumeBrick setCostumeBrick3 = new SetCostumeBrick(sprite);
+		setCostumeBrick3.setCostume(cheshireCatCostumeData);
+
+		SetCostumeBrick backgroundBrick = new SetCostumeBrick(backgroundSprite);
+		backgroundBrick.setCostume(backgroundCostumeData);
+
+		WaitBrick waitBrick1 = new WaitBrick(sprite, 500);
+		WaitBrick waitBrick2 = new WaitBrick(sprite, 500);
+
+		startScript.addBrick(setCostumeBrick);
+
+		whenScript.addBrick(setCostumeBrick2);
+		whenScript.addBrick(waitBrick1);
+		whenScript.addBrick(setCostumeBrick3);
+		whenScript.addBrick(waitBrick2);
+		whenScript.addBrick(setCostumeBrick1);
+		backgroundStartScript.addBrick(backgroundBrick);
+
+		defaultProject.addSprite(sprite);
+		sprite.addScript(startScript);
+		sprite.addScript(whenScript);
+		backgroundSprite.addScript(backgroundStartScript);
+
+		this.saveProject(defaultProject);
+
+		return defaultProject;
+	}
+
+	/**
+	 * Creates the default project and saves it to the file system
+	 * 
+	 * @return the default project object if successful, else null
+	 * @throws IOException
+	 */
+	public Project createThumbTutorialProject(Context context) throws IOException {
+		String projectName = "thumb_tutorial";
+		Project defaultProject = new Project(context, projectName);
+		saveProject(defaultProject);
+		ProjectManager.getInstance().setProject(defaultProject);
+		Sprite sprite = new Sprite("Catroid");
+		Sprite backgroundSprite = defaultProject.getSpriteList().get(0);
+
+		Script backgroundStartScript = new StartScript(backgroundSprite);
+		Script startScript = new StartScript(sprite);
+
+		String directoryName = Utils.buildPath(Constants.DEFAULT_ROOT, projectName, Constants.IMAGE_DIRECTORY);
+
+		ArrayList<CostumeData> costumeDataList = sprite.getCostumeDataList();
+
+		for (int count = 1; count < 15; count++) {
+			int drawableId = context.getResources().getIdentifier("simon_tut_" + count, "drawable",
+					"at.tugraz.ist.catroid");
+			File simonTemp = savePictureFromResourceInProject(projectName, SIMON_TUTORIAL_CAT + "_" + count,
+					drawableId, context);
+			File simon = new File(Utils.buildPath(directoryName,
+					Utils.md5Checksum(simonTemp) + "_" + simonTemp.getName()));
+			simonTemp.renameTo(simon);
+			CostumeData simonCostumeData = new CostumeData();
+			simonCostumeData.setCostumeName(SIMON_TUTORIAL_CAT + "_" + count);
+			simonCostumeData.setCostumeFilename(simon.getName());
+			SetCostumeBrick setCostumeBrick = new SetCostumeBrick(sprite);
+			setCostumeBrick.setCostume(simonCostumeData);
+			startScript.addBrick(setCostumeBrick);
+			WaitBrick waitBrick = new WaitBrick(sprite, 200);
+			startScript.addBrick(waitBrick);
+			costumeDataList.add(simonCostumeData);
+		}
+
+		File backgroundTemp = savePictureFromResourceInProject(projectName, BACKGROUND, R.drawable.background_blueish,
+				context);
+
+		File background = new File(Utils.buildPath(directoryName, Utils.md5Checksum(backgroundTemp) + "_"
+				+ backgroundTemp.getName()));
+
+		backgroundTemp.renameTo(background);
+
+		CostumeData backgroundCostumeData = new CostumeData();
+		backgroundCostumeData.setCostumeName(BACKGROUND);
+		backgroundCostumeData.setCostumeFilename(background.getName());
+
+		ArrayList<CostumeData> costumeDataList2 = backgroundSprite.getCostumeDataList();
+		costumeDataList2.add(backgroundCostumeData);
+
+		SetCostumeBrick backgroundBrick = new SetCostumeBrick(backgroundSprite);
+		backgroundBrick.setCostume(backgroundCostumeData);
+
+		backgroundStartScript.addBrick(backgroundBrick);
+
+		defaultProject.addSprite(sprite);
+		sprite.addScript(startScript);
+		backgroundSprite.addScript(backgroundStartScript);
+
+		this.saveProject(defaultProject);
+
+		return defaultProject;
 	}
 
 	public boolean deleteProject(ProjectData projectData) {

@@ -18,6 +18,8 @@
  */
 package org.catrobat.catroid.tutorial;
 
+import org.catrobat.catroid.ProjectManager;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -76,7 +78,7 @@ public class Tutorial {
 	}
 
 	public void startTutorial() {
-		//ProjectManager.getInstance().initializeThumbTutorialProject(context);
+		ProjectManager.getInstance().initializeThumbTutorialProject(context);
 		Activity currentActivity = (Activity) context;
 		currentActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		ScreenParameters.getInstance().setScreenParameters();

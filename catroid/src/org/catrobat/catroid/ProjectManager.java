@@ -38,7 +38,6 @@ import org.catrobat.catroid.utils.Utils;
 
 import android.content.Context;
 import android.util.Log;
-import org.catrobat.catroid.R;
 
 public class ProjectManager {
 
@@ -130,6 +129,21 @@ public class ProjectManager {
 			return false;
 		}
 		return StorageHandler.getInstance().saveProject(project);
+	}
+
+	public boolean initializeThumbTutorialProject(Context context) {
+		try {
+			fileChecksumContainer = new FileChecksumContainer();
+			messageContainer = new MessageContainer();
+			project = StorageHandler.getInstance().createThumbTutorialProject(context);
+			currentSprite = null;
+			currentScript = null;
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			Utils.displayErrorMessage(context, context.getString(R.string.error_load_project));
+			return false;
+		}
 	}
 
 	public boolean initializeDefaultProject(Context context, ErrorListenerInterface errorListener) {

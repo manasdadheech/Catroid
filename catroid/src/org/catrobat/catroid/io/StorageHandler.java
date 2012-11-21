@@ -22,12 +22,17 @@
  */
 package org.catrobat.catroid.io;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,6 +71,15 @@ public class StorageHandler {
 
 	private static final int JPG_COMPRESSION_SETTING = 95;
 	private static final String TAG = StorageHandler.class.getSimpleName();
+	private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>\n";
+
+	private static final String BACKGROUND = null;
+
+	private static final String NORMAL_CAT = null;
+
+	private static final String BANZAI_CAT = null;
+
+	private static final String CHESHIRE_CAT = null;
 	private static StorageHandler instance;
 	private FullParser fullParser;
 	private XmlSerializer serializer;
@@ -111,8 +125,7 @@ public class StorageHandler {
 		try {
 			if (NativeAppActivity.isRunning()) {
 				InputStream spfFileStream = NativeAppActivity.getContext().getAssets().open(projectName);
-				Project returned = fullParser.parseSpritesWithProject(spfFileStream);
-				return returned;
+				return (Project) xstream.fromXML(spfFileStream);
 			}
 
 			File projectDirectory = new File(Utils.buildProjectPath(projectName));
@@ -120,14 +133,13 @@ public class StorageHandler {
 			if (projectDirectory.exists() && projectDirectory.isDirectory() && projectDirectory.canWrite()) {
 				InputStream projectFileStream = new FileInputStream(Utils.buildPath(projectDirectory.getAbsolutePath(),
 						Constants.PROJECTCODE_NAME));
-				Project returned = fullParser.parseSpritesWithProject(projectFileStream);
-				return returned;
+				return (Project) xstream.fromXML(projectFileStream);
 			} else {
 				return null;
 			}
 
 		} catch (Exception e) {
-			Log.e("CATROID", "Cannot load project.", e);
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -139,6 +151,8 @@ public class StorageHandler {
 		}
 
 		try {
+			String projectFile = xstream.toXML(project);
+
 			String projectDirectoryName = Utils.buildProjectPath(project.getName());
 			File projectDirectory = new File(projectDirectoryName);
 
@@ -160,6 +174,13 @@ public class StorageHandler {
 				noMediaFile.createNewFile();
 			}
 
+			BufferedWriter writer = new BufferedWriter(new FileWriter(Utils.buildPath(projectDirectoryName,
+					Constants.PROJECTCODE_NAME)), Constants.BUFFER_8K);
+
+			writer.write(XML_HEADER.concat(projectFile));
+			writer.flush();
+			writer.close();
+
 			serializer.toXml(project, Utils.buildPath(projectDirectoryName, Constants.PROJECTCODE_NAME));
 			return true;
 		} catch (Exception e) {
@@ -174,6 +195,46 @@ public class StorageHandler {
 			return UtilFile.deleteDirectory(new File(Utils.buildProjectPath(project.getName())));
 		}
 		return false;
+	}
+
+	public boolean projectExists(String projectName) {
+		File projectDirectory = new File(Utils.buildProjectPath(projectName));
+		if (!projectDirectory.exists()) {
+			return false;
+		}
+		return true;
+	}
+
+	private File copyFile(File destinationFile, File sourceFile, File directory) throws IOException {
+		FileInputStream inputStream = new FileInputStream(sourceFile);
+		FileChannel inputChannel = inputStream.getChannel();
+		FileOutputStream outputStream = new FileOutputStream(destinationFile);
+		FileChannel outputChannel = outputStream.getChannel();
+
+		String checksumSource = Utils.md5Checksum(sourceFile);
+		FileChecksumContainer fileChecksumContainer = ProjectManager.getInstance().getFileChecksumContainer();
+
+		try {
+			inputChannel.transferTo(0, inputChannel.size(), outputChannel);
+			fileChecksumContainer.addChecksum(checksumSource, destinationFile.getAbsolutePath());
+			return destinationFile;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			if (inputChannel != null) {
+				inputChannel.close();
+			}
+			if (inputStream != null) {
+				inputStream.close();
+			}
+			if (outputChannel != null) {
+				outputChannel.close();
+			}
+			if (outputStream != null) {
+				outputStream.close();
+			}
+		}
 	}
 
 	/**
@@ -354,6 +415,29 @@ public class StorageHandler {
 		this.saveProject(defaultProject);
 
 		return defaultProject;
+	}
+
+	private File savePictureFromResourceInProject(String project, String name, int fileId, Context context)
+			throws IOException {
+
+		final String imagePath = Utils.buildPath(Constants.DEFAULT_ROOT, project, Constants.IMAGE_DIRECTORY, name);
+		File testImage = new File(imagePath);
+		if (!testImage.exists()) {
+			testImage.createNewFile();
+		}
+		InputStream in = context.getResources().openRawResource(fileId);
+		OutputStream out = new BufferedOutputStream(new FileOutputStream(testImage), Constants.BUFFER_8K);
+		byte[] buffer = new byte[Constants.BUFFER_8K];
+		int length = 0;
+		while ((length = in.read(buffer)) > 0) {
+			out.write(buffer, 0, length);
+		}
+
+		in.close();
+		out.flush();
+		out.close();
+
+		return testImage;
 	}
 
 	public boolean deleteProject(ProjectData projectData) {

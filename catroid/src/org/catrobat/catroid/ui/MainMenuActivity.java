@@ -33,6 +33,7 @@ import org.catrobat.catroid.stage.StageActivity;
 import org.catrobat.catroid.transfers.CheckTokenTask;
 import org.catrobat.catroid.transfers.CheckTokenTask.OnCheckTokenCompleteListener;
 import org.catrobat.catroid.transfers.ProjectDownloadService;
+import org.catrobat.catroid.tutorial.Tutorial;
 import org.catrobat.catroid.ui.dialogs.AboutDialogFragment;
 import org.catrobat.catroid.ui.dialogs.LoginRegisterDialog;
 import org.catrobat.catroid.ui.dialogs.NewProjectDialog;
@@ -97,9 +98,15 @@ public class MainMenuActivity extends SherlockFragmentActivity implements OnChec
 
 	private boolean ignoreResume = false;
 
+	public void updateProjectName() {
+		onPause();
+		onResume();
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//activityHelper = new ActivityHelper(this);
 		Utils.updateScreenWidthAndHeight(this);
 
 		setContentView(R.layout.activity_main_menu);
@@ -109,6 +116,7 @@ public class MainMenuActivity extends SherlockFragmentActivity implements OnChec
 		actionBar.setTitle(R.string.app_name);
 
 		projectManager = ProjectManager.getInstance();
+		//Utils.loadProjectIfNeeded(this);
 		Utils.loadProjectIfNeeded(this, this);
 
 		if (projectManager.getCurrentProject() == null) {
@@ -201,6 +209,7 @@ public class MainMenuActivity extends SherlockFragmentActivity implements OnChec
 	@Override
 	protected void onResume() {
 		super.onResume();
+		Tutorial.getInstance(this).resumeTutorial();
 		if (!Utils.checkForSdCard(this)) {
 			return;
 		}
@@ -229,6 +238,8 @@ public class MainMenuActivity extends SherlockFragmentActivity implements OnChec
 	@Override
 	public void onPause() {
 		super.onPause();
+		Tutorial.getInstance(this).pauseTutorial();
+
 		// onPause is sufficient --> gets called before "process_killed",
 		// onStop(), onDestroy(), onRestart()
 		// also when you switch activities
@@ -305,6 +316,10 @@ public class MainMenuActivity extends SherlockFragmentActivity implements OnChec
 	@Override
 	public void onTokenNotValid() {
 		showLoginRegisterDialog();
+	}
+
+	public void handleTutorialButton(View v) {
+		Tutorial.getInstance(this).startTutorial();
 	}
 
 	@Override

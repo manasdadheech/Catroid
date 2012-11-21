@@ -52,6 +52,7 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.DialogInterface.OnShowListener;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.ApplicationInfo;
@@ -67,6 +68,8 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -172,6 +175,41 @@ public class Utils {
 		errorDialog.show(fragmentManager, ErrorDialogFragment.DIALOG_FRAGMENT_TAG);
 	}
 
+	/**
+	 * Displays an AlertDialog with the given error message and just a close
+	 * button
+	 * 
+	 * @param context
+	 * @param errorMessage
+	 */
+	public static void displayErrorMessage(Context context, String errorMessage) {
+		Builder builder = new AlertDialog.Builder(context);
+
+		builder.setTitle(context.getString(R.string.error));
+		builder.setMessage(errorMessage);
+		builder.setNeutralButton(context.getString(R.string.close), new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		});
+		builder.show();
+	}
+
+	//	public static void displayToast(Activity activity, String message/* , int duration */) {
+	//		LayoutInflater inflater = activity.getLayoutInflater();
+	//		View layout = inflater.inflate(R.layout.toast_settings,
+	//				(ViewGroup) activity.findViewById(R.id.toast_layout_root));
+	//
+	//		TextView text = (TextView) layout.findViewById(R.id.text);
+	//		text.setText(message);
+	//
+	//		Toast toast = new Toast(activity.getApplicationContext());
+	//		toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+	//		toast.setDuration(Toast.LENGTH_SHORT);
+	//		toast.setView(layout);
+	//		toast.show();
+	//	}
+
 	public static String md5Checksum(File file) {
 		if (!file.isFile()) {
 			return null;
@@ -264,6 +302,17 @@ public class Utils {
 			Log.e(TAG, "Name not found", nameNotFoundException);
 		}
 		return versionName;
+	}
+
+	public static OnShowListener getBrickDialogOnClickListener(final Context context, final EditText input) {
+		return new OnShowListener() {
+			@Override
+			public void onShow(DialogInterface dialog) {
+				InputMethodManager inputManager = (InputMethodManager) context
+						.getSystemService(Context.INPUT_METHOD_SERVICE);
+				inputManager.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
+			}
+		};
 	}
 
 	public static int getPhysicalPixels(int densityIndependentPixels, Context context) {

@@ -278,6 +278,7 @@ public class CostumeActivity extends ListActivity {
 		return new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+
 				Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 
 				Bundle bundleForPaintroid = new Bundle();
@@ -309,6 +310,7 @@ public class CostumeActivity extends ListActivity {
 	}
 
 	public void handleCopyCostumeButton(View v) {
+
 		int position = (Integer) v.getTag();
 		CostumeData costumeData = costumeDataList.get(position);
 		try {
@@ -321,6 +323,7 @@ public class CostumeActivity extends ListActivity {
 			Utils.displayErrorMessage(this, getString(R.string.error_load_image));
 			e.printStackTrace();
 		}
+
 	}
 
 	public void handleEditCostumeButton(View v) {

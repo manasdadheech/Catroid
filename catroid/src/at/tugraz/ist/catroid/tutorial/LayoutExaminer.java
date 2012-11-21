@@ -141,6 +141,21 @@ public class LayoutExaminer {
 		return new ClickableArea(x, y, tmp.getWidth(), tmp.getHeight());
 	}
 
+	public ClickableArea getButtonFromCostume(int buttonID) {
+		Log.i("ANGI", "LE: examineTabView: " + currentActivity.getLocalClassName());
+		//correctCurrentActivity();
+		View buttonView = currentActivity.findViewById(R.id.btn_costume_copy);
+
+		int[] coords = { 0, 0 };
+		buttonView.getLocationInWindow(coords);
+		int x = coords[0];
+		int y = coords[1];
+		int w = buttonView.getWidth();
+		int h = buttonView.getHeight();
+		ClickableArea ca = new ClickableArea(x, y, w, h);
+		return ca;
+	}
+
 	public ClickableArea getButtonCenterCoordinates(int buttonID) {
 		Log.i("faxxe", "LE: getButtenCenterCoordinates: " + currentActivity.getLocalClassName());
 		correctCurrentActivity();

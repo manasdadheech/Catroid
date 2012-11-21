@@ -43,12 +43,20 @@ public class ClickDispatcher {
 				dispatchButton(R.id.current_project_button);
 				break;
 
+			case NEW_PROJECT_BUTTON:
+				dispatchButton(R.id.new_project_button);
+				break;
+
 			case PROJECT_LIST_ITEM:
 				if (task.getNotificationString() != null) {
 					dispatchProjectListItem(Integer.parseInt(task.getNotificationString()));
 				} else {
 					dispatchProjectListItem(0);
 				}
+				break;
+
+			case PROJECT_HOME_BUTTON:
+				dispatchButton(R.id.btn_action_home);
 				break;
 
 			case TAB_SCRIPTS:
@@ -95,11 +103,25 @@ public class ClickDispatcher {
 			case BRICK_DIALOG_DONE:
 				dispatchDragAndDrop(R.id.brick_list_view);
 				break;
+
+			case COSTUMES_ADD_COSTUME:
+				dispatchButton(R.id.btn_action_add_button);
+				break;
+
+			case COSTUMES_COPY:
+				dispatchCostumeTabButton(R.id.btn_costume_copy);
+				break;
 		}
 	}
 
+	private void dispatchCostumeTabButton(int buttonID) {
+		ClickableArea ca = le.getButtonFromCostume(buttonID);
+		CloudController co = new CloudController();
+		co.show();
+		co.fadeTo(ca);
+	}
+
 	private void dispatchDragAndDrop(int itemNr) {
-		Log.i("ANGI", "gehts noch??");
 		ClickableArea ca = new ClickableArea(100, 100, 200, 300);
 		CloudController co = new CloudController();
 		co.show();

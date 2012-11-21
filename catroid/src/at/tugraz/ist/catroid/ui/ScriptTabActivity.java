@@ -87,6 +87,7 @@ public class ScriptTabActivity extends TabActivity implements OnDismissListener,
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
 		addScript = false;
 		isCanceled = false;
 		dontcreateNewBrick = false;
@@ -149,12 +150,15 @@ public class ScriptTabActivity extends TabActivity implements OnDismissListener,
 					public void onClick(View v) {
 						Intent intent = new Intent(ScriptTabActivity.this, PreStageActivity.class);
 						startActivityForResult(intent, PreStageActivity.REQUEST_RESOURCES_INIT);
+
 					}
 				}, false);
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Tutorial.getInstance(null).resumeTutorial();
+
 		if (requestCode == PreStageActivity.REQUEST_RESOURCES_INIT && resultCode == RESULT_OK) {
 			Intent intent = new Intent(ScriptTabActivity.this, StageActivity.class);
 			startActivity(intent);

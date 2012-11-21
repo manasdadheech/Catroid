@@ -73,20 +73,26 @@ public class TaskNotification implements Task {
 		if (notificationType == Notification.PROJECT_STAGE_BUTTON) {
 			return true;
 		}
-		//
-		//		if (notificationType == notificationType.BRICK_CATEGORY_DIALOG) {
-		//			return ("DIALOG");
-		//		}
-		//
-		//		if (notificationType == Notification.BRICK_ADD_DIALOG) {
-		//			return true;
-		//		}
-		//
-		//		if (notificationType == notificationType.BRICK_DIALOG_DONE) {
-		//			return ("BRICK_DIALOG_DONE");
-		//		}
 
-		//		Cloud_old.getInstance(null).setCloud(notificationType);
+		if (notificationType == Notification.TAB_COSTUMES) {
+			return true;
+		}
+
+		if (notificationType == Notification.PROJECT_HOME_BUTTON) {
+			return true;
+		}
+
+		if (notificationType == Notification.COSTUMES_ADD_COSTUME) {
+			return true;
+		}
+
+		if (notificationType == Notification.COSTUMES_COPY) {
+			return true;
+		}
+
+		if (notificationType == Notification.NEW_PROJECT_BUTTON) {
+			return true;
+		}
 
 		// All tasks which result in a switch to another activity, just wait for a dummy
 		// notification, which will be deleted during pause/resume of the Tutorial

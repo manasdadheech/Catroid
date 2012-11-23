@@ -37,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 //Copy for Test
+//adding new comment
 public class GoNStepsForwardBrick implements Brick, OnClickListener {
 	private static final long serialVersionUID = 1L;
 	private Sprite sprite;

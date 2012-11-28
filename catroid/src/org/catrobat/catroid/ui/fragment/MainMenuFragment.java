@@ -24,6 +24,8 @@ package org.catrobat.catroid.ui.fragment;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.R;
@@ -34,6 +36,9 @@ import org.catrobat.catroid.transfers.CheckTokenTask.OnCheckTokenCompleteListene
 import org.catrobat.catroid.transfers.ProjectDownloadService;
 import org.catrobat.catroid.ui.MyProjectsActivity;
 import org.catrobat.catroid.ui.ProjectActivity;
+import org.catrobat.catroid.ui.SettingsActivity;
+import org.catrobat.catroid.ui.adapter.MainMenuAdapter;
+import org.catrobat.catroid.ui.dialogs.AboutDialogFragment;
 import org.catrobat.catroid.ui.dialogs.LoginRegisterDialog;
 import org.catrobat.catroid.ui.dialogs.NewProjectDialog;
 import org.catrobat.catroid.ui.dialogs.UploadProjectDialog;
@@ -56,6 +61,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
@@ -106,9 +112,7 @@ public class MainMenuFragment extends SherlockFragment implements OnCheckTokenCo
 		projectManager = ProjectManager.getInstance();
 		Utils.loadProjectIfNeeded(activity, this);
 
-		if (projectManager.getCurrentProject() == null) {
-			rootView.findViewById(R.id.main_menu_button_continue).setEnabled(false);
-		}
+		initMainMenu();
 
 		// Load external project from URL or local file system.
 		Uri loadExternalProjectUri = activity.getIntent().getData();
@@ -153,7 +157,6 @@ public class MainMenuFragment extends SherlockFragment implements OnCheckTokenCo
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		rootView = inflater.inflate(R.layout.fragment_main_menu, null);
-		initOnClickListeners();
 		return rootView;
 	}
 
@@ -162,23 +165,6 @@ public class MainMenuFragment extends SherlockFragment implements OnCheckTokenCo
 		int notificationId = manager.createNotification(downloadName, getActivity(), Constants.DOWNLOAD_NOTIFICATION);
 		return notificationId;
 	}
-
-	//	@Override
-	//	public boolean onOptionsItemSelected(MenuItem item) {
-	//		switch (item.getItemId()) {
-	//			case R.id.menu_settings: {
-	//				Intent intent = new Intent(MainMenuActivity.this, SettingsActivity.class);
-	//				startActivity(intent);
-	//				return true;
-	//			}
-	//			case R.id.menu_about: {
-	//				AboutDialogFragment aboutDialog = new AboutDialogFragment();
-	//				aboutDialog.show(getSupportFragmentManager(), AboutDialogFragment.DIALOG_FRAGMENT_TAG);
-	//				return true;
-	//			}
-	//		}
-	//		return super.onOptionsItemSelected(item);
-	//	}
 
 	@Override
 	public void onResume() {
@@ -256,43 +242,96 @@ public class MainMenuFragment extends SherlockFragment implements OnCheckTokenCo
 		}
 	}
 
-	private void initOnClickListeners() {
-		rootView.findViewById(R.id.main_menu_button_continue).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				handleContinueButton();
-			}
-		});
-		rootView.findViewById(R.id.main_menu_button_new).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				handleNewButton();
-			}
-		});
-		rootView.findViewById(R.id.main_menu_button_programs).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				handleProgramsButton();
-			}
-		});
-		rootView.findViewById(R.id.main_menu_button_forum).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				handleForumButton();
-			}
-		});
-		rootView.findViewById(R.id.main_menu_button_upload).setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				handleUploadButton();
-			}
-		});
-		rootView.findViewById(R.id.main_menu_button_web).setOnClickListener(new OnClickListener() {
+	private void initMainMenu() {
+		ListView mainMenuListView = (ListView) rootView.findViewById(R.id.lv_main_menu);
+		MainMenuAdapter adapter = new MainMenuAdapter(getActivity(), generateMainMenuItems());
+		mainMenuListView.setAdapter(adapter);
+	}
+
+	private List<MainMenuItem> generateMainMenuItems() {
+		List<MainMenuItem> mainMenuItems = new ArrayList<MainMenuItem>();
+
+		MainMenuItem newProject = new MainMenuItem(R.drawable.main_menu_new, R.string.main_menu_new,
+				new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						handleNewButton();
+					}
+				});
+		MainMenuItem continueProject = new MainMenuItem(R.drawable.main_menu_continue, R.string.main_menu_continue,
+				new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						handleContinueButton();
+					}
+				});
+		MainMenuItem programs = new MainMenuItem(R.drawable.main_menu_programs, R.string.main_menu_programs,
+				new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						handleProgramsButton();
+					}
+				});
+		MainMenuItem forum = new MainMenuItem(R.drawable.main_menu_forum, R.string.main_menu_forum,
+				new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						handleForumButton();
+					}
+				});
+		MainMenuItem web = new MainMenuItem(R.drawable.main_menu_web, R.string.main_menu_web, new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				handleWebButton();
 			}
 		});
+		MainMenuItem upload = new MainMenuItem(R.drawable.main_menu_upload, R.string.main_menu_upload,
+				new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						handleUploadButton();
+					}
+				});
+		MainMenuItem settings = new MainMenuItem(0, R.string.main_menu_settings, new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				handleSettingsButton();
+			}
+		});
+		MainMenuItem about = new MainMenuItem(0, R.string.main_menu_about_catroid, new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				handleAboutButton();
+			}
+		});
+
+		if (projectManager.getCurrentProject() == null) {
+			continueProject.isEnabled = false;
+		}
+
+		mainMenuItems.add(newProject);
+		mainMenuItems.add(continueProject);
+		mainMenuItems.add(programs);
+		mainMenuItems.add(forum);
+		mainMenuItems.add(web);
+		mainMenuItems.add(upload);
+		mainMenuItems.add(settings);
+		mainMenuItems.add(about);
+
+		return mainMenuItems;
+	}
+
+	public class MainMenuItem {
+		public int iconResId;
+		public int titleResId;
+		public OnClickListener onClickListener;
+		public boolean isEnabled = true;
+
+		public MainMenuItem(int iconResId, int titleresId, OnClickListener onClickListener) {
+			this.iconResId = iconResId;
+			this.titleResId = titleresId;
+			this.onClickListener = onClickListener;
+		}
 	}
 
 	private void handleContinueButton() {
@@ -333,5 +372,15 @@ public class MainMenuFragment extends SherlockFragment implements OnCheckTokenCo
 	private void handleForumButton() {
 		Intent browerIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getText(R.string.catrobat_forum).toString()));
 		startActivity(browerIntent);
+	}
+
+	private void handleSettingsButton() {
+		Intent intent = new Intent(getActivity(), SettingsActivity.class);
+		startActivity(intent);
+	}
+
+	private void handleAboutButton() {
+		AboutDialogFragment aboutDialog = new AboutDialogFragment();
+		aboutDialog.show(getFragmentManager(), AboutDialogFragment.DIALOG_FRAGMENT_TAG);
 	}
 }

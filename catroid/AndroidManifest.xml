@@ -88,6 +88,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.ProgramMenuActivity"
+            android:theme="@style/Theme.Catroid" 
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".ui.ScriptTabActivity"
             android:theme="@style/Theme.Catroid" />
         <activity

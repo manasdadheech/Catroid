@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.Values;
 import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.BroadcastBrick;
@@ -69,7 +70,7 @@ public class BrickDragAndDropTest extends ActivityInstrumentationTestCase2<MainM
 	public void testClickOnEmptySpace() {
 		solo.clickOnScreen(20, Values.SCREEN_HEIGHT - 50);
 		solo.sleep(200);
-		assertTrue("Wrong number of Bricks", solo.searchText(solo.getString(R.string.categories)));
+		assertTrue("Brickcategories did not show up", solo.searchText(solo.getString(R.string.categories)));
 	}
 
 	public void testPutHoveringBrickDown() {
@@ -120,6 +121,7 @@ public class BrickDragAndDropTest extends ActivityInstrumentationTestCase2<MainM
 		@SuppressWarnings("deprecation")
 		int height = display.getHeight();
 
+		solo.sleep(200);
 		solo.drag(20, 20, 200, height - 20, 100);
 		solo.sleep(200);
 

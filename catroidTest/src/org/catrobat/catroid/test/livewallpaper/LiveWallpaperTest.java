@@ -428,7 +428,7 @@ public class LiveWallpaperTest extends AndroidTestCase {
 
 		float initialAlpha = 50;
 		float changeAlpha = -20;
-		costume.setAlphaValue(initialAlpha);
+		costume.setAlphaValue((int) initialAlpha);
 
 		Brick brick = new ChangeGhostEffectByNBrick(catroidSprite, changeAlpha);
 		brick.executeLiveWallpaper();

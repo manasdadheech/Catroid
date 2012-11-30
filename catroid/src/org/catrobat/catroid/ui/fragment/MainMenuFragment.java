@@ -34,9 +34,9 @@ import org.catrobat.catroid.stage.PreStageActivity;
 import org.catrobat.catroid.transfers.CheckTokenTask;
 import org.catrobat.catroid.transfers.CheckTokenTask.OnCheckTokenCompleteListener;
 import org.catrobat.catroid.transfers.ProjectDownloadService;
+import org.catrobat.catroid.ui.BaseSlidingFragmentActivity;
 import org.catrobat.catroid.ui.MyProjectsActivity;
 import org.catrobat.catroid.ui.ProjectActivity;
-import org.catrobat.catroid.ui.SettingsActivity;
 import org.catrobat.catroid.ui.adapter.MainMenuAdapter;
 import org.catrobat.catroid.ui.dialogs.AboutDialogFragment;
 import org.catrobat.catroid.ui.dialogs.LoginRegisterDialog;
@@ -252,16 +252,16 @@ public class MainMenuFragment extends SherlockFragment implements OnCheckTokenCo
 		List<MainMenuItem> mainMenuItems = new ArrayList<MainMenuItem>();
 
 		MainMenuItem newProject = new MainMenuItem(R.drawable.main_menu_new, R.string.main_menu_new,
-				new OnClickListener() {
+				new MainMenuItemClickListener() {
 					@Override
-					public void onClick(View v) {
+					public void onMainMenuItemClick(View v) {
 						handleNewButton();
 					}
 				});
 		MainMenuItem continueProject = new MainMenuItem(R.drawable.main_menu_continue, R.string.main_menu_continue,
-				new OnClickListener() {
+				new MainMenuItemClickListener() {
 					@Override
-					public void onClick(View v) {
+					public void onMainMenuItemClick(View v) {
 						handleContinueButton();
 					}
 				});
@@ -273,28 +273,29 @@ public class MainMenuFragment extends SherlockFragment implements OnCheckTokenCo
 					}
 				});
 		MainMenuItem forum = new MainMenuItem(R.drawable.main_menu_forum, R.string.main_menu_forum,
-				new OnClickListener() {
+				new MainMenuItemClickListener() {
 					@Override
-					public void onClick(View v) {
+					public void onMainMenuItemClick(View v) {
 						handleForumButton();
 					}
 				});
-		MainMenuItem web = new MainMenuItem(R.drawable.main_menu_web, R.string.main_menu_web, new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				handleWebButton();
-			}
-		});
-		MainMenuItem upload = new MainMenuItem(R.drawable.main_menu_upload, R.string.main_menu_upload,
-				new OnClickListener() {
+		MainMenuItem web = new MainMenuItem(R.drawable.main_menu_web, R.string.main_menu_web,
+				new MainMenuItemClickListener() {
 					@Override
-					public void onClick(View v) {
+					public void onMainMenuItemClick(View v) {
+						handleWebButton();
+					}
+				});
+		MainMenuItem upload = new MainMenuItem(R.drawable.main_menu_upload, R.string.main_menu_upload,
+				new MainMenuItemClickListener() {
+					@Override
+					public void onMainMenuItemClick(View v) {
 						handleUploadButton();
 					}
 				});
-		MainMenuItem about = new MainMenuItem(0, R.string.main_menu_about_catroid, new OnClickListener() {
+		MainMenuItem about = new MainMenuItem(0, R.string.main_menu_about_catroid, new MainMenuItemClickListener() {
 			@Override
-			public void onClick(View v) {
+			public void onMainMenuItemClick(View v) {
 				handleAboutButton();
 			}
 		});
@@ -367,13 +368,19 @@ public class MainMenuFragment extends SherlockFragment implements OnCheckTokenCo
 		startActivity(browerIntent);
 	}
 
-	private void handleSettingsButton() {
-		Intent intent = new Intent(getActivity(), SettingsActivity.class);
-		startActivity(intent);
-	}
-
 	private void handleAboutButton() {
 		AboutDialogFragment aboutDialog = new AboutDialogFragment();
 		aboutDialog.show(getFragmentManager(), AboutDialogFragment.DIALOG_FRAGMENT_TAG);
+	}
+
+	private abstract class MainMenuItemClickListener implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			((BaseSlidingFragmentActivity) getActivity()).toggle();
+			onMainMenuItemClick(v);
+		}
+
+		public abstract void onMainMenuItemClick(View v);
 	}
 }

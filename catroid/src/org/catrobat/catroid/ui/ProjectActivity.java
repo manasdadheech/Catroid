@@ -138,7 +138,6 @@ public class ProjectActivity extends BaseSlidingFragmentActivity implements Erro
 				startActivity(intent);
 				break;
 			}
-
 		}
 		return super.onOptionsItemSelected(item);
 	}

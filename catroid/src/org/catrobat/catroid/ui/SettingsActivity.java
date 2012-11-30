@@ -24,11 +24,14 @@ package org.catrobat.catroid.ui;
 
 import org.catrobat.catroid.R;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
+import com.actionbarsherlock.view.MenuItem;
 
-public class SettingsActivity extends BaseSlidingPreferenceActivity {
+public class SettingsActivity extends SherlockPreferenceActivity {
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -42,5 +45,19 @@ public class SettingsActivity extends BaseSlidingPreferenceActivity {
 		actionBar.setTitle(R.string.pref_title);
 		actionBar.setHomeButtonEnabled(true);
 		actionBar.setDisplayHomeAsUpEnabled(true);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case android.R.id.home: {
+				Intent intent = new Intent(this, ProjectActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+				return true;
+			}
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 }

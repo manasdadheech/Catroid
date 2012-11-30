@@ -292,12 +292,6 @@ public class MainMenuFragment extends SherlockFragment implements OnCheckTokenCo
 						handleUploadButton();
 					}
 				});
-		MainMenuItem settings = new MainMenuItem(0, R.string.main_menu_settings, new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				handleSettingsButton();
-			}
-		});
 		MainMenuItem about = new MainMenuItem(0, R.string.main_menu_about_catroid, new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -315,7 +309,6 @@ public class MainMenuFragment extends SherlockFragment implements OnCheckTokenCo
 		mainMenuItems.add(forum);
 		mainMenuItems.add(web);
 		mainMenuItems.add(upload);
-		mainMenuItems.add(settings);
 		mainMenuItems.add(about);
 
 		return mainMenuItems;

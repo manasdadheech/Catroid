@@ -29,6 +29,7 @@ import org.catrobat.catroid.ui.dialogs.NewProjectDialog;
 import org.catrobat.catroid.utils.ErrorListenerInterface;
 import org.catrobat.catroid.utils.Utils;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,6 +86,11 @@ public class MyProjectsActivity extends BaseSlidingFragmentActivity implements E
 				NewProjectDialog dialog = new NewProjectDialog();
 				dialog.show(getSupportFragmentManager(), NewProjectDialog.DIALOG_FRAGMENT_TAG);
 				return true;
+			}
+			case R.id.settings: {
+				Intent intent = new Intent(MyProjectsActivity.this, SettingsActivity.class);
+				startActivity(intent);
+				break;
 			}
 		}
 		return super.onOptionsItemSelected(item);

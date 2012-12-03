@@ -59,6 +59,7 @@ import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import at.tugraz.ist.catroid.R;
+import at.tugraz.ist.catroid.tutorial.Tutorial;
 
 public class CustomIconContextMenu implements DialogInterface.OnCancelListener, DialogInterface.OnDismissListener {
 
@@ -94,6 +95,7 @@ public class CustomIconContextMenu implements DialogInterface.OnCancelListener, 
 		builder.setCustomTitle(customTitle);
 
 		builder.setAdapter(menuAdapter, new DialogInterface.OnClickListener() {
+			@Override
 			public void onClick(DialogInterface dialoginterface, int position) {
 				CustomContextMenuItem item = (CustomContextMenuItem) menuAdapter.getItem(position);
 
@@ -110,13 +112,17 @@ public class CustomIconContextMenu implements DialogInterface.OnCancelListener, 
 		dialog.setOnDismissListener(this);
 		dialog.setCanceledOnTouchOutside(true);
 
+		Tutorial.getInstance(null).setDialog(dialog);
+
 		return dialog;
 	}
 
+	@Override
 	public void onCancel(DialogInterface dialog) {
 		cleanup();
 	}
 
+	@Override
 	public void onDismiss(DialogInterface arg0) {
 	}
 
@@ -145,6 +151,7 @@ public class CustomIconContextMenu implements DialogInterface.OnCancelListener, 
 		}
 
 		//View for each list element (icon and text)
+		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			CustomContextMenuItem item = (CustomContextMenuItem) getItem(position);
 
@@ -184,14 +191,17 @@ public class CustomIconContextMenu implements DialogInterface.OnCancelListener, 
 			return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, resource.getDisplayMetrics());
 		}
 
+		@Override
 		public Object getItem(int position) {
 			return items.get(position);
 		}
 
+		@Override
 		public int getCount() {
 			return items.size();
 		}
 
+		@Override
 		public long getItemId(int position) {
 			CustomContextMenuItem item = (CustomContextMenuItem) getItem(position);
 			return item.contextMenuItemId;

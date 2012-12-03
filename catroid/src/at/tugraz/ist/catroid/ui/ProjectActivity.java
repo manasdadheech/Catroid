@@ -120,12 +120,14 @@ public class ProjectActivity extends ListActivity {
 						showDialog(DIALOG_RENAME_SPRITE);
 						break;
 					case CONTEXT_MENU_ITEM_DELETE:
+						Tutorial.getInstance(null).pauseTutorial();
 						ProjectManager projectManager = ProjectManager.getInstance();
 						projectManager.getCurrentProject().getSpriteList().remove(spriteToEdit);
 						if (projectManager.getCurrentSprite() != null
 								&& projectManager.getCurrentSprite().equals(spriteToEdit)) {
 							projectManager.setCurrentSprite(null);
 						}
+						Tutorial.getInstance(null).resumeTutorial();
 						break;
 				}
 			}
@@ -207,7 +209,9 @@ public class ProjectActivity extends ListActivity {
 				if (iconContextMenu == null || spriteToEdit == null) {
 					dialog = null;
 				} else {
+
 					dialog = iconContextMenu.createMenu(spriteToEdit.getName());
+
 				}
 				break;
 			default:

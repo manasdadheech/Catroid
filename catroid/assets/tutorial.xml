@@ -13,7 +13,7 @@
                 
                 <at.tugraz.ist.catroid.tutorial.tasks.TaskSay>
                     <tutorType>CATRO</tutorType>
-                    <message>Willkommen bei Catroid! Du bist sicher der neue Entwickler für kommende Projekte. Darf ich mich vorstellen ich bin Catro, deine persönliche Assistentenkatze. Nun zu Beginn, damit du weist worum es hier überhaupt geht. Catroid ist eine On-Device Programmiersprache für Android-Endgeräte. Also das bedeutet wir können auf jedem Gerät, auf dem das Android-Betriebssystem installiert ist, unsere eigenen Programme schreiben. Catroid basiert auf der Scratch Programmiersprache der berühmten technischen Universität MIT (Massacchusetts Institute of Technology) aus den USA. In Catroid kannst du deine eigenen Programme erstellen, diese im Internet veröffentlichen und natürlich auch die Projekte anderer Catroid-User bewundern. So genug mit meinem Gerede, meine Devise ist ganz klar Learning by Doing. Also wird es Zeit ein erstes kleines Projekt zu erstellen. Dazu klicke ... </message>
+                    <message>Willkommen bei Catroid! Du bist sicher der neue Entwickler für zukünftige Projekte. Darf ich mich vorstellen ich bin Catro, deine persönliche Assistentenkatze. Nun zu Beginn erklär ich kurz, was Catroid überhaupt ist. Catroid ist eine On-Device Programmiersprache für Android-Endgeräte. Also das bedeutet wir können auf jedem Gerät, auf dem das Android Betriebssystem installiert ist, unsere eigenen Programme schreiben. Catroid basiert auf der Scratch Programmiersprache der berühmten technischen Universität MIT (Massacchusetts Institute of Technology) aus den USA. In Catroid kannst du deine eigenen Programme erstellen, diese im Internet veröffentlichen und natürlich auch die Projekte anderer Catroid-User bewundern. So genug mit meinem Gerede, meine Devise ist ganz klar Learning by Doing. Also wird es Zeit ein erstes kleines Projekt zu erstellen. Dazu klicke ... </message>
                 </at.tugraz.ist.catroid.tutorial.tasks.TaskSay>
                 
                 <at.tugraz.ist.catroid.tutorial.tasks.TaskAppear>
@@ -317,7 +317,7 @@
                
                 <at.tugraz.ist.catroid.tutorial.tasks.TaskNotification>
                     <notificationType>PROJECT_LIST_ITEM</notificationType>
-                    <notificationString>2</notificationString>
+                    <notificationString>1</notificationString>
                 </at.tugraz.ist.catroid.tutorial.tasks.TaskNotification>
                 
                 <at.tugraz.ist.catroid.tutorial.tasks.TaskSay>

@@ -28,6 +28,7 @@ import android.widget.Toast;
 import at.tugraz.ist.catroid.ProjectManager;
 import at.tugraz.ist.catroid.R;
 import at.tugraz.ist.catroid.common.Values;
+import at.tugraz.ist.catroid.tutorial.Tutorial;
 import at.tugraz.ist.catroid.ui.dialogs.StageDialog;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
@@ -42,6 +43,7 @@ public class StageActivity extends AndroidApplication {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Toast.makeText(this, "STAGE", Toast.LENGTH_SHORT).show();
 
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		stageListener = new StageListener();
@@ -53,6 +55,9 @@ public class StageActivity extends AndroidApplication {
 
 	@Override
 	public void onBackPressed() {
+		if (Tutorial.getInstance(null).isActive()) {
+			return;
+		}
 		pauseOrContinue();
 		stageDialog.show();
 	}

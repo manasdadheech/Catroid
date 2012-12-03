@@ -131,7 +131,7 @@ public class ScreenParameters {
 
 				bubbleResizeWidthMargin = 25;
 
-				bubbleMaxWidth = 200;
+				bubbleMaxWidth = 180;
 				bubbleMinWidth = 150;
 
 				break;

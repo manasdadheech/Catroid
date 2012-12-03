@@ -67,8 +67,10 @@ public class PreStageActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		if (Tutorial.getInstance(null).isActive()) {
-			Tutorial.getInstance(null).stopButtonTutorial();
+			Tutorial.getInstance(null).stopTutorial();
 		}
+
+		Toast.makeText(this, "PreStage", Toast.LENGTH_SHORT).show();
 		super.onCreate(savedInstanceState);
 
 		int required_resources = getRequiredRessources();
@@ -136,6 +138,7 @@ public class PreStageActivity extends Activity {
 
 	@Override
 	public void onResume() {
+		//Tutorial.getInstance(this).resumeTutorial();
 		super.onResume();
 		if (requiredResourceCounter == 0) {
 			finish();

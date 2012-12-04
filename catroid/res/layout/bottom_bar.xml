@@ -36,7 +36,6 @@
         android:layout_weight="1"
         android:background="#B3B3B3"
         android:clickable="true"
-        android:onClick="handleAddButton"
         android:orientation="horizontal" >
 
         <ImageView
@@ -73,7 +72,6 @@
         android:layout_weight="1"
         android:background="#B3B3B3"
         android:clickable="true"
-        android:onClick="handlePlayButton"
         android:orientation="horizontal" >
 
         <ImageView

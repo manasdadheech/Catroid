@@ -29,13 +29,11 @@ import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.io.StorageHandler;
 import org.catrobat.catroid.transfers.RegistrationTask.OnRegistrationCompleteListener;
-import org.catrobat.catroid.ui.ProjectActivity;
 import org.catrobat.catroid.utils.Utils;
 
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnShowListener;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
@@ -57,6 +55,12 @@ public class NewProjectDialog extends DialogFragment implements OnRegistrationCo
 	private EditText newProjectDescriptionEditText;
 	private Button okButton;
 	private Button cancelButton;
+
+	private CurrentProjectChangedListener currentProjectChangedListener;
+
+	public void setCurrentProjectChangedListener(CurrentProjectChangedListener listener) {
+		currentProjectChangedListener = listener;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -153,8 +157,10 @@ public class NewProjectDialog extends DialogFragment implements OnRegistrationCo
 		}
 
 		Utils.saveToPreferences(getActivity(), Constants.PREF_PROJECTNAME_KEY, projectName);
-		Intent intent = new Intent(getActivity(), ProjectActivity.class);
-		getActivity().startActivity(intent);
+
+		if (currentProjectChangedListener != null) {
+			currentProjectChangedListener.onCurrentProjectChanged();
+		}
 
 		dismiss();
 		return true;
@@ -171,5 +177,11 @@ public class NewProjectDialog extends DialogFragment implements OnRegistrationCo
 
 	protected String getHint() {
 		return getString(R.string.new_project_dialog_hint);
+	}
+
+	public interface CurrentProjectChangedListener {
+
+		public void onCurrentProjectChanged();
+
 	}
 }

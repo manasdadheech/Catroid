@@ -25,28 +25,32 @@ package org.catrobat.catroid.ui.adapter;
 import java.util.List;
 
 import org.catrobat.catroid.R;
-import org.catrobat.catroid.ui.fragment.MainMenuFragment.MainMenuItem;
+import org.catrobat.catroid.ui.fragment.MainMenuFragment.MainMenuItemClickListener;
+import org.catrobat.catroid.ui.fragment.MainMenuFragment.SlidingMenuItem;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MainMenuAdapter extends ArrayAdapter<MainMenuItem> {
+public class MainMenuAdapter extends ArrayAdapter<SlidingMenuItem> {
 
-	private List<MainMenuItem> items;
+	private List<SlidingMenuItem> items;
+	private MainMenuItemClickListener mainMenuItemClickListener;
 
-	public MainMenuAdapter(Context context, List<MainMenuItem> items) {
+	public MainMenuAdapter(Context context, List<SlidingMenuItem> items, MainMenuItemClickListener listener) {
 		super(context, 0, items);
 		this.items = items;
+		mainMenuItemClickListener = listener;
 	}
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-		MainMenuItem item = items.get(position);
+		final SlidingMenuItem item = items.get(position);
 		ViewHolder holder = null;
 
 		if (convertView == null) {
@@ -62,7 +66,14 @@ public class MainMenuAdapter extends ArrayAdapter<MainMenuItem> {
 		holder.icon.setImageResource(item.iconResId);
 		holder.title.setText(item.titleResId);
 
-		convertView.setOnClickListener(item.onClickListener);
+		convertView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (mainMenuItemClickListener != null) {
+					mainMenuItemClickListener.onMainMenuItemClick(item.mainMenuItem);
+				}
+			}
+		});
 
 		return convertView;
 	}

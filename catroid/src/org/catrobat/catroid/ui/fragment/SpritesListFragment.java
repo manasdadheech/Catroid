@@ -33,14 +33,18 @@ import org.catrobat.catroid.common.CostumeData;
 import org.catrobat.catroid.common.SoundInfo;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.io.StorageHandler;
+import org.catrobat.catroid.stage.PreStageActivity;
+import org.catrobat.catroid.stage.StageActivity;
 import org.catrobat.catroid.ui.ProgramMenuActivity;
 import org.catrobat.catroid.ui.ScriptTabActivity;
+import org.catrobat.catroid.ui.SettingsActivity;
 import org.catrobat.catroid.ui.adapter.SpriteAdapter;
 import org.catrobat.catroid.ui.dialogs.NewSpriteDialog;
 import org.catrobat.catroid.ui.dialogs.RenameSpriteDialog;
 import org.catrobat.catroid.utils.ErrorListenerInterface;
 import org.catrobat.catroid.utils.Utils;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -58,19 +62,21 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 
-public class SpritesListFragment extends SherlockListFragment implements OnClickListener {
+public class SpritesListFragment extends SherlockListFragment implements OnClickListener, ErrorListenerInterface {
 
 	private static final String BUNDLE_ARGUMENTS_SPRITE_TO_EDIT = "sprite_to_edit";
 
 	private static final int FOOTER_ADD_SPRITE_ALPHA_VALUE = 35;
+
+	public static final String FRAGMENT_TAG = "fragment_sprites_list";
 
 	private SpriteAdapter spriteAdapter;
 	private ArrayList<Sprite> spriteList;
@@ -155,15 +161,33 @@ public class SpritesListFragment extends SherlockListFragment implements OnClick
 		}
 	};
 
+	public SpritesListFragment() {
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
+		setHasOptionsMenu(true);
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_sprites_list, null);
+
+		rootView.findViewById(R.id.btn_add).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				handleAddButton(v);
+			}
+		});
+		rootView.findViewById(R.id.btn_play).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				handlePlayButton(v);
+			}
+		});
+
 		return rootView;
 	}
 
@@ -179,7 +203,7 @@ public class SpritesListFragment extends SherlockListFragment implements OnClick
 		viewBelowSpritelistNonScrollable = getActivity().findViewById(R.id.view_below_spritelist_non_scrollable);
 		viewBelowSpritelistNonScrollable.setOnClickListener(this);
 
-		View footerView = getActivity().getLayoutInflater().inflate(R.layout.activity_project_spritelist_footer,
+		View footerView = getActivity().getLayoutInflater().inflate(R.layout.fragment_project_spritelist_footer,
 				getListView(), false);
 		spritelistFooterView = footerView.findViewById(R.id.spritelist_footerview);
 		ImageView footerAddImage = (ImageView) footerView.findViewById(R.id.spritelist_footerview_add_image);
@@ -188,9 +212,60 @@ public class SpritesListFragment extends SherlockListFragment implements OnClick
 		getListView().addFooterView(footerView);
 
 		try {
-			Utils.loadProjectIfNeeded(getActivity(), (ErrorListenerInterface) getActivity());
+			Utils.loadProjectIfNeeded(getActivity(), this);
 		} catch (ClassCastException exception) {
-			Log.e("CATROID", getActivity().toString() + " does not implement ErrorListenerInterface", exception);
+			Log.e("CATROID", this.getClass().getName() + " does not implement ErrorListenerInterface", exception);
+		}
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.menu_current_project, menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(com.actionbarsherlock.view.MenuItem item) {
+		int itemId = item.getItemId();
+		switch (itemId) {
+			case R.id.show_details: {
+				if (getShowDetails()) {
+					setShowDetails(false);
+					item.setTitle(getString(R.string.show_details));
+				} else {
+					setShowDetails(true);
+					item.setTitle(getString(R.string.hide_details));
+				}
+				return true;
+			}
+			case R.id.copy: {
+				return true;
+			}
+			case R.id.cut: {
+				return true;
+			}
+			case R.id.insert_below: {
+				return true;
+			}
+			case R.id.move: {
+				return true;
+			}
+			case R.id.rename: {
+				startRenameActionMode();
+				return true;
+			}
+			case R.id.delete: {
+				startDeleteActionMode();
+				return true;
+			}
+			case R.id.settings: {
+				Intent intent = new Intent(getActivity(), SettingsActivity.class);
+				startActivity(intent);
+				return true;
+			}
+			default: {
+				return super.onOptionsItemSelected(item);
+			}
 		}
 	}
 
@@ -217,6 +292,9 @@ public class SpritesListFragment extends SherlockListFragment implements OnClick
 		if (!Utils.checkForSdCard(getActivity())) {
 			return;
 		}
+
+		String title = ProjectManager.getInstance().getCurrentProject().getName();
+		getSherlockActivity().getSupportActionBar().setTitle(title);
 
 		StorageHandler.getInstance().fillChecksumContainer();
 
@@ -280,36 +358,48 @@ public class SpritesListFragment extends SherlockListFragment implements OnClick
 		}
 	}
 
-	public void startDeleteActionMode() {
-		if (actionMode != null) {
-			return;
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == PreStageActivity.REQUEST_RESOURCES_INIT && resultCode == Activity.RESULT_OK) {
+			Intent intent = new Intent(getActivity(), StageActivity.class);
+			startActivityForResult(intent, StageActivity.STAGE_ACTIVITY_FINISH);
 		}
-		actionMode = getSherlockActivity().startActionMode(deleteModeCallBack);
+		if (requestCode == StageActivity.STAGE_ACTIVITY_FINISH) {
+			ProjectManager projectManager = ProjectManager.getInstance();
+			int currentSpritePos = projectManager.getCurrentSpritePosition();
+			int currentScriptPos = projectManager.getCurrentScriptPosition();
+			projectManager.loadProject(projectManager.getCurrentProject().getName(), getActivity(), this, false);
+			projectManager.setCurrentSpriteWithPosition(currentSpritePos);
+			projectManager.setCurrentScriptWithPosition(currentScriptPos);
+		}
 	}
 
-	public void startRenameActionMode() {
-		if (actionMode != null) {
-			return;
-		}
-		actionMode = getSherlockActivity().startActionMode(renameModeCallBack);
+	@Override
+	public void showErrorDialog(String errorMessage) {
+		Utils.displayErrorMessageFragment(getFragmentManager(), errorMessage);
 	}
 
 	public Sprite getSpriteToEdit() {
 		return spriteToEdit;
 	}
 
-	public void handleProjectActivityItemLongClick(View view) {
+	private void startDeleteActionMode() {
+		if (actionMode != null) {
+			return;
+		}
+		actionMode = getSherlockActivity().startActionMode(deleteModeCallBack);
 	}
 
-	public void handleCheckBoxClick(View view) {
-		int position = getListView().getPositionForView(view);
-		getListView().setItemChecked(position, ((CheckBox) view.findViewById(R.id.checkbox)).isChecked());
-
+	private void startRenameActionMode() {
+		if (actionMode != null) {
+			return;
+		}
+		actionMode = getSherlockActivity().startActionMode(renameModeCallBack);
 	}
 
 	private void initListeners() {
 		spriteList = (ArrayList<Sprite>) ProjectManager.getInstance().getCurrentProject().getSpriteList();
-		spriteAdapter = new SpriteAdapter(getActivity(), R.layout.activity_project_spritelist_item, R.id.sprite_title,
+		spriteAdapter = new SpriteAdapter(getActivity(), R.layout.fragment_project_spritelist_item, R.id.sprite_title,
 				spriteList);
 
 		setListAdapter(spriteAdapter);
@@ -395,12 +485,12 @@ public class SpritesListFragment extends SherlockListFragment implements OnClick
 		return super.onContextItemSelected(item);
 	}
 
-	public void showRenameDialog() {
+	private void showRenameDialog() {
 		RenameSpriteDialog dialog = RenameSpriteDialog.newInstance(spriteToEdit.getName());
 		dialog.show(getFragmentManager(), RenameSpriteDialog.DIALOG_FRAGMENT_TAG);
 	}
 
-	public void deleteSprite() {
+	private void deleteSprite() {
 		ProjectManager projectManager = ProjectManager.getInstance();
 		projectManager.getCurrentProject().getSpriteList().remove(spriteToEdit);
 		deleteSpriteFiles();
@@ -409,22 +499,28 @@ public class SpritesListFragment extends SherlockListFragment implements OnClick
 		}
 	}
 
-	public void setSelectMode(int selectMode) {
+	private void setSelectMode(int selectMode) {
 		spriteAdapter.setSelectMode(selectMode);
 		spriteAdapter.notifyDataSetChanged();
 	}
 
-	public int getSelectMode() {
-		return spriteAdapter.getSelectMode();
-	}
-
-	public void setShowDetails(boolean showDetails) {
+	private void setShowDetails(boolean showDetails) {
 		spriteAdapter.setShowDetails(showDetails);
 		spriteAdapter.notifyDataSetChanged();
 	}
 
-	public boolean getShowDetails() {
+	private boolean getShowDetails() {
 		return spriteAdapter.getShowDetails();
+	}
+
+	private void handleAddButton(View view) {
+		NewSpriteDialog dialog = new NewSpriteDialog();
+		dialog.show(getFragmentManager(), NewSpriteDialog.DIALOG_FRAGMENT_TAG);
+	}
+
+	private void handlePlayButton(View view) {
+		Intent intent = new Intent(getActivity(), PreStageActivity.class);
+		startActivityForResult(intent, PreStageActivity.REQUEST_RESOURCES_INIT);
 	}
 
 	private class SpriteRenamedReceiver extends BroadcastReceiver {

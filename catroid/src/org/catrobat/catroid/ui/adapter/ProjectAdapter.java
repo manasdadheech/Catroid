@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.io.ProjectScreenshotLoader;
 import org.catrobat.catroid.ui.fragment.ProjectsListFragment.ProjectData;
 import org.catrobat.catroid.utils.UtilFile;
@@ -39,7 +40,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import org.catrobat.catroid.R;
 
 public class ProjectAdapter extends ArrayAdapter<ProjectData> {
 
@@ -66,7 +66,7 @@ public class ProjectAdapter extends ArrayAdapter<ProjectData> {
 		View convertView = convView;
 		ViewHolder holder;
 		if (convertView == null) {
-			convertView = inflater.inflate(R.layout.activity_my_projects_item, null);
+			convertView = inflater.inflate(R.layout.fragment_my_projects_item, null);
 			holder = new ViewHolder();
 			holder.projectName = (TextView) convertView.findViewById(R.id.my_projects_activity_project_title);
 			holder.image = (ImageView) convertView.findViewById(R.id.my_projects_activity_project_image);

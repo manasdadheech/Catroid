@@ -104,7 +104,7 @@ public class SpriteAdapter extends ArrayAdapter<Sprite> {
 		View spriteView = convertView;
 		ViewHolder holder;
 		if (convertView == null) {
-			spriteView = inflater.inflate(R.layout.activity_project_spritelist_item, null);
+			spriteView = inflater.inflate(R.layout.fragment_project_spritelist_item, null);
 			holder = new ViewHolder();
 			holder.checkbox = (CheckBox) spriteView.findViewById(R.id.checkbox);
 			holder.text = (TextView) spriteView.findViewById(R.id.sprite_title);

@@ -34,13 +34,14 @@ import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.io.StorageHandler;
-import org.catrobat.catroid.ui.ProjectActivity;
+import org.catrobat.catroid.ui.SettingsActivity;
 import org.catrobat.catroid.ui.adapter.IconMenuAdapter;
 import org.catrobat.catroid.ui.adapter.ProjectAdapter;
 import org.catrobat.catroid.ui.dialogs.CopyProjectDialog;
 import org.catrobat.catroid.ui.dialogs.CopyProjectDialog.OnCopyProjectListener;
 import org.catrobat.catroid.ui.dialogs.CustomIconContextMenu;
 import org.catrobat.catroid.ui.dialogs.NewProjectDialog;
+import org.catrobat.catroid.ui.dialogs.NewProjectDialog.CurrentProjectChangedListener;
 import org.catrobat.catroid.ui.dialogs.RenameProjectDialog;
 import org.catrobat.catroid.ui.dialogs.RenameProjectDialog.OnProjectRenameListener;
 import org.catrobat.catroid.ui.dialogs.SetDescriptionDialog;
@@ -49,6 +50,7 @@ import org.catrobat.catroid.utils.ErrorListenerInterface;
 import org.catrobat.catroid.utils.UtilFile;
 import org.catrobat.catroid.utils.Utils;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -65,11 +67,16 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockListFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 
 public class ProjectsListFragment extends SherlockListFragment implements OnProjectRenameListener,
-		OnUpdateProjectDescriptionListener, OnCopyProjectListener, OnClickListener {
+		ErrorListenerInterface, OnUpdateProjectDescriptionListener, OnCopyProjectListener, OnClickListener {
 
 	private static final String BUNDLE_ARGUMENTS_PROJECT_DATA = "project_data";
+
+	public static final String FRAGMENT_TAG = "fragment_projects_list";
 
 	private List<ProjectData> projectList;
 	private ProjectData projectToEdit;
@@ -88,16 +95,21 @@ public class ProjectsListFragment extends SherlockListFragment implements OnProj
 	private static final int FOOTER_ADD_PROJECT_ALPHA_VALUE = 35;
 	private static final int CONTEXT_MENU_ITEM_COPY = 3;
 
+	private CurrentProjectChangedListener currentProjectChangedListener;
+
+	public ProjectsListFragment() {
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		setRetainInstance(true);
+		setHasOptionsMenu(true);
 		super.onCreate(savedInstanceState);
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_projects_list, null);
-
 		return rootView;
 	}
 
@@ -112,7 +124,7 @@ public class ProjectsListFragment extends SherlockListFragment implements OnProj
 		viewBelowMyProjectlistNonScrollable = getActivity().findViewById(R.id.view_below_myprojectlist_non_scrollable);
 		viewBelowMyProjectlistNonScrollable.setOnClickListener(this);
 
-		View footerView = getActivity().getLayoutInflater().inflate(R.layout.activity_my_projects_footer,
+		View footerView = getActivity().getLayoutInflater().inflate(R.layout.fragment_my_projects_footer,
 				getListView(), false);
 		myprojectlistFooterView = footerView.findViewById(R.id.myprojectlist_footerview);
 		ImageView footerAddImage = (ImageView) footerView.findViewById(R.id.myprojectlist_footerview_add_image);
@@ -130,6 +142,56 @@ public class ProjectsListFragment extends SherlockListFragment implements OnProj
 	public void onSaveInstanceState(Bundle outState) {
 		outState.putSerializable(BUNDLE_ARGUMENTS_PROJECT_DATA, projectToEdit);
 		super.onSaveInstanceState(outState);
+	}
+
+	@Override
+	public void onAttach(Activity activity) {
+		try {
+			currentProjectChangedListener = (CurrentProjectChangedListener) activity;
+		} catch (ClassCastException ex) {
+			throw new IllegalStateException(activity.getClass().getSimpleName()
+					+ " does not implement CurrentProjectChanged interface.", ex);
+		}
+
+		super.onAttach(activity);
+	}
+
+	@Override
+	public void onDetach() {
+		super.onDetach();
+		currentProjectChangedListener = null;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		updateProjectTitle();
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.menu_myprojects, menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int itemId = item.getItemId();
+		switch (itemId) {
+			case R.id.menu_add: {
+				NewProjectDialog dialog = new NewProjectDialog();
+				dialog.show(getFragmentManager(), NewProjectDialog.DIALOG_FRAGMENT_TAG);
+				return true;
+			}
+			case R.id.settings: {
+				Intent intent = new Intent(getActivity(), SettingsActivity.class);
+				startActivity(intent);
+				return true;
+			}
+			default: {
+				return super.onOptionsItemSelected(item);
+			}
+		}
 	}
 
 	@Override
@@ -168,6 +230,11 @@ public class ProjectsListFragment extends SherlockListFragment implements OnProj
 				dialog.show(getActivity().getSupportFragmentManager(), NewProjectDialog.DIALOG_FRAGMENT_TAG);
 				break;
 		}
+	}
+
+	@Override
+	public void showErrorDialog(String errorMessage) {
+		Utils.displayErrorMessageFragment(getFragmentManager(), errorMessage);
 	}
 
 	private void reattachDialogFragmentListener() {
@@ -225,7 +292,7 @@ public class ProjectsListFragment extends SherlockListFragment implements OnProj
 			}
 		});
 
-		adapter = new ProjectAdapter(getActivity(), R.layout.activity_my_projects_item,
+		adapter = new ProjectAdapter(getActivity(), R.layout.fragment_my_projects_item,
 				R.id.my_projects_activity_project_title, projectList);
 		setListAdapter(adapter);
 	}
@@ -236,17 +303,18 @@ public class ProjectsListFragment extends SherlockListFragment implements OnProj
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				try {
 					if (!ProjectManager.getInstance().loadProject((adapter.getItem(position)).projectName,
-							getActivity(), (ErrorListenerInterface) getActivity(), true)) {
+							getActivity(), ProjectsListFragment.this, true)) {
 						return; // error message already in ProjectManager
 								// loadProject
 					}
+
 				} catch (ClassCastException exception) {
-					Log.e("CATROID", getActivity().toString() + " does not implement ErrorListenerInterface", exception);
+					Log.e("CATROID", this.getClass().getName() + " does not implement ErrorListenerInterface",
+							exception);
 					return;
 				}
 
-				Intent intent = new Intent(getActivity(), ProjectActivity.class);
-				getActivity().startActivity(intent);
+				currentProjectChangedListener.onCurrentProjectChanged();
 			}
 		});
 		getListView().setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -335,15 +403,14 @@ public class ProjectsListFragment extends SherlockListFragment implements OnProj
 		try {
 			projectList.remove(projectToEdit);
 			if (projectList.size() == 0) {
-				projectManager.initializeDefaultProject(getActivity(), (ErrorListenerInterface) getActivity());
+				projectManager.initializeDefaultProject(getActivity(), this);
 			} else {
 
-				projectManager.loadProject((projectList.get(0)).projectName, getActivity(),
-						(ErrorListenerInterface) getActivity(), false);
+				projectManager.loadProject((projectList.get(0)).projectName, getActivity(), this, false);
 				projectManager.saveProject();
 			}
 		} catch (ClassCastException exception) {
-			Log.e("CATROID", getActivity().toString() + " does not implement ErrorListenerInterface", exception);
+			Log.e("CATROID", this.getClass().getName() + " does not implement ErrorListenerInterface", exception);
 		}
 
 		updateProjectTitle();
@@ -351,8 +418,15 @@ public class ProjectsListFragment extends SherlockListFragment implements OnProj
 	}
 
 	private void updateProjectTitle() {
-		String title = getString(R.string.project_name) + " "
-				+ ProjectManager.getInstance().getCurrentProject().getName();
+		String title;
+		Project currentProject = ProjectManager.INSTANCE.getCurrentProject();
+
+		if (currentProject != null) {
+			title = getResources().getString(R.string.project_name) + " " + currentProject.getName();
+		} else {
+			title = getResources().getString(android.R.string.unknownName);
+		}
+
 		getSherlockActivity().getSupportActionBar().setTitle(title);
 	}
 

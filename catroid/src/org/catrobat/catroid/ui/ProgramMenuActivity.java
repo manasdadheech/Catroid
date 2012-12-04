@@ -33,6 +33,7 @@ import org.catrobat.catroid.utils.Utils;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
@@ -50,7 +51,14 @@ public class ProgramMenuActivity extends SherlockFragmentActivity implements Err
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_program_menu);
 		findViewById(R.id.btn_add).setVisibility(View.GONE);
+		findViewById(R.id.btn_play).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				handlePlayButton(v);
+			}
+		});
 		findViewById(R.id.bottom_bar_separator).setVisibility(View.GONE);
+
 		actionBar = getSupportActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setDisplayShowTitleEnabled(false);
@@ -102,7 +110,7 @@ public class ProgramMenuActivity extends SherlockFragmentActivity implements Err
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case android.R.id.home: {
-				Intent intent = new Intent(this, ProjectActivity.class);
+				Intent intent = new Intent(this, MainMenuActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 				break;

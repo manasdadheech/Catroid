@@ -19,8 +19,7 @@
  *  GNU Affero General Public License for more details.
  *  
  *  You should have received a copy of the GNU Affero General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
--->
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main_menu"
     android:layout_width="match_parent"
@@ -28,8 +27,11 @@
     android:background="@android:color/white"
     android:orientation="vertical" >
 
-    <ListView android:id="@+id/lv_main_menu"
+    <ListView
+        android:id="@+id/lv_main_menu"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    
+        android:layout_height="match_parent"
+        android:divider="@color/divider"
+        android:dividerHeight="1dp" />
+
 </LinearLayout>

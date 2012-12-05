@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.common.Values;
 import org.catrobat.catroid.content.bricks.Brick;
 import org.catrobat.catroid.content.bricks.BroadcastBrick;
@@ -38,7 +39,6 @@ import org.catrobat.catroid.uitest.util.UiTestUtils;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.Display;
 import android.widget.ListView;
-import org.catrobat.catroid.R;
 
 import com.jayway.android.robotium.solo.Solo;
 
@@ -76,13 +76,13 @@ public class BrickDragAndDropTest extends ActivityInstrumentationTestCase2<MainM
 		// clicks on spriteName needed to get focus on listview for solo without adding hovering brick
 		String spriteName = solo.getString(R.string.sprite_name);
 
-		ListView view = solo.getCurrentListViews().get(0);
+		ListView view = UiTestUtils.getScriptListView(solo);
 		BrickAdapter adapter = (BrickAdapter) view.getAdapter();
 
 		UiTestUtils.addNewBrick(solo, R.string.brick_set_x);
 		assertEquals("Wrong number of Bricks", 3, adapter.getCount());
 
-		UiTestUtils.clickOnActionBar(solo, R.id.menu_add);
+		UiTestUtils.clickOnBottomBar(solo, R.id.btn_add);
 		solo.sleep(200);
 		assertFalse("Wrong number of Bricks", solo.searchText(solo.getString(R.string.categories)));
 		solo.clickOnScreen(200, 200);
@@ -129,7 +129,7 @@ public class BrickDragAndDropTest extends ActivityInstrumentationTestCase2<MainM
 	public void testAddNewBrickFromAnotherCategory() {
 		int categoryStringId = UiTestUtils.getBrickCategory(solo, R.string.brick_set_x);
 
-		UiTestUtils.clickOnActionBar(solo, R.id.menu_add);
+		UiTestUtils.clickOnBottomBar(solo, R.id.btn_add);
 		solo.clickOnText(solo.getCurrentActivity().getString(categoryStringId));
 		solo.clickOnImageButton(0);
 		categoryStringId = UiTestUtils.getBrickCategory(solo, R.string.brick_stop_all_sounds);
@@ -138,7 +138,7 @@ public class BrickDragAndDropTest extends ActivityInstrumentationTestCase2<MainM
 		solo.clickOnScreen(200, 200);
 		solo.sleep(200);
 
-		BrickAdapter adapter = (BrickAdapter) solo.getCurrentListViews().get(0).getAdapter();
+		BrickAdapter adapter = (BrickAdapter) UiTestUtils.getScriptListView(solo).getAdapter();
 		assertEquals("Brick was not added.", 2 + 1, adapter.getCount()); // don't forget the footer
 	}
 }

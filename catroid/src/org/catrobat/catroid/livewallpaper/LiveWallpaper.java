@@ -37,6 +37,7 @@ import android.graphics.Canvas;
 import android.os.Handler;
 import android.service.wallpaper.WallpaperService;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.MotionEvent.PointerCoords;
@@ -51,6 +52,7 @@ public class LiveWallpaper extends WallpaperService {
 	@Override
 	public Engine onCreateEngine() {
 
+		Log.d("TAG", "onCreateEngine() called");
 		ProjectManager projectManager = ProjectManager.getInstance();
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		((WindowManager) getSystemService(WINDOW_SERVICE)).getDefaultDisplay().getMetrics(displayMetrics);
@@ -131,7 +133,10 @@ public class LiveWallpaper extends WallpaperService {
 		@Override
 		public void onSurfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 
+			Log.d("TAG", "onSurfaceChanged() called");
+
 			int rotation = display.getRotation();
+			Log.d("tag", "rotation: " + rotation);
 			if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180) {
 				wallpaperHelper.setLandscape(false);
 
@@ -160,7 +165,7 @@ public class LiveWallpaper extends WallpaperService {
 		public void draw() {
 			SurfaceHolder holder = getSurfaceHolder();
 			Canvas c = null;
-
+			Log.d("TAG", "onSurfaceDestroyed() called");
 			try {
 				c = holder.lockCanvas();
 				if (c != null && sprites != null) {
@@ -201,6 +206,8 @@ public class LiveWallpaper extends WallpaperService {
 
 		@Override
 		public void onTouchEvent(MotionEvent event) {
+
+			Log.d("TAG", "onTouchEvent() called");
 
 			PointerCoords coords = new PointerCoords();
 

@@ -34,6 +34,7 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.util.Log;
 
 public class WallpaperCostume {
 
@@ -119,7 +120,9 @@ public class WallpaperCostume {
 	}
 
 	private void updateMatrix() {
-		matrix.setRotate(rotation, costumeWidth / 2, costumeHeight / 2);
+		Log.d("TAG", "--> updateMatrix rotation: " + rotation + "costumeWidth: " + costumeWidth + "costumeHeight: "
+				+ costumeHeight);
+		matrix.setRotate(rotation / 2, costumeWidth / 2, costumeHeight / 2);
 		matrix.postScale((float) size, (float) size);
 
 		if (isLandscape) {
@@ -284,11 +287,15 @@ public class WallpaperCostume {
 	}
 
 	public double getRotation() {
+		Log.d("TAG", "--> getrotation(): " + this.rotation);
 		return this.rotation;
 	}
 
 	public void setRotation(float r) {
+		Log.d("TAG", "this.rotation before assignment: " + this.rotation);
+		Log.d("TAG", "float r: " + r);
 		this.rotation += r;
+		Log.d("TAG", "this.rotation after assignment: " + this.rotation);
 		changeMatrix = true;
 	}
 

@@ -30,6 +30,7 @@ import org.catrobat.catroid.ui.dialogs.BrickTextDialog;
 
 import android.content.Context;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
@@ -62,6 +63,8 @@ public class TurnLeftBrick implements Brick, OnClickListener {
 	@Override
 	public void execute() {
 		sprite.costume.rotation = (sprite.costume.rotation % 360) + (float) degrees;
+
+		Log.d("TAG", "execute: " + degrees);
 	}
 
 	@Override
@@ -128,7 +131,7 @@ public class TurnLeftBrick implements Brick, OnClickListener {
 		if (wallpaperCostume == null) {
 			wallpaperCostume = new WallpaperCostume(sprite, null);
 		}
-
+		Log.d("TAG", "executeLiveWallpaper: " + degrees);
 		wallpaperCostume.setRotation((float) -degrees);
 	}
 

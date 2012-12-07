@@ -226,6 +226,10 @@ public class WallpaperCostume {
 
 	public void changeCostumeSizeBy(double changeValue) {
 		this.size += (changeValue * 0.01);
+		if (this.size < 0) {
+			this.size = 0;
+		}
+
 		changeMatrix = true;
 	}
 

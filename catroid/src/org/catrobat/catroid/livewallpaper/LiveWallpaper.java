@@ -125,6 +125,20 @@ public class LiveWallpaper extends WallpaperService {
 			} else {
 				wallpaperHelper.setLiveWallpaper(false);
 				mHandler.removeCallbacks(mUpdateDisplay);
+
+				WallpaperCostume wallpaperCostume;
+				for (int position = 0; position < sprites.size(); position++) {
+					Sprites: for (Sprite sprite : sprites) {
+						wallpaperCostume = sprite.getWallpaperCostume();
+						if (wallpaperCostume != null && wallpaperCostume.getzPosition() == position) {
+							if (wallpaperCostume.getCostume() != null && !wallpaperCostume.isCostumeHidden()) {
+								wallpaperCostume.clear();
+							}
+							break Sprites;
+						}
+					}
+				}
+
 			}
 		}
 

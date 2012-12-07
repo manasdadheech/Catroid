@@ -23,7 +23,9 @@
 package org.catrobat.catroid.ui;
 
 import org.catrobat.catroid.ProjectManager;
+import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Project;
+import org.catrobat.catroid.hintsystem.Hint;
 import org.catrobat.catroid.ui.dialogs.NewProjectDialog;
 import org.catrobat.catroid.utils.ErrorListenerInterface;
 import org.catrobat.catroid.utils.Utils;
@@ -33,7 +35,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import org.catrobat.catroid.R;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -49,6 +50,10 @@ public class MyProjectsActivity extends SherlockFragmentActivity implements Erro
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_projects);
 		setUpActionBar();
+
+		Hint hint = Hint.getInstance();
+		Hint.setContext(this);
+		hint.overlayHint();
 	}
 
 	// Code from Stackoverflow to reduce memory problems

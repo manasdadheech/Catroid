@@ -327,7 +327,7 @@
 	<string name="formula_editor_function_pi">pi</string>
 	<string name="formula_editor_function_sqrt">sqrt</string>
 	<string name="formula_editor_function_e">e</string>
-	<string name="formula_editor_function_rand">rand</string>
+	<string name="formula_editor_function_rand">random</string>
 	<string name="formula_editor_function_abs">abs</string>
 	<string name="formula_editor_function_round">round</string>
 	<string name="formula_editor_sensor_x_acceleration">x-acceleration</string>

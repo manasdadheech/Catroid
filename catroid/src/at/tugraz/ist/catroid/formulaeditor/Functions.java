@@ -25,7 +25,7 @@ package at.tugraz.ist.catroid.formulaeditor;
 import java.util.EnumSet;
 
 public enum Functions {
-	SIN("sin"), COS("cos"), TAN("tan"), LN("ln"), LOG("log"), SQRT("sqrt"), RAND("rand"), ROUND("round"), ABS("abs"), EULER(
+	SIN("sin"), COS("cos"), TAN("tan"), LN("ln"), LOG("log"), SQRT("sqrt"), RAND("random"), ROUND("round"), ABS("abs"), EULER(
 			"e"), PI("pi");
 	public final String functionName;
 

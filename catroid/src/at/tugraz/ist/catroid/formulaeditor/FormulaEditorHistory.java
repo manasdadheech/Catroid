@@ -26,7 +26,7 @@ import java.util.Stack;
 
 public class FormulaEditorHistory {
 
-	private static final int MAXIMUM_HISTORY_LENGTH = 15;
+	private static final int MAXIMUM_HISTORY_LENGTH = 32;
 	private Stack<InternFormulaState> undoStack = null;
 	private Stack<InternFormulaState> redoStack = null;
 	private InternFormulaState current = null;

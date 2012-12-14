@@ -24,6 +24,7 @@ package at.tugraz.ist.catroid.uitest.formulaeditor;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import at.tugraz.ist.catroid.ProjectManager;
 import at.tugraz.ist.catroid.R;
 import at.tugraz.ist.catroid.content.Project;
@@ -371,4 +372,44 @@ public class FormulaEditorFragmentTest extends ActivityInstrumentationTestCase2<
 
 	}
 
+	public void testRandomInterpretation() {
+		String newXFormula = "rand(9.0,1)";
+
+		solo.clickOnEditText(X_POS_EDIT_TEXT_ID);
+
+		catKeyboardClicker.clickOnKey("rand");
+		catKeyboardClicker.clickOnKey("9");
+		catKeyboardClicker.clickOnKey(".");
+		catKeyboardClicker.clickOnKey("0");
+
+		solo.goBack();
+		solo.sleep(300);
+
+		//Interpretation test
+		Formula formula = (Formula) UiTestUtils.getPrivateField("xPosition", placeAtBrick);
+		float value = formula.interpretFloat();
+		//		Float value2 = Float.
+		Log.i("info", "value: " + value);
+
+		assertTrue("random() interpretation is wrong", 1 <= value && value <= 9);
+
+		String newYFormula = "rand(3,1)";
+
+		solo.clickOnEditText(Y_POS_EDIT_TEXT_ID);
+
+		catKeyboardClicker.clickOnKey("rand");
+		catKeyboardClicker.clickOnKey("3");
+
+		solo.goBack();
+		solo.sleep(300);
+
+		//Interpretation test
+		Formula anotherFormula = (Formula) UiTestUtils.getPrivateField("yPosition", placeAtBrick);
+		float anotherValue = anotherFormula.interpretFloat();
+		//		Float value2 = Float.
+		Log.i("info", "anotherValue: " + anotherValue + "  " + "(1 == 1.0) ?" + (1 == 1.0f));
+
+		assertTrue("random() interpretation is wrong", anotherValue == 1 || anotherValue == 2 || anotherValue == 3);
+
+	}
 }

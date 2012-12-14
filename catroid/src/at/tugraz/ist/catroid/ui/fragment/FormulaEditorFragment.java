@@ -28,6 +28,7 @@ import android.content.DialogInterface.OnKeyListener;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +57,7 @@ public class FormulaEditorFragment extends SherlockFragment implements OnKeyList
 	private static final int SET_FORMULA_ON_CREATE_VIEW = 0;
 	private static final int SET_FORMULA_ON_SWITCH_EDIT_TEXT = 1;
 	public static final String FORMULA_EDITOR_FRAGMENT_TAG = "formula_editor_fragment";
+	private static final int TIME_WINDOW = 2000;
 
 	private Context context;
 
@@ -65,7 +67,10 @@ public class FormulaEditorFragment extends SherlockFragment implements OnKeyList
 	private CatKeyboardView catKeyboardView;
 	private LinearLayout brickSpace;
 	private View brickView;
-	private long confirmBack = 0;
+	private long[] confirmBackTimeStamp = { 0, 0 };
+	private long[] confirmSwitchEditTextTimeStamp = { 0, 0 };
+	private int confirmBackCounter = 0;
+	private int confirmSwitchEditTextCounter = 0;
 	public boolean restoreInstance = false;
 
 	@Override
@@ -208,11 +213,15 @@ public class FormulaEditorFragment extends SherlockFragment implements OnKeyList
 				}
 				break;
 			case SET_FORMULA_ON_SWITCH_EDIT_TEXT:
+
 				if (currentFormula == newFormula && formulaEditorEditText.hasChanges()) {
 					formulaEditorEditText.quickSelect();
 					break;
 				}
 				if (formulaEditorEditText.hasChanges()) {
+					confirmSwitchEditTextTimeStamp[0] = confirmSwitchEditTextTimeStamp[1];
+					confirmSwitchEditTextTimeStamp[1] = System.currentTimeMillis();
+					confirmSwitchEditTextCounter++;
 					if (!saveFormulaIfPossible()) {
 						return;
 					}
@@ -304,7 +313,19 @@ public class FormulaEditorFragment extends SherlockFragment implements OnKeyList
 	}
 
 	private boolean checkReturnWithoutSaving(int errorType) {
-		if (System.currentTimeMillis() <= confirmBack + 2000) {
+		Log.i("info", "confirmBackCounter=" + confirmBackCounter + " "
+				+ (System.currentTimeMillis() <= confirmBackTimeStamp[0] + TIME_WINDOW)
+				+ " confirmSwitchEditTextCounter=" + confirmSwitchEditTextCounter + " "
+				+ (System.currentTimeMillis() <= confirmSwitchEditTextTimeStamp[0] + TIME_WINDOW));
+
+		if (((System.currentTimeMillis() <= confirmBackTimeStamp[0] + TIME_WINDOW) && (confirmBackCounter > 1))
+				|| ((System.currentTimeMillis() <= confirmSwitchEditTextTimeStamp[0] + TIME_WINDOW) && (confirmSwitchEditTextCounter > 1))) {
+			confirmSwitchEditTextTimeStamp[0] = 0;
+			confirmSwitchEditTextTimeStamp[1] = 0;
+			confirmSwitchEditTextCounter = 0;
+			confirmBackTimeStamp[0] = 0;
+			confirmBackTimeStamp[1] = 0;
+			confirmBackCounter = 0;
 			showToast(R.string.formula_editor_changes_discarded);
 			return true;
 		} else {
@@ -316,7 +337,9 @@ public class FormulaEditorFragment extends SherlockFragment implements OnKeyList
 					showToast(R.string.formula_editor_parse_fail_formula_too_long);
 					break;
 			}
-			confirmBack = System.currentTimeMillis();
+			//
+			//			confirmBackCounter++;
+			//			confirmSwitchEditTextCounter++;
 			return false;
 		}
 
@@ -332,6 +355,9 @@ public class FormulaEditorFragment extends SherlockFragment implements OnKeyList
 		if (event.getAction() == KeyEvent.ACTION_DOWN) {
 			switch (keyCode) {
 				case KeyEvent.KEYCODE_BACK:
+					confirmBackTimeStamp[0] = confirmBackTimeStamp[1];
+					confirmBackTimeStamp[1] = System.currentTimeMillis();
+					confirmBackCounter++;
 					endFormulaEditor();
 					break;
 				case KeyEvent.KEYCODE_MENU:

@@ -321,7 +321,7 @@ public class FormulaEditorEditText extends EditText implements OnTouchListener {
 						|| (internTokenType == InternTokenType.FUNCTION_PARAMETERS_BRACKET_OPEN)
 						|| (internTokenType == InternTokenType.SENSOR)
 						|| (internTokenType == InternTokenType.USER_VARIABLE)
-						|| (internTokenType == InternTokenType.COSTUME)) {
+						|| (internTokenType == InternTokenType.LOOK)) {
 					internFormula.setCursorAndSelection(absoluteCursorPosition, true);
 				} else {
 					internFormula.setCursorAndSelection(absoluteCursorPosition, false);

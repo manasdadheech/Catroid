@@ -114,8 +114,8 @@ public class InternToken {
 		return false;
 	}
 
-	public boolean isCostume() {
-		if (internTokenType == InternTokenType.COSTUME) {
+	public boolean isLook() {
+		if (internTokenType == InternTokenType.LOOK) {
 			return true;
 		}
 		return false;

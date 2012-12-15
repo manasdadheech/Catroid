@@ -50,7 +50,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import at.tugraz.ist.catroid.R;
-import at.tugraz.ist.catroid.ui.dialogs.ChooseCostumeVariableFragment;
+import at.tugraz.ist.catroid.ui.dialogs.ChooseLookVariableFragment;
 import at.tugraz.ist.catroid.ui.dialogs.FormulaEditorChooseOperatorDialog;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -67,7 +67,7 @@ public class CatKeyboardView extends KeyboardView implements KeyboardView.OnKeyb
 	private Keyboard symbolsFunctions;
 	private Keyboard symbolsSensors;
 	private Context context;
-	private ChooseCostumeVariableFragment chooseSpriteVariablesFragment;
+	private ChooseLookVariableFragment chooseLookVariablesFragment;
 	private FormulaEditorChooseOperatorDialog chooseOperatorDialogFragment;
 	private View swipeBar;
 
@@ -94,14 +94,14 @@ public class CatKeyboardView extends KeyboardView implements KeyboardView.OnKeyb
 
 		if (((SherlockFragmentActivity) context).getSupportFragmentManager().findFragmentByTag(
 				"chooseSpriteVariablesDialogFragment") == null) {
-			this.chooseSpriteVariablesFragment = ChooseCostumeVariableFragment
+			this.chooseLookVariablesFragment = ChooseLookVariableFragment
 					.newInstance(android.R.string.dialog_alert_title);
 
 		} else {
-			this.chooseSpriteVariablesFragment = (ChooseCostumeVariableFragment) ((SherlockFragmentActivity) context)
+			this.chooseLookVariablesFragment = (ChooseLookVariableFragment) ((SherlockFragmentActivity) context)
 					.getSupportFragmentManager().findFragmentByTag("chooseSpriteVariablesDialogFragment");
 		}
-		this.chooseSpriteVariablesFragment.setCatKeyboardView(this);
+		this.chooseLookVariablesFragment.setCatKeyboardView(this);
 
 		if (((SherlockFragmentActivity) context).getSupportFragmentManager().findFragmentByTag(
 				"chooseOperatorDialogFragment") == null) {
@@ -208,8 +208,8 @@ public class CatKeyboardView extends KeyboardView implements KeyboardView.OnKeyb
 			case KeyEvent.KEYCODE_SHIFT_LEFT:
 				this.swipeLeft();
 				break;
-			case CatKeyEvent.KEYCODE_COSTUME_BUTTON:
-				this.chooseSpriteVariablesFragment.show(
+			case CatKeyEvent.KEYCODE_LOOK_BUTTON:
+				this.chooseLookVariablesFragment.show(
 						((SherlockFragmentActivity) context).getSupportFragmentManager(),
 						"chooseSpriteVariablesDialogFragment");
 				break;

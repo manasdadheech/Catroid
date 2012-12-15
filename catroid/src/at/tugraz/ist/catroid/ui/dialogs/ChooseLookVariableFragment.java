@@ -33,7 +33,7 @@ import at.tugraz.ist.catroid.R;
 import at.tugraz.ist.catroid.formulaeditor.CatKeyEvent;
 import at.tugraz.ist.catroid.formulaeditor.CatKeyboardView;
 
-public class ChooseCostumeVariableFragment extends DialogFragment implements DialogInterface.OnClickListener {
+public class ChooseLookVariableFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
 	private CatKeyboardView catKeyboardView;
 	private final Integer[] costumeResourceIds = { R.string.formula_editor_look_x, R.string.formula_editor_look_y,
@@ -54,12 +54,12 @@ public class ChooseCostumeVariableFragment extends DialogFragment implements Dia
 		int[] keyCode = new int[1];
 		keyCode[0] = 0;
 
-		catKeyboardView.onKey(CatKeyEvent.KEYCODE_COSTUME_X + index, keyCode);
+		catKeyboardView.onKey(CatKeyEvent.KEYCODE_LOOK_X + index, keyCode);
 
 	}
 
-	public static ChooseCostumeVariableFragment newInstance(int title) {
-		ChooseCostumeVariableFragment fragment = new ChooseCostumeVariableFragment();
+	public static ChooseLookVariableFragment newInstance(int title) {
+		ChooseLookVariableFragment fragment = new ChooseLookVariableFragment();
 
 		return fragment;
 	}

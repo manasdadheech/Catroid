@@ -227,8 +227,8 @@ public class InternFormulaParser {
 		} else if (currentToken.isSensor()) {
 			curElem.replaceElement(sensor());
 
-		} else if (currentToken.isCostume()) {
-			curElem.replaceElement(costume());
+		} else if (currentToken.isLook()) {
+			curElem.replaceElement(look());
 
 		} else if (currentToken.isUserVariable()) {
 
@@ -245,26 +245,26 @@ public class InternFormulaParser {
 	private FormulaElement userVariable() throws InternFormulaParserException {
 		//TODO check if user-variable exists
 
-		FormulaElement costumeTree = new FormulaElement(FormulaElement.ElementType.USER_VARIABLE,
+		FormulaElement lookTree = new FormulaElement(FormulaElement.ElementType.USER_VARIABLE,
 				currentToken.getTokenSringValue(), null);
 
 		getNextToken();
 
-		return costumeTree;
+		return lookTree;
 	}
 
-	private FormulaElement costume() throws InternFormulaParserException {
+	private FormulaElement look() throws InternFormulaParserException {
 
 		if (!Sensors.isSensor(currentToken.getTokenSringValue())) {
 			throw new InternFormulaParserException("Parse Error");
 		}
 
-		FormulaElement costumeTree = new FormulaElement(FormulaElement.ElementType.SENSOR,
+		FormulaElement lookTree = new FormulaElement(FormulaElement.ElementType.SENSOR,
 				currentToken.getTokenSringValue(), null);
 
 		getNextToken();
 
-		return costumeTree;
+		return lookTree;
 	}
 
 	private FormulaElement sensor() throws InternFormulaParserException {

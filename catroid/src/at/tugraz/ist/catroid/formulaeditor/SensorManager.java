@@ -61,37 +61,37 @@ public class SensorManager {
 		}
 		//SPRITE VALUES
 
-		if (getCurrentSpriteCostume() == null) {
+		if (getCurrentObjectLook() == null) {
 			return 0d;
 		}
 
-		if (sensorName.equals(Sensors.COSTUME_X_.sensorName)) {
-			sensorValue = Double.valueOf(getCurrentSpriteCostume().getXPosition());
+		if (sensorName.equals(Sensors.LOOK_X_.sensorName)) {
+			sensorValue = Double.valueOf(getCurrentObjectLook().getXPosition());
 		}
-		if (sensorName.equals(Sensors.COSTUME_Y_.sensorName)) {
-			sensorValue = Double.valueOf(getCurrentSpriteCostume().getYPosition());
+		if (sensorName.equals(Sensors.LOOK_Y_.sensorName)) {
+			sensorValue = Double.valueOf(getCurrentObjectLook().getYPosition());
 		}
-		if (sensorName.equals(Sensors.COSTUME_GHOSTEFFECT_.sensorName)) {
-			sensorValue = Double.valueOf(getCurrentSpriteCostume().getAlphaValue());
+		if (sensorName.equals(Sensors.LOOK_GHOSTEFFECT_.sensorName)) {
+			sensorValue = Double.valueOf(getCurrentObjectLook().getAlphaValue());
 		}
-		if (sensorName.equals(Sensors.COSTUME_BRIGHTNESS_.sensorName)) {
-			sensorValue = Double.valueOf(getCurrentSpriteCostume().getBrightnessValue());
+		if (sensorName.equals(Sensors.LOOK_BRIGHTNESS_.sensorName)) {
+			sensorValue = Double.valueOf(getCurrentObjectLook().getBrightnessValue());
 		}
-		if (sensorName.equals(Sensors.COSTUME_SIZE_.sensorName)) {
-			sensorValue = Double.valueOf(getCurrentSpriteCostume().scaleX);
+		if (sensorName.equals(Sensors.LOOK_SIZE_.sensorName)) {
+			sensorValue = Double.valueOf(getCurrentObjectLook().scaleX);
 		}
-		if (sensorName.equals(Sensors.COSTUME_ROTATION_.sensorName)) {
-			sensorValue = Double.valueOf(getCurrentSpriteCostume().rotation);
+		if (sensorName.equals(Sensors.LOOK_ROTATION_.sensorName)) {
+			sensorValue = Double.valueOf(getCurrentObjectLook().rotation);
 		}
-		if (sensorName.equals(Sensors.COSTUME_LAYER_.sensorName)) {
-			sensorValue = Double.valueOf(getCurrentSpriteCostume().zPosition);
+		if (sensorName.equals(Sensors.LOOK_LAYER_.sensorName)) {
+			sensorValue = Double.valueOf(getCurrentObjectLook().zPosition);
 		}
 
 		sensors = null;
 		return sensorValue;
 	}
 
-	private static Costume getCurrentSpriteCostume() {
+	private static Costume getCurrentObjectLook() {
 		if (ProjectManager.getInstance().getCurrentSprite() == null) {
 			return null;
 		}

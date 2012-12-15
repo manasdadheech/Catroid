@@ -57,14 +57,14 @@ public class CatKeyEvent extends KeyEvent {
 
 	/* OTHER STUFF */
 	public static final int KEYCODE_BRACKET = 1200;
-	public static final int KEYCODE_COSTUME_BUTTON = 1201;
-	public static final int KEYCODE_COSTUME_X = 1202;
-	public static final int KEYCODE_COSTUME_Y = 1203;
-	public static final int KEYCODE_COSTUME_GHOSTEFFECT = 1204;
-	public static final int KEYCODE_COSTUME_BRIGHTNESS = 1205;
-	public static final int KEYCODE_COSTUME_SIZE = 1206;
-	public static final int KEYCODE_COSTUME_ROTATION = 1207;
-	public static final int KEYCODE_COSTUME_LAYER = 1208;
+	public static final int KEYCODE_LOOK_BUTTON = 1201;
+	public static final int KEYCODE_LOOK_X = 1202;
+	public static final int KEYCODE_LOOK_Y = 1203;
+	public static final int KEYCODE_LOOK_GHOSTEFFECT = 1204;
+	public static final int KEYCODE_LOOK_BRIGHTNESS = 1205;
+	public static final int KEYCODE_LOOK_SIZE = 1206;
+	public static final int KEYCODE_LOOK_ROTATION = 1207;
+	public static final int KEYCODE_LOOK_LAYER = 1208;
 
 	/* OPERATORS */
 	public static final int KEYCODE_NOT_EQUAL = 1300;
@@ -165,20 +165,20 @@ public class CatKeyEvent extends KeyEvent {
 
 				//COSTUME
 
-			case CatKeyEvent.KEYCODE_COSTUME_X:
-				return buildCostume(Sensors.COSTUME_X_);
-			case CatKeyEvent.KEYCODE_COSTUME_Y:
-				return buildCostume(Sensors.COSTUME_Y_);
-			case CatKeyEvent.KEYCODE_COSTUME_GHOSTEFFECT:
-				return buildCostume(Sensors.COSTUME_GHOSTEFFECT_);
-			case CatKeyEvent.KEYCODE_COSTUME_BRIGHTNESS:
-				return buildCostume(Sensors.COSTUME_BRIGHTNESS_);
-			case CatKeyEvent.KEYCODE_COSTUME_SIZE:
-				return buildCostume(Sensors.COSTUME_SIZE_);
-			case CatKeyEvent.KEYCODE_COSTUME_ROTATION:
-				return buildCostume(Sensors.COSTUME_ROTATION_);
-			case CatKeyEvent.KEYCODE_COSTUME_LAYER:
-				return buildCostume(Sensors.COSTUME_LAYER_);
+			case CatKeyEvent.KEYCODE_LOOK_X:
+				return buildLook(Sensors.LOOK_X_);
+			case CatKeyEvent.KEYCODE_LOOK_Y:
+				return buildLook(Sensors.LOOK_Y_);
+			case CatKeyEvent.KEYCODE_LOOK_GHOSTEFFECT:
+				return buildLook(Sensors.LOOK_GHOSTEFFECT_);
+			case CatKeyEvent.KEYCODE_LOOK_BRIGHTNESS:
+				return buildLook(Sensors.LOOK_BRIGHTNESS_);
+			case CatKeyEvent.KEYCODE_LOOK_SIZE:
+				return buildLook(Sensors.LOOK_SIZE_);
+			case CatKeyEvent.KEYCODE_LOOK_ROTATION:
+				return buildLook(Sensors.LOOK_ROTATION_);
+			case CatKeyEvent.KEYCODE_LOOK_LAYER:
+				return buildLook(Sensors.LOOK_LAYER_);
 
 		}
 
@@ -198,9 +198,9 @@ public class CatKeyEvent extends KeyEvent {
 		return returnList;
 	}
 
-	private List<InternToken> buildCostume(Sensors sensors) {
+	private List<InternToken> buildLook(Sensors sensors) {
 		List<InternToken> returnList = new LinkedList<InternToken>();
-		returnList.add(new InternToken(InternTokenType.COSTUME, sensors.sensorName));
+		returnList.add(new InternToken(InternTokenType.LOOK, sensors.sensorName));
 		return returnList;
 	}
 

@@ -340,7 +340,7 @@
 	<string name="formula_editor_sensor_roll_orientation">roll_orientierung</string>
 	<string name="formula_editor_look_x">aussehen_x</string>
 	<string name="formula_editor_look_y">aussehen_y</string>
-	<string name="formula_editor_look_ghosteffect">aussehen_durchsichtigkeits-effekt</string>
+	<string name="formula_editor_look_ghosteffect">aussehen_durchsichtigkeits_effekt</string>
 	<string name="formula_editor_look_brightness">aussehen_helligkeit</string>
 	<string name="formula_editor_look_size">aussehen_größe</string>
 	<string name="formula_editor_look_rotation">aussehen_rotation</string>

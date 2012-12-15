@@ -36,10 +36,10 @@ import at.tugraz.ist.catroid.formulaeditor.CatKeyboardView;
 public class ChooseCostumeVariableFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
 	private CatKeyboardView catKeyboardView;
-	private final Integer[] costumeResourceIds = { R.string.formula_editor_costume_x,
-			R.string.formula_editor_costume_y, R.string.formula_editor_costume_ghosteffect,
-			R.string.formula_editor_costume_brightness, R.string.formula_editor_costume_size,
-			R.string.formula_editor_costume_rotation, R.string.formula_editor_costume_layer };
+	private final Integer[] costumeResourceIds = { R.string.formula_editor_look_x, R.string.formula_editor_look_y,
+			R.string.formula_editor_look_ghosteffect, R.string.formula_editor_look_brightness,
+			R.string.formula_editor_look_size, R.string.formula_editor_look_rotation,
+			R.string.formula_editor_look_layer };
 	private static final int CANCEL_INDEX = -2;
 
 	@Override
@@ -81,7 +81,7 @@ public class ChooseCostumeVariableFragment extends DialogFragment implements Dia
 		}
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		builder.setTitle(getString(R.string.formula_editor_choose_costume_variable));
+		builder.setTitle(getString(R.string.formula_editor_choose_look_variable));
 		builder.setNegativeButton(getString(R.string.cancel_button), this);
 
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),

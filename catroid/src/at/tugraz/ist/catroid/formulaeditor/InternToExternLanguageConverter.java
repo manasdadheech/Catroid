@@ -56,16 +56,16 @@ public class InternToExternLanguageConverter {
 				R.string.formula_editor_sensor_pitch_orientation);
 		internExternLanguageConverterMap.put(Sensors.ROLL_ORIENTATION_.sensorName,
 				R.string.formula_editor_sensor_roll_orientation);
-		internExternLanguageConverterMap.put(Sensors.COSTUME_X_.sensorName, R.string.formula_editor_costume_x);
-		internExternLanguageConverterMap.put(Sensors.COSTUME_Y_.sensorName, R.string.formula_editor_costume_y);
+		internExternLanguageConverterMap.put(Sensors.COSTUME_X_.sensorName, R.string.formula_editor_look_x);
+		internExternLanguageConverterMap.put(Sensors.COSTUME_Y_.sensorName, R.string.formula_editor_look_y);
 		internExternLanguageConverterMap.put(Sensors.COSTUME_GHOSTEFFECT_.sensorName,
-				R.string.formula_editor_costume_ghosteffect);
+				R.string.formula_editor_look_ghosteffect);
 		internExternLanguageConverterMap.put(Sensors.COSTUME_BRIGHTNESS_.sensorName,
-				R.string.formula_editor_costume_brightness);
-		internExternLanguageConverterMap.put(Sensors.COSTUME_SIZE_.sensorName, R.string.formula_editor_costume_size);
+				R.string.formula_editor_look_brightness);
+		internExternLanguageConverterMap.put(Sensors.COSTUME_SIZE_.sensorName, R.string.formula_editor_look_size);
 		internExternLanguageConverterMap.put(Sensors.COSTUME_ROTATION_.sensorName,
-				R.string.formula_editor_costume_rotation);
-		internExternLanguageConverterMap.put(Sensors.COSTUME_LAYER_.sensorName, R.string.formula_editor_costume_layer);
+				R.string.formula_editor_look_rotation);
+		internExternLanguageConverterMap.put(Sensors.COSTUME_LAYER_.sensorName, R.string.formula_editor_look_layer);
 	}
 
 	public static String getExternStringForInternTokenValue(String internTokenValue, Context context) {

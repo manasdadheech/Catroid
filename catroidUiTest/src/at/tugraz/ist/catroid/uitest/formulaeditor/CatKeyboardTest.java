@@ -363,7 +363,7 @@ public class CatKeyboardTest extends android.test.ActivityInstrumentationTestCas
 
 		catKeyboardClicker.clickOnKey("costume");
 
-		costumeString = solo.getString(R.string.formula_editor_costume_x);
+		costumeString = solo.getString(R.string.formula_editor_look_x);
 		solo.clickOnText(costumeString);
 		solo.sleep(100);// without sleep it crashes x.x
 		assertEquals("Wrong button clicked", costumeString,
@@ -371,7 +371,7 @@ public class CatKeyboardTest extends android.test.ActivityInstrumentationTestCas
 		catKeyboardClicker.clickOnKey("del");
 
 		catKeyboardClicker.clickOnKey("costume");
-		costumeString = solo.getString(R.string.formula_editor_costume_y);
+		costumeString = solo.getString(R.string.formula_editor_look_y);
 		solo.clickOnText(costumeString);
 		solo.sleep(100);
 		assertEquals("Wrong button clicked", costumeString,
@@ -379,16 +379,7 @@ public class CatKeyboardTest extends android.test.ActivityInstrumentationTestCas
 		catKeyboardClicker.clickOnKey("del");
 
 		catKeyboardClicker.clickOnKey("costume");
-		costumeString = solo.getString(R.string.formula_editor_costume_ghosteffect);
-		solo.clickOnText(costumeString);
-		solo.sleep(100);
-		assertEquals("Wrong button clicked", costumeString,
-				text.getText().toString().substring(0, costumeString.length()));
-		catKeyboardClicker.clickOnKey("del");
-
-		catKeyboardClicker.clickOnKey("costume");
-
-		costumeString = solo.getString(R.string.formula_editor_costume_brightness);
+		costumeString = solo.getString(R.string.formula_editor_look_ghosteffect);
 		solo.clickOnText(costumeString);
 		solo.sleep(100);
 		assertEquals("Wrong button clicked", costumeString,
@@ -397,7 +388,7 @@ public class CatKeyboardTest extends android.test.ActivityInstrumentationTestCas
 
 		catKeyboardClicker.clickOnKey("costume");
 
-		costumeString = solo.getString(R.string.formula_editor_costume_size);
+		costumeString = solo.getString(R.string.formula_editor_look_brightness);
 		solo.clickOnText(costumeString);
 		solo.sleep(100);
 		assertEquals("Wrong button clicked", costumeString,
@@ -406,7 +397,7 @@ public class CatKeyboardTest extends android.test.ActivityInstrumentationTestCas
 
 		catKeyboardClicker.clickOnKey("costume");
 
-		costumeString = solo.getString(R.string.formula_editor_costume_rotation);
+		costumeString = solo.getString(R.string.formula_editor_look_size);
 		solo.clickOnText(costumeString);
 		solo.sleep(100);
 		assertEquals("Wrong button clicked", costumeString,
@@ -415,7 +406,16 @@ public class CatKeyboardTest extends android.test.ActivityInstrumentationTestCas
 
 		catKeyboardClicker.clickOnKey("costume");
 
-		costumeString = solo.getString(R.string.formula_editor_costume_layer);
+		costumeString = solo.getString(R.string.formula_editor_look_rotation);
+		solo.clickOnText(costumeString);
+		solo.sleep(100);
+		assertEquals("Wrong button clicked", costumeString,
+				text.getText().toString().substring(0, costumeString.length()));
+		catKeyboardClicker.clickOnKey("del");
+
+		catKeyboardClicker.clickOnKey("costume");
+
+		costumeString = solo.getString(R.string.formula_editor_look_layer);
 		solo.clickOnText(costumeString);
 		solo.sleep(100);
 		assertEquals("Wrong button clicked", costumeString,

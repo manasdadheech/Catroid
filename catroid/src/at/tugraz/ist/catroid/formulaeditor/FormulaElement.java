@@ -223,28 +223,30 @@ public class FormulaElement implements Serializable {
 			if (value.equals(Functions.RAND.functionName)) {
 
 				Double right = rightChild.interpretRecursive();
-				Double min;
-				Double max;
+				Double minimum;
+				Double maximum;
 
 				if (right > left) {
-					min = left;
-					max = right;
+					minimum = left;
+					maximum = right;
 				} else {
-					min = right;
-					max = left;
+					minimum = right;
+					maximum = left;
 				}
 
-				if (isInteger(min) && isInteger(max)) {
-					Double temporary = min + (java.lang.Math.random() * (max - min));
-					Log.i("info", "temporary: " + temporary);
-					if ((Math.abs(temporary) - (int) Math.abs(temporary)) >= 0.5) {
-						returnValue = Double.valueOf(temporary.intValue()) + 1;
+				Double randomDouble = minimum + (java.lang.Math.random() * (maximum - minimum));
+
+				if (isInteger(minimum) && isInteger(maximum)) {
+					Log.i("info", "randomDouble: " + randomDouble);
+
+					if ((Math.abs(randomDouble) - (int) Math.abs(randomDouble)) >= 0.5) {
+						returnValue = Double.valueOf(randomDouble.intValue()) + 1;
 					} else {
-						returnValue = Double.valueOf(temporary.intValue());
+						returnValue = Double.valueOf(randomDouble.intValue());
 					}
 
 				} else {
-					returnValue = min + (java.lang.Math.random() * (max - min));
+					returnValue = randomDouble;
 				}
 
 			}

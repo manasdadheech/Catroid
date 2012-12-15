@@ -26,6 +26,8 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+import android.util.Log;
+
 public class FormulaElement implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -219,9 +221,32 @@ public class FormulaElement implements Serializable {
 				returnValue = java.lang.Math.sqrt(left);
 			}
 			if (value.equals(Functions.RAND.functionName)) {
-				double min = left;
-				double max = rightChild.interpretRecursive();
-				returnValue = min + (java.lang.Math.random() * (max - min));
+
+				Double right = rightChild.interpretRecursive();
+				Double min;
+				Double max;
+
+				if (right > left) {
+					min = left;
+					max = right;
+				} else {
+					min = right;
+					max = left;
+				}
+
+				if (isInteger(min) && isInteger(max)) {
+					Double temporary = min + (java.lang.Math.random() * (max - min));
+					Log.i("info", "temporary: " + temporary);
+					if ((Math.abs(temporary) - (int) Math.abs(temporary)) >= 0.5) {
+						returnValue = Double.valueOf(temporary.intValue()) + 1;
+					} else {
+						returnValue = Double.valueOf(temporary.intValue());
+					}
+
+				} else {
+					returnValue = min + (java.lang.Math.random() * (max - min));
+				}
+
 			}
 			if (value.equals(Functions.ABS.functionName)) {
 				returnValue = java.lang.Math.abs(left);
@@ -345,6 +370,16 @@ public class FormulaElement implements Serializable {
 			text += "( )";
 		}
 		return text + ") ";
+	}
+
+	private boolean isInteger(double value) {
+		//		Log.i("info", "isInteger().value=" + value + "(int) value= " + (int) value);
+
+		if ((Math.abs(value) - (int) Math.abs(value) < Double.MIN_VALUE)) {
+			return true;
+		}
+
+		return false;
 	}
 
 }

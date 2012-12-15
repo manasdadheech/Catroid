@@ -372,44 +372,94 @@ public class FormulaEditorFragmentTest extends ActivityInstrumentationTestCase2<
 
 	}
 
-	public void testRandomInterpretation() {
-		String newXFormula = "rand(9.0,1)";
+	public void testRandomInterpretationWithFloatParameters() {
+
+		String newXFormula = "rand(9.9,1)";
 
 		solo.clickOnEditText(X_POS_EDIT_TEXT_ID);
 
 		catKeyboardClicker.clickOnKey("rand");
 		catKeyboardClicker.clickOnKey("9");
 		catKeyboardClicker.clickOnKey(".");
+		catKeyboardClicker.clickOnKey("9");
+
+		solo.goBack();
+		solo.sleep(300);
+
+		Formula formula = (Formula) UiTestUtils.getPrivateField("xPosition", placeAtBrick);
+		float value = formula.interpretFloat();
+
+		Log.i("info", "value: " + value);
+
+		assertTrue("random() interpretation of float parameter is wrong: " + newXFormula + " value=" + value,
+				1 <= value && value <= 9.9f && (Math.abs(value) - (int) Math.abs(value)) > 0);
+
+		String newYFormula = "rand(7.0,1)";
+
+		solo.clickOnEditText(Y_POS_EDIT_TEXT_ID);
+
+		catKeyboardClicker.clickOnKey("rand");
+		catKeyboardClicker.clickOnKey("7");
+		catKeyboardClicker.clickOnKey(".");
 		catKeyboardClicker.clickOnKey("0");
 
 		solo.goBack();
 		solo.sleep(300);
 
-		//Interpretation test
-		Formula formula = (Formula) UiTestUtils.getPrivateField("xPosition", placeAtBrick);
-		float value = formula.interpretFloat();
-		//		Float value2 = Float.
+		Formula anotherFormula = (Formula) UiTestUtils.getPrivateField("yPosition", placeAtBrick);
+		float anotherValue = anotherFormula.interpretFloat();
+
 		Log.i("info", "value: " + value);
 
-		assertTrue("random() interpretation is wrong", 1 <= value && value <= 9);
+		assertTrue("random() interpretation of float parameter is wrong: " + newYFormula + " anotherValue="
+				+ anotherValue,
+				1 <= anotherValue && anotherValue <= 7.0f
+						&& (Math.abs(anotherValue) - (int) Math.abs(anotherValue)) > 0);
 
-		String newYFormula = "rand(3,1)";
+	}
 
-		solo.clickOnEditText(Y_POS_EDIT_TEXT_ID);
+	public void testRandomInterpretationWithIntegerParameters() {
 
+		String newXFormula = "rand(rand(3),1)";
+
+		solo.clickOnEditText(X_POS_EDIT_TEXT_ID);
+
+		catKeyboardClicker.clickOnKey("rand");
 		catKeyboardClicker.clickOnKey("rand");
 		catKeyboardClicker.clickOnKey("3");
 
 		solo.goBack();
 		solo.sleep(300);
 
-		//Interpretation test
+		Formula formula = (Formula) UiTestUtils.getPrivateField("xPosition", placeAtBrick);
+		float value = formula.interpretFloat();
+
+		Log.i("info", "value: " + value);
+
+		assertTrue("random() interpretation of integer parameters is wrong: " + newXFormula + " anotherValue=" + value,
+				(value == 1 || value == 2 || value == 3));
+		assertEquals("random() interpretation of integer parameters is wrong: " + newXFormula + " anotherValue="
+				+ value, 0, Math.abs(value) - (int) Math.abs(value), 0);
+
+		String newYFormula = "rand(4,1)";
+
+		solo.clickOnEditText(Y_POS_EDIT_TEXT_ID);
+
+		catKeyboardClicker.clickOnKey("rand");
+		catKeyboardClicker.clickOnKey("4");
+
+		solo.goBack();
+		solo.sleep(300);
+
 		Formula anotherFormula = (Formula) UiTestUtils.getPrivateField("yPosition", placeAtBrick);
 		float anotherValue = anotherFormula.interpretFloat();
-		//		Float value2 = Float.
-		Log.i("info", "anotherValue: " + anotherValue + "  " + "(1 == 1.0) ?" + (1 == 1.0f));
 
-		assertTrue("random() interpretation is wrong", anotherValue == 1 || anotherValue == 2 || anotherValue == 3);
+		Log.i("info", "anotherValue: " + anotherValue);
+
+		assertTrue("random() interpretation of integer parameters is wrong: " + newYFormula + " anotherValue="
+				+ anotherValue, (anotherValue == 1 || anotherValue == 2 || anotherValue == 3 || anotherValue == 4));
+		assertEquals("random() interpretation of integer parameters is wrong: " + newYFormula + " anotherValue="
+				+ anotherValue, 0, Math.abs(anotherValue) - (int) Math.abs(anotherValue), 0);
 
 	}
 }

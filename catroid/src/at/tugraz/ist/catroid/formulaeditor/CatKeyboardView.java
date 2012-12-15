@@ -93,13 +93,13 @@ public class CatKeyboardView extends KeyboardView implements KeyboardView.OnKeyb
 		this.setKeyboard(symbolsNumbers);
 
 		if (((SherlockFragmentActivity) context).getSupportFragmentManager().findFragmentByTag(
-				"chooseSpriteVariablesDialogFragment") == null) {
+				"chooseLookVariablesDialogFragment") == null) {
 			this.chooseLookVariablesFragment = ChooseLookVariableFragment
 					.newInstance(android.R.string.dialog_alert_title);
 
 		} else {
 			this.chooseLookVariablesFragment = (ChooseLookVariableFragment) ((SherlockFragmentActivity) context)
-					.getSupportFragmentManager().findFragmentByTag("chooseSpriteVariablesDialogFragment");
+					.getSupportFragmentManager().findFragmentByTag("chooseLookVariablesDialogFragment");
 		}
 		this.chooseLookVariablesFragment.setCatKeyboardView(this);
 
@@ -138,7 +138,7 @@ public class CatKeyboardView extends KeyboardView implements KeyboardView.OnKeyb
 	//	protected void onRestoreInstanceState(Parcelable state) {
 	//		Log.i("info", "CatKeyboardView.onRestoreInstanceState()");
 	//
-	//		this.chooseSpriteVariablesFragment.setCatKeyboardView(this);
+	//		this.chooseLookVariablesFragment.setCatKeyboardView(this);
 	//
 	//		super.onRestoreInstanceState(state);
 	//	}
@@ -209,9 +209,8 @@ public class CatKeyboardView extends KeyboardView implements KeyboardView.OnKeyb
 				this.swipeLeft();
 				break;
 			case CatKeyEvent.KEYCODE_LOOK_BUTTON:
-				this.chooseLookVariablesFragment.show(
-						((SherlockFragmentActivity) context).getSupportFragmentManager(),
-						"chooseSpriteVariablesDialogFragment");
+				this.chooseLookVariablesFragment.show(((SherlockFragmentActivity) context).getSupportFragmentManager(),
+						"chooseLookVariablesDialogFragment");
 				break;
 			case KeyEvent.KEYCODE_MENU:
 				this.chooseOperatorDialogFragment.show(

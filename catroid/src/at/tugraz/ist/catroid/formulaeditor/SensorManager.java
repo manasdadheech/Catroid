@@ -59,7 +59,7 @@ public class SensorManager {
 		if (sensorName.equals(Sensors.ROLL_ORIENTATION_.sensorName)) {
 			sensorValue = Double.valueOf(-sensors.getRoll());
 		}
-		//SPRITE VALUES
+		//Look VALUES
 
 		if (getCurrentObjectLook() == null) {
 			return 0d;

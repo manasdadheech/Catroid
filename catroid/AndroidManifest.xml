@@ -87,7 +87,8 @@
             android:theme="@style/Theme.Catroid" />
         <activity
             android:name=".ui.ScriptTabActivity"
-            android:theme="@style/Theme.Catroid" />
+            android:theme="@style/Theme.Catroid"
+            android:screenOrientation="portrait" />
         <activity 
             android:name=".ui.MyProjectsActivity" 
         	android:noHistory="true"
@@ -98,9 +99,6 @@
         <activity
             android:name=".bluetooth.DeviceListActivity"
             android:theme="@android:style/Theme.Dialog" />
-        <activity
-            android:name=".ui.FormulaEditorActivity"
-            android:theme="@style/Theme.Catroid" />
         <activity
             android:name=".soundrecorder.SoundRecorderActivity"
             android:theme="@style/Theme.Catroid" 

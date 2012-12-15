@@ -78,8 +78,9 @@ public class FormulaEditorFragment extends SherlockFragment implements OnKeyList
 		if (savedInstanceState != null) {
 			restoreInstance = savedInstanceState.getBoolean("restoreInstance");
 		}
-		setHasOptionsMenu(true);
 		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
+		setRetainInstance(true);
 	}
 
 	@Override

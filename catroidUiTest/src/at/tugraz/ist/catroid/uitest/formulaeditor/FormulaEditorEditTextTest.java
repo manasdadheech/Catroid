@@ -59,7 +59,7 @@ public class FormulaEditorEditTextTest extends android.test.ActivityInstrumentat
 	private CatKeyboardClicker catKeyboardClicker;
 
 	float oneCharacterWidth = 16; // this isnt exact!
-	float threeCharactersWidth = 48;
+	float threeCharactersWidth = oneCharacterWidth * 3;
 	float brickOffset = 99;
 	float actionbarOffset = 120;
 	int lineHeight = 41;

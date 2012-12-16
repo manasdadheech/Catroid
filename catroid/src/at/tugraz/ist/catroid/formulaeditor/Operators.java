@@ -27,7 +27,7 @@ import java.util.EnumSet;
 public enum Operators {
 	LOGICAL_AND("&", 2), LOGICAL_OR("|", 1), EQUAL("=", 3), NOT_EQUAL("!=", 4), SMALLER_OR_EQUAL("<=", 4), GREATER_OR_EQUAL(
 			">=", 4), SMALLER_THAN("<", 4), GREATER_THAN(">", 4), PLUS("+", 5), MINUS("-", 5), MULT("*", 6), DIVIDE(
-			"/", 6), MOD("%", 6), POW("^", 7);
+			"÷", 6), MOD("%", 6), POW("^", 7);
 
 	public final String operatorName;
 	private final Integer priority;

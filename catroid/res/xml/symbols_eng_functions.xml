@@ -69,7 +69,7 @@
         <Key android:codes="1009" android:keyLabel="abs" android:keyWidth="20%p"/>
         <Key android:codes="1010" android:keyLabel="round" android:keyWidth="20%p"/>
         <Key android:codes="17" android:keyLabel="*"/>
-        <Key android:codes="76" android:keyLabel="/" android:keyEdgeFlags="right"/>
+        <Key android:codes="76" android:keyLabel="÷" android:keyEdgeFlags="right"/>
     </Row> 
     
     <Row  android:rowEdgeFlags="bottom">

@@ -671,13 +671,6 @@ public class FormulaEditorEditTextTest extends android.test.ActivityInstrumentat
 
 	}
 
-	public void testSomething() {
-
-		solo.clickOnEditText(0);
-		catKeyboardClicker.clickOnKey("costume");
-
-	}
-
 	private Formula createVeryLongFormula() {
 
 		List<InternToken> internTokenList = new LinkedList<InternToken>();

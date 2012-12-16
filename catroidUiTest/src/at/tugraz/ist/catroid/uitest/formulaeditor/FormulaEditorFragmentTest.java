@@ -475,4 +475,37 @@ public class FormulaEditorFragmentTest extends ActivityInstrumentationTestCase2<
 		assertTrue("Landscape Orientation isn't deactivated", orientation == Solo.PORTRAIT);
 
 	}
+
+	public void testGoBackAndEditTextSwitches() {
+
+		solo.clickOnEditText(X_POS_EDIT_TEXT_ID);
+		catKeyboardClicker.clickOnKey("6");
+		catKeyboardClicker.clickOnKey("-");
+		solo.clickOnEditText(Y_POS_EDIT_TEXT_ID);
+		solo.goBack();
+
+		boolean isFound = solo.searchText("6") && solo.searchText("-");
+		assertTrue("6 or - is/are not found!", isFound);
+
+		catKeyboardClicker.clickOnKey("+");
+		catKeyboardClicker.clickOnKey("3");
+
+		solo.clickOnEditText(Y_POS_EDIT_TEXT_ID);
+		catKeyboardClicker.clickOnKey("5");
+		catKeyboardClicker.clickOnKey("+");
+		solo.goBack();
+		solo.clickOnEditText(X_POS_EDIT_TEXT_ID);
+
+		catKeyboardClicker.clickOnKey("-");
+		catKeyboardClicker.clickOnKey("4");
+
+		solo.clickOnEditText(X_POS_EDIT_TEXT_ID);
+		isFound = solo.searchText("6") && solo.searchText("+") && solo.searchText("3");
+		assertTrue("6 + 3 not found!", isFound);
+
+		solo.clickOnEditText(Y_POS_EDIT_TEXT_ID);
+		isFound = solo.searchText("5") && solo.searchText("-") && solo.searchText("4");
+		assertTrue("5 - 4 not found!", isFound);
+
+	}
 }

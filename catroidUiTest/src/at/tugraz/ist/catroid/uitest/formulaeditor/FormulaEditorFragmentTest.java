@@ -462,4 +462,17 @@ public class FormulaEditorFragmentTest extends ActivityInstrumentationTestCase2<
 				+ anotherValue, 0, Math.abs(anotherValue) - (int) Math.abs(anotherValue), 0);
 
 	}
+
+	public void testIfLandscapeOrientationIsDeactivated() {
+
+		solo.clickOnEditText(X_POS_EDIT_TEXT_ID);
+
+		//		solo.setActivityOrientation(Solo.LANDSCAPE);
+		//		int orientation = getActivity().getResources().getConfiguration().orientation;
+
+		int orientation = getActivity().getRequestedOrientation();
+
+		assertTrue("Landscape Orientation isn't deactivated", orientation == Solo.PORTRAIT);
+
+	}
 }

@@ -85,6 +85,21 @@ public class IfBrickTest extends ActivityInstrumentationTestCase2<ScriptTabActiv
 		assertNotNull("TextView does not exist", solo.getText(getActivity().getString(R.string.brick_if_begin)));
 	}
 
+	public void testStrings() {
+
+		solo.clickOnEditText(0);
+		solo.sleep(100);
+
+		boolean isFound = solo.searchText(solo.getString(R.string.brick_if_begin_second_part));
+		assertTrue("String: " + R.string.brick_if_begin_second_part + " not found", isFound);
+
+		isFound = solo.searchText(solo.getString(R.string.brick_if_begin));
+		assertTrue("String: " + R.string.brick_if_begin + " not found", isFound);
+
+		solo.goBack();
+		solo.goBack();
+	}
+
 	private void createProject() {
 		project = new Project(null, UiTestUtils.DEFAULT_TEST_PROJECT_NAME);
 		Sprite sprite = new Sprite("cat");

@@ -532,6 +532,152 @@ public class FormulaEditorEditTextTest extends android.test.ActivityInstrumentat
 		solo.goBack();
 	}
 
+	public void testStrings() {
+
+		solo.clickOnEditText(0);
+		String hyphen = "-";
+		String costume = "costume";
+		String sprite = "sprite";
+
+		catKeyboardClicker.clickOnKey("rand");
+		boolean isFound = solo.searchText(solo.getString(R.string.formula_editor_function_rand));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_function_rand) + "not found!", isFound);
+
+		catKeyboardClicker.switchToFunctionKeyboard();
+		catKeyboardClicker.clickOnKey("sin");
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_function_sin));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_function_sin) + "not found!", isFound);
+
+		catKeyboardClicker.clickOnKey("cos");
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_function_cos));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_function_cos) + "not found!", isFound);
+
+		catKeyboardClicker.clickOnKey("tan");
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_function_tan));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_function_tan) + "not found!", isFound);
+
+		catKeyboardClicker.clickOnKey("ln");
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_function_ln));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_function_ln) + "not found!", isFound);
+
+		catKeyboardClicker.clickOnKey("log");
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_function_log));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_function_log) + "not found!", isFound);
+
+		catKeyboardClicker.clickOnKey("sqrt");
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_function_sqrt));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_function_sqrt) + "not found!", isFound);
+
+		catKeyboardClicker.clickOnKey("abs");
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_function_abs));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_function_abs) + "not found!", isFound);
+
+		catKeyboardClicker.clickOnKey("round");
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_function_round));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_function_round) + "not found!", isFound);
+
+		catKeyboardClicker.clickOnKey("e");
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_function_e));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_function_e) + "not found!", isFound);
+
+		catKeyboardClicker.clickOnKey("pi");
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_function_pi));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_function_pi) + "not found!", isFound);
+
+		catKeyboardClicker.switchToSensorKeyboard();
+		catKeyboardClicker.clickOnKey("x-accel");
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_sensor_x_acceleration));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_sensor_x_acceleration) + "not found!",
+				isFound);
+
+		catKeyboardClicker.clickOnKey("y-accel");
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_sensor_y_acceleration));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_sensor_y_acceleration) + "not found!",
+				isFound);
+
+		catKeyboardClicker.clickOnKey("z-accel");
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_sensor_z_acceleration));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_sensor_z_acceleration) + "not found!",
+				isFound);
+
+		catKeyboardClicker.clickOnKey("azimuth");
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_sensor_azimuth_orientation));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_sensor_azimuth_orientation)
+				+ "not found!", isFound);
+
+		catKeyboardClicker.clickOnKey("roll");
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_sensor_roll_orientation));
+		assertTrue(
+				"String: " + getActivity().getString(R.string.formula_editor_sensor_roll_orientation) + "not found!",
+				isFound);
+
+		catKeyboardClicker.clickOnKey("pitch");
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_sensor_pitch_orientation));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_sensor_pitch_orientation)
+				+ "not found!", isFound);
+
+		catKeyboardClicker.switchToNumberKeyboard();
+		catKeyboardClicker.clickOnKey("costume");
+		solo.clickOnText(solo.getString(R.string.formula_editor_look_x));
+		solo.sleep(100);
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_look_x));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_look_x) + "not found!", isFound);
+
+		catKeyboardClicker.clickOnKey("costume");
+		solo.clickOnText(solo.getString(R.string.formula_editor_look_y));
+		solo.sleep(100);
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_look_y));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_look_y) + "not found!", isFound);
+
+		catKeyboardClicker.clickOnKey("costume");
+		solo.clickOnText(solo.getString(R.string.formula_editor_look_ghosteffect));
+		solo.sleep(100);
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_look_ghosteffect));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_look_ghosteffect) + "not found!",
+				isFound);
+
+		catKeyboardClicker.clickOnKey("costume");
+		solo.clickOnText(solo.getString(R.string.formula_editor_look_brightness));
+		solo.sleep(100);
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_look_brightness));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_look_brightness) + "not found!",
+				isFound);
+
+		catKeyboardClicker.clickOnKey("costume");
+		solo.clickOnText(solo.getString(R.string.formula_editor_look_size));
+		solo.sleep(100);
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_look_size));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_look_size) + "not found!", isFound);
+
+		catKeyboardClicker.clickOnKey("costume");
+		solo.clickOnText(solo.getString(R.string.formula_editor_look_rotation));
+		solo.sleep(100);
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_look_rotation));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_look_rotation) + "not found!", isFound);
+
+		catKeyboardClicker.clickOnKey("costume");
+		solo.clickOnText(solo.getString(R.string.formula_editor_look_layer));
+		solo.sleep(100);
+		isFound = solo.searchText(solo.getString(R.string.formula_editor_look_layer));
+		assertTrue("String: " + getActivity().getString(R.string.formula_editor_look_layer) + "not found!", isFound);
+
+		boolean hyphenOrCostumephraseOrSpritephraseFound = solo.searchText(hyphen) || solo.searchText(costume)
+				|| solo.searchText(sprite);
+		assertFalse("Unallowed char or string found (hyphen, costumephrase, spritephrase).",
+				hyphenOrCostumephraseOrSpritephraseFound);
+
+		solo.goBack();
+		solo.goBack();
+
+	}
+
+	public void testSomething() {
+
+		solo.clickOnEditText(0);
+		catKeyboardClicker.clickOnKey("costume");
+
+	}
+
 	private Formula createVeryLongFormula() {
 
 		List<InternToken> internTokenList = new LinkedList<InternToken>();

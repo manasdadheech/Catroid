@@ -91,10 +91,10 @@ public class IfBrickTest extends ActivityInstrumentationTestCase2<ScriptTabActiv
 		solo.sleep(100);
 
 		boolean isFound = solo.searchText(solo.getString(R.string.brick_if_begin_second_part));
-		assertTrue("String: " + R.string.brick_if_begin_second_part + " not found", isFound);
+		assertTrue("String: " + getActivity().getString(R.string.brick_if_begin_second_part) + " not found!", isFound);
 
 		isFound = solo.searchText(solo.getString(R.string.brick_if_begin));
-		assertTrue("String: " + R.string.brick_if_begin + " not found", isFound);
+		assertTrue("String: " + getActivity().getString(R.string.brick_if_begin) + " not found!", isFound);
 
 		solo.goBack();
 		solo.goBack();

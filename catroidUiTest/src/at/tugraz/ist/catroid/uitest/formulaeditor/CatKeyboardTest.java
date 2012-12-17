@@ -345,9 +345,9 @@ public class CatKeyboardTest extends android.test.ActivityInstrumentationTestCas
 	//		assertEquals(solo.searchText(","), true);
 	//	}
 
-	public void testChooseCostumeDialog() {
+	public void testChooseLookVariableDialog() {
 
-		String costumeString = "";
+		String lookString = "";
 
 		//		solo.clickOnEditText(0);
 		solo.clickOnEditText(0);
@@ -361,68 +361,61 @@ public class CatKeyboardTest extends android.test.ActivityInstrumentationTestCas
 		ArrayList<EditText> textList = solo.getCurrentEditTexts();
 		EditText text = textList.get(textList.size() - 1);
 
-		catKeyboardClicker.clickOnKey("costume");
+		catKeyboardClicker.clickOnKey("look");
 
-		costumeString = solo.getString(R.string.formula_editor_look_x);
-		solo.clickOnText(costumeString);
+		lookString = solo.getString(R.string.formula_editor_look_x);
+		solo.clickOnText(lookString);
 		solo.sleep(100);// without sleep it crashes x.x
-		assertEquals("Wrong button clicked", costumeString,
-				text.getText().toString().substring(0, costumeString.length()));
+		assertEquals("Wrong button clicked", lookString, text.getText().toString().substring(0, lookString.length()));
 		catKeyboardClicker.clickOnKey("del");
 
-		catKeyboardClicker.clickOnKey("costume");
-		costumeString = solo.getString(R.string.formula_editor_look_y);
-		solo.clickOnText(costumeString);
+		catKeyboardClicker.clickOnKey("look");
+		lookString = solo.getString(R.string.formula_editor_look_y);
+		solo.clickOnText(lookString);
 		solo.sleep(100);
-		assertEquals("Wrong button clicked", costumeString,
-				text.getText().toString().substring(0, costumeString.length()));
+		assertEquals("Wrong button clicked", lookString, text.getText().toString().substring(0, lookString.length()));
 		catKeyboardClicker.clickOnKey("del");
 
-		catKeyboardClicker.clickOnKey("costume");
-		costumeString = solo.getString(R.string.formula_editor_look_ghosteffect);
-		solo.clickOnText(costumeString);
+		catKeyboardClicker.clickOnKey("look");
+		lookString = solo.getString(R.string.formula_editor_look_ghosteffect);
+		solo.clickOnText(lookString);
 		solo.sleep(100);
-		assertEquals("Wrong button clicked", costumeString,
-				text.getText().toString().substring(0, costumeString.length()));
+		assertEquals("Wrong button clicked", lookString, text.getText().toString().substring(0, lookString.length()));
 		catKeyboardClicker.clickOnKey("del");
 
-		catKeyboardClicker.clickOnKey("costume");
+		catKeyboardClicker.clickOnKey("look");
 
-		costumeString = solo.getString(R.string.formula_editor_look_brightness);
-		solo.clickOnText(costumeString);
+		lookString = solo.getString(R.string.formula_editor_look_brightness);
+		solo.clickOnText(lookString);
 		solo.sleep(100);
-		assertEquals("Wrong button clicked", costumeString,
-				text.getText().toString().substring(0, costumeString.length()));
+		assertEquals("Wrong button clicked", lookString, text.getText().toString().substring(0, lookString.length()));
 		catKeyboardClicker.clickOnKey("del");
 
-		catKeyboardClicker.clickOnKey("costume");
+		catKeyboardClicker.clickOnKey("look");
 
-		costumeString = solo.getString(R.string.formula_editor_look_size);
-		solo.clickOnText(costumeString);
+		lookString = solo.getString(R.string.formula_editor_look_size);
+		solo.clickOnText(lookString);
 		solo.sleep(100);
-		assertEquals("Wrong button clicked", costumeString,
-				text.getText().toString().substring(0, costumeString.length()));
+		assertEquals("Wrong button clicked", lookString, text.getText().toString().substring(0, lookString.length()));
 		catKeyboardClicker.clickOnKey("del");
 
-		catKeyboardClicker.clickOnKey("costume");
+		catKeyboardClicker.clickOnKey("look");
 
-		costumeString = solo.getString(R.string.formula_editor_look_rotation);
-		solo.clickOnText(costumeString);
+		lookString = solo.getString(R.string.formula_editor_look_rotation);
+		solo.clickOnText(lookString);
 		solo.sleep(100);
-		assertEquals("Wrong button clicked", costumeString,
-				text.getText().toString().substring(0, costumeString.length()));
+		assertEquals("Wrong button clicked", lookString, text.getText().toString().substring(0, lookString.length()));
 		catKeyboardClicker.clickOnKey("del");
 
-		catKeyboardClicker.clickOnKey("costume");
+		catKeyboardClicker.clickOnKey("look");
 
-		costumeString = solo.getString(R.string.formula_editor_look_layer);
-		solo.clickOnText(costumeString);
+		lookString = solo.getString(R.string.formula_editor_look_layer);
+		solo.clickOnText(lookString);
 		solo.sleep(100);
-		assertEquals("Wrong button clicked", costumeString,
-				text.getText().toString().substring(0, costumeString.length()));
+		assertEquals("Wrong button clicked", lookString, text.getText().toString().substring(0, lookString.length()));
 		catKeyboardClicker.clickOnKey("del");
 
-		catKeyboardClicker.clickOnKey("costume");
+		catKeyboardClicker.clickOnKey("look");
 		solo.clickOnText("Cancel");
 		solo.sleep(100);
 		assertEquals("Wrong button clicked", "", "");

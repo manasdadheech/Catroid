@@ -617,45 +617,45 @@ public class FormulaEditorEditTextTest extends android.test.ActivityInstrumentat
 				+ "not found!", isFound);
 
 		catKeyboardClicker.switchToNumberKeyboard();
-		catKeyboardClicker.clickOnKey("costume");
+		catKeyboardClicker.clickOnKey("look");
 		solo.clickOnText(solo.getString(R.string.formula_editor_look_x));
 		solo.sleep(100);
 		isFound = solo.searchText(solo.getString(R.string.formula_editor_look_x));
 		assertTrue("String: " + getActivity().getString(R.string.formula_editor_look_x) + "not found!", isFound);
 
-		catKeyboardClicker.clickOnKey("costume");
+		catKeyboardClicker.clickOnKey("look");
 		solo.clickOnText(solo.getString(R.string.formula_editor_look_y));
 		solo.sleep(100);
 		isFound = solo.searchText(solo.getString(R.string.formula_editor_look_y));
 		assertTrue("String: " + getActivity().getString(R.string.formula_editor_look_y) + "not found!", isFound);
 
-		catKeyboardClicker.clickOnKey("costume");
+		catKeyboardClicker.clickOnKey("look");
 		solo.clickOnText(solo.getString(R.string.formula_editor_look_ghosteffect));
 		solo.sleep(100);
 		isFound = solo.searchText(solo.getString(R.string.formula_editor_look_ghosteffect));
 		assertTrue("String: " + getActivity().getString(R.string.formula_editor_look_ghosteffect) + "not found!",
 				isFound);
 
-		catKeyboardClicker.clickOnKey("costume");
+		catKeyboardClicker.clickOnKey("look");
 		solo.clickOnText(solo.getString(R.string.formula_editor_look_brightness));
 		solo.sleep(100);
 		isFound = solo.searchText(solo.getString(R.string.formula_editor_look_brightness));
 		assertTrue("String: " + getActivity().getString(R.string.formula_editor_look_brightness) + "not found!",
 				isFound);
 
-		catKeyboardClicker.clickOnKey("costume");
+		catKeyboardClicker.clickOnKey("look");
 		solo.clickOnText(solo.getString(R.string.formula_editor_look_size));
 		solo.sleep(100);
 		isFound = solo.searchText(solo.getString(R.string.formula_editor_look_size));
 		assertTrue("String: " + getActivity().getString(R.string.formula_editor_look_size) + "not found!", isFound);
 
-		catKeyboardClicker.clickOnKey("costume");
+		catKeyboardClicker.clickOnKey("look");
 		solo.clickOnText(solo.getString(R.string.formula_editor_look_rotation));
 		solo.sleep(100);
 		isFound = solo.searchText(solo.getString(R.string.formula_editor_look_rotation));
 		assertTrue("String: " + getActivity().getString(R.string.formula_editor_look_rotation) + "not found!", isFound);
 
-		catKeyboardClicker.clickOnKey("costume");
+		catKeyboardClicker.clickOnKey("look");
 		solo.clickOnText(solo.getString(R.string.formula_editor_look_layer));
 		solo.sleep(100);
 		isFound = solo.searchText(solo.getString(R.string.formula_editor_look_layer));

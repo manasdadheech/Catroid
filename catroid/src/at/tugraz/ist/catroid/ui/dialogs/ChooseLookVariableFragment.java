@@ -36,7 +36,7 @@ import at.tugraz.ist.catroid.formulaeditor.CatKeyboardView;
 public class ChooseLookVariableFragment extends DialogFragment implements DialogInterface.OnClickListener {
 
 	private CatKeyboardView catKeyboardView;
-	private final Integer[] costumeResourceIds = { R.string.formula_editor_look_x, R.string.formula_editor_look_y,
+	private final Integer[] lookResourceIds = { R.string.formula_editor_look_x, R.string.formula_editor_look_y,
 			R.string.formula_editor_look_ghosteffect, R.string.formula_editor_look_brightness,
 			R.string.formula_editor_look_size, R.string.formula_editor_look_rotation,
 			R.string.formula_editor_look_layer };
@@ -49,7 +49,7 @@ public class ChooseLookVariableFragment extends DialogFragment implements Dialog
 			return;
 		}
 		Log.v("touched: ", "" + index);
-		Log.v("touched: ", costumeResourceIds[index].toString());
+		Log.v("touched: ", lookResourceIds[index].toString());
 
 		int[] keyCode = new int[1];
 		keyCode[0] = 0;
@@ -73,10 +73,10 @@ public class ChooseLookVariableFragment extends DialogFragment implements Dialog
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-		String[] costumeNames = new String[costumeResourceIds.length];
+		String[] lookNames = new String[lookResourceIds.length];
 		int index = 0;
-		for (Integer costumeResourceID : costumeResourceIds) {
-			costumeNames[index] = getString(costumeResourceID);
+		for (Integer lookResourceID : lookResourceIds) {
+			lookNames[index] = getString(lookResourceID);
 			index++;
 		}
 
@@ -85,7 +85,7 @@ public class ChooseLookVariableFragment extends DialogFragment implements Dialog
 		builder.setNegativeButton(getString(R.string.cancel_button), this);
 
 		ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
-				android.R.layout.simple_list_item_1, costumeNames);
+				android.R.layout.simple_list_item_1, lookNames);
 
 		builder.setAdapter(arrayAdapter, this);
 

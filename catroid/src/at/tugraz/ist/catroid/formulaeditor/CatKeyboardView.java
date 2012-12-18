@@ -52,6 +52,7 @@ import android.view.View;
 import at.tugraz.ist.catroid.R;
 import at.tugraz.ist.catroid.ui.dialogs.ChooseLookVariableFragment;
 import at.tugraz.ist.catroid.ui.dialogs.FormulaEditorChooseOperatorDialog;
+import at.tugraz.ist.catroid.ui.fragment.LookFragment;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
@@ -68,6 +69,7 @@ public class CatKeyboardView extends KeyboardView implements KeyboardView.OnKeyb
 	private Keyboard symbolsSensors;
 	private Context context;
 	private ChooseLookVariableFragment chooseLookVariablesFragment;
+	private LookFragment lookFragment;
 	private FormulaEditorChooseOperatorDialog chooseOperatorDialogFragment;
 	private View swipeBar;
 
@@ -102,6 +104,16 @@ public class CatKeyboardView extends KeyboardView implements KeyboardView.OnKeyb
 					.getSupportFragmentManager().findFragmentByTag("chooseLookVariablesDialogFragment");
 		}
 		this.chooseLookVariablesFragment.setCatKeyboardView(this);
+
+		//		Fragment fragment = ((SherlockFragmentActivity) context).getSupportFragmentManager().findFragmentByTag(
+		//				LookFragment.LOOK_FRAGMENT_TAG);
+		//		if (fragment == null) {
+		//			this.lookFragment = LookFragment.newInstance();
+		//
+		//		} else {
+		//			this.lookFragment = (LookFragment) fragment;
+		//		}
+		//		this.lookFragment.setCatKeyboardView(this);
 
 		if (((SherlockFragmentActivity) context).getSupportFragmentManager().findFragmentByTag(
 				"chooseOperatorDialogFragment") == null) {
@@ -212,6 +224,9 @@ public class CatKeyboardView extends KeyboardView implements KeyboardView.OnKeyb
 				this.chooseLookVariablesFragment.show(((SherlockFragmentActivity) context).getSupportFragmentManager(),
 						"chooseLookVariablesDialogFragment");
 				break;
+			//			case CatKeyEvent.KEYCODE_LOOK_BUTTON:
+			//				this.lookFragment.showFragment(context);
+			//				break;
 			case KeyEvent.KEYCODE_MENU:
 				this.chooseOperatorDialogFragment.show(
 						((SherlockFragmentActivity) context).getSupportFragmentManager(),

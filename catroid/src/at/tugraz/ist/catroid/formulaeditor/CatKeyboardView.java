@@ -41,18 +41,14 @@ package at.tugraz.ist.catroid.formulaeditor;
 import java.util.Locale;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
-import android.inputmethodservice.Keyboard.Key;
 import android.inputmethodservice.KeyboardView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 import at.tugraz.ist.catroid.R;
 import at.tugraz.ist.catroid.ui.dialogs.ChooseLookVariableFragment;
 import at.tugraz.ist.catroid.ui.dialogs.FormulaEditorChooseOperatorDialog;
-import at.tugraz.ist.catroid.ui.fragment.LookFragment;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 
@@ -69,9 +65,7 @@ public class CatKeyboardView extends KeyboardView implements KeyboardView.OnKeyb
 	private Keyboard symbolsSensors;
 	private Context context;
 	private ChooseLookVariableFragment chooseLookVariablesFragment;
-	private LookFragment lookFragment;
 	private FormulaEditorChooseOperatorDialog chooseOperatorDialogFragment;
-	private View swipeBar;
 
 	public CatKeyboardView(Context context, AttributeSet attrs) {
 
@@ -146,79 +140,17 @@ public class CatKeyboardView extends KeyboardView implements KeyboardView.OnKeyb
 		Log.i("info", "CatKeyboardView()-Constructor");
 	}
 
-	//	@Override
-	//	protected void onRestoreInstanceState(Parcelable state) {
-	//		Log.i("info", "CatKeyboardView.onRestoreInstanceState()");
-	//
-	//		this.chooseLookVariablesFragment.setCatKeyboardView(this);
-	//
-	//		super.onRestoreInstanceState(state);
-	//	}
-
-	private void setSwipeBarBackground(int position) {
-		//int color = context.getResources().getColor(R.color.formula_editor_background);
-		//int colors[] = { color, 0x0066CC };
-		Drawable background = null;
-
-		switch (position) {
-			case FUNCTION_KEYBOARD:
-				//		int colors[] = { color, 0x0066CC };
-				background = context.getResources().getDrawable(R.drawable.formula_editor_keyboard_tab_bar_right);
-				break;
-			case SENSOR_KEYBOARD:
-				//		int colors2[] = { color, 0x00FFFF };
-				background = context.getResources().getDrawable(R.drawable.formula_editor_keyboard_tab_bar_center);
-				break;
-			case NUMBER_KEYBOARD:
-				//		int colors3[] = { color, 0xF0C6E2 };
-				background = context.getResources().getDrawable(R.drawable.formula_editor_keyboard_tab_bar_left);
-				break;
-			default:
-
-		}
-		swipeBar.setBackgroundDrawable(null);
-		swipeBar.setBackgroundDrawable(background);
-
-		//swipeBar.invalidate();
-		//test_view.invalidate();
-	}
-
-	public void init(FormulaEditorEditText editText, View swipeBar) {
-		this.editText = editText;
-		this.swipeBar = swipeBar;
-		setSwipeBarBackground(NUMBER_KEYBOARD);
-	}
-
-	//	public void setCurrentBrick(Brick currentBrick) {
-	//		this.currentBrick = currentBrick;
-	//
-	//		if (this.currentBrick.toString().startsWith("at.tugraz.ist.catroid.content.bricks.NXTMotorActionBri")
-	//				|| this.currentBrick.toString().startsWith("at.tugraz.catroid.content.bricks.NXTPlayToneBri")) {
-	//			Log.i("info", "SeekBar Bricket selected:");
-	//			ArrayList<Key> sensorKeys = (ArrayList<Key>) this.symbolsSensors.getKeys();
-	//			Key slider = sensorKeys.get(sensorKeys.size() - 3);
-	//			slider.label = new String("Slider");
-	//			slider.codes[0] = CatKeyEvent.KEYCODE_SENSOR7;
-	//
-	//		}
-	//	}
-
-	@Override
-	protected boolean onLongPress(Key key) {
-		return super.onLongPress(key);
-	}
-
 	@Override
 	public void onKey(int primaryCode, int[] keyCodes) {
 
-		CatKeyEvent cKE = null;
+		CatKeyEvent catKeyEvent = null;
 
 		switch (primaryCode) {
 			case KeyEvent.KEYCODE_SHIFT_RIGHT:
-				this.swipeRight();
+				this.goRight();
 				break;
 			case KeyEvent.KEYCODE_SHIFT_LEFT:
-				this.swipeLeft();
+				this.goLeft();
 				break;
 			case CatKeyEvent.KEYCODE_LOOK_BUTTON:
 				this.chooseLookVariablesFragment.show(((SherlockFragmentActivity) context).getSupportFragmentManager(),
@@ -234,82 +166,61 @@ public class CatKeyboardView extends KeyboardView implements KeyboardView.OnKeyb
 
 				break;
 			default:
-				cKE = new CatKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, primaryCode));
-				editText.handleKeyEvent(cKE);
+				catKeyEvent = new CatKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, primaryCode));
+				editText.handleKeyEvent(catKeyEvent);
 				break;
 		}
 
 	}
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		switch (keyCode) {
-			default:
-				return super.onKeyDown(keyCode, event);
-
-		}
-
-	}
-
-	@Override
-	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		//Log.i("info", "CatKeyboarView.onKeyUp(), keyCode:" + String.valueOf(keyCode));
-		return super.onKeyUp(keyCode, event);
-
-	}
-
-	@Override
-	public void swipeDown() {
-
-		//		super.swipeDown();
-	}
-
-	@Override
-	public void swipeLeft() {
+	public void goLeft() {
 		//Log.i("info", "swipeRight()");
 
 		if (this.getKeyboard() == this.symbolsNumbers) {
 			this.setKeyboard(this.symbolsSensors);
-			setSwipeBarBackground(SENSOR_KEYBOARD);
 			return;
 		}
 		if (this.getKeyboard() == this.symbolsFunctions) {
 			this.setKeyboard(this.symbolsNumbers);
-			setSwipeBarBackground(NUMBER_KEYBOARD);
 			return;
 		}
 		if (this.getKeyboard() == this.symbolsSensors) {
 			this.setKeyboard(this.symbolsFunctions);
-			setSwipeBarBackground(FUNCTION_KEYBOARD);
 			return;
 		}
 
 	}
 
-	@Override
-	public void swipeRight() {
+	public void goRight() {
 
 		if (this.getKeyboard() == this.symbolsNumbers) {
 			this.setKeyboard(this.symbolsFunctions);
-			setSwipeBarBackground(FUNCTION_KEYBOARD);
 			return;
 		}
 		if (this.getKeyboard() == this.symbolsFunctions) {
 			this.setKeyboard(this.symbolsSensors);
-			setSwipeBarBackground(SENSOR_KEYBOARD);
 			return;
 		}
 		if (this.getKeyboard() == this.symbolsSensors) {
 			this.setKeyboard(this.symbolsNumbers);
-			setSwipeBarBackground(NUMBER_KEYBOARD);
 			return;
 		}
 	}
 
 	@Override
-	public void swipeUp() {
+	public void swipeLeft() {
+	}
 
-		//		super.swipeUp();
+	@Override
+	public void swipeRight() {
+	}
+
+	@Override
+	public void swipeUp() {
+	}
+
+	@Override
+	public void swipeDown() {
 	}
 
 	@Override
@@ -328,5 +239,9 @@ public class CatKeyboardView extends KeyboardView implements KeyboardView.OnKeyb
 	public void onText(CharSequence text) {
 		//		Log.i("info", "CatKeybaordView.onText(): ");
 
+	}
+
+	public void setFormulaEditText(FormulaEditorEditText formulaEditorEditText) {
+		editText = formulaEditorEditText;
 	}
 }

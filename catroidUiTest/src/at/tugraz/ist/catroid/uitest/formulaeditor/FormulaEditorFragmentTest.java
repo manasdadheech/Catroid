@@ -23,7 +23,6 @@
 package at.tugraz.ist.catroid.uitest.formulaeditor;
 
 import android.test.ActivityInstrumentationTestCase2;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import at.tugraz.ist.catroid.ProjectManager;
 import at.tugraz.ist.catroid.R;
@@ -259,55 +258,6 @@ public class FormulaEditorFragmentTest extends ActivityInstrumentationTestCase2<
 
 	}
 
-	public void testKeyboardSwipeAndSwipeBar() {
-		DisplayMetrics currentDisplayMetrics = new DisplayMetrics();
-		solo.getCurrentActivity().getWindowManager().getDefaultDisplay().getMetrics(currentDisplayMetrics);
-
-		int displayWidth = currentDisplayMetrics.widthPixels;
-		int displayHeight = currentDisplayMetrics.heightPixels;
-
-		solo.clickOnEditText(X_POS_EDIT_TEXT_ID);
-
-		catKeyboardClicker.clickOnKey("1");
-		assertEquals("Wrong keyboard after keyboard switch", "1 ", solo.getEditText(FORMULA_EDITOR_EDIT_TEXT_ID)
-				.getText().toString());
-		catKeyboardClicker.clearEditTextPortraitModeOnlyQuickly(X_POS_EDIT_TEXT_ID);
-
-		solo.drag(10, displayWidth - 10, displayHeight - 50, displayHeight - 50, 10);
-		catKeyboardClicker.clickOnKey("sin");
-		String sinus = getActivity().getString(R.string.formula_editor_function_sin) + "( 0 ) ";
-		assertEquals("Wrong keyboard after keyboard switch", sinus, solo.getEditText(FORMULA_EDITOR_EDIT_TEXT_ID)
-				.getText().toString());
-		catKeyboardClicker.clearEditTextPortraitModeOnlyQuickly(X_POS_EDIT_TEXT_ID);
-
-		solo.drag(10, displayWidth - 10, displayHeight - 50, displayHeight - 50, 10);
-		catKeyboardClicker.clickOnKey("x-accel");
-		String x_acceleration = getActivity().getString(R.string.formula_editor_sensor_x_acceleration) + " ";
-		assertEquals("Wrong keyboard after keyboard switch", x_acceleration,
-				solo.getEditText(FORMULA_EDITOR_EDIT_TEXT_ID).getText().toString());
-		catKeyboardClicker.clearEditTextPortraitModeOnlyQuickly(X_POS_EDIT_TEXT_ID);
-
-		solo.drag(displayWidth - 10, 10, displayHeight - 50, displayHeight - 50, 10);
-		catKeyboardClicker.clickOnKey("sin");
-		assertEquals("Wrong keyboard after keyboard switch", sinus, solo.getEditText(FORMULA_EDITOR_EDIT_TEXT_ID)
-				.getText().toString());
-		catKeyboardClicker.clearEditTextPortraitModeOnlyQuickly(X_POS_EDIT_TEXT_ID);
-
-		solo.drag(displayWidth - 10, 10, displayHeight - 50, displayHeight - 50, 10);
-		catKeyboardClicker.clickOnKey("1");
-		assertEquals("Wrong keyboard after keyboard switch", "1 ", solo.getEditText(FORMULA_EDITOR_EDIT_TEXT_ID)
-				.getText().toString());
-		catKeyboardClicker.clearEditTextPortraitModeOnlyQuickly(X_POS_EDIT_TEXT_ID);
-
-		solo.drag(displayWidth - 10, 10, displayHeight - 50, displayHeight - 50, 10);
-		catKeyboardClicker.clickOnKey("x-accel");
-		assertEquals("Wrong keyboard after keyboard switch", x_acceleration,
-				solo.getEditText(FORMULA_EDITOR_EDIT_TEXT_ID).getText().toString());
-
-		solo.goBack();
-
-	}
-
 	public void testSimpleInterpretation() {
 		String newXFormula = "10 + 12 - 2 * 3 - 4 ";
 		int newXValue = 10 + 12 - 2 * 3 - 4;
@@ -374,7 +324,7 @@ public class FormulaEditorFragmentTest extends ActivityInstrumentationTestCase2<
 
 	public void testRandomInterpretationWithFloatParameters() {
 
-		String newXFormula = "rand(9.9,1)";
+		String newXFormula = "random(9.9,1)";
 
 		solo.clickOnEditText(X_POS_EDIT_TEXT_ID);
 
@@ -394,7 +344,7 @@ public class FormulaEditorFragmentTest extends ActivityInstrumentationTestCase2<
 		assertTrue("random() interpretation of float parameter is wrong: " + newXFormula + " value=" + value,
 				1 <= value && value <= 9.9f && (Math.abs(value) - (int) Math.abs(value)) > 0);
 
-		String newYFormula = "rand(7.0,1)";
+		String newYFormula = "random(7.0,1)";
 
 		solo.clickOnEditText(Y_POS_EDIT_TEXT_ID);
 

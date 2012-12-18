@@ -19,57 +19,46 @@
  *  GNU Affero General Public License for more details.
  *   
  *  You should have received a copy of the GNU Affero General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- -->
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-    android:windowFullscreen="true"
-	android:theme="@android:style/Theme.Light"
-	android:background="@color/white">
-	<LinearLayout
-	    android:id="@+id/formula_editor_brick_space"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content" />
-	
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:theme="@android:style/Theme.Light"
+    android:windowFullscreen="true" >
+
+    <LinearLayout
+        android:id="@+id/formula_editor_brick_space"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <at.tugraz.ist.catroid.formulaeditor.FormulaEditorEditText
         android:id="@+id/formula_editor_edit_field"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/formula_editor_brick_space"
         android:layout_above="@+id/keyboardcat"
+        android:layout_below="@+id/formula_editor_brick_space"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
+        android:background="@color/white"
         android:gravity="top"
+        android:hint="@string/formula_nothing_selected"
         android:inputType="textMultiLine"
-        android:singleLine="false"
         android:minLines="3"
         android:scrollbars="vertical"
-        android:hint="@string/formula_nothing_selected"
-        android:textSize="@dimen/text_size_xxlarge" 
-		android:background="@color/white"
-        />
+        android:singleLine="false"
+        android:textSize="@dimen/text_size_xxlarge" />
 
-      
     <at.tugraz.ist.catroid.formulaeditor.CatKeyboardView
         android:id="@+id/keyboardcat"
-        android:visibility="visible"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-	    android:keyTextColor="#ffffff"
-		android:keyPreviewHeight="0sp"
-		/>
-    
-        <View
-	        android:id="@+id/swipe_bar"
-	        android:layout_width = "match_parent"
-	        android:layout_height = "4dp"
-	        android:layout_above="@id/keyboardcat">
-        </View>
-     
-    
-</RelativeLayout>
+        android:layout_alignParentBottom="true"
+        android:keyPreviewHeight="0sp"
+        android:keyTextColor="#ffffff"
+        android:visibility="visible" />
 
+</RelativeLayout>

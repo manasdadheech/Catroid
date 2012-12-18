@@ -219,7 +219,7 @@ public class ScriptTabActivity extends SherlockFragmentActivity implements Error
 	private void setUpActionBar() {
 		actionBar = getSupportActionBar();
 
-		String title = this.getResources().getString(R.string.sprite_name) + " "
+		String title = getString(R.string.sprite_name) + " "
 				+ ProjectManager.getInstance().getCurrentSprite().getName();
 		actionBar.setTitle(title);
 		actionBar.setDisplayHomeAsUpEnabled(true);

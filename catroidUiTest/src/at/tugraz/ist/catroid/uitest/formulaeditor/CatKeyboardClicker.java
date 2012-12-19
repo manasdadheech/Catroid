@@ -216,7 +216,7 @@ public class CatKeyboardClicker {
 		keyString.get(0).add("look");
 
 		keyString.get(0).add("keyboardswitch");
-		keyString.get(0).add("/");
+		keyString.get(0).add("÷");
 		keyString.get(0).add("-");
 		keyString.get(0).add("del");
 
@@ -241,7 +241,7 @@ public class CatKeyboardClicker {
 		keyString.get(1).add("^");
 
 		keyString.get(1).add("keyboardswitch");
-		keyString.get(1).add("/");
+		keyString.get(1).add("÷");
 		keyString.get(1).add("-");
 		keyString.get(1).add("del");
 

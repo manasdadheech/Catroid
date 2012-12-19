@@ -36,6 +36,7 @@ public class FormulaElement implements Serializable {
 		OPERATOR, FUNCTION, NUMBER, SENSOR, USER_VARIABLE, BRACKET
 	}
 
+	public boolean isFloat;
 	private ElementType type;
 	private String value;
 	private FormulaElement leftChild = null;
@@ -146,6 +147,7 @@ public class FormulaElement implements Serializable {
 			returnValue = rightChild.interpretRecursive();
 		}
 		if (type == ElementType.NUMBER) {
+			isFloat = value.contains(".");
 			returnValue = Double.parseDouble(value);
 		} else if (type == ElementType.OPERATOR) {
 			if (leftChild != null) {// binär operator
@@ -236,7 +238,7 @@ public class FormulaElement implements Serializable {
 
 				Double randomDouble = minimum + (java.lang.Math.random() * (maximum - minimum));
 
-				if (isInteger(minimum) && isInteger(maximum)) {
+				if (isInteger(minimum) && isInteger(maximum) && !rightChild.isFloat && !leftChild.isFloat) {
 					Log.i("info", "randomDouble: " + randomDouble);
 
 					if ((Math.abs(randomDouble) - (int) Math.abs(randomDouble)) >= 0.5) {

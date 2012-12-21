@@ -54,8 +54,8 @@
                 android:background="@color/white"
                 android:gravity="right"
                 android:minHeight="30dip"
-                android:minWidth="50dip"
-                android:paddingRight="5dip"
+                android:minWidth="40dip"
+                android:paddingRight="43dip"
                 android:text="3"
                 android:textSize="20dip" >
             </TextView>

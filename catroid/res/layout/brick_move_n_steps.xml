@@ -21,7 +21,7 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/LinearLayout01"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
         style="@style/brick_text_style"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:paddingRight="10dip"
+        android:paddingRight="5dip"
         android:text="@string/brick_move" >
     </TextView>
 
@@ -78,10 +78,9 @@
         style="@style/brick_text_style"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:paddingBottom="10dip"
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
         android:text="@string/brick_move_n_steps" >
     </TextView>
 
-</LinearLayout>
+</RelativeLayout>

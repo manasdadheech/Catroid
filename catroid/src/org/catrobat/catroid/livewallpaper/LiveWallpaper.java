@@ -26,10 +26,10 @@ package org.catrobat.catroid.livewallpaper;
 import java.util.List;
 
 import org.catrobat.catroid.ProjectManager;
-import org.catrobat.catroid.common.Constants;
 import org.catrobat.catroid.common.Values;
 import org.catrobat.catroid.content.Project;
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.utils.Utils;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -58,13 +58,13 @@ public class LiveWallpaper extends WallpaperService {
 		Values.SCREEN_HEIGHT = displayMetrics.heightPixels;
 
 		//CODE FOR LOADING FROM ASSETS
-		context = getApplicationContext();
-		projectManager.loadProject(Constants.PROJECTCODE_NAME, this, null, false);
+		//		context = getApplicationContext();
+		//		projectManager.loadProject(Constants.PROJECTCODE_NAME, this, null, false);
 		//______________________________________________________________________________
 
 		//CODE FOR LOADING FROM SD CARD
-		//projectManager.setProject(null);
-		//Utils.loadProjectIfNeeded(getApplicationContext(), null);
+		projectManager.setProject(null);
+		Utils.loadProjectIfNeeded(getApplicationContext(), null);
 		//___________________________________________________________
 
 		Project project = projectManager.getCurrentProject();
@@ -125,6 +125,20 @@ public class LiveWallpaper extends WallpaperService {
 			} else {
 				wallpaperHelper.setLiveWallpaper(false);
 				mHandler.removeCallbacks(mUpdateDisplay);
+
+				WallpaperCostume wallpaperCostume;
+				for (int position = 0; position < sprites.size(); position++) {
+					Sprites: for (Sprite sprite : sprites) {
+						wallpaperCostume = sprite.getWallpaperCostume();
+						if (wallpaperCostume != null && wallpaperCostume.getzPosition() == position) {
+							if (wallpaperCostume.getCostume() != null && !wallpaperCostume.isCostumeHidden()) {
+								wallpaperCostume.clear();
+							}
+							break Sprites;
+						}
+					}
+				}
+
 			}
 		}
 

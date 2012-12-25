@@ -25,6 +25,7 @@ package org.catrobat.catroid.content.bricks;
 import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
+import org.catrobat.catroid.livewallpaper.WallpaperCostume;
 
 import android.content.Context;
 import android.view.View;
@@ -36,6 +37,8 @@ public class IfOnEdgeBounceBrick implements Brick {
 	private Sprite sprite;
 
 	private transient View view;
+	private WallpaperCostume wallpaperCostume;
+	private boolean isLiveWallpaper = false;
 
 	public IfOnEdgeBounceBrick(Sprite sprite) {
 		this.sprite = sprite;
@@ -63,7 +66,14 @@ public class IfOnEdgeBounceBrick implements Brick {
 
 		int virtualScreenWidth = ProjectManager.getInstance().getCurrentProject().virtualScreenWidth / 2;
 		int virtualScreenHeight = ProjectManager.getInstance().getCurrentProject().virtualScreenHeight / 2;
+
 		float rotationResult = -sprite.costume.rotation + 90f;
+
+		if (isLiveWallpaper) {
+			xPosition = wallpaperCostume.getX();
+			yPosition = wallpaperCostume.getY();
+			rotationResult = (float) (-wallpaperCostume.getRotation() + 90f);
+		}
 
 		if (xPosition < -virtualScreenWidth + width / 2) {
 
@@ -102,11 +112,17 @@ public class IfOnEdgeBounceBrick implements Brick {
 			yPosition = -virtualScreenHeight + (int) (height / 2);
 		}
 
-		sprite.costume.rotation = -rotationResult + 90f;
+		if (isLiveWallpaper) {
+			wallpaperCostume.setRotation(-rotationResult + 90f);
+			wallpaperCostume.setX(xPosition - xPosition / 3);
+			wallpaperCostume.setY(yPosition);
+		} else {
+			sprite.costume.rotation = -rotationResult + 90f;
 
-		sprite.costume.aquireXYWidthHeightLock();
-		sprite.costume.setXYPosition(xPosition, yPosition);
-		sprite.costume.releaseXYWidthHeightLock();
+			sprite.costume.aquireXYWidthHeightLock();
+			sprite.costume.setXYPosition(xPosition, yPosition);
+			sprite.costume.releaseXYWidthHeightLock();
+		}
 	}
 
 	@Override
@@ -135,7 +151,14 @@ public class IfOnEdgeBounceBrick implements Brick {
 
 	@Override
 	public void executeLiveWallpaper() {
-
+		WallpaperCostume wallpaperCostume = sprite.getWallpaperCostume();
+		if (wallpaperCostume == null) {
+			wallpaperCostume = new WallpaperCostume(sprite, null);
+		}
+		this.wallpaperCostume = wallpaperCostume;
+		this.isLiveWallpaper = true;
+		execute();
+		this.isLiveWallpaper = false;
 	}
 
 }

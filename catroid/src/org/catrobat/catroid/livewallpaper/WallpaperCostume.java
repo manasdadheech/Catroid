@@ -226,6 +226,10 @@ public class WallpaperCostume {
 
 	public void changeCostumeSizeBy(double changeValue) {
 		this.size += (changeValue * 0.01);
+		if (this.size < 0) {
+			this.size = 0;
+		}
+
 		changeMatrix = true;
 	}
 
@@ -288,7 +292,7 @@ public class WallpaperCostume {
 	}
 
 	public void setRotation(float r) {
-		this.rotation += r;
+		this.rotation = r;
 		changeMatrix = true;
 	}
 
@@ -314,6 +318,11 @@ public class WallpaperCostume {
 			changePaint = false;
 		}
 		return paint;
+	}
+
+	public void rotate(float r) {
+		this.rotation += r;
+		changeMatrix = true;
 	}
 
 }

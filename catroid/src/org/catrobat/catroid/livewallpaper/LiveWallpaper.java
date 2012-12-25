@@ -109,7 +109,7 @@ public class LiveWallpaper extends WallpaperService {
 		@Override
 		public void onVisibilityChanged(boolean visible) {
 			mVisible = visible;
-			if (visible) {
+			if (mVisible) {
 				wallpaperHelper.setLiveWallpaper(true);
 				wallpaperHelper.setDrawingThread(mUpdateDisplay);
 				wallpaperHelper.setDrawingThreadHandler(mHandler);
@@ -123,21 +123,8 @@ public class LiveWallpaper extends WallpaperService {
 				}
 
 			} else {
-				wallpaperHelper.setLiveWallpaper(false);
 				mHandler.removeCallbacks(mUpdateDisplay);
-
-				WallpaperCostume wallpaperCostume;
-				for (int position = 0; position < sprites.size(); position++) {
-					Sprites: for (Sprite sprite : sprites) {
-						wallpaperCostume = sprite.getWallpaperCostume();
-						if (wallpaperCostume != null && wallpaperCostume.getzPosition() == position) {
-							if (wallpaperCostume.getCostume() != null && !wallpaperCostume.isCostumeHidden()) {
-								wallpaperCostume.clear();
-							}
-							break Sprites;
-						}
-					}
-				}
+				wallpaperHelper.setLiveWallpaper(false);
 
 			}
 		}

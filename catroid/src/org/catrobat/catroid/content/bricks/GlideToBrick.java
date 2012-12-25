@@ -254,7 +254,7 @@ public class GlideToBrick implements Brick, OnClickListener {
 		WallpaperHelper helper = WallpaperHelper.getInstance();
 
 		long originalRefreshRate = helper.getRefreshRate();
-		helper.setRefreshRate(10);
+		helper.setRefreshRate(40);
 		execute();
 
 		helper.setRefreshRate(originalRefreshRate);

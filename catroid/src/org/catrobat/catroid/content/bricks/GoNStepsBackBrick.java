@@ -22,6 +22,9 @@
  */
 package org.catrobat.catroid.content.bricks;
 
+import java.util.List;
+
+import org.catrobat.catroid.ProjectManager;
 import org.catrobat.catroid.R;
 import org.catrobat.catroid.content.Sprite;
 import org.catrobat.catroid.livewallpaper.WallpaperCostume;
@@ -127,19 +130,55 @@ public class GoNStepsBackBrick implements Brick, OnClickListener {
 
 	@Override
 	public void executeLiveWallpaper() {
+
+		if (steps == 0) {
+			return;
+		}
+		List<Sprite> sprites = ProjectManager.getInstance().getCurrentProject().getSpriteList();
+
 		WallpaperCostume wallpaperCostume = sprite.getWallpaperCostume();
 		if (wallpaperCostume == null) {
 			wallpaperCostume = new WallpaperCostume(sprite, null);
 		}
 
-		int zPosition = wallpaperCostume.getzPosition();
+		int oldPosition = wallpaperCostume.getzPosition();
+		int newPosition = oldPosition - steps;
 
-		if (steps > 0 && (zPosition - steps) > zPosition) {
-			wallpaperCostume.setzPosition(Integer.MIN_VALUE);
-		} else if (steps < 0 && (zPosition - steps) < zPosition) {
-			wallpaperCostume.setzPosition(Integer.MAX_VALUE);
-		} else {
-			wallpaperCostume.setzPosition(wallpaperCostume.getzPosition() - steps);
+		if (newPosition <= 0) {
+			newPosition = 1;
+		} else if (newPosition >= sprites.size()) {
+			newPosition = sprites.size() - 1;
 		}
+
+		int startIndex, endIndex;
+
+		if (newPosition < oldPosition) {
+			startIndex = newPosition;
+			endIndex = oldPosition;
+		} else {
+			startIndex = oldPosition + 1;
+			endIndex = newPosition;
+		}
+
+		for (int index = startIndex; index < endIndex; index++) {
+			for (Sprite sprite : sprites) {
+				wallpaperCostume = sprite.getWallpaperCostume();
+
+				if (wallpaperCostume.getzPosition() == index) {
+					if (newPosition < oldPosition) {
+						wallpaperCostume.setzPosition(index + 1);
+					} else {
+						wallpaperCostume.setzPosition(index - 1);
+					}
+
+					break;
+				}
+
+			}
+		}
+
+		wallpaperCostume = sprite.getWallpaperCostume();
+		wallpaperCostume.setzPosition(newPosition);
+
 	}
 }

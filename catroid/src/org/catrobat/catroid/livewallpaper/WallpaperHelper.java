@@ -40,7 +40,6 @@ public class WallpaperHelper {
 
 	private Handler drawingThreadHandler;
 	private Runnable drawingThread;
-
 	private boolean soundAllowed = true;
 
 	private boolean isLandscape = false;
